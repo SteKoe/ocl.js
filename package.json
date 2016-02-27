@@ -1,0 +1,20 @@
+{
+  "name": "ocl.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ocl.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.5.0",
+    "should": "^8.2.2",
+    "webpack": "^1.12.14"
+  }
+}
