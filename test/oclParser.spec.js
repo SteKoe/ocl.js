@@ -53,7 +53,7 @@ describe('OCLParser', () => {
         const expected = invariantDecorator({
             name: 'AttributeCallExpression',
             variable: 'self',
-            attribute: 'participants'
+            attributes: ['participants']
         });
 
         assertAST(oclExpression, expected);
@@ -75,7 +75,7 @@ describe('OCLParser', () => {
             source: {
                 name: 'AttributeCallExpression',
                 variable: 'self',
-                attribute: 'participants'
+                attributes: ['participants']
             },
             iterators: ['c1', 'c2'],
             body: {
@@ -105,7 +105,7 @@ describe('OCLParser', () => {
             source: {
                 name: 'AttributeCallExpression',
                 variable: 'self',
-                attribute: 'participants'
+                attributes: ['participants']
             },
             iterators: ['c1'],
             body: {
@@ -143,7 +143,7 @@ describe('OCLParser', () => {
                 left: {
                     name: 'AttributeCallExpression',
                     variable: 'self',
-                    attribute: 'a'
+                    attributes: ['a']
                 },
                 right: {
                     name: "NumberExpression",
@@ -157,7 +157,7 @@ describe('OCLParser', () => {
                 left: {
                     name: 'AttributeCallExpression',
                     variable: 'self',
-                    attribute: 'b'
+                    attributes: ['b']
                 },
                 right: {
                     name: "NumberExpression",
