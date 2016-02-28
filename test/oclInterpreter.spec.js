@@ -36,8 +36,8 @@ describe('OCLInterpreter', () => {
 
     it('should evaluate forAll(c|...): negative', () => {
         const oclExpression = `
-            context Person inv:
-                self.children->forAll(c|c.age < self.age)
+            context Person
+                inv ChildrenAreAllYounger: self.children->forAll(c|c.age < self.age)
         `;
 
         mother.children = [

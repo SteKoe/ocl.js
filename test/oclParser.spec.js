@@ -6,10 +6,10 @@ describe('OCLParser', () => {
     const assertAST = (oclExpression, expected) => new OclParser(oclExpression).parse().should.eql(expected);
     const invariantDecorator = definition => {
         return {
-            name: 'ContextExpression',
+            type: 'ContextExpression',
             targetType: 'Entity',
             inv: {
-                name: "InvariantExpression",
+                type: "InvariantExpression",
                 definition: definition
             }
         };
@@ -18,7 +18,7 @@ describe('OCLParser', () => {
     it('should parse context', () => {
         const oclExpression = 'context Entity';
         const expected = {
-            name: 'ContextExpression',
+            type: 'ContextExpression',
             targetType: 'Entity',
             inv: {}
         };
@@ -33,14 +33,14 @@ describe('OCLParser', () => {
         `;
 
         const expected = invariantDecorator({
-            name: "OperationCallExpression",
+            type: "OperationCallExpression",
             operator: "<>",
             left: {
-                name: "VariableExpression",
+                type: "VariableExpression",
                 variable: "c1"
             },
             right: {
-                name: "VariableExpression",
+                type: "VariableExpression",
                 variable: "c2"
             }
         });
@@ -51,7 +51,7 @@ describe('OCLParser', () => {
     it('should parse attributeCall expression.', () => {
         const oclExpression = 'context Entity inv: self.participants';
         const expected = invariantDecorator({
-            name: 'AttributeCallExpression',
+            type: 'AttributeCallExpression',
             variable: 'self',
             attributes: ['participants']
         });
@@ -62,7 +62,7 @@ describe('OCLParser', () => {
     it('should parse VariableExp', () => {
         const oclExpression = 'context Entity inv: self';
         const expected = invariantDecorator({
-            name: 'VariableExpression',
+            type: 'VariableExpression',
             variable: 'self'
         });
 
@@ -71,22 +71,22 @@ describe('OCLParser', () => {
 
     it('should parse IteratorExp two iterators', () => {
         const expected = invariantDecorator({
-            name: 'IteratorExpression',
+            type: 'IteratorExpression',
             source: {
-                name: 'AttributeCallExpression',
+                type: 'AttributeCallExpression',
                 variable: 'self',
                 attributes: ['participants']
             },
             iterators: ['c1', 'c2'],
             body: {
-                name: "OperationCallExpression",
+                type: "OperationCallExpression",
                 operator: "<>",
                 left: {
-                    name: "VariableExpression",
+                    type: "VariableExpression",
                     variable: "c1"
                 },
                 right: {
-                    name: "VariableExpression",
+                    type: "VariableExpression",
                     variable: "c2"
                 }
             }
@@ -101,22 +101,22 @@ describe('OCLParser', () => {
 
     it('should parse IteratorExp one iterator', () => {
         const expected = invariantDecorator({
-            name: 'IteratorExpression',
+            type: 'IteratorExpression',
             source: {
-                name: 'AttributeCallExpression',
+                type: 'AttributeCallExpression',
                 variable: 'self',
                 attributes: ['participants']
             },
             iterators: ['c1'],
             body: {
-                name: "OperationCallExpression",
+                type: "OperationCallExpression",
                 operator: "<>",
                 left: {
-                    name: "VariableExpression",
+                    type: "VariableExpression",
                     variable: "c1"
                 },
                 right: {
-                    name: "VariableExpression",
+                    type: "VariableExpression",
                     variable: "c2"
                 }
             }
@@ -136,31 +136,31 @@ describe('OCLParser', () => {
         `;
 
         const expected = invariantDecorator({
-            name: 'ImpliesExpression',
+            type: 'ImpliesExpression',
             left: {
-                name: "OperationCallExpression",
+                type: "OperationCallExpression",
                 operator: "=",
                 left: {
-                    name: 'AttributeCallExpression',
+                    type: 'AttributeCallExpression',
                     variable: 'self',
                     attributes: ['a']
                 },
                 right: {
-                    name: "NumberExpression",
+                    type: "NumberExpression",
                     value: 1
                 }
             }
             ,
             right: {
-                name: "OperationCallExpression",
+                type: "OperationCallExpression",
                 operator: "=",
                 left: {
-                    name: 'AttributeCallExpression',
+                    type: 'AttributeCallExpression',
                     variable: 'self',
                     attributes: ['b']
                 },
                 right: {
-                    name: "NumberExpression",
+                    type: "NumberExpression",
                     value: 2
                 }
             }

@@ -3,7 +3,7 @@ const should = require('should');
 import AttributeCallExpression from '../../lib/expressions/attributeCallExpression'
 import IsEmptyExpression from '../../lib/expressions/isEmptyExpression'
 
-describe.only('AttributeCallExpression', () => {
+describe('IsEmptyExpression', () => {
     it('should evaluate isEmtpy when empty', () => {
         const ne = new IsEmptyExpression(new AttributeCallExpression('self', 'children'));
 
