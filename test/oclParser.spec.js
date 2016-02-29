@@ -1,28 +1,27 @@
 'use strict';
 const should = require('should');
+
 import OclParser from './../lib/oclParser'
+import AttributeCallExpression from './../lib/expressions/attributeCallExpression';
+import ContextExpression from './../lib/expressions/contextExpression';
+import ImpliesExpression from './../lib/expressions/impliesExpression';
+import InvariantExpression from './../lib/expressions/invariantExpression';
+import IsEmptyExpression from './../lib/expressions/isEmptyExpression';
+import IteratorExpression from './../lib/expressions/iteratorExpression';
+import NumberExpression from './../lib/expressions/numberExpression';
+import OperationCallExpression from './../lib/expressions/operationCallExpression';
+import StringExpression from './../lib/expressions/stringExpression';
+import VariableExpression from './../lib/expressions/variableExpression';
 
 describe('OCLParser', () => {
     const assertAST = (oclExpression, expected) => new OclParser(oclExpression).parse().should.eql(expected);
     const invariantDecorator = definition => {
-        return {
-            type: 'ContextExpression',
-            targetType: 'Entity',
-            inv: {
-                type: "InvariantExpression",
-                definition: definition
-            }
-        };
+        return new ContextExpression('Entity', new InvariantExpression(definition));
     };
 
     it('should parse context', () => {
         const oclExpression = 'context Entity';
-        const expected = {
-            type: 'ContextExpression',
-            targetType: 'Entity',
-            inv: {}
-        };
-
+        const expected = new ContextExpression('Entity');
         assertAST(oclExpression, expected);
     });
 
@@ -169,4 +168,15 @@ describe('OCLParser', () => {
         assertAST(oclExpression, expected);
     });
 
+    it.only('asdf', () => {
+        const oclExpression = `
+            context Entity
+                inv: self.associations->isEmpty() implies self.hasAssociations = 0
+        `;
+        const lefty = new IsEmptyExpression(new AttributeCallExpression('self', 'associations'));
+        const righty = new OperationCallExpression('=', new AttributeCallExpression('self', 'hasAssociations'), 0);
+        const expected = invariantDecorator(new ImpliesExpression(lefty, righty));
+
+        assertAST(oclExpression, expected);
+    });
 });
