@@ -122,7 +122,7 @@ describe('OCLParser', () => {
         });
         const oclExpression = `
             context Entity inv:
-                self.participants->forAll(c1| c1 <> c2)
+                self.participants->forAll(c1,c2| c1.name <> c2.name)
         `;
 
         assertAST(oclExpression, expected);
@@ -168,7 +168,7 @@ describe('OCLParser', () => {
         assertAST(oclExpression, expected);
     });
 
-    it.only('asdf', () => {
+    it.skip('asdf', () => {
         const oclExpression = `
             context Entity
                 inv: self.associations->isEmpty() implies self.hasAssociations = 0

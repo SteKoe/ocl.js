@@ -5,6 +5,7 @@ import IsEmptyExpression from '../../lib/expressions/isEmptyExpression'
 
 describe('IsEmptyExpression', () => {
     it('should evaluate isEmtpy when empty', () => {
+        //self.children->isEmpty()
         const ne = new IsEmptyExpression(new AttributeCallExpression('self', 'children'));
 
         ne.evaluate({name: 'Otto'}).should.be.true;

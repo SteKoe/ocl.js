@@ -27,13 +27,6 @@ describe('OCLInterpreter', () => {
         actual.should.not.be.ok();
     });
 
-    it('should verify bidirectional association', () => {
-        const oclExpression = `
-            context Person
-                inv: self.child
-        `;
-    });
-
     it('should evaluate forAll(c|...): negative', () => {
         const oclExpression = `
             context Person
