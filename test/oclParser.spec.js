@@ -98,7 +98,7 @@ describe('OCLParser', () => {
         assertAST(oclExpression, expected);
     });
 
-    it('should parse IteratorExp one iterator', () => {
+    it.only('should parse IteratorExp one iterator', () => {
         const expected = invariantDecorator({
             type: 'IteratorExpression',
             source: {
@@ -109,20 +109,21 @@ describe('OCLParser', () => {
             iterators: ['c1'],
             body: {
                 type: "OperationCallExpression",
-                operator: "<>",
+                operator: "=",
                 left: {
-                    type: "VariableExpression",
-                    variable: "c1"
+                    type: 'AttributeCallExpression',
+                    variable: 'c1',
+                    attributes: ['name']
                 },
                 right: {
-                    type: "VariableExpression",
-                    variable: "c2"
+                    type: "StringExpression",
+                    value: "Stephan"
                 }
             }
         });
         const oclExpression = `
             context Entity inv:
-                self.participants->forAll(c1,c2| c1.name <> c2.name)
+                self.participants->forAll(c1| c1.name = "Stephan")
         `;
 
         assertAST(oclExpression, expected);
