@@ -120,5 +120,16 @@ describe('OCLInterpreter', () => {
         let actual = oclRule.evaluate(mother);
         actual.should.not.be.ok();
     });
+
+    it('should evaluate implies with more complex expressions',() => {
+        const oclExpression = `
+            context Person inv:
+                self.name->isNotEmpty() implies self.name <> ""
+       `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.ok();
+    });
 });
 

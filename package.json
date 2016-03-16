@@ -5,7 +5,8 @@
   "main": "ocl.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
-    "build": "webpack"
+    "build": "webpack",
+    "build:examples": "webpack --config webpack.examples.config.js"
   },
   "author": "",
   "license": "ISC",

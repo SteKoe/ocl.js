@@ -15,6 +15,6 @@ describe('IsEmptyExpression', () => {
     it('should evaluate isEmpty when not empty', () => {
         const ne = new IsEmptyExpression(new AttributeCallExpression('self', 'children'));
 
-        ne.evaluate({name: 'Otto', children: [1]}).should.be.true;
+        ne.evaluate({name: 'Otto', children: [1]}).should.be.false;
     });
 });
