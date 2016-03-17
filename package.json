@@ -17,6 +17,7 @@
     "babel-preset-es2015": "^6.5.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.10.0",
+    "jison": "^0.4.17",
     "raw-loader": "^0.5.1",
     "should": "^8.2.2",
     "webpack": "^1.12.14"
