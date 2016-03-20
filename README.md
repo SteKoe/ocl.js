@@ -52,3 +52,17 @@ A person's children have to have distinguishable names:
 context Person inv:
     self.children->forAll(c1, c2 | c1.name <> c2.name)
 ```
+
+#### select
+Select all children from collection who are younger than 10 years old:
+``` ocl
+context Person inv:
+    self.children->select(c | c.age < 10)
+```
+
+#### exists
+Check if an element in a collection exists:
+``` ocl
+context Person inv:
+    self.children->exists(c | c.age > 18)
+```

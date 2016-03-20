@@ -79,26 +79,6 @@ describe('OCLInterpreter', () => {
         actual.should.be.ok();
     });
 
-    it('should evaluate forAll(c1,c2|...): negative', () => {
-        // All children have different ages
-        const oclExpression = `
-            context Person inv:
-                self.children->forAll(c1, c2|c1.age <> c2.age)
-        `;
-
-        mother.children = [
-            new Person('A', 1),
-            new Person('B', 2),
-            new Person('C', 2),
-            new Person('D', 4),
-            new Person('E', 5)
-        ];
-
-        const oclRule = new OclParser(oclExpression).parse();
-        let actual = oclRule.evaluate(mother);
-        actual.should.not.be.ok();
-    });
-
     it('should evaluate implies: positive',() => {
         const oclExpression = `
             context Person inv:
@@ -131,5 +111,67 @@ describe('OCLInterpreter', () => {
         let actual = oclRule.evaluate(mother);
         actual.should.be.ok();
     });
+
+    it('should evaluate forAll(c1,c2|...): negative', () => {
+        // All children have different ages
+        const oclExpression = `
+            context Person inv:
+                self.children->forAll(c1, c2|c1.age <> c2.age)
+        `;
+
+        mother.children = [
+            new Person('A', 1),
+            new Person('B', 2),
+            new Person('C', 2),
+            new Person('D', 4),
+            new Person('E', 5)
+        ];
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.not.be.ok();
+    });
+
+    it('should evaluate select()', () => {
+        mother.children = [
+            new Person('A', 1),
+            new Person('B', 2),
+            new Person('C', 4),
+            new Person('D', 8),
+            new Person('E', 10)
+        ];
+
+        const oclExpression = `
+            context Person inv:
+                self.children->select(c|c.age < 10)
+        `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        oclRule.evaluate(mother).should.eql([
+            new Person('A', 1),
+            new Person('B', 2),
+            new Person('C', 4),
+            new Person('D', 8)
+        ]);
+    });
+
+    it('should evaluate exists()', () => {
+        mother.children = [
+            new Person('A', 1),
+            new Person('B', 2),
+            new Person('C', 4),
+            new Person('D', 8),
+            new Person('E', 10)
+        ];
+
+        const oclExpression = `
+            context Person inv:
+                self.children->exists(c|c.age > 20)
+        `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        oclRule.evaluate(mother).should.be.false();
+    });
+
 });
 

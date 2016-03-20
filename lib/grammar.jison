@@ -19,6 +19,8 @@ NUMBER                              [0-9]+
 ":"                                 return ':'
 "->"                                return '->'
 "forAll"                            return 'COLLECTOR'
+"select"                            return 'COLLECTOR'
+"exists"                            return 'COLLECTOR'
 "isEmpty"                           return 'FUNCTIONCALL'
 "isNotEmpty"                        return 'FUNCTIONCALL'
 "="                                 return 'OPERATIONNAME'
@@ -77,7 +79,7 @@ oclExpression
     | oclExpression "OPERATIONNAME" oclExpression
         { $$=new OperationCallExpression($2, $1, $3) }
     | oclExpression "->" "COLLECTOR" "(" "DECLARATOR" oclExpression ")"
-        { var declarators = $5.replace('|','').split(',').map(s => s.trim()); $$=new IteratorExpression($1, declarators, $6) }
+        { var declarators = $5.replace('|','').split(',').map(s => s.trim()); $$=iteratorCallExpression($3, $1, declarators, $6) }
     | oclExpression "->" "FUNCTIONCALL" "(" ")"
         { $$=functionCallExpression($3, $1) }
     | DOTTEDPATHNAME
@@ -103,4 +105,18 @@ function functionCallExpression(fn, param) {
     } else if(fn.toLowerCase() === 'isnotempty') {
         return new IsNotEmptyExpression(param);
     }
+
+    throw new Error(`Function with name '${fn}' not found!`);
+}
+
+function iteratorCallExpression(fn, source, declarators, param) {
+    if(fn.toLowerCase() === 'forall') {
+        return new IteratorExpression(source, declarators, param);
+    } else if(fn.toLowerCase() === 'select') {
+        return new SelectExpression(source, declarators, param);
+    } else if(fn.toLowerCase() === 'exists') {
+        return new ExistsExpression(source, declarators, param);
+    }
+
+    throw new Error(`Collector with name '${fn}' not found!`);
 }
