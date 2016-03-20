@@ -86,7 +86,7 @@ describe('OCLInterpreter', () => {
         actual.should.be.ok();
     });
 
-    it('should evaluate implies: positive',() => {
+    it('should evaluate implies: positive', () => {
         const oclExpression = `
             context Person inv:
                 self.age > 0 implies self.age <> 0
@@ -97,7 +97,7 @@ describe('OCLInterpreter', () => {
         actual.should.be.ok();
     });
 
-    it('should evaluate implies: negative',() => {
+    it('should evaluate implies: negative', () => {
         const oclExpression = `
             context Person inv:
                 self.age > 0 implies self.age = 0
@@ -108,7 +108,7 @@ describe('OCLInterpreter', () => {
         actual.should.not.be.ok();
     });
 
-    it('should evaluate implies with more complex expressions',() => {
+    it('should evaluate implies with more complex expressions', () => {
         const oclExpression = `
             context Person inv:
                 self.name->isNotEmpty() implies self.name <> ""
@@ -180,7 +180,7 @@ describe('OCLInterpreter', () => {
         oclRule.evaluate(mother).should.be.false();
     });
 
-    it.only('should evaluate boolean expression with braces.', () => {
+    it('should evaluate boolean expression with braces.', () => {
         class MetaAttribute {
         }
 
@@ -195,6 +195,17 @@ describe('OCLInterpreter', () => {
 
         const oclRule = new OclParser(oclExpression).parse();
         oclRule.evaluate(attr).should.be.true();
+    });
+
+    it('should execute function calls without braces', () => {
+        const oclExpression = `
+            context Person inv:
+                self.name->isNotEmpty
+       `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.ok();
     });
 });
 

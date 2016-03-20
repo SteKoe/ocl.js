@@ -66,3 +66,10 @@ Check if an element in a collection exists:
 context Person inv:
     self.children->exists(c | c.age > 18)
 ```
+
+#### or, and
+Concatenation of expressions using or/and:
+``` ocl
+context MetaAttribute inv:
+    self.minCard <= self.maxCard or (self.minCard = nil and self.maxCard = nil)
+```

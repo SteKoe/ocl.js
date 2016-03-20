@@ -25,8 +25,10 @@ NUMBER                              [0-9]+
 "isNotEmpty"                        return 'FUNCTIONCALL'
 "<="                                return 'OPERATIONNAME'
 ">="                                return 'OPERATIONNAME'
-"="                                return 'OPERATIONNAME'
+"="                                 return 'OPERATIONNAME'
 "<>"                                return 'OPERATIONNAME'
+"<"                                 return 'OPERATIONNAME'
+">"                                 return 'OPERATIONNAME'
 "inv"                               return 'STEREOTYPE'
 {NAME}(','\s*{NAME})*\s*"|"         return 'DECLARATOR'
 {NAME}('.'{NAME})*                  return 'DOTTEDPATHNAME'
@@ -80,6 +82,7 @@ oclExpression
         { $$=new OperationCallExpression($2, $1, $3) }
     | oclExpression "->" "COLLECTOR" "(" "DECLARATOR" oclExpression ")"
         { var declarators = $5.replace('|','').split(',').map(s => s.trim()); $$=iteratorCallExpression($3, $1, declarators, $6) }
+    | oclExpression "->" "FUNCTIONCALL"
     | oclExpression "->" "FUNCTIONCALL" "(" ")"
         { $$=functionCallExpression($3, $1) }
     | '(' oclExpression ')'
@@ -96,8 +99,6 @@ oclExpression
          { $$=new BooleanExpression($1) }
     | oclExpression "IMPLIES" oclExpression
         { $$=new ImpliesExpression($1,$3) }
-    |
-        { $$=[] }
     ;
 
 %%
