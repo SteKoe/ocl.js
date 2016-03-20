@@ -14,9 +14,9 @@ import VariableExpression from './../lib/expressions/variableExpression';
 import NilExpression from './../lib/expressions/nilExpression';
 
 const should = require('should');
-let OclParser;
 
 describe('OCLParser', () => {
+    let OclParser;
     const assertAST = (oclExpression, expected) => new OclParser(oclExpression).parse().should.eql(expected);
     const invariantDecorator = (definition, name) => {
         return new ContextExpression('Entity', definition ? new InvariantExpression(definition, name) : {});

@@ -23,10 +23,10 @@ NUMBER                              [0-9]+
 "exists"                            return 'COLLECTOR'
 "isEmpty"                           return 'FUNCTIONCALL'
 "isNotEmpty"                        return 'FUNCTIONCALL'
-"="                                 return 'OPERATIONNAME'
+"<="                                return 'OPERATIONNAME'
+">="                                return 'OPERATIONNAME'
+"="                                return 'OPERATIONNAME'
 "<>"                                return 'OPERATIONNAME'
-">"                                 return 'OPERATIONNAME'
-"<"                                 return 'OPERATIONNAME'
 "inv"                               return 'STEREOTYPE'
 {NAME}(','\s*{NAME})*\s*"|"         return 'DECLARATOR'
 {NAME}('.'{NAME})*                  return 'DOTTEDPATHNAME'
@@ -82,6 +82,8 @@ oclExpression
         { var declarators = $5.replace('|','').split(',').map(s => s.trim()); $$=iteratorCallExpression($3, $1, declarators, $6) }
     | oclExpression "->" "FUNCTIONCALL" "(" ")"
         { $$=functionCallExpression($3, $1) }
+    | '(' oclExpression ')'
+        { $$=$2 }
     | DOTTEDPATHNAME
         { $$=new VariableExpression($1) }
     | NUMBER

@@ -1,6 +1,8 @@
 'use strict';
+import OclParserGenerator from './../lib/OclParserGenerator'
+
 const should = require('should');
-import OclParser from './../lib/oclParser'
+let OclParser;
 
 describe('OCLInterpreter', () => {
     class Person {
@@ -11,6 +13,11 @@ describe('OCLInterpreter', () => {
     }
 
     const mother = new Person('Hilde', 50);
+
+    before(() => {
+        OclParserGenerator.generate();
+        OclParser = require('./../lib/oclParser').default;
+    });
 
     it('should evaluate self.parent <> self', () => {
         const oclExpression = `
@@ -173,5 +180,21 @@ describe('OCLInterpreter', () => {
         oclRule.evaluate(mother).should.be.false();
     });
 
+    it.only('should evaluate boolean expression with braces.', () => {
+        class MetaAttribute {
+        }
+
+        const attr = new MetaAttribute();
+        attr.minCard = 0;
+        attr.maxCard = 10;
+
+        const oclExpression = `
+            context MetaAttribute inv:
+                self.minCard <= self.maxCard or (self.minCard = nil and self.maxCard = nil)
+        `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        oclRule.evaluate(attr).should.be.true();
+    });
 });
 
