@@ -1,0 +1,119 @@
+oclFile ::=  (("model" pathName oclPackage+ "endmodel") | oclPackage)+
+
+oclPackage ::= ( "package" pathName oclExpressions "endpackage" )
+              | constraint | freeConstraint
+
+freeConstraint ::= ("inv" name? ":" oclExpression) | ("?" expression)
+
+oclExpressions ::= constraint+
+
+constraint ::= contextDeclaration
+              ( ( "def" name? ":" letExpression+ )
+              |
+               (stereotype name? ":" oclExpression)
+              )+
+
+contextDeclaration ::= "context" (operationContext | classifierContext)
+
+classifierContext ::= ( name ":" )? (collectionKind | dottedPathName)
+
+operationContext ::= (collectionKind | dottedPathName) "::" operationName
+                    "(" formalParameterList ")"
+                    ( ":" returnType )?
+
+stereotype ::=  "pre" | "post" | "inv"
+
+operationName ::= name | "=" | "+" | "-" | "<=" | ">=" | "<>" | "<" | ">"|"/"|"*"|
+                 "implies" | "not" | "or" | "xor" | "and" | "div" | "mod"
+
+formalParameterList ::= ( name ":" typeSpecifier
+                       ("," name ":" typeSpecifier )*
+                       )?
+
+oclExpression ::= expression | messageExpression
+
+messageExpression ::= oclExpression ^^ name(messageArguments) | oclExpression ^ name(messageArguments)
+
+messageArguments ::= messageArgument (, messageArgument)*
+
+messageArgument ::= "?" (:typeSpecifier)? | oclExpression
+
+returnType ::= typeSpecifier
+
+letExpression ::= "let" operationName ( "(" formalParameterList ")" )?
+                 ( ":" typeSpecifier )?
+                 ( "=" expression )?
+
+typeSpecifier ::= tupleType | collectionType | simpleTypeSpecifier
+
+collectionType ::= collectionKind "(" typeSpecifier ")"
+
+tupleType ::= "TupleType" "("
+             name ":" typeSpecifier
+             ( "," name ":" typeSpecifier )*
+             ")"
+
+expression ::= (letExpression "in"?)* logicalExpression
+
+ifExpression ::= "if" expression "then" expression "else" expression "endif"
+
+logicalExpression ::= relationalExpression ( logicalOperator relationalExpression )*
+
+relationalExpression ::= additiveExpression ( relationalOperator additiveExpression)*
+
+additiveExpression ::= multiplicativeExpression ( addOperator multiplicativeExpression )*
+
+multiplicativeExpression ::= unaryExpression ( multiplyOperator unaryExpression )*
+
+unaryExpression ::= ( unaryOperator+ postfixExpression ) | postfixExpression
+
+postfixExpression ::= primaryExpression ( ("." | "->")propertyCall )*
+
+primaryExpression ::= collectionType | tupleType | ifExpression | literalCollection | literalTuple | literal
+                     | propertyCall
+                     | ("(" expression ")")
+
+propertyCallParameters ::= "(" ( declarator )? ( actualParameterList )? ")"
+
+literal ::= string | number | enumLiteral
+
+enumLiteral ::= (pathName)? "#" name
+
+simpleTypeSpecifier ::= pathName
+
+literalCollection ::= collectionKind "{" ( collectionItem ("," collectionItem )* )? "}"
+
+collectionItem ::= expression (".." expression )?
+
+literalTuple ::= "Tuple" "{" name ( ":" typeSpecifier )? "=" expression
+             ( "," name (":" typeSpecifier )? "=" expression )*
+             "}"
+
+propertyCall ::= pathName | operationName ( timeExpression )?
+                ( qualifiers )?
+                ( propertyCallParameters )?
+
+qualifiers ::= "[" actualParameterList "]"
+
+declarator ::= name ( "," name )* ( ":" typeSpecifier )?
+              ( ";" name (":" typeSpecifier)? "=" expression )? "|"
+
+pathName ::= name ( "::" name )*
+
+dottedPathName ::= name ( "." name )*
+
+timeExpression ::= "@pre"
+
+actualParameterList ::= expression ("," expression)*
+
+logicalOperator ::= "and" | "or" | "xor" | "implies"
+
+collectionKind ::= "Set" | "Bag" | "Sequence" | "OrderedSet" | "Collection"
+
+relationalOperator ::= ">=" | "<=" | "<" | "=" | ">" | "<>"
+
+addOperator ::= "+" | "-"
+
+multiplyOperator ::= "*" | "/" | "div" | "mod"
+
+unaryOperator ::= "-" | "+" | "not"

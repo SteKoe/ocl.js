@@ -4,6 +4,7 @@ class Person {
     constructor(name, age) {
         this.name = name;
         this.age = age;
+        this.typeName = 'Person';
     }
 }
 
@@ -12,15 +13,21 @@ class Example {
         this.id = id;
     }
 
+    expect(expected) {
+        this.expected = expected;
+        return this;
+    }
+
     run(fn) {
         const elementById = document.getElementById(`example${this.id}-result`);
         if (elementById) {
             elementById.innerText = fn() ? 'valid' : 'invalid';
+            elementById.innerText += ` expected ${this.expected ? 'valid' : 'invalid'}!`
         }
     }
 }
 
-new Example(1).run(() => {
+new Example(1).expect(true).run(() => {
     var person = new Person('Stephan', 29);
 
     var oclExpression = [
@@ -32,7 +39,7 @@ new Example(1).run(() => {
     return oclRule.evaluate(person)
 });
 
-new Example(2).run(() => {
+new Example(2).expect(true).run(() => {
     var oclExpression = [
         'context Person',
         '   inv ChildrenAreAllYounger: self.children->forAll(c|c.age < self.age)'
@@ -48,7 +55,7 @@ new Example(2).run(() => {
     return oclRule.evaluate(mother);
 });
 
-new Example(3).run(() => {
+new Example(3).expect(false).run(() => {
     var mother = new Person("Henriette", 67);
     mother.children = [
         {name: 'Heike', age: 27},
@@ -65,9 +72,11 @@ new Example(3).run(() => {
     return oclRule.evaluate(mother);
 });
 
-new Example(5).run(() => {
+new Example(5).expect(false).run(() => {
     class MetaEntity {
-
+        constructor() {
+            this.typeName = 'MetaEntity';
+        }
     }
 
     const metaEntity = new MetaEntity();

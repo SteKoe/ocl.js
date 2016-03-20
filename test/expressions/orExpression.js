@@ -1,12 +1,29 @@
 const should = require('should');
 
-import AttributeCallExpression from '../../lib/expressions/attributeCallExpression'
 import OrExpression from '../../lib/expressions/orExpression'
 import BoolExpression from '../../lib/expressions/booleanExpression'
 
-describe('AttributeCallExpression', () => {
-    it('should evaluate self.name', () => {
-        const expr = new OrExpression(new BoolExpression('true'), new BoolExpression('true'));
-        expr.evaluate().should.be.ok();
+const TRUE = new BoolExpression(true);
+const FALSE = new BoolExpression(false);
+
+describe('OrExpression should evaluate', () => {
+    it('TRUE TRUE', () => {
+        const expr = new OrExpression(TRUE, TRUE);
+        expr.evaluate().should.be.true;
+    });
+
+    it('TRUE FALSE', () => {
+        const expr = new OrExpression(TRUE, FALSE);
+        expr.evaluate().should.be.true;
+    });
+
+    it('FALSE TRUE', () => {
+        const expr = new OrExpression(FALSE, TRUE);
+        expr.evaluate().should.be.true;
+    });
+
+    it('FALSE FALSE', () => {
+        const expr = new OrExpression(TRUE, TRUE);
+        expr.evaluate().should.be.false;
     });
 });
