@@ -15,39 +15,52 @@
             expressed by the given meta modelling language. Since there do exist implementations in Java
             (e.g. Eclipse Modelling Framework EMF), this is a basic OCL implementation in JavaScript.
         </p>
+        <p>
+            This page contains some example OCL constraints which are evaluated live while this page loads.
+            To create a use case, the following images shows two connected classes which describe the following:
+            A person can own multiple cars.
+            A car belongs to just one person.
+            A car has a color.
+            A person has a name as well as its age.
+        </p>
 
-        <div>
-            <h5>A person can't be oneself's parent</h5>
-            <p>
-                Given is a class Person having a pointer to its parent which is as well type of Person but having
-                the constraint not to be the self instance as the child Person. Which basically means: A person
-                can not be the parent of itself.
-            </p>
+        <div style="margin: 0 auto; text-align: center;">
+            <picture style="width: 200px;">
+                <img src="img/uml-example.png">
+                <label>UML diagram used as use case</label>
+            </picture>
+        </div>
+
+        <div id="example1">
+            <h5>A vehicle owner has to be at least 18 years old.</h5>
             <script src="https://gist.github.com/SteKoe/b73262da147ef37e8f39.js"></script>
-            <p>The result of above rule is: <span id="example1-result"></span></p>
+            <p>The result of above rule is: <span class="result"></span></p>
         </div>
-        <div>
-            <h5>A mother's children can't be older than the mother</h5>
-            <p>
-                This rule checks whether all children of a mother are younger than the mother.
-            </p>
-            <script src="https://gist.github.com/SteKoe/a1d485121c8daa85cb9f.js"></script>
-            <p>The result of above rule is: <span id="example2-result"></span></p>
+
+        <div id="example2">
+            <h5>The fleet size of a person must not exceed 3 cars.</h5>
+            <script src="https://gist.github.com/SteKoe/b73262da147ef37e8f39.js"></script>
+            <p>The result of above rule is: <span class="result"></span></p>
         </div>
-        <div>
-            <h5>Children's names must be unique</h5>
-            <p>
-                This rule checks whether all children are named differently.
-            </p>
-            <script src="https://gist.github.com/SteKoe/7280b19ac3860ded98f6.js"></script>
-            <p>The result of above rule is: <span id="example3-result"></span></p>
+
+        <div id="example3">
+            <h5>All cars a person owns are red.</h5>
+            <script src="https://gist.github.com/SteKoe/b73262da147ef37e8f39.js"></script>
+            <p>The result of above rule is: <span class="result"></span></p>
         </div>
-        <div>
-            <h5>Implies Rule</h5>
-            <script src="https://gist.github.com/SteKoe/13e7fb27b147f4738f01.js"></script>
-            <p>This rule checks whether all children are named differently.</p>
-            <p>The result of above rule is: <span id="example5-result"></span></p>
+
+        <div id="example4">
+            <h5>A person younger than 18 years old owns no cars.</h5>
+            <script src="https://gist.github.com/SteKoe/b73262da147ef37e8f39.js"></script>
+            <p>The result of above rule is: <span class="result"></span></p>
         </div>
+
+        <div id="example5">
+            <h5>A person owns at least one red car.</h5>
+            <script src="https://gist.github.com/SteKoe/b73262da147ef37e8f39.js"></script>
+            <p>The result of above rule is: <span class="result"></span></p>
+        </div>
+
         <hr>
 
         <h4>License</h4>
