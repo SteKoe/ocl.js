@@ -15,6 +15,6 @@ describe('SizeExpression', () => {
     it('should evaluate isEmpty when not empty', () => {
         const ne = new SizeExpression(new VariableExpression('self.children'));
 
-        ne.evaluate({name: 'Otto', children: [1]}).should.eql(1);
+        ne.evaluate({name: 'Otto', children: [1,2,3,4,6]}).should.eql(5);
     });
 });
