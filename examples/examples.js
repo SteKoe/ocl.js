@@ -1,8 +1,12 @@
 import OclParser from '../lib/oclParser';
 
 class Example {
-    constructor(id) {
+    constructor(id, expected, fn) {
         this.id = id;
+        this.expected = expected;
+        this.fn = fn;
+
+        this.run();
     }
 
     expect(expected) {
@@ -10,11 +14,11 @@ class Example {
         return this;
     }
 
-    run(fn) {
+    run() {
         const elementById = document.getElementById(`example${this.id}`);
         const resultTag = elementById.getElementsByClassName('result')[0];
         if (resultTag) {
-            resultTag.innerText = fn() ? 'valid' : 'invalid';
+            resultTag.innerText = this.fn() ? 'valid' : 'invalid';
             resultTag.innerText += ` expected ${this.expected ? 'valid' : 'invalid'}!`
         }
     }
@@ -36,7 +40,7 @@ class Car {
     }
 }
 
-new Example(1).expect(true).run(() => {
+new Example(1, true, () => {
     var person = new Person(29);
     var car = new Car('red');
     car.owner = person;
@@ -50,7 +54,7 @@ new Example(1).expect(true).run(() => {
     return oclRule.evaluate(car);
 });
 
-new Example(2).expect(true).run(() => {
+new Example(2, false, () => {
     var person = new Person(29);
     var ferrari = new Car('red');
     ferrari.owner = person;
