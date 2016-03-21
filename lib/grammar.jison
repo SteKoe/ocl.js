@@ -21,6 +21,7 @@ NUMBER                              [0-9]+
 "forAll"                            return 'COLLECTOR'
 "select"                            return 'COLLECTOR'
 "exists"                            return 'COLLECTOR'
+"size"                              return 'FUNCTIONCALL'
 "isEmpty"                           return 'FUNCTIONCALL'
 "isNotEmpty"                        return 'FUNCTIONCALL'
 "<="                                return 'OPERATIONNAME'
@@ -83,6 +84,7 @@ oclExpression
     | oclExpression "->" "COLLECTOR" "(" "DECLARATOR" oclExpression ")"
         { var declarators = $5.replace('|','').split(',').map(s => s.trim()); $$=iteratorCallExpression($3, $1, declarators, $6) }
     | oclExpression "->" "FUNCTIONCALL"
+        { $$=functionCallExpression($3, $1) }
     | oclExpression "->" "FUNCTIONCALL" "(" ")"
         { $$=functionCallExpression($3, $1) }
     | '(' oclExpression ')'
@@ -107,6 +109,8 @@ function functionCallExpression(fn, param) {
         return new IsEmptyExpression(param);
     } else if(fn.toLowerCase() === 'isnotempty') {
         return new IsNotEmptyExpression(param);
+    } else if(fn.toLowerCase() === 'size') {
+        return new SizeExpression(param);
     }
 
     throw new Error(`Function with name '${fn}' not found!`);

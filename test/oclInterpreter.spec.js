@@ -226,5 +226,23 @@ describe('OCLInterpreter', () => {
         let actual = oclRule.evaluate(mother);
         actual.should.be.true();
     });
+
+    it('size should return array size', () => {
+        const oclExpression = `
+            context Person inv:
+                self.children->size() = 4
+       `;
+
+        mother.children = [
+            new Person('A', 1),
+            new Person('B', 2),
+            new Person('C', 4),
+            new Person('D', 8)
+        ];
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.true();
+    });
 });
 
