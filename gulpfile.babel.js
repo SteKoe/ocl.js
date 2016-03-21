@@ -22,7 +22,7 @@ gulp.task('build', () => {
         .pipe(gulp.dest('./bin/'))
 });
 
-gulp.task('build:examples', ['build'], () => {
+gulp.task('build:examples', () => {
     return browserify("./examples/examples.js")
         .transform("babelify")
         .bundle()
