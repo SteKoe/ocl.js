@@ -274,5 +274,24 @@ describe('OCLInterpreter: inv ', () => {
         actual.should.be.false();
     });
 
+    it('should iterate over collected items wihout having a collector', () => {
+        const oclExpression = `
+            context Person inv:
+                self.children->forAll(age<10)
+       `;
+
+        mother.children = [
+            new Person('A', 1),
+            new Person('B', 2),
+            new Person('C', 4),
+            new Person('D', 8),
+            new Person('E', 10)
+        ];
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.false();
+    });
+
 });
 

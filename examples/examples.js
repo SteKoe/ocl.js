@@ -1,8 +1,14 @@
 import OclParser from '../lib/oclParser';
 
+const hljs = require('../node_modules/highlight.js/lib/highlight');
+var ocl = require('./hljs.ocl');
+hljs.registerLanguage('ocl', ocl);
+hljs.initHighlightingOnLoad();
+
 class Example {
-    constructor(id, ctx, oclExpression, expected, fn) {
+    constructor(id, title, ctx, oclExpression, expected, fn) {
         this.id = id;
+        this.title = title;
         this.ctx = ctx;
         this.oclExpression = oclExpression;
         this.expected = expected;
@@ -18,8 +24,9 @@ class Example {
 
     run() {
         const elementById = document.getElementById(`example${this.id}`);
+        elementById.getElementsByClassName('title')[0].innerHTML = this.title.trim();
         elementById.getElementsByTagName('code')[0].innerText = this.ctx.trim();
-        elementById.getElementsByTagName('code')[1].innerText = this.oclExpression;
+        elementById.getElementsByTagName('code')[1].innerText = this.oclExpression.trim();
         const resultTag = elementById.getElementsByClassName('result')[0];
         if (resultTag) {
             resultTag.innerText = this.fn.apply(this) ? 'valid' : 'invalid';
@@ -46,7 +53,10 @@ class Car {
 
 let oclExpression;
 let context;
+let title;
+
 // ======================================================================================
+title = 'A vehicle owner has to be at least 18 years old.';
 context = `
 var person = new Person(29);
 var car = new Car('red');
@@ -56,7 +66,7 @@ oclExpression = [
     'context Car',
     '   inv: self.owner.age >= 18'
 ].join('\n');
-new Example(1, context, oclExpression, true,  function() {
+new Example(1, title, context, oclExpression, true,  function() {
     var person = new Person(29);
     var car = new Car('red');
     car.owner = person;
@@ -66,6 +76,7 @@ new Example(1, context, oclExpression, true,  function() {
 });
 
 // ======================================================================================
+title = 'The fleet size of a person must not exceed 3 cars.';
 context = `
 var person = new Person(29);
 var car = new Car('red');
@@ -79,7 +90,7 @@ oclExpression = [
     'context Person',
     '   inv: self.fleet->size() <= 3'
 ].join('\n');
-new Example(2, context, oclExpression, false,  function() {
+new Example(2, title, context, oclExpression, false,  function() {
     var person = new Person(29);
     var car = new Car('red');
 
@@ -93,6 +104,7 @@ new Example(2, context, oclExpression, false,  function() {
 });
 
 // ======================================================================================
+title = 'All cars a person owns are red.';
 context = `
 var person = new Person(29);
 var redCar = new Car('red');
@@ -106,7 +118,7 @@ oclExpression = [
     'context Person',
     '   inv: self.cars->forAll(c|c.color = "red")'
 ].join('\n');
-new Example(3, context, oclExpression, false, function() {
+new Example(3, title, context, oclExpression, false, function() {
     var person = new Person(29);
     var redCar = new Car('red');
     var greenCar = new Car('green');
@@ -120,12 +132,13 @@ new Example(3, context, oclExpression, false, function() {
 });
 
 // ======================================================================================
+title = 'A person younger than 18 years old owns no cars.';
 context = `var person = new Person(6);`;
 oclExpression = [
     'context Person',
     '   inv: self.age < 18 implies self.fleet->isEmpty'
 ].join('\n');
-new Example(4, context, oclExpression, true,  function() {
+new Example(4, title, context, oclExpression, true,  function() {
     var person = new Person(6);
 
     var oclRule = new OclParser(this.oclExpression).parse();
@@ -133,6 +146,7 @@ new Example(4, context, oclExpression, true,  function() {
 });
 
 // ======================================================================================
+title = 'A person owns at least one red car.';
 context = `
 var person = new Person(29);
 var car = new Car('red');
@@ -144,7 +158,7 @@ oclExpression = [
     'context Person',
     '   inv: self.fleet->select(c|c.color="red")->size > 0'
 ].join('\n');
-new Example(5, context, oclExpression, true,  function() {
+new Example(5, title, context, oclExpression, true,  function() {
     var person = new Person(29);
     var car = new Car('red');
 
@@ -154,3 +168,29 @@ new Example(5, context, oclExpression, true,  function() {
     var oclRule = new OclParser(this.oclExpression).parse();
     return oclRule.evaluate(person);
 });
+
+// ======================================================================================
+title = 'A person owns at least one red car. <small>Using let</small>';
+context = `
+var person = new Person(29);
+var car = new Car('red');
+
+person.fleet.push(car);
+person.fleet.push(car);
+`;
+oclExpression = `
+context Person
+   def: let redCars: self.fleet->select(color="red")
+   inv: self.redCars->size > 0
+`;
+new Example(6, title, context, oclExpression, true,  function() {
+    var person = new Person(29);
+    var car = new Car('red');
+
+    person.fleet.push(car);
+    person.fleet.push(car);
+
+    var oclRule = new OclParser(this.oclExpression).parse();
+    return oclRule.evaluate(person);
+});
+

@@ -104,6 +104,8 @@ oclExpression
         { $$=sequenceOperationCall($3, $1) }
     | oclExpression "->" "SEQOPERATION" "(" oclExpression ")"
         { $$=sequenceOperationCall($3, $1, $5) }
+    | oclExpression "->" "COLLECTOR" "(" oclExpression ")"
+        { $$=iteratorCallExpression($3, $1, [], $5) }
     | oclExpression "->" "COLLECTOR" "(" "DECLARATOR" oclExpression ")"
         { var declarators = $5.replace('|','').split(',').map(s => s.trim()); $$=iteratorCallExpression($3, $1, declarators, $6) }
     | oclExpression "." "FUNCTIONCALL" "(" ")"
