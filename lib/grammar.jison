@@ -8,6 +8,7 @@ NUMBER                              [0-9]+
 "context"                           return 'CONTEXT'
 "and"                               return 'AND'
 "or"                                return 'OR'
+"xor"                               return 'XOR'
 "nil"                               return 'NIL'
 "("                                 return '('
 \"([^\"]*)\"          	            return 'STRING'
@@ -22,6 +23,10 @@ NUMBER                              [0-9]+
 "forAll"                            return 'COLLECTOR'
 "select"                            return 'COLLECTOR'
 "exists"                            return 'COLLECTOR'
+"union"                             return 'SEQOPERATION'
+"first"                             return 'SEQOPERATION'
+"last"                              return 'SEQOPERATION'
+"at"                                return 'SEQOPERATION'
 "size"                              return 'FUNCTIONCALL'
 "isEmpty"                           return 'FUNCTIONCALL'
 "isNotEmpty"                        return 'FUNCTIONCALL'
@@ -43,7 +48,7 @@ NUMBER                              [0-9]+
 
 /* operator associations and precedence */
 %left "IMPLIES"
-%left "AND" "OR"
+%left "AND" "OR" "XOR"
 %left "OPERATIONNAME"
 
 %start constraint
@@ -90,8 +95,12 @@ oclExpression
         { $$=new AndExpression($1, $3) }
     | oclExpression "OR" oclExpression
         { $$=new OrExpression($1, $3) }
+    | oclExpression "XOR" oclExpression
+            { $$=new XorExpression($1, $3) }
     | oclExpression "OPERATIONNAME" oclExpression
         { $$=new OperationCallExpression($2, $1, $3) }
+    | oclExpression "->" "SEQOPERATION" "(" oclExpression ")"
+        { $$=sequenceOperationCall($3, $1, $5) }
     | oclExpression "->" "COLLECTOR" "(" "DECLARATOR" oclExpression ")"
         { var declarators = $5.replace('|','').split(',').map(s => s.trim()); $$=iteratorCallExpression($3, $1, declarators, $6) }
     | oclExpression "." "FUNCTIONCALL" "(" ")"
@@ -117,6 +126,20 @@ oclExpression
     ;
 
 %%
+function sequenceOperationCall(fn, source, body) {
+    if(fn.toLowerCase() === 'union') {
+        return new UnionOperation(source, body);
+    } else if(fn.toLowerCase() === 'first') {
+        return new FirstOperation(source);
+    } else if(fn.toLowerCase() === 'at') {
+        return new AOperation(source, body);
+    } else if(fn.toLowerCase() === 'last') {
+        return new LastOperation(source);
+    }
+
+    throw new Error(`Function with name '${fn}' not found!`);
+}
+
 function functionCallExpression(fn, param) {
     if(fn.toLowerCase() === 'isempty') {
         return new IsEmptyExpression(param);

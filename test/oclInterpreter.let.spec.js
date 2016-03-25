@@ -36,7 +36,6 @@ describe('OCLInterpreter: let', () => {
         actual.should.be.ok();
     });
 
-
     it('should assign ->size() call', () => {
         const oclExpression = `
             context Person
@@ -49,6 +48,22 @@ describe('OCLInterpreter: let', () => {
             children: [1,2]
         };
         let actual = oclRule.evaluate(mother);
+        actual.should.be.ok();
+    });
+
+    it('should process union', () => {
+        const oclExpression = `
+            context Person
+                def: let concat: self.a->union(self.b)
+                inv: self.concat->size() = 4
+        `;
+        const oclRule = new OclParser(oclExpression).parse();
+
+        var o = {
+            a: [1,2],
+            b: [3,4]
+        };
+        let actual = oclRule.evaluate(o);
         actual.should.be.ok();
     });
 });
