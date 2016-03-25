@@ -4,7 +4,7 @@ import OclParserGenerator from './../lib/OclParserGenerator'
 const should = require('should');
 let OclParser;
 
-describe('OCLInterpreter', () => {
+describe('OCLInterpreter: inv ', () => {
     class Person {
         constructor(name, age) {
             this.name = name;
@@ -150,16 +150,11 @@ describe('OCLInterpreter', () => {
 
         const oclExpression = `
             context Person inv:
-                self.children->select(c|c.age < 10)
+                self.children->select(c|c.age < 10)->size() = 4
         `;
 
         const oclRule = new OclParser(oclExpression).parse();
-        oclRule.evaluate(mother).should.eql([
-            new Person('A', 1),
-            new Person('B', 2),
-            new Person('C', 4),
-            new Person('D', 8)
-        ]);
+        oclRule.evaluate(mother).should.be.true();
     });
 
     it('should evaluate exists()', () => {

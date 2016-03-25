@@ -15,7 +15,7 @@ import NilExpression from './../lib/expressions/nilExpression';
 
 const should = require('should');
 
-describe('OCLParser', () => {
+describe('OCLParser: inv:', () => {
     let OclParser;
     const assertAST = (oclExpression, expected) => new OclParser(oclExpression).parse().should.eql(expected);
     const invariantDecorator = (definition, name) => {
@@ -154,8 +154,8 @@ describe('OCLParser', () => {
             context Entity
                 inv MyCustomInvariant: c1 <> c2
         `;
-        const expected = invariantDecorator(new OperationCallExpression('<>', new VariableExpression('c1'), new VariableExpression('c2')), 'MyCustomInvariant');
 
+        const expected = invariantDecorator(new OperationCallExpression('<>', new VariableExpression('c1'), new VariableExpression('c2')), 'MyCustomInvariant');
         assertAST(oclExpression, expected);
     });
 
@@ -164,8 +164,8 @@ describe('OCLParser', () => {
             context Entity
                 inv: c1 <> nil
         `;
-        const expected = invariantDecorator(new OperationCallExpression('<>', new VariableExpression('c1'), new NilExpression()));
 
+        const expected = invariantDecorator(new OperationCallExpression('<>', new VariableExpression('c1'), new NilExpression()));
         assertAST(oclExpression, expected);
     });
 });

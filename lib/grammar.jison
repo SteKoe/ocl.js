@@ -15,6 +15,7 @@ NUMBER                              [0-9]+
 "true"                              return 'BOOLEAN'
 "false"                             return 'BOOLEAN'
 ")"                                 return ')'
+"."                                 return '.'
 "implies"                           return 'IMPLIES'
 ":"                                 return ':'
 "->"                                return '->'
@@ -30,7 +31,9 @@ NUMBER                              [0-9]+
 "<>"                                return 'OPERATIONNAME'
 "<"                                 return 'OPERATIONNAME'
 ">"                                 return 'OPERATIONNAME'
-"inv"                               return 'STEREOTYPE'
+"let"                               return 'LET'
+"inv"                               return 'INV'
+"def"                               return 'DEF'
 {NAME}(','\s*{NAME})*\s*"|"         return 'DECLARATOR'
 {NAME}('.'{NAME})*                  return 'DOTTEDPATHNAME'
 <<EOF>>               	            return 'EOF'
@@ -46,32 +49,40 @@ NUMBER                              [0-9]+
 %start constraint
 %% /* language grammar */
 
-constraint
-    : context "STEREOTYPE" ':' oclExpression EOF
-        {{
-            var inner;
-            if($2==='inv') {
-                inner = new InvariantExpression($4);
-            }
-
-            $$ = new ContextExpression($1, inner);
-            return $$;
-        }}
-    | context "STEREOTYPE" "DOTTEDPATHNAME" ':' oclExpression EOF
-        {{
-            var inner;
-            if($2==='inv') {
-                inner = new InvariantExpression($5, $3);
-            }
-
-            $$ = new ContextExpression($1, inner);
-            return $$;
-        }}
-    ;
-
 context
     : "CONTEXT" "DOTTEDPATHNAME"
         { $$=$2; }
+    ;
+
+constraint
+    : context expression EOF
+        {{
+            return new ContextExpression($1, $2);
+        }}
+    ;
+
+expression
+    : "INV" ":" oclExpression
+        { $$ = new InvariantExpression($3) }
+    | "INV" "DOTTEDPATHNAME" ":" oclExpression
+        { $$ = new InvariantExpression($4, $2) }
+    | "DEF" ":" letExpression
+        { $$=$3 }
+    | expression expression
+        {{
+            if($2.map) {
+                $$ = $2.push($1)
+            } else {
+                $$ = [$1, $2];
+            }
+        }}
+    ;
+
+letExpression
+    : "LET" "DOTTEDPATHNAME" ":" oclExpression
+        { $$=new LetExpression($2, $4) }
+    | "DOTTEDPATHNAME" ":" oclExpression
+        { $$=new LetExpression($1, $3) }
     ;
 
 oclExpression
@@ -83,6 +94,8 @@ oclExpression
         { $$=new OperationCallExpression($2, $1, $3) }
     | oclExpression "->" "COLLECTOR" "(" "DECLARATOR" oclExpression ")"
         { var declarators = $5.replace('|','').split(',').map(s => s.trim()); $$=iteratorCallExpression($3, $1, declarators, $6) }
+    | oclExpression "." "FUNCTIONCALL" "(" ")"
+        { $$=functionCallExpression($3, $1) }
     | oclExpression "->" "FUNCTIONCALL"
         { $$=functionCallExpression($3, $1) }
     | oclExpression "->" "FUNCTIONCALL" "(" ")"
