@@ -27,6 +27,7 @@ NUMBER                              [0-9]+
 "first"                             return 'SEQOPERATION'
 "last"                              return 'SEQOPERATION'
 "at"                                return 'SEQOPERATION'
+"asSet"                             return 'SEQOPERATION'
 "size"                              return 'FUNCTIONCALL'
 "isEmpty"                           return 'FUNCTIONCALL'
 "isNotEmpty"                        return 'FUNCTIONCALL'
@@ -99,6 +100,8 @@ oclExpression
             { $$=new XorExpression($1, $3) }
     | oclExpression "OPERATIONNAME" oclExpression
         { $$=new OperationCallExpression($2, $1, $3) }
+    | oclExpression "->" "SEQOPERATION" "(" ")"
+        { $$=sequenceOperationCall($3, $1) }
     | oclExpression "->" "SEQOPERATION" "(" oclExpression ")"
         { $$=sequenceOperationCall($3, $1, $5) }
     | oclExpression "->" "COLLECTOR" "(" "DECLARATOR" oclExpression ")"
@@ -135,9 +138,11 @@ function sequenceOperationCall(fn, source, body) {
         return new AOperation(source, body);
     } else if(fn.toLowerCase() === 'last') {
         return new LastOperation(source);
+    } else if(fn.toLowerCase() === 'asset') {
+        return new AsSetOperation(source);
     }
 
-    throw new Error(`Function with name '${fn}' not found!`);
+    throw new Error(`SequenceOperationCall with name '${fn.toLowerCase()}' not found!`);
 }
 
 function functionCallExpression(fn, param) {
@@ -149,7 +154,7 @@ function functionCallExpression(fn, param) {
         return new SizeExpression(param);
     }
 
-    throw new Error(`Function with name '${fn}' not found!`);
+    throw new Error(`FunctionCallExpression with name '${fn}' not found!`);
 }
 
 function iteratorCallExpression(fn, source, declarators, param) {
@@ -161,5 +166,5 @@ function iteratorCallExpression(fn, source, declarators, param) {
         return new ExistsExpression(source, declarators, param);
     }
 
-    throw new Error(`Collector with name '${fn}' not found!`);
+    throw new Error(`IteratorCallExpression with name '${fn}' not found!`);
 }

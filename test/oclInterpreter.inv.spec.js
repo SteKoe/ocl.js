@@ -258,5 +258,21 @@ describe('OCLInterpreter: inv ', () => {
         let actual = oclRule.evaluate(mother);
         actual.should.be.false();
     });
+
+    it('should return set', () => {
+        const oclExpression = `
+            context Person 
+                inv: self.a->asSet()->size() = 4
+       `;
+
+        const obj = {
+            a: [1,2,2,3,3,3,3,4]
+        };
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(obj);
+        actual.should.be.false();
+    });
+
 });
 
