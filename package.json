@@ -9,7 +9,7 @@
     "build:examples": "gulp build:examples"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.7.2",
