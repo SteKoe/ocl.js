@@ -27,6 +27,9 @@
         .js:before {
             content: 'JavaScript';
         }
+        .operations dt {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -43,17 +46,33 @@
         <h2>Available expressions</h2>
         <div class="row">
             <div class="six columns">
+                <h5>Context</h5>
+                <p>
+                    Define a valid context for the ocl rule.
+                    The context constraints the execution of an ocl rule to a specific type.
+                    Even though javascripts typesystem functions at a very low level, the context expression tries to guess the type as follows:
+                    
+                    <pre><code class="gen plain">function Person() {}    => Person
+class Person {}         => Person
+{}                      => Object
+function() {}           => undefined</code></pre>
+
+                    When calling an OCL rule like the one below, it will only apply on objects which are of type "Person".
+                    "Type of" in context of OCL means, that the object is a direct instance of the given type.
+
+                    <pre><code class="ocl">context Person inv: [...]</code></pre>
+                </p>
                 <h5>Invariants</h5>
                 <p>
                     One can define multiple invariants per context which are started using the keyword <em>inv</em>.
-                <pre><code clsas="ocl">inv: self.variable = "value"</code></pre>
+                <pre><code class="ocl">inv: self.variable = "value"</code></pre>
                 </p>
                 <h5>Definitions</h5>
                 <p>
                     When one wants to define additional variables before invariants are executed, one can use the
                     keyword <em>def</em> for creating variable definitions.
 
-                <pre><code clsas="ocl">def: let name: "value" </code></pre>
+                <pre><code class="ocl">def: let name: "value" </code></pre>
                 </p>
                 <h5>Logic gates</h5>
                 <p>
@@ -74,7 +93,7 @@
             <!-- -->
             <div class="six columns">
                 <h5>Collection operations</h5>
-                <dl>
+                <dl class="operations">
                     <dt>Collection->exists(expr)</dt>
                     <dd>Operation which checks whether a collection contains an element specified by <em>expr</em>.</dd>
 
@@ -168,13 +187,6 @@
             <p>The result of above rule is: <span class="result"></span></p>
         </div>
 
-        <hr>
-
-        <h4>License</h4>
-        <p>
-            This project is free to use (Apache 2.0) for any open source projects.
-            The use in commercial projects is prohibited unless you have purchased a copy of this software.
-        </p>
         <hr>
         <p class="text-center">
             &copy; Stephan Köninger
