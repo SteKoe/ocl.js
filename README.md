@@ -5,9 +5,26 @@ The OCL is a text based language that provides constraint and object query expre
 ## Supported concepts
 This package does not fully conform to the OCL definition by OMG and implements a subset of the given concepts.
 
-### Invariants
-The current implementation supports invariants and constraints as follows.
+### Context
+Define a valid context for the ocl rule. 
+The context constraints the execution of an ocl rule to a specific type. 
+Even though javascripts typesystem functions at a very low level, the context expression tries to guess the type as follows:
 
+```
+function Person() {}  => Person
+class Person {}       => Person
+{}                    => Object
+function() {}         => undefined
+```
+
+When calling an OCL rule like the one below, it will only apply on objects which are of type "Person". 
+"Type of" in context of OCL means, that the object is a direct instance of the given type.
+
+``` ocl
+context Person inv: [...]
+```
+
+### Invariants
 #### =, <>, >, <, <=, >=
 Start time of a meeting has to be before end time
 ``` ocl
@@ -28,18 +45,59 @@ context Person inv:
     self.children <> nil implies self.isParent = true
 ```
 
-#### isEmpty(), isNotEmpty()
+#### and, or, xor
+Concatenation of expressions using or/and:
+``` ocl
+context MetaAttribute inv:
+    self.minCard <= self.maxCard or (self.minCard = nil and self.maxCard = nil)
+```
+
+### Collection operations
+#### exists(expr)
+Check if an element in a collection exists:
+``` ocl
+context Person inv:
+    self.children->exists(c | c.age > 18)
+```
+
+#### isEmpty()
+If a person does not have any children, the person is not a parent
+``` ocl
+context Person inv:
+    self.children->isEmpty() implies self.isParent = false
+```
+
+#### isNotEmpty()
 If a person has children, the flag "isParent" has to be true
 ``` ocl
 context Person inv:
     self.children->isNotEmpty() implies self.isParent = true
 ```
 
-If a person does not have any children, the person is not a parent
+#### select(expr)
+Select all children from collection who are younger than 10 years old:
 ``` ocl
 context Person inv:
-    self.children->isEmpty() implies self.isParent = false
+    self.children->select(c | c.age < 10)
 ```
+
+#### union(Collection)
+Concatenates the two given collections and returns one single collection.
+
+#### at(index:Number)
+Returns the element of the collection at index *index*.
+
+#### first()
+Returns the first element of the collection.
+
+#### last()
+Returns the last element of the collection.
+
+#### asSet()
+Returns the given collection as set, containing unique entries.
+
+#### size()
+Returns the length of the given collection.
 
 #### forAll
 If a person has children, all children have to be younger than the parent.
@@ -53,26 +111,8 @@ context Person inv:
     self.children->forAll(c1, c2 | c1.name <> c2.name)
 ```
 
-#### select
-Select all children from collection who are younger than 10 years old:
-``` ocl
-context Person inv:
-    self.children->select(c | c.age < 10)
-```
 
-#### exists
-Check if an element in a collection exists:
-``` ocl
-context Person inv:
-    self.children->exists(c | c.age > 18)
-```
 
-#### or, and
-Concatenation of expressions using or/and:
-``` ocl
-context MetaAttribute inv:
-    self.minCard <= self.maxCard or (self.minCard = nil and self.maxCard = nil)
-```
 
 ## LICENSE
 MIT License
