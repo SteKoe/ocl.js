@@ -3,6 +3,9 @@
 
 %%
 \s+                                 /* ignore */
+\-?[0-9][0-9]*\.[0-9]*              return 'real'
+\-?[0-9][0-9]*                      return 'integer'
+
 "context"                           return 'context'
 "inv"                               return 'inv'
 "def"                               return 'def'
@@ -11,6 +14,8 @@
 "false"                             return 'false'
 "and"                               return 'and'
 "or"                                return 'or'
+"mod"                               return 'mod'
+"div"                               return 'div'
 "xor"                               return 'xor'
 "implies"                           return 'implies'
 "("                                 return '('
@@ -27,14 +32,16 @@
 ":"                                 return ':'
 "."                                 return '.'
 ","                                 return ','
+"+"                                 return '+'
+"-"                                 return '-'
+"*"                                 return '*'
+"/"                                 return '/'
 "@"                                 return '@'
 "pre"                               return 'pre'
 
 'nil'                               return 'nil'
 [a-zA-Z][a-zA-Z0-9]*                return 'simpleName'
 ["][^\"]*["]          	            return 'string'
-[0-9][0-9]*                         return 'integer'
-[0-9][0-9]+\.[0-9]*                 return 'real'
 
 <<EOF>>               	            return 'EOF'
 .                                   return 'ERROR'
@@ -43,6 +50,8 @@
 
 /* operator associations and precedence */
 %left "implies" "and" "or" "xor"
+%left '+' '-'
+%left '*' '/'
 %right "=" ">" ">=" "<" "<=" "<>"
 
 %start contextDeclList
@@ -83,6 +92,18 @@ oclExpression
         { $$ = $2 }
     | oclExpression '.' simpleName preOptional
         { $$ = ($1 instanceof VariableExpression) ? new VariableExpression([$1.variable, $3].join('.')) : $1 }
+    | oclExpression '+' oclExpression
+        { $$ = new Math.AdditionExpression($1, $3) }
+    | oclExpression '-' oclExpression
+        { $$ = new Math.AdditionExpression($1, $3) }
+    | oclExpression '*' oclExpression
+        { $$ = new Math.MultiplyExpression($1, $3) }
+    | oclExpression '/' oclExpression
+        { $$ = new Math.DivideExpression($1, $3) }
+    | oclExpression 'mod' oclExpression
+        { $$ = new Math.ModuloExpression($1, $3) }
+    | oclExpression 'div' oclExpression
+        { $$ = new Math.DivideExpression($1, $3) }
     | oclExpression '<' oclExpression
         { $$ = new OperationCallExpression('<', $1, $3) }
     | oclExpression '<=' oclExpression
@@ -183,7 +204,10 @@ pathName
 	| pathName '::' simpleName
 	    { $$ = $1 }
 	;
+
+/* end of grammar defintion */
 %%
+/* start of helper functions */
 
 function functionCallExpression(fn, source) {
     if(fn.toLowerCase() === 'isempty') {
@@ -199,24 +223,16 @@ function functionCallExpression(fn, source) {
     } else if(fn.toLowerCase() === 'exists') {
         return new ExistsExpression(source);
     } else if(fn.toLowerCase() === 'union') {
-       return new UnionOperation(source);
-   } else if(fn.toLowerCase() === 'first') {
-       return new FirstOperation(source);
-   } else if(fn.toLowerCase() === 'at') {
-       return new AOperation(source);
-   } else if(fn.toLowerCase() === 'last') {
-       return new LastOperation(source);
-   } else if(fn.toLowerCase() === 'asset') {
-       return new AsSetOperation(source);
-   }
-
-    throw new Error(`No function call expression found for '${fn}' not found!`);
-}
-
-function simplePropertyCall(operationName, optionalPre, optionalQualifiers, optionalPropertyCallParams) {
-    const operations = ['<','<=','=', '=>', '>', '<>'];
-    if(operations.indexOf(operationName) !== -1) {
-    } else {
-        return new VariableExpression(operationName);
+        return new UnionOperation(source);
+    } else if(fn.toLowerCase() === 'first') {
+        return new FirstOperation(source);
+    } else if(fn.toLowerCase() === 'at') {
+        return new AOperation(source);
+    } else if(fn.toLowerCase() === 'last') {
+        return new LastOperation(source);
+    } else if(fn.toLowerCase() === 'asset') {
+        return new AsSetOperation(source);
     }
+
+   throw new Error(`No function call expression found for '${fn}' not found!`);
 }

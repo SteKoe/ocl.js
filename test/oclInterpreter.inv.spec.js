@@ -266,7 +266,7 @@ describe('OCLInterpreter: inv ', () => {
        `;
 
         const obj = {
-            a: [1,2,2,3,3,3,3,4]
+            a: [1, 2, 2, 3, 3, 3, 3, 4]
         };
 
         const oclRule = new OclParser(oclExpression).parse();
@@ -291,6 +291,72 @@ describe('OCLInterpreter: inv ', () => {
         const oclRule = new OclParser(oclExpression).parse();
         let actual = oclRule.evaluate(mother);
         actual.should.be.false();
+    });
+
+    it('should parse addition.', () => {
+        const oclExpression = `
+            context Person inv:
+                1 + 2 = 3
+       `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.true();
+    });
+
+    it('should parse substraction.', () => {
+        const oclExpression = `
+            context Person inv:
+                1.0 - 2 = -1
+       `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.true();
+    });
+
+    it('should parse division.', () => {
+        const oclExpression = `
+            context Person inv:
+                10 / 2 = 5
+       `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.true();
+    });
+
+    it('should parse division.', () => {
+        const oclExpression = `
+            context Person inv:
+                10 div 5 = 2
+       `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.true();
+    });
+
+    it('should parse division.', () => {
+        const oclExpression = `
+            context Person inv:
+                -2.5 * 2 = -5
+       `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.true();
+    });
+
+    it('should parse modulo.', () => {
+        const oclExpression = `
+            context Person inv:
+                7 mod 4 = 3
+       `;
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(mother);
+        actual.should.be.true();
     });
 
 });
