@@ -1,0 +1,164 @@
+contextDeclList
+	: contextDeclaration
+contextDeclaration
+	: propertyContextDecl
+contextDeclaration
+	: classifierContextDecl
+contextDeclaration
+	: operationContextDecl
+propertyContextDecl
+	: 'context' pathname simpleName ':' type initOrDerValue+
+initOrDerValue
+	: 'init' ':' oclExpression
+initOrDerValue
+	: 'derive' ':' oclExpression
+classifierContextDecl
+	: 'context' pathname invOrDef+
+invOrDef
+	: 'inv' simpleNameOptional ':' oclExpression
+invOrDef
+	: 'def' simpleNameOptional ':' defExpression
+simpleNameOptional
+	: simpleName
+defExpression
+	: simpleName ':' type '=' oclExpression
+defExpression
+	: operation '=' oclExpression
+operationContextDecl
+	: 'context' operation prePostOrBodyDecl+
+prePostOrBodyDecl
+	: 'pre' simpleNameOptional ':' oclExpression
+prePostOrBodyDecl
+	: 'post' simpleNameOptional ':' oclExpression
+prePostOrBodyDecl
+	: 'body' simpleNameOptional ':' oclExpression
+operation
+	: pathname '(' variableDeclarationListOptional ')' typeOptional
+typeOptional
+	: [':' type]
+variableDeclarationListOptional
+	: variableDeclarationList
+variableDeclarationList
+	: variableDeclaration ( ',' variableDeclaration )*
+variableDeclaration
+	: simpleName typeOptional ['=' oclExpression]
+type
+	: pathname
+type
+	: collectionType
+type
+	: tupleType
+collectionType
+	: collectionKind '(' type ')'
+tupleType
+	: 'TupleType' '(' variableDeclarationList ')'
+oclExpression
+	: literalExp
+oclExpression
+	: '(' oclExpression ')'
+oclExpression
+	: pathname ['@' 'pre']
+oclExpression
+	: oclExpression '[' argumentList ']' ['@' 'pre']
+oclExpression
+	: oclExpression '.' simpleName ['@' 'pre']
+oclExpression
+	: oclExpression '−>' simpleName
+oclExpression
+	: oclExpression '(' ')'
+oclExpression
+	: oclExpression '(' oclExpression ')'
+oclExpression
+	: oclExpression '(' oclExpression ',' argumentList ')'
+oclExpression
+	: oclExpression '(' variableDeclaration '|' oclExpression ')'
+oclExpression
+	: oclExpression '(' oclExpression ',' variableDeclaration '|' oclExpression ')'
+oclExpression
+	: oclExpression '(' oclExpression ':' type ','variableDeclaration '|' oclExpression ')'
+oclExpression
+	: oclExpression '−>' 'iterate' '(' variableDeclaration [';' variableDeclaration] '|' oclExpression ')'
+oclExpression
+	: 'not' oclExpression
+oclExpression
+	: '-' oclExpression
+oclExpression
+	: oclExpression '*' oclExpression
+oclExpression
+	: oclExpression '/' oclExpression
+oclExpression
+	: oclExpression 'div' oclExpression
+oclExpression
+	: oclExpression 'mod' oclExpression
+oclExpression
+	: oclExpression '+' oclExpression
+oclExpression
+	: oclExpression '-' oclExpression
+oclExpression
+	: 'if' oclExpression 'then' oclExpression 'else' oclExpression 'endif'
+oclExpression
+	: oclExpression '<' oclExpression
+oclExpression
+	: oclExpression '>' oclExpression
+oclExpression
+	: oclExpression '<=' oclExpression
+oclExpression
+	: oclExpression '>=' oclExpression
+oclExpression
+	: oclExpression '=' oclExpression
+oclExpression
+	: oclExpression '<>' oclExpression
+oclExpression
+	: oclExpression 'and' oclExpression
+oclExpression
+	: oclExpression 'or' oclExpression
+oclExpression
+	: oclExpression 'xor' oclExpression
+oclExpression
+	: oclExpression 'implies' oclExpression
+oclExpression
+	: 'let' variableDeclarationList 'in' oclExpression
+oclExpression
+	: oclExpression 'ˆˆ ' simpleName '('[oclMessageArgumentList] ')'
+oclExpression
+	: oclExpression 'ˆ ' simpleName '('[oclMessageArgumentList] ')'
+argumentList
+	: oclExpression (',' oclExpression)*
+oclMessageArgumentList
+	: oclMessageArgument ( ',' oclMessageArgument)*
+oclMessageArgument
+	: oclExpression
+oclMessageArgument
+	: '?' typeOptional
+literalExp
+	: collectionLiteralExp
+literalExp
+	: tupleLiteralExp
+literalExp
+	: primitiveLiteralExp
+collectionLiteralExp
+	: collectionKind '{' collectionLiteralParts '}'
+collectionLiteralExp
+	: collectionKind '{' '}'
+collectionKind
+	: 'Set' | 'Bag' | 'Sequence' | 'Collection' | 'OrderedSet'
+collectionLiteralParts
+	: collectionLiteralPart ( ',' collectionLiteralPart )*
+collectionLiteralPart
+	: oclExpression | collectionRange
+collectionRange
+	: oclExpression '..' oclExpression
+tupleLiteralExp
+	: 'Tuple' '' variableDeclarationList ''
+primitiveLiteralExp
+	: integer | real | string | 'true' | 'false'
+pathname
+	: simpleName | pathname '::' simpleName
+integer
+	: [0-9]+
+real
+	: integer[.]integer[eE][+-]?integer | integer[eE][+-]?integer | integer[.]integer
+string
+	: ['][ˆ']*[']
+simpleName
+	: [a-zA-Z ][a-zA-Z0-9 ]*

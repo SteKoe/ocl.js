@@ -19,7 +19,7 @@ gulp.task('build', () => {
         .pipe(buffer())
         .pipe(uglify())
         .pipe(rename('ocl.min.js'))
-        .pipe(gulp.dest('./bin/'))
+        .pipe(gulp.dest('./dist/'))
 });
 
 gulp.task('build:examples', () => {

@@ -15,7 +15,7 @@ import NilExpression from './../lib/expressions/nilExpression';
 
 const should = require('should');
 
-describe('OCLParser: inv:', () => {
+describe.only('OCLParser: inv:', () => {
     let OclParser;
     const assertAST = (oclExpression, expected) => new OclParser(oclExpression).parse().should.eql(expected);
     const invariantDecorator = (definition, name) => {
@@ -37,9 +37,19 @@ describe('OCLParser: inv:', () => {
         assertAST(oclExpression, expected);
     });
 
+    it('should parse StringExpression', () => {
+        const oclExpression = `
+            context Entity
+                inv: "abc"
+        `;
+        const expected = invariantDecorator(new StringExpression("abc"));
+
+        assertAST(oclExpression, expected);
+    });
+
     it('should parse attributeCall expression.', () => {
-        const oclExpression = 'context Entity inv: self.participants';
-        const expected = invariantDecorator(new VariableExpression('self.participants'));
+        const oclExpression = 'context Entity inv: self.participants = 0';
+        const expected = invariantDecorator(new OperationCallExpression("=", new VariableExpression('self.participants'), new NumberExpression(0)));
 
         assertAST(oclExpression, expected);
     });
@@ -60,7 +70,7 @@ describe('OCLParser: inv:', () => {
     it('should parse IteratorExp two iterators', () => {
         const oclExpression = `
             context Entity inv:
-                self.participants->forAll(c1, c2 | c1 <> c2)
+                self.participants->forAll(c1,c2 | c1 <> c2)
         `;
 
         const attributeCallExpression = new VariableExpression('self.participants');
@@ -149,7 +159,7 @@ describe('OCLParser: inv:', () => {
         assertAST(oclExpression, expected);
     });
 
-    it('should parse OCL constraint', () => {
+    it('should parse OCL constraint with name', () => {
         const oclExpression = `
             context Entity
                 inv MyCustomInvariant: c1 <> c2
