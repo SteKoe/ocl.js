@@ -7,13 +7,13 @@ contextDeclaration
 contextDeclaration
 	: operationContextDecl
 propertyContextDecl
-	: 'context' pathname simpleName ':' type initOrDerValue+
+	: 'context' pathName simpleName ':' type initOrDerValue+
 initOrDerValue
 	: 'init' ':' oclExpression
 initOrDerValue
 	: 'derive' ':' oclExpression
 classifierContextDecl
-	: 'context' pathname invOrDef+
+	: 'context' pathName invOrDef+
 invOrDef
 	: 'inv' simpleNameOptional ':' oclExpression
 invOrDef
@@ -33,7 +33,7 @@ prePostOrBodyDecl
 prePostOrBodyDecl
 	: 'body' simpleNameOptional ':' oclExpression
 operation
-	: pathname '(' variableDeclarationListOptional ')' typeOptional
+	: pathName '(' variableDeclarationListOptional ')' typeOptional
 typeOptional
 	: [':' type]
 variableDeclarationListOptional
@@ -43,7 +43,7 @@ variableDeclarationList
 variableDeclaration
 	: simpleName typeOptional ['=' oclExpression]
 type
-	: pathname
+	: pathName
 type
 	: collectionType
 type
@@ -57,7 +57,7 @@ oclExpression
 oclExpression
 	: '(' oclExpression ')'
 oclExpression
-	: pathname ['@' 'pre']
+	: pathName ['@' 'pre']
 oclExpression
 	: oclExpression '[' argumentList ']' ['@' 'pre']
 oclExpression
@@ -152,8 +152,8 @@ tupleLiteralExp
 	: 'Tuple' '' variableDeclarationList ''
 primitiveLiteralExp
 	: integer | real | string | 'true' | 'false'
-pathname
-	: simpleName | pathname '::' simpleName
+pathName
+	: simpleName | pathName '::' simpleName
 integer
 	: [0-9]+
 real

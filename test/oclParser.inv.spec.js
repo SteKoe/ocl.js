@@ -6,6 +6,8 @@ import ImpliesExpression from './../lib/expressions/impliesExpression';
 import InvariantExpression from './../lib/expressions/invariantExpression';
 import IsEmptyExpression from './../lib/expressions/isEmptyExpression';
 import IteratorExpression from './../lib/expressions/iteratorExpression';
+import SelectExpression from './../lib/expressions/selectExpression';
+import ExistsExpression from './../lib/expressions/existsExpression';
 import NumberExpression from './../lib/expressions/numberExpression';
 import OperationCallExpression from './../lib/expressions/operationCallExpression';
 import StringExpression from './../lib/expressions/stringExpression';
@@ -15,7 +17,7 @@ import NilExpression from './../lib/expressions/nilExpression';
 
 const should = require('should');
 
-describe.only('OCLParser: inv:', () => {
+describe('OCLParser: inv:', () => {
     let OclParser;
     const assertAST = (oclExpression, expected) => new OclParser(oclExpression).parse().should.eql(expected);
     const invariantDecorator = (definition, name) => {
@@ -122,6 +124,18 @@ describe.only('OCLParser: inv:', () => {
         assertAST(oclExpression, expected);
     });
 
+    it('should parse ImpliesExpression II', () => {
+        const oclExpression = `
+            context Entity inv:
+                self.a > 0 implies self.b = 0
+       `;
+
+        const lefty = new OperationCallExpression('>', new VariableExpression('self.a'), new NumberExpression(0));
+        const righty = new OperationCallExpression('=', new VariableExpression('self.b'), new NumberExpression(0));
+        const expected = invariantDecorator(new ImpliesExpression(lefty, righty));
+        assertAST(oclExpression, expected);
+    });
+
     it('should parse ImpliesExpression with FunctionCallExpression', () => {
         const oclExpression = `
             context Entity
@@ -145,7 +159,7 @@ describe.only('OCLParser: inv:', () => {
         assertAST(oclExpression, expected);
     });
 
-    it('should parse complex Invariant', () => {
+    it('should parse AndExpression', () => {
         const oclExpression = `
             context Entity
                 inv: self.a = true and self.b = false
@@ -176,6 +190,24 @@ describe.only('OCLParser: inv:', () => {
         `;
 
         const expected = invariantDecorator(new OperationCallExpression('<>', new VariableExpression('c1'), new NilExpression()));
+        assertAST(oclExpression, expected);
+    });
+
+    it('should parse SelectExpression', () => {
+        const oclExpression = `
+            context Entity inv:
+                self.children->select(c|c.age < 10)
+        `;
+        const expected = invariantDecorator(new SelectExpression(new VariableExpression("self.children"), ["c"], new OperationCallExpression("<", new VariableExpression("c.age"), new NumberExpression(10))));
+        assertAST(oclExpression, expected);
+    });
+
+    it('should parse ExistsExpression', () => {
+        const oclExpression = `
+            context Entity inv:
+                self.children->exists(c|c.age < 10)
+        `;
+        const expected = invariantDecorator(new ExistsExpression(new VariableExpression("self.children"), ["c"], new OperationCallExpression("<", new VariableExpression("c.age"), new NumberExpression(10))));
         assertAST(oclExpression, expected);
     });
 });

@@ -58,7 +58,6 @@ describe('OCLInterpreter: let', () => {
                 inv: self.concat->size() = 4
         `;
         const oclRule = new OclParser(oclExpression).parse();
-
         var o = {
             a: [1,2],
             b: [3,4]

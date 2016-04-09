@@ -5,6 +5,8 @@
 \s+                                 /* ignore */
 "context"                           return 'context'
 "inv"                               return 'inv'
+"def"                               return 'def'
+"let"                               return 'let'
 "true"                              return 'true'
 "false"                             return 'false'
 "and"                               return 'and'
@@ -40,7 +42,8 @@
 /lex
 
 /* operator associations and precedence */
-%left "and" "or" "xor"
+%left "implies" "and" "or" "xor"
+%right "=" ">" ">=" "<" "<=" "<>"
 
 %start contextDeclList
 %% /* language grammar */
@@ -55,32 +58,73 @@ contextDeclaration
 	;
 
 classifierContextDecl
-	: 'context' pathName invOrDef
+	: 'context' pathName invOrDefList
 	    { $$ = new ContextExpression($2, $3) }
 	;
+
+invOrDefList
+    : invOrDefList invOrDef
+        { $$ = $1.concat($2) }
+    | invOrDef
+        { $$ = [$1] }
+    ;
 
 invOrDef
 	: 'inv' simpleNameOptional ':' oclExpression
 	    { $$ = new InvariantExpression($4, $2) }
+    | 'def' simpleNameOptional ':' defExpression
+        { $$ = new LetExpression($2, $4) }
 	;
 
 oclExpression
 	: pathName preOptional
 	    { $$ = new VariableExpression($1) }
-	| literalExp
-	    { $$ = $1 }
+    | '(' oclExpression ')'
+        { $$ = $2 }
     | oclExpression '.' simpleName preOptional
         { $$ = ($1 instanceof VariableExpression) ? new VariableExpression([$1.variable, $3].join('.')) : $1 }
-	| oclExpression '<>' oclExpression
-	    { $$ = new OperationCallExpression('<>', $1, $3) }
+    | oclExpression '<' oclExpression
+        { $$ = new OperationCallExpression('<', $1, $3) }
+    | oclExpression '<=' oclExpression
+        { $$ = new OperationCallExpression('<=', $1, $3) }
 	| oclExpression '=' oclExpression
 	    { $$ = new OperationCallExpression('=', $1, $3) }
+	| oclExpression '>=' oclExpression
+	    { $$ = new OperationCallExpression('>=', $1, $3) }
+	| oclExpression '>' oclExpression
+	    { $$ = new OperationCallExpression('>', $1, $3) }
+	| oclExpression '<>' oclExpression
+	    { $$ = new OperationCallExpression('<>', $1, $3) }
+    | oclExpression 'and' oclExpression
+	    { $$ = new AndExpression($1, $3) }
+    | oclExpression 'or' oclExpression
+	    { $$ = new OrExpression($1, $3) }
+    | oclExpression 'xor' oclExpression
+	    { $$ = new XorExpression($1, $3) }
     | oclExpression '->' simpleName
         { $$ = functionCallExpression($3, $$); }
     | oclExpression '(' variableDeclarationList '|' oclExpression ')'
         { $1.body = $5; $1.iterators = $3; $$ = $1 }
+    | oclExpression '(' oclExpression ')'
+        { $1.body = $3; $$ = $1 }
+    | oclExpression '(' ')'
+        {  }
     | oclExpression 'implies' oclExpression
-        { console.log($$); $$ = new ImpliesExpression($1, $3) }
+        { $$ = new ImpliesExpression($1, $3) }
+	| literalExp
+	    { $$ = $1 }
+	;
+
+defExpression
+	: 'let' simpleName ':' oclExpression
+	    { $$ = new LetExpression($2, $4) }
+	| simpleName ':' oclExpression
+	    { $$ = new LetExpression($1, $3) }
+	;
+
+type
+	: pathName
+	    { $$ = $1 }
 	;
 
 variableDeclaration
@@ -140,31 +184,8 @@ pathName
 	    { $$ = $1 }
 	;
 %%
-function createConstraint(stereoType, constraint) {
-    if(stereoType === 'inv') {
-        return new InvariantExpression(constraint);
-    }
-}
-
-function sequenceOperationCall(fn, source, body) {
-    if(fn.toLowerCase() === 'union') {
-        return new UnionOperation(source, body);
-    } else if(fn.toLowerCase() === 'first') {
-        return new FirstOperation(source);
-    } else if(fn.toLowerCase() === 'at') {
-        return new AOperation(source, body);
-    } else if(fn.toLowerCase() === 'last') {
-        return new LastOperation(source);
-    } else if(fn.toLowerCase() === 'asset') {
-        return new AsSetOperation(source);
-    }
-
-    throw new Error(`SequenceOperationCall with name '${fn.toLowerCase()}' not found!`);
-}
 
 function functionCallExpression(fn, source) {
-    console.log('functionCallExpression', fn, source);
-
     if(fn.toLowerCase() === 'isempty') {
         return new IsEmptyExpression(source);
     } else if(fn.toLowerCase() === 'isnotempty') {
@@ -177,7 +198,17 @@ function functionCallExpression(fn, source) {
         return new SelectExpression(source);
     } else if(fn.toLowerCase() === 'exists') {
         return new ExistsExpression(source);
-    }
+    } else if(fn.toLowerCase() === 'union') {
+       return new UnionOperation(source);
+   } else if(fn.toLowerCase() === 'first') {
+       return new FirstOperation(source);
+   } else if(fn.toLowerCase() === 'at') {
+       return new AOperation(source);
+   } else if(fn.toLowerCase() === 'last') {
+       return new LastOperation(source);
+   } else if(fn.toLowerCase() === 'asset') {
+       return new AsSetOperation(source);
+   }
 
     throw new Error(`No function call expression found for '${fn}' not found!`);
 }

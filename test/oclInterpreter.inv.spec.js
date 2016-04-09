@@ -240,7 +240,7 @@ describe('OCLInterpreter: inv ', () => {
         actual.should.be.true();
     });
 
-    it('size should return array size', () => {
+    it('size should return array size II', () => {
         const oclExpression = `
             context Person 
             inv: self.children->size() = 4
@@ -274,7 +274,7 @@ describe('OCLInterpreter: inv ', () => {
         actual.should.be.false();
     });
 
-    it('should iterate over collected items wihout having a collector', () => {
+    it('should iterate over collected items without having a collector', () => {
         const oclExpression = `
             context Person inv:
                 self.children->forAll(age<10)
