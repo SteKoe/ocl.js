@@ -180,7 +180,7 @@ person.fleet.push(car);
 `;
 oclExpression = `
 context Person
-   def: let redCars: self.fleet->select(color="red")
+   def: let redCars: self.fleet->select(c|c.color="red")
    inv: self.redCars->size > 0
 `;
 new Example(6, title, context, oclExpression, true,  function() {

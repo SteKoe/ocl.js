@@ -326,7 +326,7 @@ describe('OCLInterpreter: inv ', () => {
         actual.should.be.true();
     });
 
-    it('should parse division.', () => {
+    it('should parse division with div.', () => {
         const oclExpression = `
             context Person inv:
                 10 div 5 = 2
@@ -337,7 +337,7 @@ describe('OCLInterpreter: inv ', () => {
         actual.should.be.true();
     });
 
-    it('should parse division.', () => {
+    it('should parse multiply.', () => {
         const oclExpression = `
             context Person inv:
                 -2.5 * 2 = -5
@@ -359,5 +359,19 @@ describe('OCLInterpreter: inv ', () => {
         actual.should.be.true();
     });
 
+    it('should parse select', () => {
+        const oclExpression = `
+            context Person 
+                inv: self.a->select(a| a < 2)->size = 1
+       `;
+
+        const obj = {
+            a: [1, 4]
+        };
+
+        const oclRule = new OclParser(oclExpression).parse();
+        let actual = oclRule.evaluate(obj);
+        actual.should.be.true();
+    });
 });
 
