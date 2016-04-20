@@ -1,5 +1,8 @@
-
 <img src="lib/logo.png" alt="OCL.js logo" align="right" width="200" />
+
+[![Build Status](https://img.shields.io/travis/SteKoe/ocl.js/master.svg)](https://travis-ci.org/SteKoe/ocl.js)
+[![devDependency Status](https://david-dm.org/SteKoe/ocl.js/dev-status.svg)](https://david-dm.org/SteKoe/ocl.js#info=devDependencies)
+[![License: MIT](https://img.shields.io/dub/l/vibe-d.svg?maxAge=2592000)](https://opensource.org/licenses/MIT)
 
 ## OCL.js
 The Object Constraint Language (OCL) is a language for describing rules that apply to MOF conform modelling languages like UML.
