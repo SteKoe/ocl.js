@@ -2,7 +2,7 @@ const should = require('should');
 
 import ContextExpression from '../../lib/expressions/contextExpression'
 
-describe.only('ContextExpression', () => {
+describe('ContextExpression', () => {
     const expr = new ContextExpression();
 
 

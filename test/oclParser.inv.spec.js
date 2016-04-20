@@ -1,4 +1,4 @@
-import OclParserGenerator from './../lib/OclParserGenerator'
+import OclParserGenerator from './../lib/oclParserGenerator'
 
 import ContextExpression from './../lib/expressions/contextExpression';
 import AndExpression from './../lib/expressions/andExpression';

@@ -1,5 +1,5 @@
 'use strict';
-import OclParserGenerator from './../lib/OclParserGenerator'
+import OclParserGenerator from './../lib/oclParserGenerator'
 
 const should = require('should');
 let OclParser;
