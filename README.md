@@ -8,6 +8,9 @@
 The Object Constraint Language (OCL) is a language for describing rules that apply to MOF conform modelling languages like UML.
 The OCL is a text based language that provides constraint and object query expressions that cannot be expressed by a meta modelling language.
 
+## Example Page
+To illustrate the usage of this library, an example web page has been set up [here](http://ocl.stekoe.de/).
+
 ## Supported concepts
 This package does not fully conform to the OCL definition by OMG and implements a subset of the given concepts.
 
