@@ -6,7 +6,7 @@ import BoolExpression from '../../lib/expressions/booleanExpression'
 const TRUE = new BoolExpression(true);
 const FALSE = new BoolExpression(false);
 
-describe('OrExpression should evaluate', () => {
+describe('OrExpression', () => {
     it('TRUE TRUE', () => {
         const expr = new OrExpression(TRUE, TRUE);
         expr.evaluate().should.be.true;

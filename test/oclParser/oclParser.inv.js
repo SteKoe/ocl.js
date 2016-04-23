@@ -1,23 +1,23 @@
-import OclParserGenerator from './../lib/oclParserGenerator'
+import OclParserGenerator from './../../lib/oclParserGenerator'
 
-import ContextExpression from './../lib/expressions/contextExpression';
-import AndExpression from './../lib/expressions/andExpression';
-import ImpliesExpression from './../lib/expressions/impliesExpression';
-import InvariantExpression from './../lib/expressions/invariantExpression';
-import IsEmptyExpression from './../lib/expressions/isEmptyExpression';
-import IteratorExpression from './../lib/expressions/iteratorExpression';
-import SelectExpression from './../lib/expressions/selectExpression';
-import ExistsExpression from './../lib/expressions/existsExpression';
-import NumberExpression from './../lib/expressions/numberExpression';
-import OperationCallExpression from './../lib/expressions/operationCallExpression';
-import StringExpression from './../lib/expressions/stringExpression';
-import BooleanExpression from './../lib/expressions/booleanExpression';
-import VariableExpression from './../lib/expressions/variableExpression';
-import NilExpression from './../lib/expressions/nilExpression';
+import ContextExpression from './../../lib/expressions/contextExpression';
+import AndExpression from './../../lib/expressions/andExpression';
+import ImpliesExpression from './../../lib/expressions/impliesExpression';
+import InvariantExpression from './../../lib/expressions/invariantExpression';
+import IsEmptyExpression from './../../lib/expressions/isEmptyExpression';
+import IteratorExpression from './../../lib/expressions/iteratorExpression';
+import SelectExpression from './../../lib/expressions/selectExpression';
+import ExistsExpression from './../../lib/expressions/existsExpression';
+import NumberExpression from './../../lib/expressions/numberExpression';
+import OperationCallExpression from './../../lib/expressions/operationCallExpression';
+import StringExpression from './../../lib/expressions/stringExpression';
+import BooleanExpression from './../../lib/expressions/booleanExpression';
+import VariableExpression from './../../lib/expressions/variableExpression';
+import NilExpression from './../../lib/expressions/nilExpression';
 
 const should = require('should');
 
-describe('OCLParser: inv:', () => {
+describe('Invariants', () => {
     let OclParser;
     const assertAST = (oclExpression, expected) => new OclParser(oclExpression).parse().should.eql(expected);
     const invariantDecorator = (definition, name) => {
@@ -26,7 +26,7 @@ describe('OCLParser: inv:', () => {
 
     before(() => {
         OclParserGenerator.generate();
-        OclParser = require('./../lib/oclParser').default;
+        OclParser = require('./../../lib/oclParser').default;
     });
 
     it('should parse OCL constraint', () => {

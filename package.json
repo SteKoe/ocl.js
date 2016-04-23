@@ -4,7 +4,7 @@
   "description": "",
   "main": "ocl.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
+    "test": "node ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.spec.js",
     "build": "gulp build",
     "build:examples": "gulp build:examples"
   },
@@ -18,6 +18,7 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "glob": "^7.0.3",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",

@@ -8,13 +8,13 @@ describe('IsEmptyExpression', () => {
         //self.children->isEmpty()
         const ne = new IsEmptyExpression(new VariableExpression('self.children'));
 
-        ne.evaluate({name: 'Otto'}).should.be.true;
-        ne.evaluate({name: 'Otto', children: []}).should.be.true;
+        ne.evaluate({name: 'Otto'}).should.be.true();
+        ne.evaluate({name: 'Otto', children: []}).should.be.true();
     });
 
     it('should evaluate isEmpty when not empty', () => {
         const ne = new IsEmptyExpression(new VariableExpression('self.children'));
 
-        ne.evaluate({name: 'Otto', children: [1]}).should.be.false;
+        ne.evaluate({name: 'Otto', children: [1]}).should.be.false();
     });
 });

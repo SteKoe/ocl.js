@@ -5,7 +5,7 @@ import OperationCallExpression from '../../lib/expressions/operationCallExpressi
 import VariableExpression from '../../lib/expressions/variableExpression'
 import NumberExpression from '../../lib/expressions/numberExpression'
 
-describe('ExistsExpression', () => {
+describe('IteratorExpression', () => {
     const self = {
         collection: [
             {age: 1},

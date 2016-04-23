@@ -4,6 +4,7 @@ import ExistsExpression from '../../lib/expressions/existsExpression'
 import OperationCallExpression from '../../lib/expressions/operationCallExpression'
 import VariableExpression from '../../lib/expressions/variableExpression'
 import NumberExpression from '../../lib/expressions/numberExpression'
+import StringExpression from '../../lib/expressions/stringExpression'
 
 describe('ExistsExpression', () => {
     const self = {
@@ -13,6 +14,10 @@ describe('ExistsExpression', () => {
             {age: 4},
             {age: 8},
             {age: 16}
+        ],
+        children: [
+            {name: 'A'},
+            {name: 'B'}
         ]
     };
 
@@ -35,5 +40,12 @@ describe('ExistsExpression', () => {
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new ExistsExpression(source, 'a', expression);
         expr.evaluate(self).should.be.false();
+    });
+
+    it('should return true for string', () => {
+        const source = new VariableExpression('self.children');
+        const expression = new OperationCallExpression('>', new VariableExpression('c.name'), new StringExpression("A"));
+        var expr = new ExistsExpression(source, 'c', expression);
+        expr.evaluate(self).should.be.true();
     });
 });

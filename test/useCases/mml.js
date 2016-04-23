@@ -1,5 +1,5 @@
 'use strict';
-import OclParserGenerator from './../lib/oclParserGenerator'
+import OclParserGenerator from './../../lib/oclParserGenerator'
 
 const should = require('should');
 let OclParser;
@@ -12,10 +12,10 @@ class MetaAssociationLink {
     }
 }
 
-describe('MML OCL checks', () => {
+describe('MML', () => {
     before(() => {
         OclParserGenerator.generate();
-        OclParser = require('./../lib/oclParser').default;
+        OclParser = require('./../../lib/oclParser').default;
     });
 
     it('MetaEntity metaAssociationLinks have different role names.', () => {
