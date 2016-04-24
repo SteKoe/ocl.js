@@ -24,14 +24,31 @@ class Example {
 
     run() {
         const elementById = document.getElementById(`example${this.id}`);
-        elementById.getElementsByClassName('title')[0].innerHTML = this.title.trim();
+        const elemTitle = elementById.getElementsByClassName('title')[0];
+        elemTitle.onclick = () => this._toggleClass(elemTitle, 'visible');
+        elemTitle.innerHTML = this.title.trim();
         elementById.getElementsByTagName('code')[0].innerText = this.ctx.trim();
         elementById.getElementsByTagName('code')[1].innerText = this.oclExpression.trim();
         const resultTag = elementById.getElementsByClassName('result')[0];
         if (resultTag) {
-            resultTag.innerText = this.fn.apply(this) ? 'valid' : 'invalid';
-            resultTag.innerText += ` expected ${this.expected ? 'valid' : 'invalid'}!`
+            let resultIsExpectedResult = this.fn.apply(this) === this.expected;
+            resultTag.innerHTML = `The result of the above rule should ${result(this.expected)} and does ${result(this.fn.apply(this))}.`;
         }
+
+        function result(boolean) {
+            return `<strong>${boolean ? 'PASS' : 'NOT PASS'}</strong>`
+        }
+    }
+
+    _toggleClass(elem, className) {
+        var currentClassName = elem.className;
+        if (currentClassName.indexOf(className) !== -1) {
+            currentClassName = currentClassName.replace(className, '');
+        } else {
+            currentClassName += ` ${className}`;
+        }
+            
+        elem.className = currentClassName;
     }
 }
 
@@ -66,7 +83,7 @@ oclExpression = [
     'context Car',
     '   inv: self.owner.age >= 18'
 ].join('\n');
-new Example(1, title, context, oclExpression, true,  function() {
+new Example(1, title, context, oclExpression, true, function () {
     var person = new Person(29);
     var car = new Car('red');
     car.owner = person;
@@ -90,7 +107,7 @@ oclExpression = [
     'context Person',
     '   inv: self.fleet->size() <= 3'
 ].join('\n');
-new Example(2, title, context, oclExpression, false,  function() {
+new Example(2, title, context, oclExpression, false, function () {
     var person = new Person(29);
     var car = new Car('red');
 
@@ -118,7 +135,7 @@ oclExpression = [
     'context Person',
     '   inv: self.cars->forAll(c|c.color = "red")'
 ].join('\n');
-new Example(3, title, context, oclExpression, false, function() {
+new Example(3, title, context, oclExpression, false, function () {
     var person = new Person(29);
     var redCar = new Car('red');
     var greenCar = new Car('green');
@@ -138,7 +155,7 @@ oclExpression = [
     'context Person',
     '   inv: self.age < 18 implies self.fleet->isEmpty'
 ].join('\n');
-new Example(4, title, context, oclExpression, true,  function() {
+new Example(4, title, context, oclExpression, true, function () {
     var person = new Person(6);
 
     var oclRule = new OclParser(this.oclExpression).parse();
@@ -158,7 +175,7 @@ oclExpression = [
     'context Person',
     '   inv: self.fleet->select(c|c.color="red")->size > 0'
 ].join('\n');
-new Example(5, title, context, oclExpression, true,  function() {
+new Example(5, title, context, oclExpression, true, function () {
     var person = new Person(29);
     var car = new Car('red');
 
@@ -183,7 +200,7 @@ context Person
    def: let redCars: self.fleet->select(c|c.color="red")
    inv: self.redCars->size > 0
 `;
-new Example(6, title, context, oclExpression, true,  function() {
+new Example(6, title, context, oclExpression, true, function () {
     var person = new Person(29);
     var car = new Car('red');
 
