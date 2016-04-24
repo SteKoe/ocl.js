@@ -16,7 +16,7 @@ describe('Collection->select ', () => {
 
     it('should parse select', () => {
         const oclExpression = `
-                context Person 
+                context Object 
                     inv: self.a->select(a | a < 2)->size = 1
            `;
 

@@ -12,7 +12,7 @@ describe('OCLInterpreter: let', () => {
 
     it('should set simple string variable', () => {
         const oclExpression = `
-            context Person
+            context Object
                 def: let variable: "test"
                 inv: self.variable = "test"
         `;
@@ -25,7 +25,7 @@ describe('OCLInterpreter: let', () => {
 
     it('should set simple string variable without let', () => {
         const oclExpression = `
-            context Person
+            context Object
                 def: variable: "test"
                 inv: self.variable = "test"
         `;
@@ -38,7 +38,7 @@ describe('OCLInterpreter: let', () => {
 
     it('should assign ->size() call', () => {
         const oclExpression = `
-            context Person
+            context Object
                 def: let childCount: self.children->size()
                 inv: self.childCount = 2
         `;
@@ -53,7 +53,7 @@ describe('OCLInterpreter: let', () => {
 
     it('should process union', () => {
         const oclExpression = `
-            context Person
+            context Object
                 def: let concat: self.a->union(self.b)
                 inv: self.concat->size() = 4
         `;
