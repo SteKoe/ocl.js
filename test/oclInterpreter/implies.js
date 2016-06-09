@@ -19,7 +19,7 @@ describe('Collection->forAll', () => {
                     self.age > 0 implies self.age <> 0
            `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.ok();
     });
@@ -30,7 +30,7 @@ describe('Collection->forAll', () => {
                     self.age > 0 implies self.age = 0
            `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.not.be.ok();
     });
@@ -41,7 +41,7 @@ describe('Collection->forAll', () => {
                     self.name->isNotEmpty() implies self.name <> ""
            `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.ok();
     });

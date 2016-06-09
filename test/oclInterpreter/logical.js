@@ -23,7 +23,7 @@ describe('logical expressions', () => {
 
     testCases.forEach(testCase => {
         it(`should evaluate ${testCase.oclExpression}`, () => {
-            const oclRule = new OclParser(testCase.oclExpression).parse();
+            const oclRule = OclParser.parse(testCase.oclExpression);
             if(testCase.expectedResult === true) {
                 oclRule.evaluate().should.be.true();
             } else {

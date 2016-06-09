@@ -17,7 +17,7 @@ describe('Math', () => {
                 1 + 2 = 3
        `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
         actual.should.be.true();
     });
@@ -28,7 +28,7 @@ describe('Math', () => {
                 1.0 - 2 = -1
        `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
         actual.should.be.true();
     });
@@ -39,7 +39,7 @@ describe('Math', () => {
                 10 / 2 = 5
        `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
         actual.should.be.true();
     });
@@ -50,7 +50,7 @@ describe('Math', () => {
                 10 div 5 = 2
        `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
         actual.should.be.true();
     });
@@ -61,7 +61,7 @@ describe('Math', () => {
                 -2.5 * 2 = -5
        `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
         actual.should.be.true();
     });
@@ -72,7 +72,7 @@ describe('Math', () => {
                 7 mod 4 = 3
        `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
         actual.should.be.true();
     });

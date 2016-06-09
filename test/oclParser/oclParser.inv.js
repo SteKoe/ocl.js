@@ -19,7 +19,7 @@ const should = require('should');
 
 describe('Invariants', () => {
     let OclParser;
-    const assertAST = (oclExpression, expected) => new OclParser(oclExpression).parse().should.eql(expected);
+    const assertAST = (oclExpression, expected) => OclParser.parse(oclExpression).should.eql(expected);
     const invariantDecorator = (definition, name) => {
         return new ContextExpression('Entity', definition ? new InvariantExpression(definition, name) : {});
     };

@@ -16,7 +16,7 @@ describe('OCLInterpreter: let', () => {
                 def: let variable: "test"
                 inv: self.variable = "test"
         `;
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
 
         var a = {};
         let actual = oclRule.evaluate(a);
@@ -29,7 +29,7 @@ describe('OCLInterpreter: let', () => {
                 def: variable: "test"
                 inv: self.variable = "test"
         `;
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
 
         var a = {};
         let actual = oclRule.evaluate(a);
@@ -42,7 +42,7 @@ describe('OCLInterpreter: let', () => {
                 def: let childCount: self.children->size()
                 inv: self.childCount = 2
         `;
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
 
         var mother = {
             children: [1,2]
@@ -57,7 +57,7 @@ describe('OCLInterpreter: let', () => {
                 def: let concat: self.a->union(self.b)
                 inv: self.concat->size() = 4
         `;
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         var o = {
             a: [1,2],
             b: [3,4]

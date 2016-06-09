@@ -25,7 +25,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('B', 50)
         ];
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.not.be.ok();
     });
@@ -41,7 +41,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('B', 40)
         ];
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.ok();
     });
@@ -61,7 +61,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('E', 5)
         ];
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.ok();
     });
@@ -81,7 +81,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('E', 5)
         ];
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.not.be.ok();
     });
@@ -100,7 +100,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('E', 10)
         ];
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.false();
     });

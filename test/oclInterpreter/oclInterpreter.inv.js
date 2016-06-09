@@ -19,7 +19,7 @@ describe('OCLInterpreter: inv ', () => {
             context Person
                 inv: self.parent <> self
         `;
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
 
         let actual = oclRule.evaluate(mother);
         actual.should.be.ok();
@@ -44,7 +44,7 @@ describe('OCLInterpreter: inv ', () => {
                 self.minCard <= self.maxCard or (self.minCard = nil and self.maxCard = nil)
         `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         oclRule.evaluate(attr).should.be.true();
     });
 
@@ -54,7 +54,7 @@ describe('OCLInterpreter: inv ', () => {
                 self.name->isNotEmpty
        `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.ok();
     });
@@ -72,7 +72,7 @@ describe('OCLInterpreter: inv ', () => {
             FixtureFactory.createPerson('D', 8)
         ];
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.true();
     });
@@ -91,7 +91,7 @@ describe('OCLInterpreter: inv ', () => {
             FixtureFactory.createPerson('D', 8)
         ];
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.false();
     });
@@ -106,7 +106,7 @@ describe('OCLInterpreter: inv ', () => {
             a: [1, 2, 2, 3, 3, 3, 3, 4]
         };
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(obj);
         actual.should.be.false();
     });

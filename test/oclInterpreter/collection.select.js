@@ -24,7 +24,7 @@ describe('Collection->select ', () => {
             a: [1, 4]
         };
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(obj);
         actual.should.be.true();
     });
@@ -43,7 +43,7 @@ describe('Collection->select ', () => {
                 self.children->select(c|c.age < 10)->size() = 4
         `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         oclRule.evaluate(mother).should.be.true();
     });
 
@@ -61,7 +61,7 @@ describe('Collection->select ', () => {
             FixtureFactory.createPerson('E', 10)
         ];
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.true();
     });

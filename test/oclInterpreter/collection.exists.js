@@ -25,7 +25,7 @@ describe('Collection->exists', () => {
                 self.children->exists(c|c.age > 20)
         `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         oclRule.evaluate(mother).should.be.false();
     });
 
@@ -37,7 +37,7 @@ describe('Collection->exists', () => {
                 self.children.name->exists(n | n = "D")
        `;
 
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
         actual.should.be.false();
     });
