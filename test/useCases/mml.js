@@ -23,7 +23,7 @@ describe('MML', () => {
             context MetaEntity inv: 
                 self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
         `;
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
 
 
         let metaEntity = new MetaEntity();
@@ -43,7 +43,7 @@ describe('MML', () => {
             context MetaEntity inv: 
                 self.isType = true implies self.isIntrinsic = false
         `;
-        const oclRule = new OclParser(oclExpression).parse();
+        const oclRule = OclParser.parse(oclExpression);
 
         oclRule.evaluate(metaEntity).should.be.ok();
 
