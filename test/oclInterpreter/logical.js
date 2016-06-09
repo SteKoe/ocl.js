@@ -1,14 +1,14 @@
 'use strict';
 const should = require('should');
 
-import OclParserGenerator from './../../lib/oclParserGenerator'
+import OclParserGenerator from '../../lib/parser/oclParserGenerator'
 
 describe('logical expressions', () => {
     let OclParser;
 
     before(() => {
         OclParserGenerator.generate();
-        OclParser = require('./../../lib/oclParser').default;
+        OclParser = require('./../../lib/parser/oclParser').default;
     });
 
     const testCases = [

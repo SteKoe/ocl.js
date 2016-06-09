@@ -1,6 +1,6 @@
 const should = require('should');
 
-import VariableExpression from '../../lib/expressions/variableExpression'
+import VariableExpression from '../../lib/parser/expressions/variableExpression'
 
 describe('VariableExpression', () => {
     const person = {

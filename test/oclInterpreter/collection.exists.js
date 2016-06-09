@@ -1,7 +1,7 @@
 'use strict';
 const should = require('should');
 
-import OclParserGenerator from './../../lib/oclParserGenerator'
+import OclParserGenerator from '../../lib/parser/oclParserGenerator'
 import FixtureFactory from './../fixture.factory.js';
 
 const mother  = FixtureFactory.createPerson('Hilde');
@@ -16,7 +16,7 @@ describe('Collection->exists', () => {
 
     before(() => {
         OclParserGenerator.generate();
-        OclParser = require('./../../lib/oclParser').default;
+        OclParser = require('./../../lib/parser/oclParser').default;
     });
 
     it('should evaluate exists()', () => {

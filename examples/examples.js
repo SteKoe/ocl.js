@@ -1,5 +1,4 @@
-import OclParser from '../lib/oclParser';
-
+import OclEngine from '../lib/oclEngine';
 const hljs = require('../node_modules/highlight.js/lib/highlight');
 var ocl = require('./hljs.ocl');
 hljs.registerLanguage('ocl', ocl);
@@ -88,8 +87,9 @@ new Example(1, title, context, oclExpression, true, function () {
     var car = new Car('red');
     car.owner = person;
 
-    var oclRule = new OclParser(this.oclExpression).parse();
-    return oclRule.evaluate(car);
+    return new OclEngine()
+        .addOclExpression(this.oclExpression)
+        .evaluate(car);
 });
 
 // ======================================================================================
@@ -116,8 +116,9 @@ new Example(2, title, context, oclExpression, false, function () {
     person.fleet.push(car);
     person.fleet.push(car);
 
-    var oclRule = new OclParser(this.oclExpression).parse();
-    return oclRule.evaluate(person);
+    return new OclEngine()
+        .addOclExpression(this.oclExpression)
+        .evaluate(person);
 });
 
 // ======================================================================================
@@ -144,8 +145,9 @@ new Example(3, title, context, oclExpression, false, function () {
     person.fleet.push(redCar);
     person.fleet.push(greenCar);
 
-    var oclRule = new OclParser(this.oclExpression).parse();
-    return oclRule.evaluate(person);
+    return new OclEngine()
+        .addOclExpression(this.oclExpression)
+        .evaluate(person);
 });
 
 // ======================================================================================
@@ -158,8 +160,9 @@ oclExpression = [
 new Example(4, title, context, oclExpression, true, function () {
     var person = new Person(6);
 
-    var oclRule = new OclParser(this.oclExpression).parse();
-    return oclRule.evaluate(person);
+    return new OclEngine()
+        .addOclExpression(this.oclExpression)
+        .evaluate(person);
 });
 
 // ======================================================================================
@@ -182,8 +185,9 @@ new Example(5, title, context, oclExpression, true, function () {
     person.fleet.push(car);
     person.fleet.push(car);
 
-    var oclRule = new OclParser(this.oclExpression).parse();
-    return oclRule.evaluate(person);
+    return new OclEngine()
+        .addOclExpression(this.oclExpression)
+        .evaluate(person);
 });
 
 // ======================================================================================
@@ -207,7 +211,8 @@ new Example(6, title, context, oclExpression, true, function () {
     person.fleet.push(car);
     person.fleet.push(car);
 
-    var oclRule = new OclParser(this.oclExpression).parse();
-    return oclRule.evaluate(person);
+    return new OclEngine()
+        .addOclExpression(this.oclExpression)
+        .evaluate(person);
 });
 

@@ -1,9 +1,9 @@
 const should = require('should');
 
-import SelectExpression from '../../lib/expressions/selectExpression'
-import OperationCallExpression from '../../lib/expressions/operationCallExpression'
-import VariableExpression from '../../lib/expressions/variableExpression'
-import NumberExpression from '../../lib/expressions/numberExpression'
+import SelectExpression from '../../lib/parser/expressions/selectExpression'
+import OperationCallExpression from '../../lib/parser/expressions/operationCallExpression'
+import VariableExpression from '../../lib/parser/expressions/variableExpression'
+import NumberExpression from '../../lib/parser/expressions/numberExpression'
 
 describe('SelectExpression', () => {
     const self = {

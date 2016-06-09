@@ -1,6 +1,6 @@
 const should = require('should');
 
-import NilExpression from '../../lib/expressions/nilExpression'
+import NilExpression from '../../lib/parser/expressions/nilExpression'
 
 describe('NilExpression', () => {
     it('should evaluate to undefined', () => {

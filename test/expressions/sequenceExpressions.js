@@ -1,8 +1,8 @@
 const should = require('should');
 
-import VariableExpression from '../../lib/expressions/variableExpression'
-import NumberExpression from '../../lib/expressions/numberExpression'
-import {UnionOperation, AtOperation, FirstOperation, LastOperation} from '../../lib/expressions/sequenceExpressions'
+import VariableExpression from '../../lib/parser/expressions/variableExpression'
+import NumberExpression from '../../lib/parser/expressions/numberExpression'
+import {UnionOperation, AtOperation, FirstOperation, LastOperation} from '../../lib/parser/expressions/sequenceExpressions'
 
 describe('SequenceExpressions', () => {
     const selfA = new VariableExpression('self.a');

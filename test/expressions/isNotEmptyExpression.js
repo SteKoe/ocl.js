@@ -1,7 +1,7 @@
 const should = require('should');
 
-import VariableExpression from '../../lib/expressions/variableExpression'
-import IsNotEmptyExpression from '../../lib/expressions/isNotEmptyExpression'
+import VariableExpression from '../../lib/parser/expressions/variableExpression'
+import IsNotEmptyExpression from '../../lib/parser/expressions/isNotEmptyExpression'
 
 describe('IsNotEmptyExpression', () => {
     it('should evaluate isNotEmtpy when empty', () => {

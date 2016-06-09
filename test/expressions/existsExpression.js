@@ -1,10 +1,10 @@
 const should = require('should');
 
-import ExistsExpression from '../../lib/expressions/existsExpression'
-import OperationCallExpression from '../../lib/expressions/operationCallExpression'
-import VariableExpression from '../../lib/expressions/variableExpression'
-import NumberExpression from '../../lib/expressions/numberExpression'
-import StringExpression from '../../lib/expressions/stringExpression'
+import ExistsExpression from '../../lib/parser/expressions/existsExpression'
+import OperationCallExpression from '../../lib/parser/expressions/operationCallExpression'
+import VariableExpression from '../../lib/parser/expressions/variableExpression'
+import NumberExpression from '../../lib/parser/expressions/numberExpression'
+import StringExpression from '../../lib/parser/expressions/stringExpression'
 
 describe('ExistsExpression', () => {
     const self = {

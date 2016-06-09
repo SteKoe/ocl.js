@@ -1,5 +1,5 @@
 'use strict';
-import OclParserGenerator from './../../lib/oclParserGenerator'
+import OclParserGenerator from '../../lib/parser/oclParserGenerator'
 
 const should = require('should');
 let OclParser;
@@ -7,7 +7,7 @@ let OclParser;
 describe('OCLInterpreter: let', () => {
     before(() => {
         OclParserGenerator.generate();
-        OclParser = require('./../../lib/oclParser').default;
+        OclParser = require('./../../lib/parser/oclParser').default;
     });
 
     it('should set simple string variable', () => {

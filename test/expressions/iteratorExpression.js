@@ -1,9 +1,9 @@
 const should = require('should');
 
-import IteratorExpression from '../../lib/expressions/iteratorExpression'
-import OperationCallExpression from '../../lib/expressions/operationCallExpression'
-import VariableExpression from '../../lib/expressions/variableExpression'
-import NumberExpression from '../../lib/expressions/numberExpression'
+import IteratorExpression from '../../lib/parser/expressions/iteratorExpression'
+import OperationCallExpression from '../../lib/parser/expressions/operationCallExpression'
+import VariableExpression from '../../lib/parser/expressions/variableExpression'
+import NumberExpression from '../../lib/parser/expressions/numberExpression'
 
 describe('IteratorExpression', () => {
     const self = {

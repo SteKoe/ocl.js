@@ -1,7 +1,7 @@
 'use strict';
 const should = require('should');
 
-import OclParserGenerator from './../../lib/oclParserGenerator'
+import OclParserGenerator from '../../lib/parser/oclParserGenerator'
 import FixtureFactory from '../fixture.factory'
 
 let OclParser;
@@ -11,7 +11,7 @@ describe('Collection->forAll', () => {
 
     before(() => {
         OclParserGenerator.generate();
-        OclParser = require('./../../lib/oclParser').default;
+        OclParser = require('./../../lib/parser/oclParser').default;
     });
 
     it('should evaluate forAll(c|...): negative', () => {

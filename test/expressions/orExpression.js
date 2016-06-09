@@ -1,7 +1,7 @@
 const should = require('should');
 
-import OrExpression from '../../lib/expressions/orExpression'
-import BoolExpression from '../../lib/expressions/booleanExpression'
+import OrExpression from '../../lib/parser/expressions/orExpression'
+import BoolExpression from '../../lib/parser/expressions/booleanExpression'
 
 const TRUE = new BoolExpression(true);
 const FALSE = new BoolExpression(false);

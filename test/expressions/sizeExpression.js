@@ -1,7 +1,7 @@
 const should = require('should');
 
-import VariableExpression from '../../lib/expressions/variableExpression'
-import SizeExpression from '../../lib/expressions/sizeExpression'
+import VariableExpression from '../../lib/parser/expressions/variableExpression'
+import SizeExpression from '../../lib/parser/expressions/sizeExpression'
 
 describe('SizeExpression', () => {
     it('should evaluate isEmtpy when empty', () => {

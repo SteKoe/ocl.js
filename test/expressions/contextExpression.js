@@ -1,6 +1,6 @@
 const should = require('should');
 
-import ContextExpression from '../../lib/expressions/contextExpression'
+import ContextExpression from '../../lib/parser/expressions/contextExpression'
 
 describe('ContextExpression', () => {
     const expr = new ContextExpression();

@@ -1,6 +1,6 @@
 const should = require('should');
 
-import OclIsTypeOfExpression from '../../lib/expressions/oclIsTypeOfExpression'
+import OclIsTypeOfExpression from '../../lib/parser/expressions/oclIsTypeOfExpression'
 
 class Animal {}
 class Human extends Animal {}
