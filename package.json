@@ -27,7 +27,7 @@
     "jison": "^0.4.17",
     "mocha": "^2.4.5",
     "raw-loader": "^0.5.1",
-    "should": "^8.2.2",
+    "should": "^9.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "webpack": "^1.12.14"
