@@ -1,4 +1,5 @@
-import OclEngine from '../lib/oclEngine';
+import OclEngine from '../lib/index';
+
 const hljs = require('../node_modules/highlight.js/lib/highlight');
 var ocl = require('./hljs.ocl');
 hljs.registerLanguage('ocl', ocl);

@@ -1,20 +1,25 @@
 {
-  "name": "ocl.js",
+  "name": "ocl",
   "version": "1.0.0",
   "description": "",
-  "main": "ocl.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.spec.js",
-    "build": "gulp build",
-    "build:examples": "gulp build:examples"
+    "test": "npm run generate:parser &&  node ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.spec.js",
+    "build": "npm run generate:parser && npm run build:lib && npm run build:min && npm run build:max",
+    "build:lib": "rm -rf lib && babel src --out-dir lib",
+    "build:min": "webpack --optimize-minimize lib/index.js dist/ocl.min.js",
+    "build:max": "webpack lib/index.js dist/ocl.js",
+    "build:examples": "npm run build && babel examples/examples.js -o examples/examples.min.js && webpack examples/examples.min.js examples/examples.min.js",
+    "generate:parser": "rm -rf ./src/components/parser/parser.js && node generator/oclParserGenerator.js"
   },
-  "author": "",
+  "author": "Stephan Köninger <ocl.js@stekoe.de>",
   "license": "MIT",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.7.2",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.6.0",
+    "babel-preset-es2015-loose": "^7.0.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
