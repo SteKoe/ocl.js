@@ -25,6 +25,36 @@ export class OclEngine {
     evaluate(obj) {
         const type = Utils.getClassName(obj);
         const oclExpressionsForType = this.getOclExpressionsForType(type);
-        return oclExpressionsForType.every(e => e.evaluate(obj))
+        oclExpressionsForType.forEach(e => e.evaluate(obj));
+
+        var namesOfFailedInvs = oclExpressionsForType
+            .filter(e => e.evaluationResult === false)
+            .map(e => e.invs)
+            .reduce((p, c) => p.concat(c), [])
+            .filter(i => i.evaluationResult === false)
+            .map(i => i.name || 'anonymous');
+
+        const oclResult = new OclResult();
+        oclResult.setResult(namesOfFailedInvs.length === 0);
+        oclResult.setNamesOfFailedInvs(namesOfFailedInvs);
+        return oclResult;
+    }
+}
+
+class OclResult {
+    setResult(result) {
+        this.result = result;
+    }
+
+    getResult() {
+        return this.result;
+    }
+
+    setNamesOfFailedInvs(names) {
+        this.setNamesOfFailedInvs = names;
+    }
+
+    getNamesOfFailedInvs() {
+        return this.setNamesOfFailedInvs;
     }
 }

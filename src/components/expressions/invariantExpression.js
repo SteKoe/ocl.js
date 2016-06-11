@@ -10,6 +10,7 @@ export class InvariantExpression extends Expression {
     }
 
     evaluate(obj) {
-        return this.definition.evaluate(obj);
+        this.evaluationResult = this.definition.evaluate(obj);
+        return this.evaluationResult;
     }
 }

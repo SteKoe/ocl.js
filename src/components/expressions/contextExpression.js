@@ -18,14 +18,16 @@ export class ContextExpression extends Expression {
 
     evaluate(obj) {
         obj = obj || {};
+        this.evaluationResult = false;
 
         if(this.targetType === this._getClassName(obj)) {
             this.defs.forEach(def => def.evaluate(obj));
             const map = this.invs.map(i => i.evaluate(obj));
-            return !map.some(i => i === false);
+            this.evaluationResult = !map.some(i => i === false);
+            return this.evaluationResult;
         }
 
-        return false;
+        return this.evaluationResult;
     }
 
     _getClassName(obj) {
