@@ -1,6 +1,6 @@
 {
   "name": "ocl-js",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.0",
   "description": "",
   "main": "./lib/index.js",
   "scripts": {
@@ -12,7 +12,12 @@
     "build:examples": "npm run build && babel examples/examples.js -o examples/examples.min.js && webpack examples/examples.min.js examples/examples.min.js",
     "generate:parser": "rm -rf ./src/components/parser/parser.js && node generator/oclParserGenerator.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SteKoe/ocl.js"
+  },
   "author": "Stephan Köninger <ocl.js@stekoe.de>",
+  "homepage": "https://github.com/SteKoe/ocl.js#readme",
   "license": "MIT",
   "devDependencies": {
     "babel": "^6.5.2",
