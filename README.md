@@ -1,4 +1,4 @@
-<img src="lib/logo.png" alt="OCL.js logo" align="right" width="200" />
+<img src="logo.png" alt="OCL.js logo" align="right" width="200" />
 
 [![Build Status](https://img.shields.io/travis/SteKoe/ocl.js/master.svg)](https://travis-ci.org/SteKoe/ocl.js)
 [![devDependency Status](https://david-dm.org/SteKoe/ocl.js/dev-status.svg)](https://david-dm.org/SteKoe/ocl.js#info=devDependencies)
