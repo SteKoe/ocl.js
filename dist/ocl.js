@@ -46,7 +46,9 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
 	var _oclEngine = __webpack_require__(1);
 
@@ -58,8 +60,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.OclEngine = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _oclParser = __webpack_require__(2);
 
@@ -74,31 +80,84 @@
 	        this.oclExpressionsPerType = {};
 	    }
 
-	    OclEngine.prototype.addOclExpression = function addOclExpression(oclExpression) {
-	        var parsedExpression = _oclParser.OclParser.parse(oclExpression);
-	        this._addOclExpressionForType(parsedExpression.targetType, parsedExpression);
-	        return this;
-	    };
+	    _createClass(OclEngine, [{
+	        key: 'addOclExpression',
+	        value: function addOclExpression(oclExpression) {
+	            var parsedExpression = _oclParser.OclParser.parse(oclExpression);
+	            this._addOclExpressionForType(parsedExpression.targetType, parsedExpression);
+	            return this;
+	        }
+	    }, {
+	        key: 'getOclExpressionsForType',
+	        value: function getOclExpressionsForType(type) {
+	            return this.oclExpressionsPerType[type] || [];
+	        }
+	    }, {
+	        key: '_addOclExpressionForType',
+	        value: function _addOclExpressionForType(type, oclExpression) {
+	            var oclExpressions = this.getOclExpressionsForType(type);
+	            oclExpressions.push(oclExpression);
+	            this.oclExpressionsPerType[type] = oclExpressions;
+	        }
+	    }, {
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            var type = _utils.Utils.getClassName(obj);
+	            var oclExpressionsForType = this.getOclExpressionsForType(type);
+	            oclExpressionsForType.forEach(function (e) {
+	                return e.evaluate(obj);
+	            });
 
-	    OclEngine.prototype.getOclExpressionsForType = function getOclExpressionsForType(type) {
-	        return this.oclExpressionsPerType[type] || [];
-	    };
+	            var namesOfFailedInvs = oclExpressionsForType.filter(function (e) {
+	                return e.evaluationResult === false;
+	            }).map(function (e) {
+	                return e.invs;
+	            }).reduce(function (p, c) {
+	                return p.concat(c);
+	            }, []).filter(function (i) {
+	                return i.evaluationResult === false;
+	            }).map(function (i) {
+	                return i.name || 'anonymous';
+	            });
 
-	    OclEngine.prototype._addOclExpressionForType = function _addOclExpressionForType(type, oclExpression) {
-	        var oclExpressions = this.getOclExpressionsForType(type);
-	        oclExpressions.push(oclExpression);
-	        this.oclExpressionsPerType[type] = oclExpressions;
-	    };
-
-	    OclEngine.prototype.evaluate = function evaluate(obj) {
-	        var type = _utils.Utils.getClassName(obj);
-	        var oclExpressionsForType = this.getOclExpressionsForType(type);
-	        return oclExpressionsForType.every(function (e) {
-	            return e.evaluate(obj);
-	        });
-	    };
+	            var oclResult = new OclResult();
+	            oclResult.setResult(namesOfFailedInvs.length === 0);
+	            oclResult.setNamesOfFailedInvs(namesOfFailedInvs);
+	            return oclResult;
+	        }
+	    }]);
 
 	    return OclEngine;
+	}();
+
+	var OclResult = function () {
+	    function OclResult() {
+	        _classCallCheck(this, OclResult);
+	    }
+
+	    _createClass(OclResult, [{
+	        key: 'setResult',
+	        value: function setResult(result) {
+	            this.result = result;
+	        }
+	    }, {
+	        key: 'getResult',
+	        value: function getResult() {
+	            return this.result;
+	        }
+	    }, {
+	        key: 'setNamesOfFailedInvs',
+	        value: function setNamesOfFailedInvs(names) {
+	            this.setNamesOfFailedInvs = names;
+	        }
+	    }, {
+	        key: 'getNamesOfFailedInvs',
+	        value: function getNamesOfFailedInvs() {
+	            return this.setNamesOfFailedInvs;
+	        }
+	    }]);
+
+	    return OclResult;
 	}();
 
 /***/ },
@@ -107,7 +166,11 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -118,9 +181,12 @@
 	        _classCallCheck(this, OclParser);
 	    }
 
-	    OclParser.parse = function parse(oclExpression) {
-	        return parser.parse(oclExpression);
-	    };
+	    _createClass(OclParser, null, [{
+	        key: 'parse',
+	        value: function parse(oclExpression) {
+	            return parser.parse(oclExpression);
+	        }
+	    }]);
 
 	    return OclParser;
 	}();
@@ -801,9 +867,9 @@
 	                                match = false;
 	                                continue; // rule action called reject() implying a rule MISmatch.
 	                            } else {
-	                                    // else: this is a lexer rule which consumes input without producing a token (e.g. whitespace)
-	                                    return false;
-	                                }
+	                                // else: this is a lexer rule which consumes input without producing a token (e.g. whitespace)
+	                                return false;
+	                            }
 	                        } else if (!this.options.flex) {
 	                            break;
 	                        }
@@ -1028,12 +1094,14 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
 	var _andExpression = __webpack_require__(5);
 
 	Object.keys(_andExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1045,7 +1113,7 @@
 	var _booleanExpression = __webpack_require__(7);
 
 	Object.keys(_booleanExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1057,7 +1125,7 @@
 	var _contextExpression = __webpack_require__(8);
 
 	Object.keys(_contextExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1069,7 +1137,7 @@
 	var _existsExpression = __webpack_require__(12);
 
 	Object.keys(_existsExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1081,7 +1149,7 @@
 	var _impliesExpression = __webpack_require__(13);
 
 	Object.keys(_impliesExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1093,7 +1161,7 @@
 	var _invariantExpression = __webpack_require__(9);
 
 	Object.keys(_invariantExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1105,7 +1173,7 @@
 	var _isEmptyExpression = __webpack_require__(14);
 
 	Object.keys(_isEmptyExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1117,7 +1185,7 @@
 	var _isNotEmptyExpression = __webpack_require__(15);
 
 	Object.keys(_isNotEmptyExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1129,7 +1197,7 @@
 	var _iteratorExpression = __webpack_require__(16);
 
 	Object.keys(_iteratorExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1141,7 +1209,7 @@
 	var _letExpression = __webpack_require__(10);
 
 	Object.keys(_letExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1153,7 +1221,7 @@
 	var _nilExpression = __webpack_require__(17);
 
 	Object.keys(_nilExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1165,7 +1233,7 @@
 	var _numberExpression = __webpack_require__(18);
 
 	Object.keys(_numberExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1177,7 +1245,7 @@
 	var _mathExpressions = __webpack_require__(19);
 
 	Object.keys(_mathExpressions).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1189,7 +1257,7 @@
 	var _operationCallExpression = __webpack_require__(20);
 
 	Object.keys(_operationCallExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1201,7 +1269,7 @@
 	var _orExpression = __webpack_require__(21);
 
 	Object.keys(_orExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1213,7 +1281,7 @@
 	var _selectExpression = __webpack_require__(22);
 
 	Object.keys(_selectExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1225,7 +1293,7 @@
 	var _sequenceExpressions = __webpack_require__(23);
 
 	Object.keys(_sequenceExpressions).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1237,7 +1305,7 @@
 	var _sizeExpression = __webpack_require__(24);
 
 	Object.keys(_sizeExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1249,7 +1317,7 @@
 	var _stringExpression = __webpack_require__(25);
 
 	Object.keys(_stringExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1261,7 +1329,7 @@
 	var _variableExpression = __webpack_require__(26);
 
 	Object.keys(_variableExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1273,7 +1341,7 @@
 	var _xorExpression = __webpack_require__(27);
 
 	Object.keys(_xorExpression).forEach(function (key) {
-	  if (key === "default") return;
+	  if (key === "default" || key === "__esModule") return;
 	  Object.defineProperty(exports, key, {
 	    enumerable: true,
 	    get: function get() {
@@ -1288,8 +1356,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.AndExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1305,19 +1377,22 @@
 	    function AndExpression(left, right) {
 	        _classCallCheck(this, AndExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (AndExpression.__proto__ || Object.getPrototypeOf(AndExpression)).call(this));
 
 	        _this.left = left;
 	        _this.right = right;
 	        return _this;
 	    }
 
-	    AndExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var left = this.left.evaluate(obj, variables);
-	        var right = this.right.evaluate(obj, variables);
+	    _createClass(AndExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var left = this.left.evaluate(obj, variables);
+	            var right = this.right.evaluate(obj, variables);
 
-	        return left && right;
-	    };
+	            return left && right;
+	        }
+	    }]);
 
 	    return AndExpression;
 	}(_abstractExpression.Expression);
@@ -1328,7 +1403,11 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1339,9 +1418,12 @@
 	        this.type = this.__proto__.constructor.name;
 	    }
 
-	    Expression.prototype.evaluate = function evaluate(obj) {
-	        throw new Error('evaluate() function not implemented!');
-	    };
+	    _createClass(Expression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            throw new Error('evaluate() function not implemented!');
+	        }
+	    }]);
 
 	    return Expression;
 	}();
@@ -1352,8 +1434,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.BooleanExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1369,15 +1455,18 @@
 	    function BooleanExpression(value) {
 	        _classCallCheck(this, BooleanExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (BooleanExpression.__proto__ || Object.getPrototypeOf(BooleanExpression)).call(this));
 
 	        _this.value = JSON.parse(value);
 	        return _this;
 	    }
 
-	    BooleanExpression.prototype.evaluate = function evaluate() {
-	        return this.value;
-	    };
+	    _createClass(BooleanExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate() {
+	            return this.value;
+	        }
+	    }]);
 
 	    return BooleanExpression;
 	}(_abstractExpression.Expression);
@@ -1388,8 +1477,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ContextExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1411,7 +1504,7 @@
 	    function ContextExpression(targetType, rules) {
 	        _classCallCheck(this, ContextExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (ContextExpression.__proto__ || Object.getPrototypeOf(ContextExpression)).call(this));
 
 	        if (!(rules instanceof Array)) {
 	            rules = [rules];
@@ -1427,27 +1520,33 @@
 	        return _this;
 	    }
 
-	    ContextExpression.prototype.evaluate = function evaluate(obj) {
-	        obj = obj || {};
+	    _createClass(ContextExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            obj = obj || {};
+	            this.evaluationResult = false;
 
-	        if (this.targetType === this._getClassName(obj)) {
-	            this.defs.forEach(function (def) {
-	                return def.evaluate(obj);
-	            });
-	            var map = this.invs.map(function (i) {
-	                return i.evaluate(obj);
-	            });
-	            return !map.some(function (i) {
-	                return i === false;
-	            });
+	            if (this.targetType === this._getClassName(obj)) {
+	                this.defs.forEach(function (def) {
+	                    return def.evaluate(obj);
+	                });
+	                var map = this.invs.map(function (i) {
+	                    return i.evaluate(obj);
+	                });
+	                this.evaluationResult = !map.some(function (i) {
+	                    return i === false;
+	                });
+	                return this.evaluationResult;
+	            }
+
+	            return this.evaluationResult;
 	        }
-
-	        return false;
-	    };
-
-	    ContextExpression.prototype._getClassName = function _getClassName(obj) {
-	        return _utils.Utils.getClassName(obj);
-	    };
+	    }, {
+	        key: '_getClassName',
+	        value: function _getClassName(obj) {
+	            return _utils.Utils.getClassName(obj);
+	        }
+	    }]);
 
 	    return ContextExpression;
 	}(_abstractExpression.Expression);
@@ -1458,8 +1557,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.InvariantExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1475,7 +1578,7 @@
 	    function InvariantExpression(oclExpression, name) {
 	        _classCallCheck(this, InvariantExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (InvariantExpression.__proto__ || Object.getPrototypeOf(InvariantExpression)).call(this));
 
 	        _this.definition = oclExpression;
 	        if (name) {
@@ -1484,9 +1587,13 @@
 	        return _this;
 	    }
 
-	    InvariantExpression.prototype.evaluate = function evaluate(obj) {
-	        return this.definition.evaluate(obj);
-	    };
+	    _createClass(InvariantExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            this.evaluationResult = this.definition.evaluate(obj);
+	            return this.evaluationResult;
+	        }
+	    }]);
 
 	    return InvariantExpression;
 	}(_abstractExpression.Expression);
@@ -1497,8 +1604,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.LetExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1514,16 +1625,19 @@
 	    function LetExpression(key, value) {
 	        _classCallCheck(this, LetExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (LetExpression.__proto__ || Object.getPrototypeOf(LetExpression)).call(this));
 
 	        _this.key = key;
 	        _this.value = value;
 	        return _this;
 	    }
 
-	    LetExpression.prototype.evaluate = function evaluate(obj) {
-	        return obj[this.key] = this.value.evaluate(obj);
-	    };
+	    _createClass(LetExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            return obj[this.key] = this.value.evaluate(obj);
+	        }
+	    }]);
 
 	    return LetExpression;
 	}(_abstractExpression.Expression);
@@ -1534,9 +1648,13 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1545,22 +1663,26 @@
 	        _classCallCheck(this, Utils);
 	    }
 
-	    Utils.getClassName = function getClassName(obj) {
-	        if (obj.typeName) {
-	            return obj.typeName;
-	        } else if (typeof obj === 'function') {
-	            return Utils._getFunctionName(obj);
-	        } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
-	            var objectTypename = Utils._getFunctionName(obj.__proto__.constructor.toString());
-	            return objectTypename;
+	    _createClass(Utils, null, [{
+	        key: 'getClassName',
+	        value: function getClassName(obj) {
+	            if (obj.typeName) {
+	                return obj.typeName;
+	            } else if (typeof obj === 'function') {
+	                return Utils._getFunctionName(obj);
+	            } else if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === 'object') {
+	                var objectTypename = Utils._getFunctionName(obj.__proto__.constructor.toString());
+	                return objectTypename;
+	            }
 	        }
-	    };
-
-	    Utils._getFunctionName = function _getFunctionName(fn) {
-	        var name = fn.toString().split(' ')[1];
-	        name = name.substring(0, name.indexOf('('));
-	        return name.length > 0 ? name : undefined;
-	    };
+	    }, {
+	        key: '_getFunctionName',
+	        value: function _getFunctionName(fn) {
+	            var name = fn.toString().split(' ')[1];
+	            name = name.substring(0, name.indexOf('('));
+	            return name.length > 0 ? name : undefined;
+	        }
+	    }]);
 
 	    return Utils;
 	}();
@@ -1571,8 +1693,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ExistsExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1588,7 +1714,7 @@
 	    function ExistsExpression(source, iterators, body) {
 	        _classCallCheck(this, ExistsExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (ExistsExpression.__proto__ || Object.getPrototypeOf(ExistsExpression)).call(this));
 
 	        _this.source = source;
 	        _this.iterators = iterators;
@@ -1596,20 +1722,23 @@
 	        return _this;
 	    }
 
-	    ExistsExpression.prototype.evaluate = function evaluate(obj) {
-	        var _this2 = this;
+	    _createClass(ExistsExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            var _this2 = this;
 
-	        var collection = this.source.evaluate(obj);
-	        if (collection instanceof Array) {
-	            return collection.some(function (o) {
-	                var variables = {};
-	                variables[_this2.iterators] = o;
-	                return _this2.body.evaluate(o, variables);
-	            });
-	        } else {
-	            return false;
+	            var collection = this.source.evaluate(obj);
+	            if (collection instanceof Array) {
+	                return collection.some(function (o) {
+	                    var variables = {};
+	                    variables[_this2.iterators] = o;
+	                    return _this2.body.evaluate(o, variables);
+	                });
+	            } else {
+	                return false;
+	            }
 	        }
-	    };
+	    }]);
 
 	    return ExistsExpression;
 	}(_abstractExpression.Expression);
@@ -1620,8 +1749,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ImpliesExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1637,23 +1770,26 @@
 	    function ImpliesExpression(left, right) {
 	        _classCallCheck(this, ImpliesExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (ImpliesExpression.__proto__ || Object.getPrototypeOf(ImpliesExpression)).call(this));
 
 	        _this.left = left;
 	        _this.right = right;
 	        return _this;
 	    }
 
-	    ImpliesExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var left = this.left.evaluate(obj, variables);
-	        var right = this.right.evaluate(obj, variables);
+	    _createClass(ImpliesExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var left = this.left.evaluate(obj, variables);
+	            var right = this.right.evaluate(obj, variables);
 
-	        if (left) {
-	            return right;
-	        } else {
-	            return true;
+	            if (left) {
+	                return right;
+	            } else {
+	                return true;
+	            }
 	        }
-	    };
+	    }]);
 
 	    return ImpliesExpression;
 	}(_abstractExpression.Expression);
@@ -1664,8 +1800,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.IsEmptyExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1681,16 +1821,19 @@
 	    function IsEmptyExpression(source) {
 	        _classCallCheck(this, IsEmptyExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (IsEmptyExpression.__proto__ || Object.getPrototypeOf(IsEmptyExpression)).call(this));
 
 	        _this.source = source;
 	        return _this;
 	    }
 
-	    IsEmptyExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var source = this.source.evaluate(obj, variables);
-	        return !(source && source.length != 0);
-	    };
+	    _createClass(IsEmptyExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var source = this.source.evaluate(obj, variables);
+	            return !(source && source.length != 0);
+	        }
+	    }]);
 
 	    return IsEmptyExpression;
 	}(_abstractExpression.Expression);
@@ -1701,8 +1844,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.IsNotEmptyExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _isEmptyExpression = __webpack_require__(14);
 
@@ -1718,13 +1865,16 @@
 	    function IsNotEmptyExpression() {
 	        _classCallCheck(this, IsNotEmptyExpression);
 
-	        return _possibleConstructorReturn(this, _IsEmptyExpression.apply(this, arguments));
+	        return _possibleConstructorReturn(this, (IsNotEmptyExpression.__proto__ || Object.getPrototypeOf(IsNotEmptyExpression)).apply(this, arguments));
 	    }
 
-	    IsNotEmptyExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var isEmptyExpression = new _isEmptyExpression.IsEmptyExpression(this.source);
-	        return !isEmptyExpression.evaluate(obj, variables);
-	    };
+	    _createClass(IsNotEmptyExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var isEmptyExpression = new _isEmptyExpression.IsEmptyExpression(this.source);
+	            return !isEmptyExpression.evaluate(obj, variables);
+	        }
+	    }]);
 
 	    return IsNotEmptyExpression;
 	}(_isEmptyExpression.IsEmptyExpression);
@@ -1735,8 +1885,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.IteratorExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1752,7 +1906,7 @@
 	    function IteratorExpression(source, iterators, body) {
 	        _classCallCheck(this, IteratorExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (IteratorExpression.__proto__ || Object.getPrototypeOf(IteratorExpression)).call(this));
 
 	        _this.source = source;
 	        _this.iterators = iterators;
@@ -1760,67 +1914,73 @@
 	        return _this;
 	    }
 
-	    IteratorExpression.prototype.evaluate = function evaluate(obj) {
-	        var source = this.source.evaluate(obj);
-	        if (source instanceof Array) {
-	            if (!this.iterators || this.iterators.length === 0) {
-	                return this._evaluateNoIterator(obj);
-	            } else if (this.iterators.length <= 1) {
-	                return this._evaluateOneIterator(obj);
-	            } else if (this.iterators.length === 2) {
-	                return this._evaluateTwoIterators(obj);
-	            }
-	        } else {
-	            return false;
-	        }
-	    };
-
-	    IteratorExpression.prototype._evaluateNoIterator = function _evaluateNoIterator(obj) {
-	        var _this2 = this;
-
-	        var source = this.source.evaluate(obj);
-	        return !source.map(function (c) {
-	            return _this2.body.evaluate(obj);
-	        }).some(function (r) {
-	            return r === false;
-	        });
-	    };
-
-	    IteratorExpression.prototype._evaluateOneIterator = function _evaluateOneIterator(obj) {
-	        var _this3 = this;
-
-	        var source = this.source.evaluate(obj);
-	        return !source.map(function (c) {
-	            var variables = {};
-	            if (_this3.iterators[0]) {
-	                variables[_this3.iterators[0]] = c;
+	    _createClass(IteratorExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            var source = this.source.evaluate(obj);
+	            if (source instanceof Array) {
+	                if (!this.iterators || this.iterators.length === 0) {
+	                    return this._evaluateNoIterator(obj);
+	                } else if (this.iterators.length <= 1) {
+	                    return this._evaluateOneIterator(obj);
+	                } else if (this.iterators.length === 2) {
+	                    return this._evaluateTwoIterators(obj);
+	                }
 	            } else {
-	                variables = c;
-	            }
-	            return _this3.body.evaluate(obj, variables);
-	        }).some(function (r) {
-	            return r === false;
-	        });
-	    };
-
-	    IteratorExpression.prototype._evaluateTwoIterators = function _evaluateTwoIterators(obj) {
-	        var source = this.source.evaluate(obj);
-	        var result = [];
-
-	        for (var i = 0; i < source.length; i++) {
-	            var variables = {};
-	            variables[this.iterators[0]] = source[i];
-
-	            for (var j = i + 1; j < source.length; j++) {
-	                variables[this.iterators[1]] = source[j];
-	                result.push(this.body.evaluate(obj, variables));
+	                return false;
 	            }
 	        }
+	    }, {
+	        key: '_evaluateNoIterator',
+	        value: function _evaluateNoIterator(obj) {
+	            var _this2 = this;
 
-	        return !result.some(function (r) {
-	            return r === false;
-	        });
-	    };
+	            var source = this.source.evaluate(obj);
+	            return !source.map(function (c) {
+	                return _this2.body.evaluate(obj);
+	            }).some(function (r) {
+	                return r === false;
+	            });
+	        }
+	    }, {
+	        key: '_evaluateOneIterator',
+	        value: function _evaluateOneIterator(obj) {
+	            var _this3 = this;
+
+	            var source = this.source.evaluate(obj);
+	            return !source.map(function (c) {
+	                var variables = {};
+	                if (_this3.iterators[0]) {
+	                    variables[_this3.iterators[0]] = c;
+	                } else {
+	                    variables = c;
+	                }
+	                return _this3.body.evaluate(obj, variables);
+	            }).some(function (r) {
+	                return r === false;
+	            });
+	        }
+	    }, {
+	        key: '_evaluateTwoIterators',
+	        value: function _evaluateTwoIterators(obj) {
+	            var source = this.source.evaluate(obj);
+	            var result = [];
+
+	            for (var i = 0; i < source.length; i++) {
+	                var variables = {};
+	                variables[this.iterators[0]] = source[i];
+
+	                for (var j = i + 1; j < source.length; j++) {
+	                    variables[this.iterators[1]] = source[j];
+	                    result.push(this.body.evaluate(obj, variables));
+	                }
+	            }
+
+	            return !result.some(function (r) {
+	                return r === false;
+	            });
+	        }
+	    }]);
 
 	    return IteratorExpression;
 	}(_abstractExpression.Expression);
@@ -1831,8 +1991,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.NilExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1848,12 +2012,15 @@
 	    function NilExpression() {
 	        _classCallCheck(this, NilExpression);
 
-	        return _possibleConstructorReturn(this, _Expression.call(this));
+	        return _possibleConstructorReturn(this, (NilExpression.__proto__ || Object.getPrototypeOf(NilExpression)).call(this));
 	    }
 
-	    NilExpression.prototype.evaluate = function evaluate() {
-	        return;
-	    };
+	    _createClass(NilExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate() {
+	            return;
+	        }
+	    }]);
 
 	    return NilExpression;
 	}(_abstractExpression.Expression);
@@ -1864,8 +2031,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.NumberExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1881,7 +2052,7 @@
 	    function NumberExpression(value) {
 	        _classCallCheck(this, NumberExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (NumberExpression.__proto__ || Object.getPrototypeOf(NumberExpression)).call(this));
 
 	        if (!isNaN(+value)) {
 	            _this.value = +value;
@@ -1891,9 +2062,12 @@
 	        return _this;
 	    }
 
-	    NumberExpression.prototype.evaluate = function evaluate() {
-	        return this.value;
-	    };
+	    _createClass(NumberExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate() {
+	            return this.value;
+	        }
+	    }]);
 
 	    return NumberExpression;
 	}(_abstractExpression.Expression);
@@ -1904,8 +2078,14 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.ModuloExpression = exports.DivideExpression = exports.MultiplyExpression = exports.SubstractionExpression = exports.AdditionExpression = undefined;
+
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -1921,19 +2101,22 @@
 	    function MathExpression(left, right) {
 	        _classCallCheck(this, MathExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (MathExpression.__proto__ || Object.getPrototypeOf(MathExpression)).call(this));
 
 	        _this.left = left;
 	        _this.right = right;
 	        return _this;
 	    }
 
-	    MathExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var left = this.left.evaluate(obj, variables);
-	        var right = this.right.evaluate(obj, variables);
-	        right = this.right.left ? this.right.left.evaluate(obj) : right;
-	        return { left: left, right: right };
-	    };
+	    _createClass(MathExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var left = this.left.evaluate(obj, variables);
+	            var right = this.right.evaluate(obj, variables);
+	            right = this.right.left ? this.right.left.evaluate(obj) : right;
+	            return { left: left, right: right };
+	        }
+	    }]);
 
 	    return MathExpression;
 	}(_abstractExpression.Expression);
@@ -1944,13 +2127,16 @@
 	    function AdditionExpression() {
 	        _classCallCheck(this, AdditionExpression);
 
-	        return _possibleConstructorReturn(this, _MathExpression.apply(this, arguments));
+	        return _possibleConstructorReturn(this, (AdditionExpression.__proto__ || Object.getPrototypeOf(AdditionExpression)).apply(this, arguments));
 	    }
 
-	    AdditionExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var e = _MathExpression.prototype.evaluate.call(this, obj, variables);
-	        return e.left + e.right;
-	    };
+	    _createClass(AdditionExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var e = _get(AdditionExpression.prototype.__proto__ || Object.getPrototypeOf(AdditionExpression.prototype), 'evaluate', this).call(this, obj, variables);
+	            return e.left + e.right;
+	        }
+	    }]);
 
 	    return AdditionExpression;
 	}(MathExpression);
@@ -1961,13 +2147,16 @@
 	    function SubstractionExpression() {
 	        _classCallCheck(this, SubstractionExpression);
 
-	        return _possibleConstructorReturn(this, _MathExpression2.apply(this, arguments));
+	        return _possibleConstructorReturn(this, (SubstractionExpression.__proto__ || Object.getPrototypeOf(SubstractionExpression)).apply(this, arguments));
 	    }
 
-	    SubstractionExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var e = _MathExpression2.prototype.evaluate.call(this, obj, variables);
-	        return e.left - e.right;
-	    };
+	    _createClass(SubstractionExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var e = _get(SubstractionExpression.prototype.__proto__ || Object.getPrototypeOf(SubstractionExpression.prototype), 'evaluate', this).call(this, obj, variables);
+	            return e.left - e.right;
+	        }
+	    }]);
 
 	    return SubstractionExpression;
 	}(MathExpression);
@@ -1978,13 +2167,16 @@
 	    function MultiplyExpression() {
 	        _classCallCheck(this, MultiplyExpression);
 
-	        return _possibleConstructorReturn(this, _MathExpression3.apply(this, arguments));
+	        return _possibleConstructorReturn(this, (MultiplyExpression.__proto__ || Object.getPrototypeOf(MultiplyExpression)).apply(this, arguments));
 	    }
 
-	    MultiplyExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var e = _MathExpression3.prototype.evaluate.call(this, obj, variables);
-	        return e.left * e.right;
-	    };
+	    _createClass(MultiplyExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var e = _get(MultiplyExpression.prototype.__proto__ || Object.getPrototypeOf(MultiplyExpression.prototype), 'evaluate', this).call(this, obj, variables);
+	            return e.left * e.right;
+	        }
+	    }]);
 
 	    return MultiplyExpression;
 	}(MathExpression);
@@ -1995,13 +2187,16 @@
 	    function DivideExpression() {
 	        _classCallCheck(this, DivideExpression);
 
-	        return _possibleConstructorReturn(this, _MathExpression4.apply(this, arguments));
+	        return _possibleConstructorReturn(this, (DivideExpression.__proto__ || Object.getPrototypeOf(DivideExpression)).apply(this, arguments));
 	    }
 
-	    DivideExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var e = _MathExpression4.prototype.evaluate.call(this, obj, variables);
-	        return e.left / e.right;
-	    };
+	    _createClass(DivideExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var e = _get(DivideExpression.prototype.__proto__ || Object.getPrototypeOf(DivideExpression.prototype), 'evaluate', this).call(this, obj, variables);
+	            return e.left / e.right;
+	        }
+	    }]);
 
 	    return DivideExpression;
 	}(MathExpression);
@@ -2012,13 +2207,16 @@
 	    function ModuloExpression() {
 	        _classCallCheck(this, ModuloExpression);
 
-	        return _possibleConstructorReturn(this, _MathExpression5.apply(this, arguments));
+	        return _possibleConstructorReturn(this, (ModuloExpression.__proto__ || Object.getPrototypeOf(ModuloExpression)).apply(this, arguments));
 	    }
 
-	    ModuloExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var e = _MathExpression5.prototype.evaluate.call(this, obj, variables);
-	        return e.left % e.right;
-	    };
+	    _createClass(ModuloExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var e = _get(ModuloExpression.prototype.__proto__ || Object.getPrototypeOf(ModuloExpression.prototype), 'evaluate', this).call(this, obj, variables);
+	            return e.left % e.right;
+	        }
+	    }]);
 
 	    return ModuloExpression;
 	}(MathExpression);
@@ -2029,8 +2227,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.OperationCallExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -2046,7 +2248,7 @@
 	    function OperationCallExpression(operator, left, right) {
 	        _classCallCheck(this, OperationCallExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (OperationCallExpression.__proto__ || Object.getPrototypeOf(OperationCallExpression)).call(this));
 
 	        _this.operator = operator;
 	        _this.left = left;
@@ -2054,25 +2256,28 @@
 	        return _this;
 	    }
 
-	    OperationCallExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var left = this.left.evaluate(obj, variables);
-	        var right = this.right.evaluate(obj, variables);
-	        if (this.operator === '<>') {
-	            return left !== right;
-	        } else if (this.operator === '<=') {
-	            return left <= right;
-	        } else if (this.operator === '>=') {
-	            return left >= right;
-	        } else if (this.operator === '>') {
-	            return left > right;
-	        } else if (this.operator === '<') {
-	            return left < right;
-	        } else if (this.operator === '=') {
-	            return left === right;
-	        }
+	    _createClass(OperationCallExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var left = this.left.evaluate(obj, variables);
+	            var right = this.right.evaluate(obj, variables);
+	            if (this.operator === '<>') {
+	                return left !== right;
+	            } else if (this.operator === '<=') {
+	                return left <= right;
+	            } else if (this.operator === '>=') {
+	                return left >= right;
+	            } else if (this.operator === '>') {
+	                return left > right;
+	            } else if (this.operator === '<') {
+	                return left < right;
+	            } else if (this.operator === '=') {
+	                return left === right;
+	            }
 
-	        throw new SyntaxError('Unhandled operator found: \'' + this.operator + '\'');
-	    };
+	            throw new SyntaxError('Unhandled operator found: \'' + this.operator + '\'');
+	        }
+	    }]);
 
 	    return OperationCallExpression;
 	}(_abstractExpression.Expression);
@@ -2083,8 +2288,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.OrExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -2100,19 +2309,22 @@
 	    function OrExpression(left, right) {
 	        _classCallCheck(this, OrExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (OrExpression.__proto__ || Object.getPrototypeOf(OrExpression)).call(this));
 
 	        _this.left = left;
 	        _this.right = right;
 	        return _this;
 	    }
 
-	    OrExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var left = this.left.evaluate(obj, variables);
-	        var right = this.right.evaluate(obj, variables);
+	    _createClass(OrExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var left = this.left.evaluate(obj, variables);
+	            var right = this.right.evaluate(obj, variables);
 
-	        return left || right;
-	    };
+	            return left || right;
+	        }
+	    }]);
 
 	    return OrExpression;
 	}(_abstractExpression.Expression);
@@ -2123,8 +2335,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.SelectExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -2140,7 +2356,7 @@
 	    function SelectExpression(source, iterator, body) {
 	        _classCallCheck(this, SelectExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (SelectExpression.__proto__ || Object.getPrototypeOf(SelectExpression)).call(this));
 
 	        _this.source = source;
 	        _this.iterators = iterator;
@@ -2148,25 +2364,28 @@
 	        return _this;
 	    }
 
-	    SelectExpression.prototype.evaluate = function evaluate(obj) {
-	        var _this2 = this;
+	    _createClass(SelectExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            var _this2 = this;
 
-	        var collection = this.source.evaluate(obj);
-	        if (collection instanceof Array) {
-	            return collection.filter(function (c) {
-	                var variables = {};
-	                if (_this2.iterators) {
-	                    variables[_this2.iterators[0]] = c;
-	                } else {
-	                    variables = c;
-	                }
+	            var collection = this.source.evaluate(obj);
+	            if (collection instanceof Array) {
+	                return collection.filter(function (c) {
+	                    var variables = {};
+	                    if (_this2.iterators) {
+	                        variables[_this2.iterators[0]] = c;
+	                    } else {
+	                        variables = c;
+	                    }
 
-	                return _this2.body.evaluate(c, variables);
-	            });
-	        } else {
-	            return [];
+	                    return _this2.body.evaluate(c, variables);
+	                });
+	            } else {
+	                return [];
+	            }
 	        }
-	    };
+	    }]);
 
 	    return SelectExpression;
 	}(_abstractExpression.Expression);
@@ -2177,8 +2396,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.AsSetOperation = exports.LastOperation = exports.FirstOperation = exports.AtOperation = exports.UnionOperation = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -2194,22 +2417,25 @@
 	    function UnionOperation(source, body) {
 	        _classCallCheck(this, UnionOperation);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (UnionOperation.__proto__ || Object.getPrototypeOf(UnionOperation)).call(this));
 
 	        _this.source = source;
 	        _this.body = body;
 	        return _this;
 	    }
 
-	    UnionOperation.prototype.evaluate = function evaluate(obj) {
-	        var source = this.source.evaluate(obj);
-	        var body = this.body.evaluate(obj);
+	    _createClass(UnionOperation, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            var source = this.source.evaluate(obj);
+	            var body = this.body.evaluate(obj);
 
-	        if (source instanceof Array && body instanceof Array) {
-	            return source.concat(body);
+	            if (source instanceof Array && body instanceof Array) {
+	                return source.concat(body);
+	            }
+	            return [];
 	        }
-	        return [];
-	    };
+	    }]);
 
 	    return UnionOperation;
 	}(_abstractExpression.Expression);
@@ -2220,21 +2446,24 @@
 	    function AtOperation(source, index) {
 	        _classCallCheck(this, AtOperation);
 
-	        var _this2 = _possibleConstructorReturn(this, _Expression2.call(this));
+	        var _this2 = _possibleConstructorReturn(this, (AtOperation.__proto__ || Object.getPrototypeOf(AtOperation)).call(this));
 
 	        _this2.source = source;
 	        _this2.index = index;
 	        return _this2;
 	    }
 
-	    AtOperation.prototype.evaluate = function evaluate(obj) {
-	        var source = this.source.evaluate(obj);
-	        var index = this.index.evaluate(obj);
+	    _createClass(AtOperation, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            var source = this.source.evaluate(obj);
+	            var index = this.index.evaluate(obj);
 
-	        if (source instanceof Array && Number.isInteger(index) && index >= 0 && index < source.length) {
-	            return source[index];
+	            if (source instanceof Array && Number.isInteger(index) && index >= 0 && index < source.length) {
+	                return source[index];
+	            }
 	        }
-	    };
+	    }]);
 
 	    return AtOperation;
 	}(_abstractExpression.Expression);
@@ -2245,18 +2474,21 @@
 	    function FirstOperation(source) {
 	        _classCallCheck(this, FirstOperation);
 
-	        var _this3 = _possibleConstructorReturn(this, _Expression3.call(this));
+	        var _this3 = _possibleConstructorReturn(this, (FirstOperation.__proto__ || Object.getPrototypeOf(FirstOperation)).call(this));
 
 	        _this3.source = source;
 	        return _this3;
 	    }
 
-	    FirstOperation.prototype.evaluate = function evaluate(obj) {
-	        var source = this.source.evaluate(obj);
-	        if (source instanceof Array) {
-	            return source[0];
+	    _createClass(FirstOperation, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            var source = this.source.evaluate(obj);
+	            if (source instanceof Array) {
+	                return source[0];
+	            }
 	        }
-	    };
+	    }]);
 
 	    return FirstOperation;
 	}(_abstractExpression.Expression);
@@ -2267,18 +2499,21 @@
 	    function LastOperation(source) {
 	        _classCallCheck(this, LastOperation);
 
-	        var _this4 = _possibleConstructorReturn(this, _Expression4.call(this));
+	        var _this4 = _possibleConstructorReturn(this, (LastOperation.__proto__ || Object.getPrototypeOf(LastOperation)).call(this));
 
 	        _this4.source = source;
 	        return _this4;
 	    }
 
-	    LastOperation.prototype.evaluate = function evaluate(obj) {
-	        var source = this.source.evaluate(obj);
-	        if (source instanceof Array) {
-	            return source[source.length - 1];
+	    _createClass(LastOperation, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            var source = this.source.evaluate(obj);
+	            if (source instanceof Array) {
+	                return source[source.length - 1];
+	            }
 	        }
-	    };
+	    }]);
 
 	    return LastOperation;
 	}(_abstractExpression.Expression);
@@ -2289,18 +2524,21 @@
 	    function AsSetOperation(source) {
 	        _classCallCheck(this, AsSetOperation);
 
-	        var _this5 = _possibleConstructorReturn(this, _Expression5.call(this));
+	        var _this5 = _possibleConstructorReturn(this, (AsSetOperation.__proto__ || Object.getPrototypeOf(AsSetOperation)).call(this));
 
 	        _this5.source = source;
 	        return _this5;
 	    }
 
-	    AsSetOperation.prototype.evaluate = function evaluate(obj) {
-	        var source = this.source.evaluate(obj);
-	        if (source instanceof Array) {
-	            return new Set(source);
+	    _createClass(AsSetOperation, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj) {
+	            var source = this.source.evaluate(obj);
+	            if (source instanceof Array) {
+	                return new Set(source);
+	            }
 	        }
-	    };
+	    }]);
 
 	    return AsSetOperation;
 	}(_abstractExpression.Expression);
@@ -2311,10 +2549,14 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.SizeExpression = undefined;
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -2330,22 +2572,25 @@
 	    function SizeExpression(source) {
 	        _classCallCheck(this, SizeExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (SizeExpression.__proto__ || Object.getPrototypeOf(SizeExpression)).call(this));
 
 	        _this.source = source;
 	        return _this;
 	    }
 
-	    SizeExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var source = this.source.evaluate(obj, variables);
-	        if (source instanceof Array || source instanceof Map || source instanceof Set) {
-	            return source.length;
-	        } else if (!source) {
-	            return 0;
-	        }
+	    _createClass(SizeExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var source = this.source.evaluate(obj, variables);
+	            if (source instanceof Array || source instanceof Map || source instanceof Set) {
+	                return source.length;
+	            } else if (!source) {
+	                return 0;
+	            }
 
-	        throw new Error('Expected Collection, got ' + (typeof source === 'undefined' ? 'undefined' : _typeof(source)));
-	    };
+	            throw new Error('Expected Collection, got ' + (typeof source === 'undefined' ? 'undefined' : _typeof(source)));
+	        }
+	    }]);
 
 	    return SizeExpression;
 	}(_abstractExpression.Expression);
@@ -2356,8 +2601,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.StringExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -2373,15 +2622,18 @@
 	    function StringExpression(value) {
 	        _classCallCheck(this, StringExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (StringExpression.__proto__ || Object.getPrototypeOf(StringExpression)).call(this));
 
 	        _this.value = value.replace(/^\"|\"$/g, '');
 	        return _this;
 	    }
 
-	    StringExpression.prototype.evaluate = function evaluate() {
-	        return this.value;
-	    };
+	    _createClass(StringExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate() {
+	            return this.value;
+	        }
+	    }]);
 
 	    return StringExpression;
 	}(_abstractExpression.Expression);
@@ -2392,8 +2644,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.VariableExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -2409,40 +2665,44 @@
 	    function VariableExpression(variable) {
 	        _classCallCheck(this, VariableExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (VariableExpression.__proto__ || Object.getPrototypeOf(VariableExpression)).call(this));
 
 	        _this.variable = variable;
 	        return _this;
 	    }
 
-	    VariableExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var o = void 0;
-	        var parts = this.variable.split('.');
-	        if (parts[0] === 'self') {
-	            parts.shift();
-	            o = obj;
-	        } else {
-	            o = variables;
+	    _createClass(VariableExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var o = void 0;
+	            var parts = this.variable.split('.');
+	            if (parts[0] === 'self') {
+	                parts.shift();
+	                o = obj;
+	            } else {
+	                o = variables;
+	            }
+
+	            o = this._resolvePath(o, parts.join('.'));
+
+	            return o;
 	        }
+	    }, {
+	        key: '_resolvePath',
+	        value: function _resolvePath(object, reference) {
+	            return reference.split('.').reduce(dot_deref, object);
 
-	        o = this._resolvePath(o, parts.join('.'));
+	            function arr_deref(o, ref, i) {
+	                if (!o) return;
+	                return !ref ? o : o[ref.slice(0, i ? -1 : ref.length)];
+	            }
 
-	        return o;
-	    };
-
-	    VariableExpression.prototype._resolvePath = function _resolvePath(object, reference) {
-	        return reference.split('.').reduce(dot_deref, object);
-
-	        function arr_deref(o, ref, i) {
-	            if (!o) return;
-	            return !ref ? o : o[ref.slice(0, i ? -1 : ref.length)];
+	            function dot_deref(o, ref) {
+	                if (!o) return;
+	                return !ref ? o : ref.split('[').reduce(arr_deref, o);
+	            }
 	        }
-
-	        function dot_deref(o, ref) {
-	            if (!o) return;
-	            return !ref ? o : ref.split('[').reduce(arr_deref, o);
-	        }
-	    };
+	    }]);
 
 	    return VariableExpression;
 	}(_abstractExpression.Expression);
@@ -2453,8 +2713,12 @@
 
 	'use strict';
 
-	exports.__esModule = true;
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.XorExpression = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _abstractExpression = __webpack_require__(6);
 
@@ -2470,19 +2734,22 @@
 	    function XorExpression(left, right) {
 	        _classCallCheck(this, XorExpression);
 
-	        var _this = _possibleConstructorReturn(this, _Expression.call(this));
+	        var _this = _possibleConstructorReturn(this, (XorExpression.__proto__ || Object.getPrototypeOf(XorExpression)).call(this));
 
 	        _this.left = left;
 	        _this.right = right;
 	        return _this;
 	    }
 
-	    XorExpression.prototype.evaluate = function evaluate(obj, variables) {
-	        var left = this.left.evaluate(obj, variables);
-	        var right = this.right.evaluate(obj, variables);
+	    _createClass(XorExpression, [{
+	        key: 'evaluate',
+	        value: function evaluate(obj, variables) {
+	            var left = this.left.evaluate(obj, variables);
+	            var right = this.right.evaluate(obj, variables);
 
-	        return !!(left ^ right);
-	    };
+	            return !!(left ^ right);
+	        }
+	    }]);
 
 	    return XorExpression;
 	}(_abstractExpression.Expression);
