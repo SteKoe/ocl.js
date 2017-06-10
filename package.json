@@ -4,13 +4,13 @@
   "description": "Object Constraint Language parser written in JavaScript.",
   "main": "./lib/index.js",
   "scripts": {
+    "build:prod" : "npm run clean:dist && npm run generate:parser && npm run webpack -- --config webpack.config.js --progress --profile --bail",
+    "clean:dist": "npm run rimraf -- dist",
+    "clean": "npm cache verify && npm run rimraf -- node_modules dist lib",
+    "generate:parser": "rm -rf ./src/components/parser/parser.js && node generator/oclParserGenerator.js",
+    "rimraf": "rimraf",
     "test": "npm run generate:parser &&  node ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.spec.js",
-    "build": "npm run generate:parser && npm run build:lib && npm run build:min && npm run build:max",
-    "build:lib": "rm -rf lib && babel src --out-dir lib",
-    "build:min": "webpack --optimize-minimize lib/index.js dist/ocl.min.js",
-    "build:max": "webpack lib/index.js dist/ocl.js",
-    "build:examples": "npm run build && babel examples/examples.js -o examples/examples.min.js && webpack examples/examples.min.js examples/examples.min.js",
-    "generate:parser": "rm -rf ./src/components/parser/parser.js && node generator/oclParserGenerator.js"
+    "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
   },
   "repository": {
     "type": "git",
@@ -20,14 +20,14 @@
   "homepage": "https://github.com/SteKoe/ocl.js#readme",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-core": "^6.7.2",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.14.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
     "highlight.js": "^9.2.0",
     "jison": "^0.4.17",
     "mocha": "^3.0.2",
+    "rimraf": "^2.6.1",
     "should": "^11.1.0",
-    "webpack": "^1.12.14"
+    "webpack": "^2.6.1"
   }
 }
