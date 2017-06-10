@@ -3,7 +3,7 @@ const should = require('should');
 import {SelectExpression} from '../../src/components/expressions/selectExpression'
 import {OperationCallExpression} from '../../src/components/expressions/operationCallExpression'
 import {VariableExpression} from '../../src/components/expressions/variableExpression'
-import {NumberExpression} from '../../src/components/expressions/numberExpression'
+import {NumberExpression} from '../../src/components/expressions/literal/numberExpression'
 
 describe('SelectExpression', () => {
     const self = {

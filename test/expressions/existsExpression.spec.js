@@ -3,8 +3,8 @@ const should = require('should');
 import {ExistsExpression} from '../../src/components/expressions/existsExpression'
 import {OperationCallExpression} from '../../src/components/expressions/operationCallExpression'
 import {VariableExpression} from '../../src/components/expressions/variableExpression'
-import {NumberExpression} from '../../src/components/expressions/numberExpression'
-import {StringExpression} from '../../src/components/expressions/stringExpression'
+import {NumberExpression} from '../../src/components/expressions/literal/numberExpression'
+import {StringExpression} from '../../src/components/expressions/literal/stringExpression'
 
 describe('ExistsExpression', () => {
     const self = {

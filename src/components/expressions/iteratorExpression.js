@@ -1,4 +1,4 @@
-import {Expression} from './abstractExpression'; 
+import {Expression} from './expression';
 
 export class IteratorExpression extends Expression {
     constructor(source, iterators, body) {

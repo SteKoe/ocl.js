@@ -1,6 +1,6 @@
 const should = require('should');
 
-import {NumberExpression} from '../../src/components/expressions/numberExpression'
+import {NumberExpression} from '../../src/components/expressions/literal/numberExpression'
 
 describe('NumberExpression', () => {
     it('should evaluate number.', () => {

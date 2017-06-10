@@ -1,7 +1,7 @@
 const should = require('should');
 
-import {OrExpression} from '../../src/components/expressions/orExpression'
-import {BooleanExpression} from '../../src/components/expressions/booleanExpression'
+import {OrExpression} from '../../src/components/expressions/gate/orExpression'
+import {BooleanExpression} from '../../src/components/expressions/literal/booleanExpression'
 
 const TRUE = new BooleanExpression(true);
 const FALSE = new BooleanExpression(false);

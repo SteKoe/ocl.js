@@ -1,4 +1,4 @@
-import {Expression} from './abstractExpression'; 
+import {Expression} from './expression';
 import {Utils} from '../utils/utils';
 
 export class OclIsTypeOfExpression extends Expression {

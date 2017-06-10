@@ -1,4 +1,4 @@
-import {Expression} from './abstractExpression'; 
+import {Expression} from './expression';
 
 export class IsEmptyExpression extends Expression {
     constructor(source) {
@@ -8,6 +8,6 @@ export class IsEmptyExpression extends Expression {
 
     evaluate(obj, variables) {
         let source = this.source.evaluate(obj, variables);
-        return !(source && source.length != 0);
+        return !(source && source.length !== 0);
     }
 }

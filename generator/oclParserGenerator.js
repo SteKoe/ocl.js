@@ -7,7 +7,7 @@ const parser = new jison.Parser(bnf);
 const parserOutputFile = path.resolve('./src/components/parser/parser.js');
 
 const imports = [
-    "import * as Expression from '../expressions/expressions';"
+    "import * as Expression from '../expressions';"
 ].join('\n');
 
 fs.writeFileSync(parserOutputFile, [imports, parser.generate({moduleType: 'js'}), 'module.exports = parser;'].join('\n\n'), 'utf8');

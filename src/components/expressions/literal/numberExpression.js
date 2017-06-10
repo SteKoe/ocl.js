@@ -1,11 +1,9 @@
-import {Expression} from './abstractExpression'; 
+import {LiteralExpression} from "./literalExpression";
 
-export class NumberExpression extends Expression {
-    constructor(value) {
-        super();
-
+export class NumberExpression extends LiteralExpression {
+    parseValue(value) {
         if (!isNaN(+value)) {
-            this.value = +value;
+            return +value;
         } else {
             throw new SyntaxError(`NumberExpression: '${value}' is not a Number!`);
         }

@@ -1,6 +1,6 @@
 const should = require('should');
 
-import {StringExpression} from '../../src/components/expressions/stringExpression'
+import {StringExpression} from '../../src/components/expressions/literal/stringExpression'
 import {LetExpression} from '../../src/components/expressions/letExpression'
 
 describe('LetExpression', () => {

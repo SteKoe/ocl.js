@@ -1,6 +1,6 @@
 const should = require('should');
 
-import {NumberExpression, VariableExpression, UnionOperation, AtOperation, FirstOperation, LastOperation} from '../../src/components/expressions/expressions'
+import {NumberExpression, VariableExpression, UnionOperation, AtOperation, FirstOperation, LastOperation} from '../../src/components/expressions'
 
 describe('SequenceExpressions', () => {
     const selfA = new VariableExpression('self.a');

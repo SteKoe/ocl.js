@@ -1,6 +1,6 @@
 const should = require('should');
 
-import {BooleanExpression, XorExpression} from '../../src/components/expressions/expressions'
+import {BooleanExpression, XorExpression} from '../../src/components/expressions'
 
 const TRUE = new BooleanExpression(true);
 const FALSE = new BooleanExpression(false);

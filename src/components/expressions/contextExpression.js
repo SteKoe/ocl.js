@@ -1,4 +1,4 @@
-import {Expression} from './abstractExpression'; 
+import {Expression} from './expression';
 import {InvariantExpression} from './invariantExpression';
 import {LetExpression} from './letExpression';
 import {Utils} from '../utils/utils';

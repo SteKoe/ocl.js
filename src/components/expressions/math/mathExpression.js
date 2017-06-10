@@ -1,6 +1,6 @@
-import {Expression} from './abstractExpression'; 
+import {Expression} from '../expression';
 
-export class ImpliesExpression extends Expression {
+export class MathExpression extends Expression {
     constructor(left, right) {
         super();
         this.left = left;
@@ -10,11 +10,7 @@ export class ImpliesExpression extends Expression {
     evaluate(obj, variables) {
         let left = this.left.evaluate(obj, variables);
         let right = this.right.evaluate(obj, variables);
-
-        if (left) {
-            return right;
-        } else {
-            return true;
-        }
+        right = this.right.left ? this.right.left.evaluate(obj) : right;
+        return {left, right}
     }
 }

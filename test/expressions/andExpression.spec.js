@@ -1,7 +1,7 @@
 const should = require('should');
 
-import {BooleanExpression} from '../../src/components/expressions/booleanExpression'
-import {AndExpression} from '../../src/components/expressions/andExpression'
+import {BooleanExpression} from '../../src/components/expressions/literal/booleanExpression'
+import {AndExpression} from '../../src/components/expressions/gate/andExpression'
 
 const TRUE = new BooleanExpression(true);
 const FALSE = new BooleanExpression(false);

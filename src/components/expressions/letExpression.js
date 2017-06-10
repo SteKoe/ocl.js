@@ -1,4 +1,4 @@
-import {Expression} from './abstractExpression'; 
+import {Expression} from './expression';
 
 export class LetExpression extends Expression {
     constructor(key, value) {
