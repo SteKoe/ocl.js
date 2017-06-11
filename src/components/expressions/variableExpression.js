@@ -24,14 +24,15 @@ export class VariableExpression extends Expression {
     _resolvePath(object, reference) {
         return reference.split('.').reduce(dot_deref, object);
 
-        function arr_deref(o, ref, i) {
-            if (!o) return;
-            return !ref ? o : (o[ref.slice(0, i ? -1 : ref.length)]);
-        }
 
         function dot_deref(o, ref) {
             if (!o) return;
             return !ref ? o : ref.split('[').reduce(arr_deref, o);
+        }
+
+        function arr_deref(o, ref, i) {
+            if (!o) return;
+            return !ref ? o : (o[ref.slice(0, i ? -1 : ref.length)]);
         }
     };
 }

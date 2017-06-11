@@ -1,0 +1,7 @@
+instrumentation:
+    root: .
+    extensions:
+        - .js
+    default-excludes: true
+    excludes:
+        - src/components/parser/parser.js

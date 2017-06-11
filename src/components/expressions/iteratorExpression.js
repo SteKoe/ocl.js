@@ -12,8 +12,8 @@ export class IteratorExpression extends Expression {
         const source = this.source.evaluate(obj);
         if (source instanceof Array) {
             if(!this.iterators || this.iterators.length === 0) {
-                return this._evaluateNoIterator(obj);
-            } else if (this.iterators.length <= 1) {
+                return false;
+            } else if (this.iterators.length === 1) {
                 return this._evaluateOneIterator(obj);
             } else if (this.iterators.length === 2) {
                 return this._evaluateTwoIterators(obj);
@@ -23,21 +23,12 @@ export class IteratorExpression extends Expression {
         }
     }
 
-    _evaluateNoIterator(obj) {
-        const source = this.source.evaluate(obj);
-        return !source.map(c => this.body.evaluate(obj)).some(r => r === false)
-    }
-
     _evaluateOneIterator(obj) {
         const source = this.source.evaluate(obj);
         return !source
             .map(c => {
                 let variables = {};
-                if(this.iterators[0]) {
-                    variables[this.iterators[0]] = c;
-                } else {
-                    variables = c;
-                }
+                variables[this.iterators[0]] = c;
                 return this.body.evaluate(obj, variables);
             })
             .some(r => r === false);

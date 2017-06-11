@@ -16,7 +16,7 @@ describe('SelectExpression', () => {
         ]
     };
 
-    it('positive test.', () => {
+    it('positive test WITH variable.', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('<', new VariableExpression('a.age'), new NumberExpression(10));
         var expr = new SelectExpression(source, 'a', expression);
@@ -28,7 +28,7 @@ describe('SelectExpression', () => {
         ]);
     });
 
-    it('negative test.', () => {
+    it('negative test WITH variable.', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new SelectExpression(source, 'a', expression);
@@ -39,6 +39,25 @@ describe('SelectExpression', () => {
         const source = new VariableExpression('self.a');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new SelectExpression(source, 'a', expression);
+        expr.evaluate(self).should.eql([]);
+    });
+
+    it('positive test WITHOUT variable.', () => {
+        const source = new VariableExpression('self.collection');
+        const expression = new OperationCallExpression('<', new VariableExpression('age'), new NumberExpression(10));
+        var expr = new SelectExpression(source, null, expression);
+        expr.evaluate(self).should.eql([
+            {age: 1},
+            {age: 2},
+            {age: 4},
+            {age: 8}
+        ]);
+    });
+
+    it('negative test WITHOUT variable.', () => {
+        const source = new VariableExpression('self.collection');
+        const expression = new OperationCallExpression('>', new VariableExpression('age'), new NumberExpression(18));
+        var expr = new SelectExpression(source, null, expression);
         expr.evaluate(self).should.eql([]);
     });
 });

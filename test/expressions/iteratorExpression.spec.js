@@ -16,14 +16,14 @@ describe('IteratorExpression', () => {
         ]
     };
 
-    it('should be true', () => {
+    it('one iterator: should be true', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(0));
         var expr = new IteratorExpression(source, 'a', expression);
         expr.evaluate(self).should.be.true();
     });
 
-    it('should be false', () => {
+    it('one iterator: should be false', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new IteratorExpression(source, 'a', expression);

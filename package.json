@@ -4,12 +4,15 @@
   "description": "Object Constraint Language parser written in JavaScript.",
   "main": "./lib/index.js",
   "scripts": {
-    "build:prod" : "npm run clean:dist && npm run generate:parser && npm run webpack -- --config webpack.config.js --progress --profile --bail",
+    "babel-node": "babel-node",
+    "build:prod": "npm run clean:dist && npm run generate:parser && npm run webpack -- --config webpack.config.js --progress --profile --bail",
     "clean:dist": "npm run rimraf -- dist",
     "clean": "npm cache verify && npm run rimraf -- node_modules dist lib",
     "generate:parser": "rm -rf ./src/components/parser/parser.js && node generator/oclParserGenerator.js",
+    "istanbul": "istanbul",
     "rimraf": "rimraf",
-    "test": "npm run generate:parser &&  node ./node_modules/mocha/bin/mocha --compilers js:babel-core/register test/**/*.spec.js",
+    "test": "npm run generate:parser && node ./node_modules/mocha/bin/_mocha --compilers js:babel-core/register test/**/*.spec.js",
+    "test:coverage": "npm run generate:parser && babel-node node_modules/.bin/babel-istanbul cover node_modules/mocha/bin/_mocha -- test/**/*.spec.js",
     "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
   },
   "repository": {
@@ -20,12 +23,15 @@
   "homepage": "https://github.com/SteKoe/ocl.js#readme",
   "license": "MIT",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
+    "babel-istanbul": "^0.12.2",
     "babel-loader": "^7.0.0",
     "babel-preset-es2015": "^6.24.1",
     "highlight.js": "^9.2.0",
+    "istanbul": "^0.4.5",
     "jison": "^0.4.17",
-    "mocha": "^3.0.2",
+    "mocha": "^3.4.2",
     "rimraf": "^2.6.1",
     "should": "^11.1.0",
     "webpack": "^2.6.1"
