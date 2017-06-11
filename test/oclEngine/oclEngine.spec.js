@@ -2,16 +2,16 @@
 const should = require('should');
 
 require('../../generator/oclParserGenerator');
-import {OclEngine} from '../../src/components/oclEngine';
-import {MetaEntity, MetaAssociationLink} from '../fixture.factory';
+import {OclEngine} from "../../src/components/oclEngine";
+import {MetaAssociationLink, MetaEntity} from "../fixture.factory";
 
 describe('OclEngine', function () {
     it('should manage oclExpressions by target type.', function () {
-        const oclEngine = new OclEngine();
-        oclEngine.addOclExpression(`
-            context MetaEntity inv: 
-                self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
-        `);
+        const oclEngine = OclEngine.create()
+            .addOclExpression(`
+                context MetaEntity inv: 
+                    self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
+            `);
 
         oclEngine.getOclExpressionsForType('MetaEntity').length.should.be.eql(1);
     });
@@ -31,23 +31,26 @@ describe('OclEngine', function () {
     });
 
     it('should evaluate oclExpression for given instance data when all are valid.', function () {
-        const oclEngine = new OclEngine();
-        oclEngine.addOclExpression(`
-            context MetaEntity inv: 
-                self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
-        `);
-        oclEngine.addOclExpression(`
-            context MetaEntity inv: 
-                self.isType = true implies self.isIntrinsic = false
-        `);
-
         let metaEntity = new MetaEntity();
         metaEntity.metaAssociationLinks = [
             new MetaAssociationLink('roleA'),
             new MetaAssociationLink('roleB')
         ];
 
-        oclEngine.evaluate(metaEntity).getResult().should.be.true();
+        let rule_distinctRoleNames = `
+            context MetaEntity inv: 
+                self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
+        `;
+        let rule_ifTypeImpliesIntrinsic = `
+            context MetaEntity inv: 
+                self.isType = true implies self.isIntrinsic = false
+        `;
+
+        OclEngine.create()
+            .addOclExpression(rule_distinctRoleNames)
+            .addOclExpression(rule_ifTypeImpliesIntrinsic)
+            .evaluate(metaEntity)
+            .getResult().should.be.true();
     });
 
     it('should evaluate oclExpression for given instance data when one is invalid.', function () {

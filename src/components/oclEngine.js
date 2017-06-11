@@ -2,6 +2,10 @@ import {OclParser} from './parser/oclParser';
 import {Utils} from './utils/utils';
 
 export class OclEngine {
+    static create() {
+        return new OclEngine();
+    }
+
     constructor() {
         this.oclExpressionsPerType = {};
     }
