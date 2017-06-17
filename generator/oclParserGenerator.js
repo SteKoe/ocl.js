@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const jison = require("jison");
+const jison = require("jison-gho");
 
 const bnf = fs.readFileSync(path.resolve(__dirname, 'grammar.jison'), "utf8");
 const parser = new jison.Parser(bnf);

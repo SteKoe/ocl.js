@@ -25,13 +25,18 @@ export class IteratorExpression extends Expression {
 
     _evaluateOneIterator(obj) {
         const source = this.source.evaluate(obj);
-        return !source
+        let map = source
             .map(c => {
                 let variables = {};
                 variables[this.iterators[0]] = c;
                 return this.body.evaluate(obj, variables);
-            })
+            });
+
+
+        let b = !map
             .some(r => r === false);
+
+         return b;
     }
 
     _evaluateTwoIterators(obj) {

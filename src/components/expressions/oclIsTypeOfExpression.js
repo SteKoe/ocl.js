@@ -1,5 +1,5 @@
 import {Expression} from './expression';
-import {Utils} from '../utils/utils';
+import {Utils} from '../utils';
 
 export class OclIsTypeOfExpression extends Expression {
     constructor(source, value) {

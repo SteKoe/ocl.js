@@ -5,7 +5,7 @@ module.exports = {
     entry: "./index",
     output: {
         path: __dirname + "/dist",
-        filename: "bundle.js"
+        filename: "ocl.js"
     },
     module: {
         rules: [
@@ -17,8 +17,7 @@ module.exports = {
                     presets: ['es2015']
                 }
             }
-        ],
-        noParse: /parser\.js/
+        ]
     },
     plugins: [
         new webpack.DefinePlugin({

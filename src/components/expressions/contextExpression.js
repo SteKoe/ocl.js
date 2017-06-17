@@ -1,7 +1,7 @@
 import {Expression} from './expression';
 import {InvariantExpression} from './invariantExpression';
 import {LetExpression} from './letExpression';
-import {Utils} from '../utils/utils';
+import {Utils} from '../utils';
 
 export class ContextExpression extends Expression {
     constructor(targetType, rules) {

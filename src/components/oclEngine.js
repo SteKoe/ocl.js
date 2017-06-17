@@ -1,5 +1,5 @@
 import {OclParser} from './parser/oclParser';
-import {Utils} from './utils/utils';
+import {Utils} from './utils';
 
 export class OclEngine {
     static create() {
