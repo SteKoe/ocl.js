@@ -5,7 +5,7 @@ module.exports = {
     entry: "./index",
     output: {
         path: __dirname + "/dist",
-        filename: "ocl.js"
+        filename: "ocl.min.js"
     },
     module: {
         rules: [
@@ -22,6 +22,9 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: { warnings: false }
         })
     ]
 };
