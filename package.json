@@ -1,5 +1,5 @@
 {
-  "name": "ocl-js",
+  "name": "ocl.js",
   "version": "1.0.0-beta.2",
   "description": "Object Constraint Language parser written in JavaScript.",
   "main": "./lib/index.js",
