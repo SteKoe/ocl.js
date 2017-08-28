@@ -6,7 +6,7 @@ import Car from "../../examples/class/car";
 import Person from "../../examples/class/person";
 import {MetaAssociationLink, MetaEntity} from '../fixture.factory';
 
-describe.only('Car', () => {
+describe('Car', () => {
     it('All cars a person owns are red.', () => {
         const oclExpression = `
             context Person inv: 

@@ -97,10 +97,10 @@ class OclResult {
     }
 
     setNamesOfFailedInvs(names) {
-        this.setNamesOfFailedInvs = names;
+        this.namesOfFailedInvs = names;
     }
 
     getNamesOfFailedInvs() {
-        return this.setNamesOfFailedInvs;
+        return this.namesOfFailedInvs;
     }
 }
