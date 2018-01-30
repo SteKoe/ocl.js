@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {BooleanExpression} from '../../src/components/expressions/literal/booleanExpression'
 import {AndExpression} from '../../src/components/expressions/gate/andExpression'
@@ -9,21 +9,21 @@ const FALSE = new BooleanExpression(false);
 describe('AndExpression', () => {
     it('true && true = true', () => {
         const expr = new AndExpression(TRUE, TRUE);
-        expr.evaluate().should.be.ok();
+        expect(expr.evaluate()).to.be.true;
     });
 
     it('true && false = false', () => {
         const expr = new AndExpression(TRUE, FALSE);
-        expr.evaluate().should.not.be.ok();
+        expect(expr.evaluate()).to.be.false;
     });
 
     it('false && true = false', () => {
         const expr = new AndExpression(FALSE, TRUE);
-        expr.evaluate().should.not.be.ok();
+        expect(expr.evaluate()).to.be.false;
     });
 
     it('false && false = false', () => {
         const expr = new AndExpression(FALSE, FALSE);
-        expr.evaluate().should.not.be.ok();
+        expect(expr.evaluate()).to.be.false;
     });
 });

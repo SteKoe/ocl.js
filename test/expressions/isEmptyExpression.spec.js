@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {VariableExpression} from '../../src/components/expressions/variableExpression'
 import {IsEmptyExpression} from '../../src/components/expressions/isEmptyExpression'
@@ -8,13 +8,13 @@ describe('IsEmptyExpression', () => {
         //self.children->isEmpty()
         const ne = new IsEmptyExpression(new VariableExpression('self.children'));
 
-        ne.evaluate({name: 'Otto'}).should.be.true();
-        ne.evaluate({name: 'Otto', children: []}).should.be.true();
+        expect(ne.evaluate({name: 'Otto'})).to.be.true;
+        expect(ne.evaluate({name: 'Otto', children: []})).to.be.true;
     });
 
     it('should evaluate isEmpty when not empty', () => {
         const ne = new IsEmptyExpression(new VariableExpression('self.children'));
 
-        ne.evaluate({name: 'Otto', children: [1]}).should.be.false();
+        expect(ne.evaluate({name: 'Otto', children: [1]})).to.be.false;
     });
 });

@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {NumberExpression, VariableExpression, UnionOperation, AtOperation, FirstOperation, LastOperation} from '../../src/components/expressions'
 
@@ -14,7 +14,7 @@ describe('SequenceExpressions', () => {
         it('concats arrays', () => {
             const expr = new UnionOperation(selfA, selfB);
             var result = expr.evaluate(obj);
-            result.should.eql([1,2,3,4]);
+            expect(result).to.eql([1,2,3,4]);
         });
     });
 
@@ -22,7 +22,7 @@ describe('SequenceExpressions', () => {
         it('returns position', () => {
             const expr = new AtOperation(selfA, new NumberExpression(1));
             var result = expr.evaluate(obj);
-            result.should.eql(2);
+            expect(result).to.eql(2);
         });
     });
 
@@ -30,7 +30,7 @@ describe('SequenceExpressions', () => {
         it('returns position', () => {
             const expr = new FirstOperation(selfA);
             var result = expr.evaluate(obj);
-            result.should.eql(1);
+            expect(result).to.eql(1);
         });
     });
 
@@ -38,7 +38,7 @@ describe('SequenceExpressions', () => {
         it('returns position', () => {
             const expr = new LastOperation(selfA);
             var result = expr.evaluate(obj);
-            result.should.eql(2);
+            expect(result).to.eql(2);
         });
     });
 

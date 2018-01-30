@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {IteratorExpression} from '../../src/components/expressions/iteratorExpression'
 import {OperationCallExpression} from '../../src/components/expressions/operationCallExpression'
@@ -20,20 +20,20 @@ describe('IteratorExpression', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(0));
         var expr = new IteratorExpression(source, 'a', expression);
-        expr.evaluate(self).should.be.true();
+        expect(expr.evaluate(self)).to.be.true;
     });
 
     it('one iterator: should be false', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new IteratorExpression(source, 'a', expression);
-        expr.evaluate(self).should.be.false();
+        expect(expr.evaluate(self)).to.be.false;
     });
 
     it('should return false when source is undefined', () => {
         const source = new VariableExpression('self.a');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new IteratorExpression(source, 'a', expression);
-        expr.evaluate(self).should.be.false();
+        expect(expr.evaluate(self)).to.be.false;
     });
 });

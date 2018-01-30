@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {ExistsExpression} from '../../src/components/expressions/existsExpression'
 import {OperationCallExpression} from '../../src/components/expressions/operationCallExpression'
@@ -25,27 +25,27 @@ describe('ExistsExpression', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(10));
         var expr = new ExistsExpression(source, 'a', expression);
-        expr.evaluate(self).should.be.true();
+        expect(expr.evaluate(self)).to.be.true;
     });
 
     it('should be false', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new ExistsExpression(source, 'a', expression);
-        expr.evaluate(self).should.be.false();
+        expect(expr.evaluate(self)).to.be.false;
     });
 
     it('should return false when source is undefined', () => {
         const source = new VariableExpression('self.a');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new ExistsExpression(source, 'a', expression);
-        expr.evaluate(self).should.be.false();
+        expect(expr.evaluate(self)).to.be.false;
     });
 
     it('should return true for string', () => {
         const source = new VariableExpression('self.children');
         const expression = new OperationCallExpression('>', new VariableExpression('c.name'), new StringExpression("A"));
         var expr = new ExistsExpression(source, 'c', expression);
-        expr.evaluate(self).should.be.true();
+        expect(expr.evaluate(self)).to.be.true;
     });
 });

@@ -1,14 +1,14 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {ContextExpression} from '../../src/components/expressions/contextExpression'
 const expr = new ContextExpression();
 
 describe('ContextExpression', () => {
-    it('should return undefined for plain json', () => should(expr._getClassName({})).be.eql('Object'));
-    it('should return name for named function', () => should(expr._getClassName(function Abc() {})).be.eql('Abc'));
-    it('should return undefined anonymous function', () => should(expr._getClassName(function () {})).be.undefined());
-    it('should return name of class', () => {
+    it('expect return undefined for plain json', () => expect(expr._getClassName({})).to.eql('Object'));
+    it('expect return name for named function', () => expect(expr._getClassName(function Abc() {})).to.eql('Abc'));
+    it('expect return undefined anonymous function', () => expect(expr._getClassName(function () {})).be.undefined);
+    it('expect return name of class', () => {
         class Abc {}
-        should(expr._getClassName(new Abc())).be.eql('Abc')
+        expect(expr._getClassName(new Abc())).to.eql('Abc')
     })
 });

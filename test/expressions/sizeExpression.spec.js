@@ -1,20 +1,20 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {VariableExpression} from '../../src/components/expressions/variableExpression'
 import {SizeExpression} from '../../src/components/expressions/collection/sizeExpression'
 
 describe('SizeExpression', () => {
-    it('should evaluate isEmtpy when empty', () => {
+    it('to evaluate isEmtpy when empty', () => {
         //self.children->isEmpty()
         const ne = new SizeExpression(new VariableExpression('self.children'));
 
-        ne.evaluate({name: 'Otto'}).should.eql(0);
-        ne.evaluate({name: 'Otto', children: []}).should.eql(0);
+        expect(ne.evaluate({name: 'Otto'})).to.eql(0);
+        expect(ne.evaluate({name: 'Otto', children: []})).to.eql(0);
     });
 
-    it('should evaluate isEmpty when not empty', () => {
+    it('to evaluate isEmpty when not empty', () => {
         const ne = new SizeExpression(new VariableExpression('self.children'));
 
-        ne.evaluate({name: 'Otto', children: [1,2,3,4,6]}).should.eql(5);
+        expect(ne.evaluate({name: 'Otto', children: [1,2,3,4,6]})).to.eql(5);
     });
 });

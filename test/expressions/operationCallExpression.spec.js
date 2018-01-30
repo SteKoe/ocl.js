@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {OperationCallExpression} from "../../src/components/expressions/operationCallExpression";
 import {NumberExpression} from "../../src/components/expressions/literal/numberExpression";
@@ -8,50 +8,50 @@ describe('OperationCallExpression', () => {
 
     it('<=', () => {
         expression = new OperationCallExpression('<=', new NumberExpression(5), new NumberExpression(18));
-        expression.evaluate().should.be.true();
+        expect(expression.evaluate()).should.be.true;
 
         expression = new OperationCallExpression('<=', new NumberExpression(22), new NumberExpression(18));
-        expression.evaluate().should.be.false();
+        expect(expression.evaluate()).should.be.false;
     });
 
     it('>=', () => {
         expression = new OperationCallExpression('>=', new NumberExpression(18), new NumberExpression(18));
-        expression.evaluate().should.be.true();
+        expect(expression.evaluate()).should.be.true;
 
         expression = new OperationCallExpression('>=', new NumberExpression(17), new NumberExpression(18));
-        expression.evaluate().should.be.false();
+        expect(expression.evaluate()).should.be.false;
     });
 
     it('>', () => {
         expression = new OperationCallExpression('>', new NumberExpression(19), new NumberExpression(18));
-        expression.evaluate().should.be.true();
+        expect(expression.evaluate()).should.be.true;
 
         expression = new OperationCallExpression('>', new NumberExpression(18), new NumberExpression(18));
-        expression.evaluate().should.be.false();
+        expect(expression.evaluate()).should.be.false;
     });
 
     it('<', () => {
         expression = new OperationCallExpression('<', new NumberExpression(17), new NumberExpression(18));
-        expression.evaluate().should.be.true();
+        expect(expression.evaluate()).should.be.true;
 
         expression = new OperationCallExpression('<', new NumberExpression(18), new NumberExpression(18));
-        expression.evaluate().should.be.false();
+        expect(expression.evaluate()).should.be.false;
     });
 
     it('<>', () => {
         expression = new OperationCallExpression('<>', new NumberExpression(5), new NumberExpression(18));
-        expression.evaluate().should.be.true();
+        expect(expression.evaluate()).should.be.true;
 
         expression = new OperationCallExpression('<>', new NumberExpression(18), new NumberExpression(18));
-        expression.evaluate().should.be.false();
+        expect(expression.evaluate()).should.be.false;
     });
 
     it('=', () => {
         expression = new OperationCallExpression('=', new NumberExpression(18), new NumberExpression(18));
-        expression.evaluate().should.be.true();
+        expect(expression.evaluate()).should.be.true;
 
         expression = new OperationCallExpression('=', new NumberExpression(5), new NumberExpression(18));
-        expression.evaluate().should.be.false();
+        expect(expression.evaluate()).should.be.false;
     });
 
     it('throws error on unknown operation!', () => {

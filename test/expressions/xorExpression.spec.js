@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {BooleanExpression, XorExpression} from '../../src/components/expressions'
 
@@ -6,23 +6,23 @@ const TRUE = new BooleanExpression(true);
 const FALSE = new BooleanExpression(false);
 
 describe('XorExpression', () => {
-    it('true true', () => {
+    it('true xor true', () => {
         const expr = new XorExpression(TRUE, TRUE);
-        expr.evaluate().should.be.false();
+        expect(expr.evaluate()).to.be.false;
     });
 
-    it('true false', () => {
+    it('true xor false', () => {
         const expr = new XorExpression(TRUE, FALSE);
-        expr.evaluate().should.be.true();
+        expect(expr.evaluate()).to.be.true;
     });
 
-    it('false true', () => {
+    it('false xor true', () => {
         const expr = new XorExpression(FALSE, TRUE);
-        expr.evaluate().should.be.true();
+        expect(expr.evaluate()).to.be.true;
     });
 
-    it('false false', () => {
+    it('false xor false', () => {
         const expr = new XorExpression(FALSE, FALSE);
-        expr.evaluate().should.be.false();
+        expect(expr.evaluate()).to.be.false;
     });
 });

@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {SelectExpression} from '../../src/components/expressions/selectExpression'
 import {OperationCallExpression} from '../../src/components/expressions/operationCallExpression'
@@ -20,7 +20,7 @@ describe('SelectExpression', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('<', new VariableExpression('a.age'), new NumberExpression(10));
         var expr = new SelectExpression(source, 'a', expression);
-        expr.evaluate(self).should.eql([
+        expect(expr.evaluate(self)).to.eql([
             {age: 1},
             {age: 2},
             {age: 4},
@@ -32,21 +32,21 @@ describe('SelectExpression', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new SelectExpression(source, 'a', expression);
-        expr.evaluate(self).should.eql([]);
+        expect(expr.evaluate(self)).to.eql([]);
     });
 
-    it('should return empty array, if source is undefined or not collection.', () => {
+    it('to return empty array, if source is undefined or not collection.', () => {
         const source = new VariableExpression('self.a');
         const expression = new OperationCallExpression('>', new VariableExpression('a.age'), new NumberExpression(18));
         var expr = new SelectExpression(source, 'a', expression);
-        expr.evaluate(self).should.eql([]);
+        expect(expr.evaluate(self)).to.eql([]);
     });
 
     it('positive test WITHOUT variable.', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('<', new VariableExpression('age'), new NumberExpression(10));
         var expr = new SelectExpression(source, null, expression);
-        expr.evaluate(self).should.eql([
+        expect(expr.evaluate(self)).to.eql([
             {age: 1},
             {age: 2},
             {age: 4},
@@ -58,6 +58,6 @@ describe('SelectExpression', () => {
         const source = new VariableExpression('self.collection');
         const expression = new OperationCallExpression('>', new VariableExpression('age'), new NumberExpression(18));
         var expr = new SelectExpression(source, null, expression);
-        expr.evaluate(self).should.eql([]);
+        expect(expr.evaluate(self)).to.eql([]);
     });
 });

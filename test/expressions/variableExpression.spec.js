@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {VariableExpression} from '../../src/components/expressions/variableExpression'
 
@@ -11,23 +11,23 @@ describe('VariableExpression', () => {
         }
     };
 
-    it('should evaluate self', () => {
+    it('to evaluate self', () => {
         const expr = new VariableExpression('self');
-        expr.evaluate(person).should.eql(person);
+        expect(expr.evaluate(person)).to.eql(person);
     });
 
-    it('should evaluate variable', () => {
+    it('to evaluate variable', () => {
         const expr = new VariableExpression('c1');
-        expr.evaluate(person, {c1: 'anything'}).should.eql('anything');
+        expect(expr.evaluate(person, {c1: 'anything'})).to.eql('anything');
     });
 
-    it('should evaluate nested variables', () => {
+    it('to evaluate nested variables', () => {
         const expr = new VariableExpression('self.contact.web');
-        expr.evaluate(person).should.eql(person.contact.web);
+        expect(expr.evaluate(person)).to.eql(person.contact.web);
     });
 
-    it('should evaluate undefined nested variables', () => {
+    it('to evaluate undefined nested variables', () => {
         const expr = new VariableExpression('self.a.web');
-        should(expr.evaluate(person)).not.be.ok();
+        expect(expr.evaluate(person)).not.be.true
     });
 });

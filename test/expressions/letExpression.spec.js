@@ -1,4 +1,4 @@
-const should = require('should');
+import {expect} from "chai";
 
 import {StringExpression} from '../../src/components/expressions/literal/stringExpression'
 import {LetExpression} from '../../src/components/expressions/letExpression'
@@ -10,6 +10,6 @@ describe('LetExpression', () => {
         const expr = new LetExpression('a', stringExpr);
         var obj = {};
         expr.evaluate(obj);
-        obj.should.have.property("a", "test");
+        expect(obj).to.have.property("a", "test");
     });
 });
