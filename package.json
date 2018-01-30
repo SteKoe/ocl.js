@@ -13,7 +13,8 @@
     "istanbul": "istanbul",
     "rimraf": "rimraf",
     "test": "npm run generate:parser && node ./node_modules/mocha/bin/_mocha --compilers js:babel-core/register test/**/*.spec.js",
-    "test:coverage": "npm run generate:parser && babel-node node_modules/.bin/babel-istanbul cover node_modules/mocha/bin/_mocha -- test/**/*.spec.js",
+    "test:coverage": "npm run generate:parser && npm run coverage",
+    "coverage": "./node_modules/.bin/babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register test/**/*.spec.js",
     "webpack": "node --max_old_space_size=4096 node_modules/webpack/bin/webpack.js"
   },
   "repository": {
