@@ -2,11 +2,11 @@
 const should = require('should');
 
 require('../../generator/oclParserGenerator');
-import {FixtureFactory} from './../fixture.factory.js';
-import {OclParser} from '../../src/components/parser/oclParser';
+import {FixtureFactory} from "./../fixture.factory.js";
+import {OclParser} from "../../src/components/parser/oclParser";
 
 describe('Collection->exists', () => {
-    const mother  = FixtureFactory.createPerson('Hilde');
+    const mother = FixtureFactory.createPerson('Hilde');
     mother.children = [
         FixtureFactory.createPerson('A', 1),
         FixtureFactory.createPerson('B', 9),

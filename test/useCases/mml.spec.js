@@ -1,8 +1,8 @@
 const should = require('should');
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from '../../src/components/parser/oclParser';
-import {MetaAssociationLink, MetaEntity} from '../fixture.factory';
+import {OclParser} from "../../src/components/parser/oclParser";
+import {MetaAssociationLink, MetaEntity} from "../fixture.factory";
 
 describe('MML', () => {
     it('MetaEntity metaAssociationLinks have different role names.', () => {

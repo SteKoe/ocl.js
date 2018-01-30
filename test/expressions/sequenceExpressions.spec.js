@@ -1,20 +1,26 @@
 import {expect} from "chai";
-
-import {NumberExpression, VariableExpression, UnionOperation, AtOperation, FirstOperation, LastOperation} from '../../src/components/expressions'
+import {
+    NumberExpression,
+    VariableExpression,
+    UnionOperation,
+    AtOperation,
+    FirstOperation,
+    LastOperation
+} from "../../src/components/expressions";
 
 describe('SequenceExpressions', () => {
     const selfA = new VariableExpression('self.a');
     const selfB = new VariableExpression('self.b');
     var obj = {
-        a: [1,2],
-        b: [3,4]
+        a: [1, 2],
+        b: [3, 4]
     };
 
     describe('UnionOperation', () => {
         it('concats arrays', () => {
             const expr = new UnionOperation(selfA, selfB);
             var result = expr.evaluate(obj);
-            expect(result).to.eql([1,2,3,4]);
+            expect(result).to.eql([1, 2, 3, 4]);
         });
     });
 

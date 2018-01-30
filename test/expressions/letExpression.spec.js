@@ -1,7 +1,6 @@
 import {expect} from "chai";
-
-import {StringExpression} from '../../src/components/expressions/literal/stringExpression'
-import {LetExpression} from '../../src/components/expressions/letExpression'
+import {StringExpression} from "../../src/components/expressions/literal/stringExpression";
+import {LetExpression} from "../../src/components/expressions/letExpression";
 
 describe('LetExpression', () => {
     const stringExpr = new StringExpression("test");

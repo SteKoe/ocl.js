@@ -8,7 +8,7 @@ export class FirstOperation extends Expression {
 
     evaluate(obj) {
         const source = this.source.evaluate(obj);
-        if(source instanceof Array) {
+        if (source instanceof Array) {
             return source[0];
         }
     }

@@ -11,7 +11,7 @@ export class UnionOperation extends Expression {
         const source = this.source.evaluate(obj);
         const body = this.body.evaluate(obj);
 
-        if(source instanceof Array && body instanceof Array) {
+        if (source instanceof Array && body instanceof Array) {
             return source.concat(body);
         }
         return [];

@@ -1,13 +1,13 @@
-import {Expression} from './expression';
-import {InvariantExpression} from './invariantExpression';
-import {LetExpression} from './letExpression';
-import {Utils} from '../utils';
+import {Expression} from "./expression";
+import {InvariantExpression} from "./invariantExpression";
+import {LetExpression} from "./letExpression";
+import {Utils} from "../utils";
 
 export class ContextExpression extends Expression {
     constructor(targetType, rules) {
         super();
 
-        if(!(rules instanceof Array)) {
+        if (!(rules instanceof Array)) {
             rules = [rules];
         }
 
@@ -20,7 +20,7 @@ export class ContextExpression extends Expression {
         obj = obj || {};
         this.evaluationResult = false;
 
-        if(this.targetType === this._getClassName(obj)) {
+        if (this.targetType === this._getClassName(obj)) {
             this.defs.forEach(def => def.evaluate(obj));
             const map = this.invs.map(i => i.evaluate(obj));
             this.evaluationResult = !map.some(i => i === false);

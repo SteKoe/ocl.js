@@ -1,6 +1,5 @@
 import {expect} from "chai";
-
-import {NilExpression} from '../../src/components/expressions/nilExpression'
+import {NilExpression} from "../../src/components/expressions/nilExpression";
 
 describe('NilExpression', () => {
     it('should evaluate to undefined', () => {

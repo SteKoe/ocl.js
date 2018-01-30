@@ -1,10 +1,10 @@
 export class Utils {
     static getClassName(obj) {
-        if(obj.typeName) {
+        if (obj.typeName) {
             return obj.typeName;
-        } else if(typeof obj === 'function') {
+        } else if (typeof obj === 'function') {
             return Utils._getFunctionName(obj);
-        } else if(typeof obj === 'object') {
+        } else if (typeof obj === 'object') {
             const objectTypename = Utils._getFunctionName(obj.__proto__.constructor.toString());
             return objectTypename;
         }

@@ -1,5 +1,4 @@
 import {expect} from "chai";
-
 import {OperationCallExpression} from "../../src/components/expressions/operationCallExpression";
 import {NumberExpression} from "../../src/components/expressions/literal/numberExpression";
 
@@ -56,6 +55,8 @@ describe('OperationCallExpression', () => {
 
     it('throws error on unknown operation!', () => {
         expression = new OperationCallExpression('===', new NumberExpression(18), new NumberExpression(18));
-        (function() {expression.evaluate()}).should.throw();
+        (function () {
+            expression.evaluate()
+        }).should.throw();
     })
 });

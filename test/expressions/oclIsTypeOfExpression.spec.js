@@ -1,10 +1,12 @@
 import {expect} from "chai";
+import {OclIsTypeOfExpression} from "../../src/components/expressions/oclIsTypeOfExpression";
 
-import {OclIsTypeOfExpression} from '../../src/components/expressions/oclIsTypeOfExpression'
-
-class Animal {}
-class Human extends Animal {}
-class God {}
+class Animal {
+}
+class Human extends Animal {
+}
+class God {
+}
 
 describe('OclIsKindOfExpression', () => {
     it('should evaluate truthy.', () => {

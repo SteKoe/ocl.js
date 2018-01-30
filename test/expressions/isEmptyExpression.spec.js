@@ -1,7 +1,6 @@
 import {expect} from "chai";
-
-import {VariableExpression} from '../../src/components/expressions/variableExpression'
-import {IsEmptyExpression} from '../../src/components/expressions/isEmptyExpression'
+import {VariableExpression} from "../../src/components/expressions/variableExpression";
+import {IsEmptyExpression} from "../../src/components/expressions/isEmptyExpression";
 
 describe('IsEmptyExpression', () => {
     it('should evaluate isEmtpy when empty', () => {

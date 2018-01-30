@@ -1,4 +1,4 @@
-import {Expression} from '../expression';
+import {Expression} from "../expression";
 
 export class AsSetOperation extends Expression {
     constructor(source) {
@@ -8,7 +8,7 @@ export class AsSetOperation extends Expression {
 
     evaluate(obj) {
         const source = this.source.evaluate(obj);
-        if(source instanceof Array) {
+        if (source instanceof Array) {
             return new Set(source);
         }
     }

@@ -1,4 +1,4 @@
-import {Expression} from './expression';
+import {Expression} from "./expression";
 
 export class SelectExpression extends Expression {
     constructor(source, iterator, body) {
@@ -13,7 +13,7 @@ export class SelectExpression extends Expression {
         if (collection instanceof Array) {
             return collection.filter(c => {
                 let variables = {};
-                if(this.iterators) {
+                if (this.iterators) {
                     variables[this.iterators[0]] = c;
                 } else {
                     variables = c;

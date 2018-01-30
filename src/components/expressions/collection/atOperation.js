@@ -11,7 +11,7 @@ export class AtOperation extends Expression {
         const source = this.source.evaluate(obj);
         const index = this.index.evaluate(obj);
 
-        if(source instanceof Array && Number.isInteger(index) && index >= 0 && index < source.length) {
+        if (source instanceof Array && Number.isInteger(index) && index >= 0 && index < source.length) {
             return source[index];
         }
     }

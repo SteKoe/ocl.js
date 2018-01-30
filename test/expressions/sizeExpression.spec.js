@@ -1,7 +1,6 @@
 import {expect} from "chai";
-
-import {VariableExpression} from '../../src/components/expressions/variableExpression'
-import {SizeExpression} from '../../src/components/expressions/collection/sizeExpression'
+import {VariableExpression} from "../../src/components/expressions/variableExpression";
+import {SizeExpression} from "../../src/components/expressions/collection/sizeExpression";
 
 describe('SizeExpression', () => {
     it('to evaluate isEmtpy when empty', () => {
@@ -15,6 +14,6 @@ describe('SizeExpression', () => {
     it('to evaluate isEmpty when not empty', () => {
         const ne = new SizeExpression(new VariableExpression('self.children'));
 
-        expect(ne.evaluate({name: 'Otto', children: [1,2,3,4,6]})).to.eql(5);
+        expect(ne.evaluate({name: 'Otto', children: [1, 2, 3, 4, 6]})).to.eql(5);
     });
 });

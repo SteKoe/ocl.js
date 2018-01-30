@@ -1,4 +1,4 @@
-import {Expression} from '../expression';
+import {Expression} from "../expression";
 
 export class SizeExpression extends Expression {
     constructor(source) {
@@ -8,7 +8,7 @@ export class SizeExpression extends Expression {
 
     evaluate(obj, variables) {
         let source = this.source.evaluate(obj, variables);
-        if(source instanceof Array || source instanceof Map || source instanceof Set) {
+        if (source instanceof Array || source instanceof Map || source instanceof Set) {
             return source.length;
         } else if (!source) {
             return 0;

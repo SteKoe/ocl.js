@@ -1,4 +1,4 @@
-import {Expression} from './expression';
+import {Expression} from "./expression";
 
 export class IteratorExpression extends Expression {
     constructor(source, iterators, body) {
@@ -11,7 +11,7 @@ export class IteratorExpression extends Expression {
     evaluate(obj) {
         const source = this.source.evaluate(obj);
         if (source instanceof Array) {
-            if(!this.iterators || this.iterators.length === 0) {
+            if (!this.iterators || this.iterators.length === 0) {
                 return false;
             } else if (this.iterators.length === 1) {
                 return this._evaluateOneIterator(obj);
@@ -36,7 +36,7 @@ export class IteratorExpression extends Expression {
         let b = !map
             .some(r => r === false);
 
-         return b;
+        return b;
     }
 
     _evaluateTwoIterators(obj) {

@@ -1,5 +1,4 @@
 import {expect} from "chai";
-
 import {NumberExpression} from "../../../src/components/expressions/literal/numberExpression";
 import {SubstractionExpression} from "../../../src/components/expressions/math/substractionExpression";
 

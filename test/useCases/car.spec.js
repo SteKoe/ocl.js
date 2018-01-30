@@ -1,10 +1,9 @@
 const should = require('should');
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from '../../src/components/parser/oclParser';
+import {OclParser} from "../../src/components/parser/oclParser";
 import Car from "../../examples/class/car";
 import Person from "../../examples/class/person";
-import {MetaAssociationLink, MetaEntity} from '../fixture.factory';
 
 describe('Car', () => {
     it('All cars a person owns are red.', () => {

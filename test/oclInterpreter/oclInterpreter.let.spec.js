@@ -1,7 +1,7 @@
 const should = require('should');
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from '../../src/components/parser/oclParser';
+import {OclParser} from "../../src/components/parser/oclParser";
 
 describe('OCLInterpreter: let', () => {
     it('should set simple string variable', () => {
@@ -39,7 +39,7 @@ describe('OCLInterpreter: let', () => {
         const oclRule = OclParser.parse(oclExpression);
 
         var mother = {
-            children: [1,2]
+            children: [1, 2]
         };
         let actual = oclRule.evaluate(mother);
         actual.should.be.ok();
@@ -53,8 +53,8 @@ describe('OCLInterpreter: let', () => {
         `;
         const oclRule = OclParser.parse(oclExpression);
         var o = {
-            a: [1,2],
-            b: [3,4]
+            a: [1, 2],
+            b: [3, 4]
         };
         let actual = oclRule.evaluate(o);
         actual.should.be.ok();
