@@ -1,6 +1,6 @@
 {
   "name": "@stekoe/ocl.js",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "Object Constraint Language parser written in JavaScript.",
   "main": "./lib/index.js",
   "scripts": {
