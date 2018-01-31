@@ -47,7 +47,7 @@ export class OclEngine {
     }
 
     /**
-     * For a fiven type returns all registered OCL expressions.
+     * For a given type returns all registered OCL expressions.
      *
      * @param {String} type The type to lookup OCL expressions for.
      * @returns {Array} an array of {Expression}s.s
@@ -74,10 +74,7 @@ export class OclEngine {
             .filter(i => i.evaluationResult === false)
             .map(i => i.name || 'anonymous');
 
-        const oclResult = new OclResult();
-        oclResult.setResult(namesOfFailedInvs.length === 0);
-        oclResult.setNamesOfFailedInvs(namesOfFailedInvs);
-        return oclResult;
+        return new OclResult(namesOfFailedInvs.length === 0, namesOfFailedInvs);
     }
 }
 
@@ -88,6 +85,11 @@ export class OclEngine {
  * of all names of invariants that have failed.
  */
 class OclResult {
+    constructor(result, namesOfFailedInvs) {
+        this.setResult(result);
+        this.setNamesOfFailedInvs(namesOfFailedInvs);
+    }
+
     setResult(result) {
         this.result = result;
     }
@@ -97,7 +99,7 @@ class OclResult {
     }
 
     setNamesOfFailedInvs(names) {
-        this.namesOfFailedInvs = names;
+        this.namesOfFailedInvs = Array.isArray(names) ? names : [];
     }
 
     getNamesOfFailedInvs() {
