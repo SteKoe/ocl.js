@@ -1,55 +1,55 @@
-import {expect} from "chai";
-import {OperationCallExpression} from "../../src/components/expressions/operationCallExpression";
-import {NumberExpression} from "../../src/components/expressions/literal/numberExpression";
+import { expect } from "chai";
+import { OperationCallExpression, Operator } from "../../src/components/expressions/operationCallExpression";
+import { NumberExpression } from "../../src/components/expressions/literal/numberExpression";
 
 describe('OperationCallExpression', () => {
     let expression;
 
     it('<=', () => {
-        expression = new OperationCallExpression('<=', new NumberExpression(5), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.LESS_EQUAL_THAN, new NumberExpression(5), new NumberExpression(18));
         expect(expression.evaluate()).should.be.true;
 
-        expression = new OperationCallExpression('<=', new NumberExpression(22), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.LESS_EQUAL_THAN, new NumberExpression(22), new NumberExpression(18));
         expect(expression.evaluate()).should.be.false;
     });
 
     it('>=', () => {
-        expression = new OperationCallExpression('>=', new NumberExpression(18), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.GREATER_EQUAL_THAN, new NumberExpression(18), new NumberExpression(18));
         expect(expression.evaluate()).should.be.true;
 
-        expression = new OperationCallExpression('>=', new NumberExpression(17), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.GREATER_EQUAL_THAN, new NumberExpression(17), new NumberExpression(18));
         expect(expression.evaluate()).should.be.false;
     });
 
     it('>', () => {
-        expression = new OperationCallExpression('>', new NumberExpression(19), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.GREATER_THAN, new NumberExpression(19), new NumberExpression(18));
         expect(expression.evaluate()).should.be.true;
 
-        expression = new OperationCallExpression('>', new NumberExpression(18), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.GREATER_THAN, new NumberExpression(18), new NumberExpression(18));
         expect(expression.evaluate()).should.be.false;
     });
 
     it('<', () => {
-        expression = new OperationCallExpression('<', new NumberExpression(17), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.LESS_THAN, new NumberExpression(17), new NumberExpression(18));
         expect(expression.evaluate()).should.be.true;
 
-        expression = new OperationCallExpression('<', new NumberExpression(18), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.LESS_THAN, new NumberExpression(18), new NumberExpression(18));
         expect(expression.evaluate()).should.be.false;
     });
 
     it('<>', () => {
-        expression = new OperationCallExpression('<>', new NumberExpression(5), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.NOT_EQUAL, new NumberExpression(5), new NumberExpression(18));
         expect(expression.evaluate()).should.be.true;
 
-        expression = new OperationCallExpression('<>', new NumberExpression(18), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.NOT_EQUAL, new NumberExpression(18), new NumberExpression(18));
         expect(expression.evaluate()).should.be.false;
     });
 
     it('=', () => {
-        expression = new OperationCallExpression('=', new NumberExpression(18), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.EQUAL, new NumberExpression(18), new NumberExpression(18));
         expect(expression.evaluate()).should.be.true;
 
-        expression = new OperationCallExpression('=', new NumberExpression(5), new NumberExpression(18));
+        expression = new OperationCallExpression(Operator.EQUAL, new NumberExpression(5), new NumberExpression(18));
         expect(expression.evaluate()).should.be.false;
     });
 
