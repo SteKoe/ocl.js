@@ -3,6 +3,6 @@ export class Expression {
         this.type = this.__proto__.constructor.name;
     }
 
-    evaluate(obj) {
+    evaluate() {
     }
 }
