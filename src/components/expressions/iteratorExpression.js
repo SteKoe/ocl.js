@@ -1,4 +1,4 @@
-import {Expression} from "./expression";
+import { Expression } from "./expression";
 
 export class IteratorExpression extends Expression {
     constructor(source, iterators, body) {
@@ -25,34 +25,39 @@ export class IteratorExpression extends Expression {
 
     _evaluateOneIterator(obj) {
         const source = this.source.evaluate(obj);
-        let map = source
-            .map(c => {
-                let variables = {};
-                variables[this.iterators[0]] = c;
-                return this.body.evaluate(obj, variables);
-            });
+        const variables = {};
 
-
-        let b = !map
-            .some(r => r === false);
-
-        return b;
+        return !source.some(c => {
+            variables[this.iterators[0]] = c;
+            let result = this.body.evaluate(obj, variables) === false
+            variables[this.iterators[0]] = null;
+            return result;
+        });
     }
 
     _evaluateTwoIterators(obj) {
         const source = this.source.evaluate(obj);
-        const result = [];
+        const sourceLength = source.length;
+        const variables = {};
 
-        for (let i = 0; i < source.length; i++) {
-            let variables = {};
+        for (let i = 0; i < sourceLength; i++) {
             variables[this.iterators[0]] = source[i];
 
-            for (let j = i + 1; j < source.length; j++) {
+            for (let j = i + 1; j < sourceLength; j++) {
                 variables[this.iterators[1]] = source[j];
-                result.push(this.body.evaluate(obj, variables));
+                let items = this.body.evaluate(obj, variables);
+
+                variables[this.iterators[1]] = null;
+
+                if (items === false) {
+                    variables[this.iterators[0]] = null;
+                    return false;
+                }
             }
+
+            variables[this.iterators[0]] = null;
         }
 
-        return !result.some(r => r === false);
+        return true;
     }
 }
