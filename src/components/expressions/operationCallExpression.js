@@ -29,6 +29,7 @@ export class OperationCallExpression extends Expression {
         throw new SyntaxError(`Unhandled operator found: '${this.operator}'`)
     }
 }
+
 export const Operator = {
     NOT_EQUAL: '<>',
     LESS_EQUAL_THAN: '<=',
