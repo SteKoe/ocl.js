@@ -4,6 +4,5 @@ export class Expression {
     }
 
     evaluate(obj) {
-        throw new Error('evaluate() function not implemented!')
     }
 }

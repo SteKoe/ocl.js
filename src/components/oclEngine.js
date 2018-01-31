@@ -1,5 +1,5 @@
-import {OclParser} from "./parser/oclParser";
-import {Utils} from "./utils";
+import { OclParser } from "./parser/oclParser";
+import { Utils } from "./utils";
 
 /**
  * The OclEngine class is the main entry point to the OCL.js library.

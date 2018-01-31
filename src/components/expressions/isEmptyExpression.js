@@ -1,4 +1,4 @@
-import {Expression} from "./expression";
+import { Expression } from "./expression";
 
 export class IsEmptyExpression extends Expression {
     constructor(source) {

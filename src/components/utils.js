@@ -5,8 +5,7 @@ export class Utils {
         } else if (typeof obj === 'function') {
             return Utils._getFunctionName(obj);
         } else if (typeof obj === 'object') {
-            const objectTypename = Utils._getFunctionName(obj.__proto__.constructor.toString());
-            return objectTypename;
+            return Utils._getFunctionName(obj.__proto__.constructor.toString());
         }
     }
 

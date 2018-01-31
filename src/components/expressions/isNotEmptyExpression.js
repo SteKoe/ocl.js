@@ -1,4 +1,4 @@
-import {IsEmptyExpression} from "./isEmptyExpression";
+import { IsEmptyExpression } from "./isEmptyExpression";
 
 export class IsNotEmptyExpression extends IsEmptyExpression {
     evaluate(obj, variables) {

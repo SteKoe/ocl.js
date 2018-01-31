@@ -1,4 +1,4 @@
-import {Expression} from "../expression";
+import { Expression } from "../expression";
 
 export class MathExpression extends Expression {
     constructor(left, right) {
@@ -11,6 +11,6 @@ export class MathExpression extends Expression {
         let left = this.left.evaluate(obj, variables);
         let right = this.right.evaluate(obj, variables);
         right = this.right.left ? this.right.left.evaluate(obj) : right;
-        return {left, right}
+        return { left, right }
     }
 }

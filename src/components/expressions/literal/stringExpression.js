@@ -1,4 +1,4 @@
-import {LiteralExpression} from "./literalExpression";
+import { LiteralExpression } from "./literalExpression";
 
 export class StringExpression extends LiteralExpression {
     parseValue(value) {

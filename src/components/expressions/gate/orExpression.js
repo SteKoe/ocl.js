@@ -1,4 +1,4 @@
-import {GateExpression} from "./gateExpression";
+import { GateExpression } from "./gateExpression";
 
 export class OrExpression extends GateExpression {
     evaluate(obj, variables) {

@@ -1,7 +1,7 @@
-import {Expression} from "./expression";
-import {InvariantExpression} from "./invariantExpression";
-import {LetExpression} from "./letExpression";
-import {Utils} from "../utils";
+import { Expression } from "./expression";
+import { InvariantExpression } from "./invariantExpression";
+import { LetExpression } from "./letExpression";
+import { Utils } from "../utils";
 
 export class ContextExpression extends Expression {
     constructor(targetType, rules) {
@@ -18,16 +18,14 @@ export class ContextExpression extends Expression {
 
     evaluate(obj) {
         obj = obj || {};
-        this.evaluationResult = false;
 
         if (this.targetType === this._getClassName(obj)) {
             this.defs.forEach(def => def.evaluate(obj));
-            const map = this.invs.map(i => i.evaluate(obj));
-            this.evaluationResult = !map.some(i => i === false);
+            this.evaluationResult = !this.invs.some(i => i.evaluate(obj) === false);
             return this.evaluationResult;
         }
 
-        return this.evaluationResult;
+        return false;
     }
 
     _getClassName(obj) {

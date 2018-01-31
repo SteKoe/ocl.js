@@ -1,4 +1,4 @@
-import {LiteralExpression} from "./literalExpression";
+import { LiteralExpression } from "./literalExpression";
 
 export class NumberExpression extends LiteralExpression {
     parseValue(value) {
