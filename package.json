@@ -5,7 +5,8 @@
   "main": "./lib/index.js",
   "scripts": {
     "babel-node": "babel-node",
-    "build:examples": "npm run build && npm run webpack -- --config webpack.examples.config.js",
+    "build:examples": "npm run build && npm run build:examples:fast",
+    "build:examples:fast": "npm run webpack -- --config webpack.examples.config.js",
     "build": "npm run clean:dist && npm run test && npm run webpack -- --config webpack.config.js --progress --profile --bail",
     "clean:dist": "npm run rimraf -- dist",
     "clean": "npm cache verify && npm run rimraf -- node_modules dist lib",

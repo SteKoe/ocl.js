@@ -6,15 +6,6 @@ export default class ExampleBuilder {
     }
 
     /**
-     * @param id
-     * @returns {ExampleBuilder}
-     */
-    id(id) {
-        this.example.id = id;
-        return this;
-    }
-
-    /**
      * @param title
      * @returns {ExampleBuilder}
      */
@@ -63,6 +54,6 @@ export default class ExampleBuilder {
      * @returns {Example}
      */
     build() {
-        this.example.run.apply(this.example);
+        return this.example.run.apply(this.example);
     }
 }
