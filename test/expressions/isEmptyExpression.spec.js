@@ -16,4 +16,12 @@ describe('IsEmptyExpression', () => {
 
         expect(ne.evaluate({name: 'Otto', children: [1]})).to.be.false;
     });
+
+    it('should not fail when getting weird values', () => {
+        const ne = new IsEmptyExpression(new VariableExpression('self.children'));
+
+        expect(ne.evaluate({name: 'Otto', children: null})).to.be.true;
+        expect(ne.evaluate({name: 'Otto', children: undefined})).to.be.true;
+        expect(ne.evaluate({name: 'Otto', children: 1})).to.be.true;
+    });
 });
