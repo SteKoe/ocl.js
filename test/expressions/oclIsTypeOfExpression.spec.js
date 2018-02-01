@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {OclIsTypeOfExpression} from "../../src/components/expressions/oclIsTypeOfExpression";
+import {OclIsTypeOfExpression} from "../../lib/components/expressions/oclIsTypeOfExpression";
 
 class Animal {
 }

@@ -6,10 +6,10 @@
   "scripts": {
     "babel-node": "babel-node",
     "build:examples": "npm run build && npm run webpack -- --config webpack.examples.config.js",
-    "build": "npm run clean:dist && npm run generate:parser && npm run webpack -- --config webpack.config.js --progress --profile --bail",
+    "build": "npm run clean:dist && npm run test && npm run webpack -- --config webpack.config.js --progress --profile --bail",
     "clean:dist": "npm run rimraf -- dist",
     "clean": "npm cache verify && npm run rimraf -- node_modules dist lib",
-    "generate:parser": "rm -rf ./src/components/parser/parser.js && node generator/oclParserGenerator.js",
+    "generate:parser": "rm -rf ./lib/components/parser/parser.js && node generator/oclParserGenerator.js",
     "istanbul": "istanbul",
     "rimraf": "rimraf",
     "test": "npm run generate:parser && node ./node_modules/mocha/bin/_mocha --compilers js:babel-core/register test/**/*.spec.js",

@@ -2,7 +2,7 @@
 const should = require('should');
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from "../../src/components/parser/oclParser";
+import {OclParser} from "../../lib/components/parser/oclParser";
 
 describe('logical expressions', () => {
     const testCases = [

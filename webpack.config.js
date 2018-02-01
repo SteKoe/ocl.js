@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 module.exports = {
-    context: __dirname + "/src",
+    context: __dirname + "/lib",
     entry: "./index",
     output: {
         path: __dirname + "/dist",

@@ -1,8 +1,8 @@
 const should = require('should');
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from "../../src/components/parser/oclParser";
-import * as Expression from "../../src/components/expressions";
+import {OclParser} from "../../lib/components/parser/oclParser";
+import * as Expression from "../../lib/components/expressions";
 
 describe('Invariants', () => {
     const assertAST = (oclExpression, expected) => OclParser.parse(oclExpression).should.eql(expected);

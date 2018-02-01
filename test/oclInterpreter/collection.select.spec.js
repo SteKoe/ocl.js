@@ -3,7 +3,7 @@ const should = require('should');
 
 require('../../generator/oclParserGenerator');
 import {FixtureFactory} from "../fixture.factory";
-import {OclParser} from "../../src/components/parser/oclParser";
+import {OclParser} from "../../lib/components/parser/oclParser";
 
 describe('Collection->select ', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);

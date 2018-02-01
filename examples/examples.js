@@ -1,4 +1,4 @@
-import OclEngine from '../src/index';
+import OclEngine from '../lib/index';
 import Example from "./class/example";
 import Person from "./class/person";
 import Car from "./class/car";

@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {NumberExpression} from "../../src/components/expressions/literal/numberExpression";
+import {NumberExpression} from "../../lib/components/expressions/literal/numberExpression";
 
 describe('NumberExpression', () => {
     it('should evaluate number.', () => {
