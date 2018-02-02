@@ -7,7 +7,7 @@
     "babel-node": "babel-node",
     "build:examples": "npm run build && npm run build:examples:fast",
     "build:examples:fast": "npm run webpack -- --config webpack.examples.config.js",
-    "build": "npm run clean:dist && npm run test && npm run webpack -- --config webpack.config.js --progress --profile --bail",
+    "build": "npm run clean:dist && npm run test && npm run webpack -- --config webpack.config.js --progress --profile --bail && npm run build:examples:fast",
     "clean:dist": "npm run rimraf -- dist",
     "clean": "npm cache verify && npm run rimraf -- node_modules dist",
     "generate:parser": "rm -rf ./lib/components/parser/parser.js && node generator/oclParserGenerator.js",
