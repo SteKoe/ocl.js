@@ -1,9 +1,9 @@
 import {expect} from "chai";
-import {VariableExpression} from "../../src/components/expressions/variableExpression";
-import {IsNotEmptyExpression} from "../../src/components/expressions/isNotEmptyExpression";
+import {VariableExpression} from "../../lib/components/expressions/variableExpression";
+import {IsNotEmptyExpression} from "../../lib/components/expressions/isNotEmptyExpression";
 
 describe('IsNotEmptyExpression', () => {
-    it('should evaluate isNotEmtpy when empty', () => {
+    it('should evaluate isNotEmpty when empty', () => {
         const ne = new IsNotEmptyExpression(new VariableExpression('self.children'));
 
         expect(ne.evaluate({name: 'Otto'})).to.be.false;

@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {OclIsKindOfExpression} from "../../src/components/expressions/oclIsKindOfExpression";
+import {OclIsKindOfExpression} from "../../lib/components/expressions/oclIsKindOfExpression";
 
 class Animal {
 }
@@ -23,4 +23,9 @@ describe('OclIsKindOfExpression', () => {
         const ne = new OclIsKindOfExpression(new Human(), God);
         expect(ne.evaluate()).to.be.false;
     });
+
+    // it('should not fail.', () => {
+    //     const ne = new OclIsKindOfExpression(new Human(), "asd");
+    //     expect(ne.evaluate()).to.be.false;
+    // });
 });

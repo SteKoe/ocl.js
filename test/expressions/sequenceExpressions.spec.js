@@ -6,7 +6,7 @@ import {
     AtOperation,
     FirstOperation,
     LastOperation
-} from "../../src/components/expressions";
+} from "../../lib/components/expressions";
 
 describe('SequenceExpressions', () => {
     const selfA = new VariableExpression('self.a');

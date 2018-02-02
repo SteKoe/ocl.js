@@ -2,7 +2,7 @@
 const should = require('should');
 
 require('../../generator/oclParserGenerator');
-import {OclEngine} from "../../src/components/oclEngine";
+import {OclEngine} from "../../lib/components/oclEngine";
 import {MetaAssociationLink, MetaEntity} from "../fixture.factory";
 
 describe('OclEngine', function () {

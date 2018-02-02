@@ -1,6 +1,6 @@
 import {expect} from "chai";
-import {VariableExpression} from "../../src/components/expressions/variableExpression";
-import {IsEmptyExpression} from "../../src/components/expressions/isEmptyExpression";
+import {VariableExpression} from "../../lib/components/expressions/variableExpression";
+import {IsEmptyExpression} from "../../lib/components/expressions/isEmptyExpression";
 
 describe('IsEmptyExpression', () => {
     it('should evaluate isEmtpy when empty', () => {
@@ -15,5 +15,13 @@ describe('IsEmptyExpression', () => {
         const ne = new IsEmptyExpression(new VariableExpression('self.children'));
 
         expect(ne.evaluate({name: 'Otto', children: [1]})).to.be.false;
+    });
+
+    it('should not fail when getting weird values', () => {
+        const ne = new IsEmptyExpression(new VariableExpression('self.children'));
+
+        expect(ne.evaluate({name: 'Otto', children: null})).to.be.true;
+        expect(ne.evaluate({name: 'Otto', children: undefined})).to.be.true;
+        expect(ne.evaluate({name: 'Otto', children: 1})).to.be.true;
     });
 });

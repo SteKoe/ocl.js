@@ -9,20 +9,45 @@ export default class Example {
     }
 
     run() {
-        const elementById = document.getElementById(`example${this.id}`);
-        const elemTitle = elementById.getElementsByClassName('title')[0];
+        const elemTitle = document.createElement('h5');
         elemTitle.onclick = () => this._toggleClass(elemTitle, 'visible');
         elemTitle.innerHTML = this.title.trim();
-        elementById.getElementsByTagName('code')[0].innerText = this.ctx.trim();
-        elementById.getElementsByTagName('code')[1].innerText = this.oclExpression.trim();
-        const resultTag = elementById.getElementsByClassName('result')[0];
-        if (resultTag) {
+
+        const elemPreJs = document.createElement('pre');
+        const elemCodeJs = document.createElement('code');
+        elemCodeJs.innerText = this.ctx.trim();
+        elemPreJs.appendChild(elemCodeJs);
+
+        const elemPreOcl = document.createElement('pre');
+        const elemCodeOcl = document.createElement('code');
+        elemCodeOcl.innerText = this.oclExpression.trim();
+        elemPreOcl.appendChild(elemCodeOcl);
+
+        const elemResult = document.createElement('p');
+        if (elemResult) {
             let resultObject = this.fn.apply(this);
-            console.log(resultObject);
             let actual = resultObject.getResult();
-            let resultIsExpectedResult = actual === this.expected;
-            resultTag.innerHTML = `The result of the above rule should ${result(this.expected)} and does ${result(actual)}.`;
+            elemResult.innerHTML = `The result of the above rule should ${result(this.expected)} and does ${result(actual)}.`;
+
+            if(this.expected === false && actual === false) {
+                const failedInvs = resultObject.getNamesOfFailedInvs().filter(name => name !== 'anonymous');
+
+                if(failedInvs.length > 0) {
+                    elemResult.innerHTML += ` The following invariants have failed: ${failedInvs.join(', ')}`
+                }
+            }
         }
+
+        const elemDivCodeWrapper = document.createElement('div');
+        elemDivCodeWrapper.appendChild(elemPreJs);
+        elemDivCodeWrapper.appendChild(elemPreOcl);
+        elemDivCodeWrapper.appendChild(elemResult);
+
+        const elemDivExampleWrapper = document.createElement('div');
+        elemDivExampleWrapper.appendChild(elemTitle);
+        elemDivExampleWrapper.appendChild(elemDivCodeWrapper);
+
+        return elemDivExampleWrapper;
 
         function result(boolean) {
             const clazz = boolean ? 'pass' : 'not-pass';

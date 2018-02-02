@@ -1,5 +1,5 @@
 import {expect} from "chai";
-import {VariableExpression} from "../../src/components/expressions/variableExpression";
+import {VariableExpression} from "../../lib/components/expressions/variableExpression";
 
 describe('VariableExpression', () => {
     const person = {
