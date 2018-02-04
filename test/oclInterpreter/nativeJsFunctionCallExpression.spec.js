@@ -45,4 +45,24 @@ describe('Eval FunctionCall', () => {
         const oclRule = OclParser.parse(oclExpression);
         expect(oclRule.evaluate(A)).to.be.true;
     });
+
+    it('should evaluate to false if function cannot be called', () => {
+        const oclExpression = `
+            context Person inv:
+                self->notDefinedFunction()
+        `;
+
+        const oclRule = OclParser.parse(oclExpression);
+        expect(oclRule.evaluate(mother)).to.be.false;
+    });
+
+    it('should evaluate to false if object the function is called on is undefined', () => {
+        const oclExpression = `
+            context Person inv:
+                self.undefinedProperty->undefinedFunction()
+        `;
+
+        const oclRule = OclParser.parse(oclExpression);
+        expect(oclRule.evaluate(mother)).to.be.false;
+    });
 });
