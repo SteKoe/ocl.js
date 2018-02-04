@@ -9,6 +9,10 @@ export class Person {
         this.name = name;
         this.age = age;
     }
+
+    getChildren() {
+        return this.children;
+    }
 }
 
 export class MetaEntity {

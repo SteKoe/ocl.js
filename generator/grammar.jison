@@ -40,7 +40,7 @@
 "pre"                               return 'pre'
 
 'nil'                               return 'nil'
-[a-zA-Z][a-zA-Z0-9]*                return 'simpleName'
+[a-zA-Z_][a-zA-Z0-9_]*              return 'simpleName'
 ["][^\"]*["]          	            return 'string'
 
 <<EOF>>               	            return 'EOF'
@@ -232,7 +232,11 @@ function functionCallExpression(fn, source) {
         return new Expression.LastOperation(source);
     } else if(fn.toLowerCase() === 'asset') {
         return new Expression.AsSetOperation(source);
+    } else if(fn.toLowerCase() === 'oclistypeof') {
+        return new Expression.OclIsTypeOfExpression(source);
+    } else {
+        return new Expression.NativeJsFunctionCallExpression(source, fn);
     }
 
-   throw new Error(`No function call expression found for '${fn}' not found!`);
+    throw new Error(`No function call expression found for '${fn}' on ${source}!`);
 }
