@@ -90,6 +90,8 @@ oclExpression
 	    { $$ = new Expression.VariableExpression($1) }
     | '(' oclExpression ')'
         { $$ = $2 }
+    | oclExpression '.' simpleName '(' simpleNameOptional ')'
+        { $$ = methodCallExpression($3, $1) }
     | oclExpression '.' simpleName preOptional
         { $$ = ($1 instanceof Expression.VariableExpression) ? new Expression.VariableExpression([$1.variable, $3].join('.')) : $1 }
     | oclExpression '+' oclExpression
@@ -209,7 +211,7 @@ pathName
 %%
 /* start of helper functions */
 
-function functionCallExpression(fn, source) {
+function functionCallExpression(fn, source, a) {
     if(fn.toLowerCase() === 'isempty') {
         return new Expression.IsEmptyExpression(source);
     } else if(fn.toLowerCase() === 'isnotempty') {
@@ -234,9 +236,11 @@ function functionCallExpression(fn, source) {
         return new Expression.AsSetOperation(source);
     } else if(fn.toLowerCase() === 'oclistypeof') {
         return new Expression.OclIsTypeOfExpression(source);
-    } else {
-        return new Expression.NativeJsFunctionCallExpression(source, fn);
     }
 
     throw new Error(`No function call expression found for '${fn}' on ${source}!`);
+}
+
+function methodCallExpression(fn, source) {
+    return new Expression.NativeJsFunctionCallExpression(source, fn);
 }

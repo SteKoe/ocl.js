@@ -18,7 +18,7 @@ describe('Eval FunctionCall', () => {
     it('should use eval to evaluate native method on object', () => {
         const oclExpression = `
             context Person inv:
-                self->getChildren()->exists(c|c.age > 20)
+                self.getChildren()->exists(c|c.age > 20)
         `;
 
         const oclRule = OclParser.parse(oclExpression);
@@ -39,7 +39,7 @@ describe('Eval FunctionCall', () => {
 
         const oclExpression = `
             context Object inv:
-                self->getB()->getC() = "C"
+                self.getB().getC() = "C"
         `;
 
         const oclRule = OclParser.parse(oclExpression);
@@ -49,7 +49,7 @@ describe('Eval FunctionCall', () => {
     it('should evaluate to false if function cannot be called', () => {
         const oclExpression = `
             context Person inv:
-                self->notDefinedFunction()
+                self.notDefinedFunction()
         `;
 
         const oclRule = OclParser.parse(oclExpression);
@@ -59,7 +59,7 @@ describe('Eval FunctionCall', () => {
     it('should evaluate to false if object the function is called on is undefined', () => {
         const oclExpression = `
             context Person inv:
-                self.undefinedProperty->undefinedFunction()
+                self.undefinedProperty.undefinedFunction()
         `;
 
         const oclRule = OclParser.parse(oclExpression);
