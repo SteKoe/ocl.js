@@ -90,8 +90,8 @@ oclExpression
 	    { $$ = new Expression.VariableExpression($1) }
     | '(' oclExpression ')'
         { $$ = $2 }
-    | oclExpression '.' simpleName '(' simpleNameOptional ')'
-        { $$ = methodCallExpression($3, $1) }
+    | oclExpression '.' simpleName '(' oclExpressionListOptional ')'
+        { $$ = methodCallExpression($3, $1, $5) }
     | oclExpression '.' simpleName preOptional
         { $$ = ($1 instanceof Expression.VariableExpression) ? new Expression.VariableExpression([$1.variable, $3].join('.')) : $1 }
     | oclExpression '+' oclExpression
@@ -155,6 +155,19 @@ variableDeclaration
         { $$ = $1 }
     ;
 
+oclExpressionListOptional
+    : oclExpression ',' oclExpression
+        { $$ = [].concat($1).concat($3) }
+    | oclExpressionOptional
+        { $$ = [$1] }
+    ;
+
+oclExpressionOptional
+    : oclExpression
+        { $$ = $1 }
+    |
+    ;
+
 variableDeclarationList
 	:  variableDeclarationList ',' variableDeclaration
 	    { $$ = [].concat($1).concat($3) }
@@ -211,7 +224,7 @@ pathName
 %%
 /* start of helper functions */
 
-function functionCallExpression(fn, source, a) {
+function functionCallExpression(fn, source) {
     if(fn.toLowerCase() === 'isempty') {
         return new Expression.IsEmptyExpression(source);
     } else if(fn.toLowerCase() === 'isnotempty') {
@@ -241,6 +254,6 @@ function functionCallExpression(fn, source, a) {
     throw new Error(`No function call expression found for '${fn}' on ${source}!`);
 }
 
-function methodCallExpression(fn, source) {
-    return new Expression.NativeJsFunctionCallExpression(source, fn);
+function methodCallExpression(fn, source, params) {
+    return new Expression.NativeJsFunctionCallExpression(source, fn, params);
 }

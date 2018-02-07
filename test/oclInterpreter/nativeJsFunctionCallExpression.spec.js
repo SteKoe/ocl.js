@@ -65,4 +65,52 @@ describe('Eval FunctionCall', () => {
         const oclRule = OclParser.parse(oclExpression);
         expect(oclRule.evaluate(mother)).to.be.false;
     });
+
+    it('should accept one parameter in a function call', () => {
+        const A = {
+            getValue(val) {
+                return val;
+            }
+        }
+
+        const oclExpression = `
+            context Object inv:
+                self.getValue("A") = "A"
+        `;
+
+        const oclRule = OclParser.parse(oclExpression);
+        expect(oclRule.evaluate(A)).to.be.true;
+    });
+
+    it('should accept more parameters in a function call', () => {
+        const A = {
+            add(a, b) {
+                return a + b;
+            }
+        }
+
+        const oclExpression = `
+            context Object inv:
+                self.add(6,4) = 10
+        `;
+
+        const oclRule = OclParser.parse(oclExpression);
+        expect(oclRule.evaluate(A)).to.be.true;
+    });
+
+    it('does even work with nested function calls', () => {
+        const A = {
+            add(a, b) {
+                return a + b;
+            }
+        }
+
+        const oclExpression = `
+            context Object inv:
+                self.add(6, self.add(2,2)) = 10
+        `;
+
+        const oclRule = OclParser.parse(oclExpression);
+        expect(oclRule.evaluate(A)).to.be.true;
+    });
 });
