@@ -1,9 +1,9 @@
 import {expect} from "chai";
-import {ExistsExpression} from "../../lib/components/expressions/existsExpression";
-import {OperationCallExpression} from "../../lib/components/expressions/operationCallExpression";
-import {VariableExpression} from "../../lib/components/expressions/variableExpression";
-import {NumberExpression} from "../../lib/components/expressions/literal/numberExpression";
-import {StringExpression} from "../../lib/components/expressions/literal/stringExpression";
+import {ExistsExpression} from "../../lib/components/expressions/ExistsExpression";
+import {OperationCallExpression} from "../../lib/components/expressions/OperationCallExpression";
+import {VariableExpression} from "../../lib/components/expressions/VariableExpression";
+import {NumberExpression} from "../../lib/components/expressions/literal/NumberExpression";
+import {StringExpression} from "../../lib/components/expressions/literal/StringExpression";
 
 describe('ExistsExpression', () => {
     const self = {

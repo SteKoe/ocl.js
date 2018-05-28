@@ -1,6 +1,6 @@
 import {expect} from "chai";
-import {VariableExpression} from "../../lib/components/expressions/variableExpression";
-import {SizeExpression} from "../../lib/components/expressions/collection/sizeExpression";
+import {VariableExpression} from "../../lib/components/expressions/VariableExpression";
+import {SizeExpression} from "../../lib/components/expressions/collection/SizeExpression";
 
 describe('SizeExpression', () => {
     it('to evaluate isEmtpy when empty', () => {

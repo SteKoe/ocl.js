@@ -1,6 +1,6 @@
 import {expect} from "chai";
-import {OrExpression} from "../../../lib/components/expressions/gate/orExpression";
-import {BooleanExpression} from "../../../lib/components/expressions/literal/booleanExpression";
+import {OrExpression} from "../../../lib/components/expressions/gate/OrExpression";
+import {BooleanExpression} from "../../../lib/components/expressions/literal/BooleanExpression";
 
 const TRUE = new BooleanExpression(true);
 const FALSE = new BooleanExpression(false);

@@ -8,6 +8,7 @@
     "build:examples": "npm run build && npm run build:examples:fast",
     "build:examples:fast": "npm run webpack -- --config webpack.examples.config.js",
     "build": "npm run clean:dist && npm run test && npm run webpack -- --config webpack.config.js --progress --profile --bail && npm run build:examples:fast",
+    "build:dist": "npm run webpack -- --config webpack.config.js",
     "clean:dist": "npm run rimraf -- dist",
     "clean": "npm run rimraf -- node_modules dist",
     "generate:parser": "rm -rf ./lib/components/parser/parser.js && node generator/oclParserGenerator.js",

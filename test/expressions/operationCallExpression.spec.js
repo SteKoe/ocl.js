@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { OperationCallExpression, Operator } from "../../lib/components/expressions/operationCallExpression";
-import { NumberExpression } from "../../lib/components/expressions/literal/numberExpression";
+import { OperationCallExpression, Operator } from "../../lib/components/expressions/OperationCallExpression";
+import { NumberExpression } from "../../lib/components/expressions/literal/NumberExpression";
 
 describe('OperationCallExpression', () => {
     let expression;

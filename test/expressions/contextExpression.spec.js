@@ -1,5 +1,6 @@
 import {expect} from "chai";
-import {ContextExpression} from "../../lib/components/expressions/contextExpression";
+import {ContextExpression} from "../../lib/components/expressions/ContextExpression";
+
 const expr = new ContextExpression();
 
 describe('ContextExpression', () => {
@@ -11,6 +12,7 @@ describe('ContextExpression', () => {
     it('expect return name of class', () => {
         class Abc {
         }
+
         expect(expr._getClassName(new Abc())).to.eql('Abc')
     })
 });

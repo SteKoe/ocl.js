@@ -1,10 +1,11 @@
+const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    context: __dirname + "/lib",
+    context: path.resolve(__dirname, 'lib'),
     entry: "./index",
     output: {
-        path: __dirname + "/dist",
+        path: path.resolve(__dirname, 'dist'),
         filename: "ocl.min.js"
     },
     module: {

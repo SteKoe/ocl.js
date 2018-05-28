@@ -1,8 +1,8 @@
 import {expect} from "chai";
-import {SelectExpression} from "../../lib/components/expressions/selectExpression";
-import {OperationCallExpression} from "../../lib/components/expressions/operationCallExpression";
-import {VariableExpression} from "../../lib/components/expressions/variableExpression";
-import {NumberExpression} from "../../lib/components/expressions/literal/numberExpression";
+import {SelectExpression} from "../../lib/components/expressions/SelectExpression";
+import {OperationCallExpression} from "../../lib/components/expressions/OperationCallExpression";
+import {VariableExpression} from "../../lib/components/expressions/VariableExpression";
+import {NumberExpression} from "../../lib/components/expressions/Literal/NumberExpression";
 
 describe('SelectExpression', () => {
     const self = {
