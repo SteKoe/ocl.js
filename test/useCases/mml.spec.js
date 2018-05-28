@@ -1,5 +1,3 @@
-const should = require('should');
-
 require('../../generator/oclParserGenerator');
 import {OclParser} from "../../lib/components/parser/oclParser";
 import {MetaAssociationLink, MetaEntity} from "../fixture.factory";
