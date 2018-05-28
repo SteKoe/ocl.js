@@ -1,7 +1,8 @@
 const should = require('should');
+should.config.checkProtoEql = false;
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from "../../lib/components/parser/oclParser";
+import {OclParser} from "../../lib/components/parser/OclParser";
 import * as Expression from "../../lib/components/expressions";
 
 describe('Invariants', () => {

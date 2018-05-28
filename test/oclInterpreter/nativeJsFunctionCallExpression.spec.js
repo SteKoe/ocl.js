@@ -1,7 +1,7 @@
 'use strict';
 import { expect } from "chai";
 import { FixtureFactory } from "./../fixture.factory.js";
-import { OclParser } from "../../lib/components/parser/oclParser";
+import { OclParser } from "../../lib/components/parser/OclParser";
 
 const should = require('should');
 

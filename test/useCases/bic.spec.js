@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 
 require('../../generator/oclParserGenerator');
-import { OclParser } from "../../lib/components/parser/oclParser";
+import { OclParser } from "../../lib/components/parser/OclParser";
 
 class AST_SEQUENCE_FLOW {
 }

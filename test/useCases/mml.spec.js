@@ -1,5 +1,5 @@
 require('../../generator/oclParserGenerator');
-import {OclParser} from "../../lib/components/parser/oclParser";
+import {OclParser} from "../../lib/components/parser/OclParser";
 import {MetaAssociationLink, MetaEntity} from "../fixture.factory";
 
 describe('MML', () => {

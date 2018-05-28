@@ -1,4 +1,4 @@
-import {OclParser} from "../../lib/components/parser/oclParser";
+import {OclParser} from "../../lib/components/parser/OclParser";
 
 const should = require('should');
 

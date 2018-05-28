@@ -2,7 +2,7 @@ import {expect} from "chai";
 import {IteratorExpression} from "../../lib/components/expressions/IteratorExpression";
 import {OperationCallExpression} from "../../lib/components/expressions/OperationCallExpression";
 import {VariableExpression} from "../../lib/components/expressions/VariableExpression";
-import {NumberExpression} from "../../lib/components/expressions/Literal/NumberExpression";
+import {NumberExpression} from "../../lib/components/expressions/literal/NumberExpression";
 
 describe('IteratorExpression', () => {
     const self = {

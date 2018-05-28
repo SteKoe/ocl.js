@@ -2,7 +2,7 @@
 const should = require('should');
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from "../../lib/components/parser/oclParser";
+import {OclParser} from "../../lib/components/parser/OclParser";
 
 describe('Math', () => {
     it('should evaluate addition.', () => {
