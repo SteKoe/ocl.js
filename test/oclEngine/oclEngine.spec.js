@@ -1,7 +1,7 @@
 'use strict';
 const should = require('should');
 import { expect } from 'chai';
-import { OclEngine } from "../../lib/components/oclEngine";
+import { OclEngine } from "../../lib/components/OclEngine";
 import { FixtureFactory, MetaAssociationLink, MetaEntity } from "../fixture.factory";
 
 require('../../generator/oclParserGenerator');
