@@ -1,6 +1,6 @@
 import Person from "../class/person";
 import Example from "../class/example";
-import OclEngine from "../../lib";
+import OclEngine from "../../dist/ocl.min";
 
 const title = 'A person younger than 18 years old owns no cars.';
 const context = `var person = new Person(6);`;

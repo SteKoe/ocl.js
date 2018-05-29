@@ -1,6 +1,6 @@
 import Person from "../class/person";
 import Example from "../class/example";
-import OclEngine from "../../lib";
+import OclEngine from "../../dist/ocl.min";
 import Car from "../class/car";
 
 const title = 'A person should own a red, green and blue car, but does not own a blue one.';
