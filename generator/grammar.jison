@@ -17,7 +17,7 @@
 "mod"                               return 'mod'
 "div"                               return 'div'
 "xor"                               return 'xor'
-"not"                               return 'not'
+" not "                               return ' not '
 "implies"                           return 'implies'
 "("                                 return '('
 ")"                                 return ')'
@@ -135,6 +135,8 @@ oclExpression
         {  }
     | oclExpression 'implies' oclExpression
         { $$ = new Expression.ImpliesExpression($1, $3) }
+    | oclExpression ' not ' oclExpression
+        { $$ = new Expression.NotExpression($1, $3) }
 	| literalExp
 	    { $$ = $1 }
 	;
