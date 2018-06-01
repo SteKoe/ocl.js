@@ -5,7 +5,7 @@ require('../../generator/oclParserGenerator');
 import {FixtureFactory} from "../fixture.factory";
 import {OclParser} from "../../lib/components/parser/OclParser";
 
-describe('Collection->forAll', () => {
+describe('ImpliesExpression', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);
 
     it('should evaluate implies: positive', () => {

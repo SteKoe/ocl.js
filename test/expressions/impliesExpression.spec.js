@@ -7,7 +7,7 @@ const FALSE = new BooleanExpression(false);
 
 const expr = new ImpliesExpression();
 
-describe.only('ImpliesExpression', () => {
+describe('ImpliesExpression', () => {
     it('false implies false => true', () => {
         let impliesExpression = new ImpliesExpression(FALSE, FALSE)
         expect(impliesExpression.evaluate()).to.be.true;
