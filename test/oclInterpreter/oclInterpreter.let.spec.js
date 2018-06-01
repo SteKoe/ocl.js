@@ -1,7 +1,6 @@
+import {expect} from "chai";
+
 import {OclParser} from "../../lib/components/parser/OclParser";
-
-const should = require('should');
-
 require('../../generator/oclParserGenerator');
 
 describe('OCLInterpreter', () => {
@@ -16,7 +15,7 @@ describe('OCLInterpreter', () => {
 
             var a = {};
             let actual = oclRule.evaluate(a);
-            actual.should.be.ok();
+            expect(actual).to.be.true;
         });
 
         it('should set simple string variable without let', () => {
@@ -29,7 +28,7 @@ describe('OCLInterpreter', () => {
 
             var a = {};
             let actual = oclRule.evaluate(a);
-            actual.should.be.ok();
+            expect(actual).to.be.true;
         });
 
         it('should assign ->size() call', () => {
@@ -44,7 +43,7 @@ describe('OCLInterpreter', () => {
                 children: [1, 2]
             };
             let actual = oclRule.evaluate(mother);
-            actual.should.be.ok();
+            expect(actual).to.be.true;
         });
 
         it('should process union', () => {
@@ -59,7 +58,7 @@ describe('OCLInterpreter', () => {
                 b: [3, 4]
             };
             let actual = oclRule.evaluate(o);
-            actual.should.be.ok();
+            expect(actual).to.be.true;
         });
     })
 });

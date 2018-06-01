@@ -3,8 +3,6 @@ import { expect } from "chai";
 import { FixtureFactory } from "./../fixture.factory.js";
 import { OclParser } from "../../lib/components/parser/OclParser";
 
-const should = require('should');
-
 require('../../generator/oclParserGenerator');
 
 describe('Eval FunctionCall', () => {
@@ -22,7 +20,7 @@ describe('Eval FunctionCall', () => {
         `;
 
         const oclRule = OclParser.parse(oclExpression);
-        oclRule.evaluate(mother).should.be.false();
+        expect(oclRule.evaluate(mother)).to.be.false;
     });
 
 

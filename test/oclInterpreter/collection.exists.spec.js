@@ -1,6 +1,5 @@
 'use strict';
-const should = require('should');
-
+import {expect} from "chai";
 require('../../generator/oclParserGenerator');
 import {FixtureFactory} from "./../fixture.factory.js";
 import {OclParser} from "../../lib/components/parser/OclParser";
@@ -20,7 +19,7 @@ describe('Collection->exists', () => {
         `;
 
         const oclRule = OclParser.parse(oclExpression);
-        oclRule.evaluate(mother).should.be.false();
+        expect(oclRule.evaluate(mother)).to.be.false;
     });
 
     it('should return names for all children when using chained attributes', () => {
@@ -33,6 +32,6 @@ describe('Collection->exists', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.be.false();
+        expect(actual).to.be.false;
     });
 });

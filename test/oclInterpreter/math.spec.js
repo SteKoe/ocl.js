@@ -1,5 +1,5 @@
 'use strict';
-const should = require('should');
+import {expect} from "chai";
 
 require('../../generator/oclParserGenerator');
 import {OclParser} from "../../lib/components/parser/OclParser";
@@ -13,7 +13,7 @@ describe('Math', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
-        actual.should.be.true();
+        expect(actual).to.be.true;
     });
 
     it('should evaluate substraction.', () => {
@@ -24,7 +24,7 @@ describe('Math', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
-        actual.should.be.true();
+        expect(actual).to.be.true;
     });
 
     it('should evaluate division.', () => {
@@ -35,7 +35,7 @@ describe('Math', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
-        actual.should.be.true();
+        expect(actual).to.be.true;
     });
 
     it('should evaluate division using div.', () => {
@@ -46,7 +46,7 @@ describe('Math', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
-        actual.should.be.true();
+        expect(actual).to.be.true;
     });
 
     it('should evaluate multiply.', () => {
@@ -57,7 +57,7 @@ describe('Math', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
-        actual.should.be.true();
+        expect(actual).to.be.true;
     });
 
     it('should evaluate modulo.', () => {
@@ -68,6 +68,6 @@ describe('Math', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate();
-        actual.should.be.true();
+        expect(actual).to.be.true;
     });
 });

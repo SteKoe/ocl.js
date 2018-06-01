@@ -1,3 +1,5 @@
+import {expect} from "chai";
+
 require('../../generator/oclParserGenerator');
 import {OclParser} from "../../lib/components/parser/OclParser";
 import {MetaAssociationLink, MetaEntity} from "../fixture.factory";
@@ -16,7 +18,7 @@ describe('MML', () => {
             new MetaAssociationLink('roleA'),
             new MetaAssociationLink('roleB')
         ];
-        oclRule.evaluate(metaEntity).should.be.ok();
+        expect(oclRule.evaluate(metaEntity)).to.be.true;
     });
 
     it('MetaEntity: self.isType = true implies self.isIntrinsic = false', () => {
@@ -30,10 +32,10 @@ describe('MML', () => {
         `;
         const oclRule = OclParser.parse(oclExpression);
 
-        oclRule.evaluate(metaEntity).should.be.ok();
+        expect(oclRule.evaluate(metaEntity)).to.be.true;
 
         metaEntity.isIntrinsic = true;
-        oclRule.evaluate(metaEntity).should.not.be.ok();
+        expect(oclRule.evaluate(metaEntity)).to.not.be.true;
     });
 });
 

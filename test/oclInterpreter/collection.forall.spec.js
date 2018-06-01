@@ -1,6 +1,5 @@
 'use strict';
-const should = require('should');
-
+import {expect} from "chai";
 require('../../generator/oclParserGenerator');
 import {FixtureFactory} from "../fixture.factory";
 import {OclParser} from "../../lib/components/parser/OclParser";
@@ -21,7 +20,7 @@ describe('Collection->forAll', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.not.be.ok();
+        expect(actual).to.not.be.true;
     });
 
     it('should evaluate forAll(c|...): positive', () => {
@@ -37,7 +36,7 @@ describe('Collection->forAll', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.be.ok();
+        expect(actual).to.be.true;
     });
 
     it('should evaluate forAll(c1,c2|...): positive', () => {
@@ -57,7 +56,7 @@ describe('Collection->forAll', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.be.ok();
+        expect(actual).to.be.true;
     });
 
     it('should evaluate forAll(c1,c2|...): negative', () => {
@@ -77,7 +76,7 @@ describe('Collection->forAll', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.not.be.ok();
+        expect(actual).to.not.be.true;
     });
 
     it('should iterate over collected items without having a collector', () => {
@@ -96,7 +95,7 @@ describe('Collection->forAll', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.be.false();
+        expect(actual).to.be.false;
     });
 });
 

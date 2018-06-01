@@ -10,8 +10,4 @@ const imports = [
     "import * as Expression from '../expressions';"
 ].join('\n');
 
-let generatedParser = parser.generate({moduleType: 'js'});
-
-console.log(generatedParser);
-
-fs.writeFileSync(parserOutputFile, [imports, generatedParser, 'module.exports = parser;'].join('\n\n'), 'utf8');
+fs.writeFileSync(parserOutputFile, [imports, parser.generate({moduleType: 'js'}), 'module.exports = parser;'].join('\n\n'), 'utf8');

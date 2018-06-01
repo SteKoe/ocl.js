@@ -1,9 +1,9 @@
 'use strict';
-const should = require('should');
+import { expect } from "chai";
 
 require('../../generator/oclParserGenerator');
-import {FixtureFactory} from "../fixture.factory";
-import {OclParser} from "../../lib/components/parser/OclParser";
+import { FixtureFactory } from "../fixture.factory";
+import { OclParser } from "../../lib/components/parser/OclParser";
 
 describe('Collection->select ', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);
@@ -20,7 +20,7 @@ describe('Collection->select ', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(obj);
-        actual.should.be.true();
+        expect(actual).to.be.true;
     });
 
     it('should evaluate select()', () => {
@@ -38,7 +38,7 @@ describe('Collection->select ', () => {
         `;
 
         const oclRule = OclParser.parse(oclExpression);
-        oclRule.evaluate(mother).should.be.true();
+        expect(oclRule.evaluate(mother)).to.be.true;
     });
 
     it('should iterate over collected items', () => {
@@ -57,7 +57,7 @@ describe('Collection->select ', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.be.true();
+        expect(actual).to.be.true;
     });
 
 });

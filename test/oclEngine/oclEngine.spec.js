@@ -1,5 +1,4 @@
 'use strict';
-const should = require('should');
 import { expect } from 'chai';
 import { OclEngine } from "../../lib/components/OclEngine";
 import { FixtureFactory, MetaAssociationLink, MetaEntity } from "../fixture.factory";
@@ -14,7 +13,7 @@ describe('OclEngine', function () {
                     self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
             `);
 
-        oclEngine.getOclExpressionsForType('MetaEntity').length.should.be.eql(1);
+        expect(oclEngine.getOclExpressionsForType('MetaEntity').length).to.eql(1)
     });
 
     it('should manage multiple oclExpressions by target type.', function () {
@@ -28,7 +27,7 @@ describe('OclEngine', function () {
                 self.isType = true implies self.isIntrinsic = false
         `);
 
-        oclEngine.getOclExpressionsForType('MetaEntity').length.should.be.eql(2);
+        expect(oclEngine.getOclExpressionsForType('MetaEntity').length).to.be.eql(2);
     });
 
     it('should evaluate oclExpression for given instance data when all are valid.', function () {
@@ -47,11 +46,12 @@ describe('OclEngine', function () {
                 self.isType = true implies self.isIntrinsic = false
         `;
 
-        OclEngine.create()
+        let result = OclEngine.create()
             .addOclExpression(rule_distinctRoleNames)
             .addOclExpression(rule_ifTypeImpliesIntrinsic)
             .evaluate(metaEntity)
-            .getResult().should.be.true();
+            .getResult()
+        expect(result).to.be.true;
     });
 
     it('should evaluate oclExpression for given instance data when one is invalid.', function () {
@@ -71,7 +71,7 @@ describe('OclEngine', function () {
             new MetaAssociationLink('roleA')
         ];
 
-        oclEngine.evaluate(metaEntity).getResult().should.be.false();
+        expect(oclEngine.evaluate(metaEntity).getResult()).to.be.false;
     });
 
     it('should allow to set names for expressions', function () {
@@ -92,8 +92,8 @@ describe('OclEngine', function () {
         ];
 
         const evaluationResult = oclEngine.evaluate(metaEntity);
-        evaluationResult.getResult().should.be.false();
-        evaluationResult.getNamesOfFailedInvs().should.containEql('linkNamesMustBeUnique');
+        expect(evaluationResult.getResult()).to.be.false;
+        expect(evaluationResult.getNamesOfFailedInvs()).to.contain('linkNamesMustBeUnique');
     });
 
     describe('_inferType', () => {
@@ -155,8 +155,8 @@ describe('OclEngine', function () {
             ];
 
             const evaluationResult = oclEngine.evaluate(metaEntity);
-            evaluationResult.getResult().should.be.false();
-            evaluationResult.getNamesOfFailedInvs().should.containEql('linkNamesMustBeUnique');
+            expect(evaluationResult.getResult()).to.be.false;
+            expect(evaluationResult.getNamesOfFailedInvs()).to.contain('linkNamesMustBeUnique');
         });
 
         it('should allow to add multiple constraints as array', function () {

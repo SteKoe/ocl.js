@@ -1,5 +1,5 @@
 'use strict';
-const should = require('should');
+import { expect } from "chai";
 
 require('../../generator/oclParserGenerator');
 import {OclParser} from "../../lib/components/parser/OclParser";
@@ -17,12 +17,12 @@ describe('OCLInterpreter ', () => {
             const oclRule = OclParser.parse(oclExpression);
 
             let actual = oclRule.evaluate(mother);
-            actual.should.be.ok();
+            expect(actual).to.be.true;
 
             // Now set self to parent
             mother.parent = mother;
             actual = oclRule.evaluate(mother);
-            actual.should.not.be.ok();
+            expect(actual).to.not.be.true;
         });
 
 
@@ -40,7 +40,7 @@ describe('OCLInterpreter ', () => {
             `;
 
             const oclRule = OclParser.parse(oclExpression);
-            oclRule.evaluate(attr).should.be.true();
+            expect(oclRule.evaluate(attr)).to.be.true;
         });
 
         it('should execute function calls without braces', () => {
@@ -51,7 +51,7 @@ describe('OCLInterpreter ', () => {
 
             const oclRule = OclParser.parse(oclExpression);
             let actual = oclRule.evaluate(mother);
-            actual.should.be.ok();
+            expect(actual).to.be.true;
         });
 
         it('size should return array size', () => {
@@ -69,7 +69,7 @@ describe('OCLInterpreter ', () => {
 
             const oclRule = OclParser.parse(oclExpression);
             let actual = oclRule.evaluate(mother);
-            actual.should.be.true();
+            expect(actual).to.be.true;
         });
 
         it('size should return array size II', () => {
@@ -88,7 +88,7 @@ describe('OCLInterpreter ', () => {
 
             const oclRule = OclParser.parse(oclExpression);
             let actual = oclRule.evaluate(mother);
-            actual.should.be.false();
+            expect(actual).to.be.false;
         });
 
         it('should return set', () => {
@@ -103,7 +103,7 @@ describe('OCLInterpreter ', () => {
 
             const oclRule = OclParser.parse(oclExpression);
             let actual = oclRule.evaluate(obj);
-            actual.should.be.false();
+            expect(actual).to.be.false;
         });
     });
 });

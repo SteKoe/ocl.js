@@ -1,5 +1,5 @@
 'use strict';
-const should = require('should');
+import { expect } from "chai";
 
 require('../../generator/oclParserGenerator');
 import {FixtureFactory} from "../fixture.factory";
@@ -16,7 +16,7 @@ describe('ImpliesExpression', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.be.ok();
+        expect(actual).to.be.true;
     });
 
     it('should evaluate implies: negative', () => {
@@ -27,7 +27,7 @@ describe('ImpliesExpression', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.not.be.ok();
+        expect(actual).to.not.be.true;
     });
 
     it('should evaluate implies with more complex expressions', () => {
@@ -38,7 +38,7 @@ describe('ImpliesExpression', () => {
 
         const oclRule = OclParser.parse(oclExpression);
         let actual = oclRule.evaluate(mother);
-        actual.should.be.ok();
+        expect(actual).to.be.true;
     });
 });
 

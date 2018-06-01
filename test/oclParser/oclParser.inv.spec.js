@@ -1,12 +1,11 @@
-const should = require('should');
-should.config.checkProtoEql = false;
+import {expect} from "chai";
 
 require('../../generator/oclParserGenerator');
 import {OclParser} from "../../lib/components/parser/OclParser";
 import * as Expression from "../../lib/components/expressions";
 
 describe('Invariants', () => {
-    const assertAST = (oclExpression, expected) => OclParser.parse(oclExpression).should.eql(expected);
+    const assertAST = (oclExpression, expected) => expect(OclParser.parse(oclExpression)).to.eql(expected);
     const invariantDecorator = (definition, name) => {
         return new Expression.ContextExpression('Entity', definition ? new Expression.InvariantExpression(definition, name) : {});
     };

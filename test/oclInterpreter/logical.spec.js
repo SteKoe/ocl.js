@@ -1,5 +1,5 @@
 'use strict';
-const should = require('should');
+import { expect } from "chai";
 
 require('../../generator/oclParserGenerator');
 import {OclParser} from "../../lib/components/parser/OclParser";
@@ -19,9 +19,9 @@ describe('logical expressions', () => {
         it(`should evaluate ${testCase.oclExpression}`, () => {
             const oclRule = OclParser.parse(testCase.oclExpression);
             if (testCase.expectedResult === true) {
-                oclRule.evaluate().should.be.true();
+                expect(oclRule.evaluate()).to.be.true;
             } else {
-                oclRule.evaluate().should.be.false();
+                expect(oclRule.evaluate()).to.be.false;
             }
         });
     });
