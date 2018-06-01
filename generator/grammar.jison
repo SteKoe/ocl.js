@@ -17,6 +17,7 @@
 "mod"                               return 'mod'
 "div"                               return 'div'
 "xor"                               return 'xor'
+"not"                               return 'not'
 "implies"                           return 'implies'
 "("                                 return '('
 ")"                                 return ')'
@@ -255,5 +256,9 @@ function functionCallExpression(fn, source) {
 }
 
 function methodCallExpression(fn, source, params) {
+    if(fn.toLowerCase() === 'oclisundefined') {
+        return new Expression.OclIsUndefinedExpression(source);
+    }
+
     return new Expression.NativeJsFunctionCallExpression(source, fn, params);
 }
