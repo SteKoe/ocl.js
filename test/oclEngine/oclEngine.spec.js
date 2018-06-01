@@ -146,7 +146,7 @@ describe('OclEngine', function () {
             ]
             const oclEngine = new OclEngine();
 
-            oclEngine.addOclExpression(oclConstraints);
+            oclEngine.addOclExpressions(oclConstraints);
 
             let metaEntity = new MetaEntity();
             metaEntity.metaAssociationLinks = [
@@ -157,6 +157,26 @@ describe('OclEngine', function () {
             const evaluationResult = oclEngine.evaluate(metaEntity);
             evaluationResult.getResult().should.be.false();
             evaluationResult.getNamesOfFailedInvs().should.containEql('linkNamesMustBeUnique');
-        })
-    })
+        });
+
+        it('should allow to add multiple constraints as array', function () {
+            const oclConstraints = [
+                `
+                context MetaEntity 
+                    inv linkNamesMustBeUnique: self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
+                `,
+                `
+                context MetaEntity inv: 
+                    1=1asdasdsd
+                `
+            ]
+            const oclEngine = new OclEngine();
+
+            try {
+                oclEngine.addOclExpressions(oclConstraints);
+            } catch(e) {
+                expect(e.oclExpression).to.eql(oclConstraints[1])
+            }
+        });
+    });
 });
