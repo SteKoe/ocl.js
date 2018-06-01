@@ -132,5 +132,31 @@ describe('OclEngine', function () {
 
             OclEngine.Utils.typeDeterminerFn = undefined;
         });
+
+        it('should allow to add multiple constraints as array', function () {
+            const oclConstraints = [
+                `
+                context MetaEntity 
+                    inv linkNamesMustBeUnique: self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
+                `,
+                `
+                context MetaEntity inv: 
+                    self.isType = true implies self.isIntrinsic = false
+                `
+            ]
+            const oclEngine = new OclEngine();
+
+            oclEngine.addOclExpression(oclConstraints);
+
+            let metaEntity = new MetaEntity();
+            metaEntity.metaAssociationLinks = [
+                new MetaAssociationLink('roleA'),
+                new MetaAssociationLink('roleA')
+            ];
+
+            const evaluationResult = oclEngine.evaluate(metaEntity);
+            evaluationResult.getResult().should.be.false();
+            evaluationResult.getNamesOfFailedInvs().should.containEql('linkNamesMustBeUnique');
+        })
     })
 });
