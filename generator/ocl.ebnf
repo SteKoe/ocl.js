@@ -52,6 +52,7 @@ collectionType
 	: collectionKind '(' type ')'
 tupleType
 	: 'TupleType' '(' variableDeclarationList ')'
+
 oclExpression
 	: literalExp
 oclExpression
@@ -122,6 +123,7 @@ oclExpression
 	: oclExpression 'ˆˆ ' simpleName '('[oclMessageArgumentList] ')'
 oclExpression
 	: oclExpression 'ˆ ' simpleName '('[oclMessageArgumentList] ')'
+
 argumentList
 	: oclExpression (',' oclExpression)*
 oclMessageArgumentList

@@ -2,7 +2,10 @@
 %lex
 
 %%
-\s+                                 /* ignore */
+\s+                                 /* skip whitespace */
+\/\/[^\n]*                          /* skip comment */
+\#[^\n]*                            /* skip comment */
+
 \-?[0-9][0-9]*\.[0-9]*              return 'real'
 \-?[0-9][0-9]*                      return 'integer'
 
@@ -17,7 +20,7 @@
 "mod"                               return 'mod'
 "div"                               return 'div'
 "xor"                               return 'xor'
-" not "                               return ' not '
+"not"\b                             return 'not'
 "implies"                           return 'implies'
 "("                                 return '('
 ")"                                 return ')'
@@ -41,12 +44,10 @@
 "pre"                               return 'pre'
 
 'nil'                               return 'nil'
-[a-zA-Z_][a-zA-Z0-9_]*              return 'simpleName'
 ["][^\"]*["]          	            return 'string'
+[a-zA-Z_][a-zA-Z0-9_]*              return 'simpleName'
 
 <<EOF>>               	            return 'EOF'
-.                                   return 'ERROR'
-
 /lex
 
 /* operator associations and precedence */
@@ -87,8 +88,12 @@ invOrDef
 	;
 
 oclExpression
-	: pathName preOptional
+	: literalExp
+	    { $$ = $1 }
+	| pathName preOptional
 	    { $$ = new Expression.VariableExpression($1) }
+    | 'not' oclExpression
+        { $$ = new Expression.NotExpression($2) }
     | '(' oclExpression ')'
         { $$ = $2 }
     | oclExpression '.' simpleName '(' oclExpressionListOptional ')'
@@ -135,10 +140,6 @@ oclExpression
         {  }
     | oclExpression 'implies' oclExpression
         { $$ = new Expression.ImpliesExpression($1, $3) }
-    | oclExpression ' not ' oclExpression
-        { $$ = new Expression.NotExpression($1, $3) }
-	| literalExp
-	    { $$ = $1 }
 	;
 
 defExpression
@@ -159,7 +160,8 @@ variableDeclaration
     ;
 
 oclExpressionListOptional
-    : oclExpression ',' oclExpression
+    :
+    | oclExpression ',' oclExpression
         { $$ = [].concat($1).concat($3) }
     | oclExpressionOptional
         { $$ = [$1] }
