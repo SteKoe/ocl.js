@@ -4,7 +4,7 @@ import {OclEngine} from "../../lib/components/OclEngine";
 
 require('../../generator/oclParserGenerator');
 
-describe.only('OclEngine', function () {
+describe('OclEngine', function () {
     it('should allow to label expressions', function () {
         const oclEngine = OclEngine.create()
             .addOclExpression('context Object inv: false', ['label-1'])
