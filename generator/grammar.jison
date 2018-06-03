@@ -25,6 +25,10 @@
 "xor"                               return 'xor'
 "not"\b                             return 'not'
 "implies"                           return 'implies'
+"if"                                return 'if'
+"then"                              return 'then'
+"else"                              return 'else'
+"endif"                             return 'endif'
 "("                                 return '('
 ")"                                 return ')'
 "|"                                 return '|'
@@ -154,6 +158,8 @@ oclExpression
 	    { $$ = new Expression.OrExpression($1, $3) }
     | oclExpression 'xor' oclExpression
 	    { $$ = new Expression.XorExpression($1, $3) }
+    | 'if' oclExpression 'then' oclExpression 'else' oclExpression 'endif'
+        { $$ = new Expression.IfExpression($2, $4, $6) }
     | oclExpression '->' simpleName
         { $$ = functionCallExpression($3, $$); }
     | oclExpression '(' variableDeclarationList '|' oclExpression ')'
