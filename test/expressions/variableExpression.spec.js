@@ -11,6 +11,11 @@ describe('VariableExpression', () => {
     };
 
     it('to evaluate self', () => {
+        const expr = new VariableExpression('age');
+        expect(expr.evaluate(person)).to.equal(person.age);
+    });
+
+    it('to evaluate self', () => {
         const expr = new VariableExpression('self');
         expect(expr.evaluate(person)).to.eql(person);
     });

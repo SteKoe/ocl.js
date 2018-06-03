@@ -3,6 +3,7 @@
 
 %%
 \s+                                 /* skip whitespace */
+\-\-[^\n]*                          /* skip comment */
 \/\/[^\n]*                          /* skip comment */
 \#[^\n]*                            /* skip comment */
 
@@ -143,11 +144,18 @@ oclExpression
 	;
 
 defExpression
-	: 'let' simpleName ':' oclExpression
-	    { $$ = new Expression.LetExpression($2, $4) }
-	| simpleName ':' oclExpression
+	: simpleName '=' oclExpression
 	    { $$ = new Expression.LetExpression($1, $3) }
+    | simpleName ':' dataType '=' oclExpression
+        { $$ = new Expression.LetExpression($1, $5) }
 	;
+
+dataType
+    : simpleName
+        { $$ = $1 }
+    | simpleName '(' simpleName ')'
+        { $$ = $1 }
+    ;
 
 type
 	: pathName

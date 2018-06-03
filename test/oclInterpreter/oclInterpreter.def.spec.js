@@ -8,20 +8,7 @@ describe('OCLInterpreter', () => {
         it('should set simple string variable', () => {
             const oclExpression = `
             context Object
-                def: let variable: "test"
-                inv: self.variable = "test"
-        `;
-            const oclRule = OclParser.parse(oclExpression);
-
-            var a = {};
-            let actual = oclRule.evaluate(a);
-            expect(actual).to.be.true;
-        });
-
-        it('should set simple string variable without let', () => {
-            const oclExpression = `
-            context Object
-                def: variable: "test"
+                def: variable = "test"
                 inv: self.variable = "test"
         `;
             const oclRule = OclParser.parse(oclExpression);
@@ -34,7 +21,7 @@ describe('OCLInterpreter', () => {
         it('should assign ->size() call', () => {
             const oclExpression = `
             context Object
-                def: let childCount: self.children->size()
+                def: childCount = self.children->size()
                 inv: self.childCount = 2
         `;
             const oclRule = OclParser.parse(oclExpression);
@@ -49,7 +36,7 @@ describe('OCLInterpreter', () => {
         it('should process union', () => {
             const oclExpression = `
             context Object
-                def: let concat: self.a->union(self.b)
+                def: concat = self.a->union(self.b)
                 inv: self.concat->size() = 4
         `;
             const oclRule = OclParser.parse(oclExpression);
@@ -60,6 +47,19 @@ describe('OCLInterpreter', () => {
             let actual = oclRule.evaluate(o);
             expect(actual).to.be.true;
         });
-    })
+
+        it('should set simple string variable with data type', () => {
+            const oclExpression = `
+            context Object
+                def: variable : String = "test"
+                inv: self.variable = "test"
+        `;
+            const oclRule = OclParser.parse(oclExpression);
+
+            var a = {};
+            let actual = oclRule.evaluate(a);
+            expect(actual).to.be.true;
+        });
+    });
 });
 
