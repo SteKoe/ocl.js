@@ -12,6 +12,8 @@
 
 "context"                           return 'context'
 "inv"                               return 'inv'
+"init"                              return 'init'
+"derive"                            return 'derive'
 "def"                               return 'def'
 "let"                               return 'let'
 "true"                              return 'true'
@@ -67,12 +69,33 @@ contextDeclList
 contextDeclaration
 	: classifierContextDecl
 	    { $$ = $1 }
+	| propertyContextDecl
+	    { $$ = $1 }
 	;
 
 classifierContextDecl
 	: 'context' pathName invOrDefList
 	    { $$ = new Expression.ContextExpression($2, $3) }
 	;
+
+propertyContextDecl
+	: 'context' pathName ':' dataType initOrDerValueList
+	    { $$ = new Expression.PropertyContextExpression($2, $5) }
+	;
+
+initOrDerValueList
+    : initOrDerValueList initOrDerValue
+        { $$ = $1.concat($2) }
+    | initOrDerValue
+        { $$ = [$1] }
+    ;
+
+initOrDerValue
+    : 'init' ':' oclExpression
+        { $$ = new Expression.InitExpression($3) }
+    | 'derive' ':' oclExpression
+        { $$ = new Expression.DeriveExpression($3) }
+    ;
 
 invOrDefList
     : invOrDefList invOrDef
@@ -230,7 +253,7 @@ pathName
 	: simpleName
 	    { $$ = $1 }
 	| pathName '::' simpleName
-	    { $$ = $1 }
+	    { $$ = $1 + '::' + $3 }
 	;
 
 /* end of grammar defintion */
