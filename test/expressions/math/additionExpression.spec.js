@@ -1,6 +1,6 @@
-import {expect} from "chai";
-import {NumberExpression} from "../../../lib/components/expressions/literal/NumberExpression";
-import {AdditionExpression} from "../../../lib/components/expressions/math/AdditionExpression";
+import { expect } from "chai";
+import { NumberExpression } from "../../../lib/components/expressions/literal/NumberExpression";
+import { AdditionExpression } from "../../../lib/components/expressions/math/AdditionExpression";
 
 const FIVE = new NumberExpression(5);
 const TEN = new NumberExpression(10);

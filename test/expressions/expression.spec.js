@@ -1,5 +1,5 @@
-import {expect} from "chai";
-import {Expression} from "../../lib/components/expressions/Expression";
+import { expect } from "chai";
+import { Expression } from "../../lib/components/expressions/Expression";
 
 describe('Expression', () => {
     it('should throw', () => {

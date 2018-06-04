@@ -1,6 +1,6 @@
 'use strict';
-import {expect} from 'chai';
-import {OclEngine} from "../../lib/components/OclEngine";
+import { expect } from 'chai';
+import { OclEngine } from "../../lib/components/OclEngine";
 
 require('../../generator/oclParserGenerator');
 
@@ -12,7 +12,7 @@ describe('OclEngine', function () {
             .addOclExpression('context Object inv: false', ['label-2']);
     });
 
-    it('should allow to execute expressions having specific labels', function() {
+    it('should allow to execute expressions having specific labels', function () {
         const oclEngine = OclEngine.create()
             .addOclExpression('context Object inv: false', ['label-1'])
             .addOclExpression('context Object inv: false', ['label-1'])

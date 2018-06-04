@@ -1,11 +1,11 @@
-import {expect} from "chai";
+import { expect } from "chai";
 import {
-    NumberExpression,
-    VariableExpression,
-    UnionOperation,
     AtOperation,
     FirstOperation,
-    LastOperation
+    LastOperation,
+    NumberExpression,
+    UnionOperation,
+    VariableExpression
 } from "../../lib/components/expressions";
 
 describe('SequenceExpressions', () => {

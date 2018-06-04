@@ -1,7 +1,7 @@
-const {expect} = require('chai');
+const { expect } = require('chai');
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from "../../lib/components/parser/OclParser";
+import { OclParser } from "../../lib/components/parser/OclParser";
 import Car from "../../examples/class/car";
 import Person from "../../examples/class/person";
 

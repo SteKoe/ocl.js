@@ -1,5 +1,5 @@
-import {expect} from "chai";
-import {VariableExpression} from "../../lib/components/expressions/VariableExpression";
+import { expect } from "chai";
+import { VariableExpression } from "../../lib/components/expressions/VariableExpression";
 
 describe('VariableExpression', () => {
     const person = {
@@ -22,7 +22,7 @@ describe('VariableExpression', () => {
 
     it('to evaluate variable', () => {
         const expr = new VariableExpression('c1');
-        expect(expr.evaluate(person, {c1: 'anything'})).to.eql('anything');
+        expect(expr.evaluate(person, { c1: 'anything' })).to.eql('anything');
     });
 
     it('to evaluate nested variables', () => {

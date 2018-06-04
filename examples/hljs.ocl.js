@@ -1,4 +1,4 @@
-module.exports = function(hljs) {
+module.exports = function (hljs) {
     return {
         aliases: ['ocl'],
         keywords: {
@@ -7,14 +7,14 @@ module.exports = function(hljs) {
             literal:
                 'true false null undefined NaN Infinity',
             built_in:
-                'eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent ' +
-                'encodeURI encodeURIComponent escape unescape Object Function Boolean Error ' +
-                'EvalError InternalError RangeError ReferenceError StopIteration SyntaxError ' +
-                'TypeError URIError Number Math Date String RegExp Array Float32Array ' +
-                'Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array ' +
-                'Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require ' +
-                'module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect ' +
-                'Promise'
+            'eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent ' +
+            'encodeURI encodeURIComponent escape unescape Object Function Boolean Error ' +
+            'EvalError InternalError RangeError ReferenceError StopIteration SyntaxError ' +
+            'TypeError URIError Number Math Date String RegExp Array Float32Array ' +
+            'Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array ' +
+            'Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require ' +
+            'module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect ' +
+            'Promise'
         },
         contains: [
             {
@@ -61,8 +61,8 @@ module.exports = function(hljs) {
                         begin: /</, end: /(\/\w+|\w+\/)>/,
                         subLanguage: 'xml',
                         contains: [
-                            {begin: /<\w+\/>/, skip: true},
-                            {begin: /<\w+/, end: /(\/\w+|\w+\/)>/, skip: true, contains: ['self']}
+                            { begin: /<\w+\/>/, skip: true },
+                            { begin: /<\w+/, end: /(\/\w+|\w+\/)>/, skip: true, contains: ['self'] }
                         ]
                     }
                 ],
@@ -72,7 +72,7 @@ module.exports = function(hljs) {
                 className: 'function',
                 beginKeywords: 'function', end: /\{/, excludeEnd: true,
                 contains: [
-                    hljs.inherit(hljs.TITLE_MODE, {begin: /[A-Za-z$_][0-9A-Za-z$_]*/}),
+                    hljs.inherit(hljs.TITLE_MODE, { begin: /[A-Za-z$_][0-9A-Za-z$_]*/ }),
                     {
                         className: 'params',
                         begin: /\(/, end: /\)/,
@@ -95,7 +95,7 @@ module.exports = function(hljs) {
                 beginKeywords: 'class', end: /[{;=]/, excludeEnd: true,
                 illegal: /[:"\[\]]/,
                 contains: [
-                    {beginKeywords: 'extends'},
+                    { beginKeywords: 'extends' },
                     hljs.UNDERSCORE_TITLE_MODE
                 ]
             },

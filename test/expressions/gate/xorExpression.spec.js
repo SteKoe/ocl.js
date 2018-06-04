@@ -1,5 +1,5 @@
-import {expect} from "chai";
-import {BooleanExpression, XorExpression} from "../../../lib/components/expressions";
+import { expect } from "chai";
+import { BooleanExpression, XorExpression } from "../../../lib/components/expressions";
 
 const TRUE = new BooleanExpression(true);
 const FALSE = new BooleanExpression(false);

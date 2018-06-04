@@ -1,8 +1,8 @@
 'use strict';
-import {expect} from "chai";
+import { expect } from "chai";
+import { OclParser } from "../../lib/components/parser/OclParser";
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from "../../lib/components/parser/OclParser";
 
 describe('Math', () => {
     it('should evaluate addition.', () => {

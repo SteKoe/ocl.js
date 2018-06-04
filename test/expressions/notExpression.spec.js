@@ -16,11 +16,11 @@ describe('NotExpression', () => {
 
     it('not true of obj => false', () => {
         const expression = new NotExpression(new VariableExpression("self.isPaid"));
-        expect(expression.evaluate({isPaid: true})).to.be.false;
+        expect(expression.evaluate({ isPaid: true })).to.be.false;
     });
 
     it('not false of obj => true', () => {
         const expression = new NotExpression(new VariableExpression("self.isPaid"));
-        expect(expression.evaluate({isPaid: false})).to.be.true;
+        expect(expression.evaluate({ isPaid: false })).to.be.true;
     });
 });

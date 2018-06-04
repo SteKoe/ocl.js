@@ -1,4 +1,4 @@
-import {expect} from "chai";
+import { expect } from "chai";
 import { ImpliesExpression } from "../../lib/components/expressions/gate/ImpliesExpression";
 import { BooleanExpression } from "../../lib/components/expressions/literal/BooleanExpression";
 

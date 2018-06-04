@@ -1,5 +1,5 @@
-import {expect} from "chai";
-import {ContextExpression} from "../../lib/components/expressions/ContextExpression";
+import { expect } from "chai";
+import { ContextExpression } from "../../lib/components/expressions/ContextExpression";
 
 const expr = new ContextExpression();
 

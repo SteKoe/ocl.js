@@ -1,7 +1,7 @@
 'use strict';
-import {expect} from 'chai';
-import {OclEngine} from "../../lib/components/OclEngine";
-import {FixtureFactory, MetaAssociationLink, MetaEntity} from "../fixture.factory";
+import { expect } from 'chai';
+import { OclEngine } from "../../lib/components/OclEngine";
+import { FixtureFactory, MetaAssociationLink, MetaEntity } from "../fixture.factory";
 
 require('../../generator/oclParserGenerator');
 
@@ -143,12 +143,12 @@ describe('OclEngine', function () {
         it('infers types based on custom TypeDeterminer', () => {
             let actual;
 
-            actual = oclEngine._inferType({type: 'Edge'})
+            actual = oclEngine._inferType({ type: 'Edge' })
             expect(actual).to.equal('Object');
 
             oclEngine.setTypeDeterminer(obj => obj.type);
 
-            actual = oclEngine._inferType({type: 'Edge'})
+            actual = oclEngine._inferType({ type: 'Edge' })
             expect(actual).to.equal('Edge');
 
             OclEngine.Utils.typeDeterminerFn = undefined;

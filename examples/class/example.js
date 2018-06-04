@@ -29,10 +29,10 @@ export default class Example {
             let actual = resultObject.getResult();
             elemResult.innerHTML = `The result of the above rule should ${result(this.expected)} and does ${result(actual)}.`;
 
-            if(this.expected === false && actual === false) {
+            if (this.expected === false && actual === false) {
                 const failedInvs = resultObject.getNamesOfFailedInvs().filter(name => name !== 'anonymous');
 
-                if(failedInvs.length > 0) {
+                if (failedInvs.length > 0) {
                     elemResult.innerHTML += ` The following invariants have failed: ${failedInvs.join(', ')}`
                 }
             }

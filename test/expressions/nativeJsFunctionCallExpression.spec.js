@@ -1,6 +1,6 @@
-import {expect} from "chai";
-import {NativeJsFunctionCallExpression} from "../../lib/components/expressions/NativeJsFunctionCallExpression";
-import {VariableExpression} from "../../lib/components/expressions";
+import { expect } from "chai";
+import { NativeJsFunctionCallExpression } from "../../lib/components/expressions/NativeJsFunctionCallExpression";
+import { VariableExpression } from "../../lib/components/expressions";
 
 describe('NativeJsFunctionCallExpression', () => {
     const obj = {

@@ -1,8 +1,8 @@
-import {expect} from "chai";
+import { expect } from "chai";
+import { OclParser } from "../../lib/components/parser/OclParser";
+import { MetaAssociationLink, MetaEntity } from "../fixture.factory";
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from "../../lib/components/parser/OclParser";
-import {MetaAssociationLink, MetaEntity} from "../fixture.factory";
 
 describe('MML', () => {
     it('MetaEntity metaAssociationLinks have different role names.', () => {

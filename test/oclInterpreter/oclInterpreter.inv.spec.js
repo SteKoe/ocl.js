@@ -1,9 +1,9 @@
 'use strict';
 import { expect } from "chai";
+import { OclParser } from "../../lib/components/parser/OclParser";
+import { FixtureFactory } from "../fixture.factory";
 
 require('../../generator/oclParserGenerator');
-import {OclParser} from "../../lib/components/parser/OclParser";
-import {FixtureFactory} from "../fixture.factory";
 
 describe('OCLInterpreter ', () => {
     describe('inv', () => {

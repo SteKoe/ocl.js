@@ -1,6 +1,6 @@
-import {expect} from "chai";
-import {StringExpression} from "../../lib/components/expressions/literal/StringExpression";
-import {LetExpression} from "../../lib/components/expressions/LetExpression";
+import { expect } from "chai";
+import { StringExpression } from "../../lib/components/expressions/literal/StringExpression";
+import { LetExpression } from "../../lib/components/expressions/LetExpression";
 
 describe('LetExpression', () => {
     const stringExpr = new StringExpression("test");

@@ -1,22 +1,22 @@
-import {expect} from "chai";
-import {ExistsExpression} from "../../lib/components/expressions/ExistsExpression";
-import {OperationCallExpression} from "../../lib/components/expressions/OperationCallExpression";
-import {VariableExpression} from "../../lib/components/expressions/VariableExpression";
-import {NumberExpression} from "../../lib/components/expressions/literal/NumberExpression";
-import {StringExpression} from "../../lib/components/expressions/literal/StringExpression";
+import { expect } from "chai";
+import { ExistsExpression } from "../../lib/components/expressions/ExistsExpression";
+import { OperationCallExpression } from "../../lib/components/expressions/OperationCallExpression";
+import { VariableExpression } from "../../lib/components/expressions/VariableExpression";
+import { NumberExpression } from "../../lib/components/expressions/literal/NumberExpression";
+import { StringExpression } from "../../lib/components/expressions/literal/StringExpression";
 
 describe('ExistsExpression', () => {
     const self = {
         collection: [
-            {age: 1},
-            {age: 2},
-            {age: 4},
-            {age: 8},
-            {age: 16}
+            { age: 1 },
+            { age: 2 },
+            { age: 4 },
+            { age: 8 },
+            { age: 16 }
         ],
         children: [
-            {name: 'A'},
-            {name: 'B'}
+            { name: 'A' },
+            { name: 'B' }
         ]
     };
 

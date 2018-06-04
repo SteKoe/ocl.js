@@ -17,6 +17,7 @@ export class Person {
 
 export class MetaEntity {
 }
+
 export class MetaAssociationLink {
     constructor(roleName) {
         this.roleName = roleName;

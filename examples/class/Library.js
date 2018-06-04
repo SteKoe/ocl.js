@@ -3,6 +3,7 @@ export default class Library {
         this.writers = [];
     }
 }
+
 export class Writer {
     constructor(name) {
         this.name = name;

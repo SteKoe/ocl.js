@@ -1,6 +1,7 @@
-import {expect} from "chai";
+import { expect } from "chai";
 
-import {OclParser} from "../../lib/components/parser/OclParser";
+import { OclParser } from "../../lib/components/parser/OclParser";
+
 require('../../generator/oclParserGenerator');
 
 describe('OCLInterpreter', () => {

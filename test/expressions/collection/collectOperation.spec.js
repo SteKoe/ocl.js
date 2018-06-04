@@ -15,6 +15,6 @@ describe('CollectOperation', () => {
         const source = new VariableExpression('self.children');
         const expression = new VariableExpression('child.name');
         const expr = new CollectOperation(source, 'child', expression);
-        expect(expr.evaluate(self)).to.eql(['A','B','C']);
+        expect(expr.evaluate(self)).to.eql(['A', 'B', 'C']);
     });
 });

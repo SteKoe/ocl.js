@@ -1,7 +1,7 @@
-import Library, {Book, Writer} from "../../examples/class/Library";
-import {OclParser} from "../../lib/components/parser/OclParser";
+import Library, { Book, Writer } from "../../examples/class/Library";
+import { OclParser } from "../../lib/components/parser/OclParser";
 
-const {expect} = require('chai');
+const { expect } = require('chai');
 
 require('../../generator/oclParserGenerator');
 
