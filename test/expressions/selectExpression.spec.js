@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { SelectExpression } from "../../lib/components/expressions/SelectExpression";
+import { SelectExpression } from "../../lib/components/expressions/collection/SelectExpression";
 import { OperationCallExpression } from "../../lib/components/expressions/OperationCallExpression";
 import { VariableExpression } from "../../lib/components/expressions/VariableExpression";
 import { NumberExpression } from "../../lib/components/expressions/literal/NumberExpression";

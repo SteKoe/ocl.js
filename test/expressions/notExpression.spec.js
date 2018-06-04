@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { NotExpression } from '../../lib/components/expressions/NotExpression'
+import { NotExpression } from '../../lib/components/expressions/gate/NotExpression'
 import { BooleanExpression } from '../../lib/components/expressions/literal'
 import { VariableExpression } from '../../lib/components/expressions'
 
