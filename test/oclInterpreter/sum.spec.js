@@ -4,7 +4,7 @@ import { OclParser } from '../../lib/components/parser/OclParser'
 
 require('../../generator/oclParserGenerator');
 
-describe.only('OCLInterpreter', () => {
+describe('OCLInterpreter', () => {
     describe('SumOperation', () => {
         it('sums up the numbers', () => {
             let oclExpression = `
@@ -16,5 +16,23 @@ describe.only('OCLInterpreter', () => {
             let actual = oclRule.evaluate({ a: [1, 2, 3, 4] });
             expect(actual).to.be.true;
         });
+
+        it('returns the sum of the child\'s ages', () => {
+            let oclExpression = `
+                context Object
+                    inv: self.children.age->sum() = 93
+            `;
+
+            let oclRule = OclParser.parse(oclExpression);
+            let actual = oclRule.evaluate({
+                children: [
+                    { age: 29 },
+                    { age: 31 },
+                    { age: 33 }
+                ]
+            });
+            expect(actual).to.be.true;
+        });
+
     });
 });
