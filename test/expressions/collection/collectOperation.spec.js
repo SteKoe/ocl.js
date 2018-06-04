@@ -11,7 +11,7 @@ describe('CollectOperation', () => {
         ]
     };
 
-    it('works for propertis', () => {
+    it('works for properties', () => {
         const source = new VariableExpression('self.children');
         const expression = new VariableExpression('child.name');
         const expr = new CollectOperation(source, 'child', expression);
