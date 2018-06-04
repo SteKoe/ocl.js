@@ -13,10 +13,20 @@ describe('Collection->exists', () => {
         FixtureFactory.createPerson('C', 18)
     ];
 
-    it('should evaluate exists()', () => {
+    it('should evaluate exists() using iterator', () => {
         const oclExpression = `
             context Person inv:
                 self.children->exists(c|c.age > 20)
+        `;
+
+        const oclRule = OclParser.parse(oclExpression);
+        expect(oclRule.evaluate(mother)).to.be.false;
+    });
+
+    it('should evaluate exists() without iterator', () => {
+        const oclExpression = `
+            context Person inv:
+                self.children->exists(age > 20)
         `;
 
         const oclRule = OclParser.parse(oclExpression);
@@ -36,7 +46,7 @@ describe('Collection->exists', () => {
         expect(actual).to.be.false;
     });
 
-    it.only('should check if there are no underAged customers', () => {
+    it('should check if there are no underAged customers', () => {
         const oclExpression = `
             context Object inv:
                 not self.customer->exists(underAge = true)
