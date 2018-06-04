@@ -4,8 +4,6 @@
 %%
 \s+                                 /* skip whitespace */
 \-\-[^\n]*                          /* skip comment */
-\/\/[^\n]*                          /* skip comment */
-\#[^\n]*                            /* skip comment */
 
 \-?[0-9][0-9]*\.[0-9]*              return 'real'
 \-?[0-9][0-9]*                      return 'integer'
@@ -29,6 +27,8 @@
 "then"                              return 'then'
 "else"                              return 'else'
 "endif"                             return 'endif'
+"package"                           return 'package'
+"endpackage"                        return 'endpackage'
 "("                                 return '('
 ")"                                 return ')'
 "|"                                 return '|'
@@ -52,6 +52,7 @@
 
 'nil'                               return 'nil'
 ["][^\"]*["]          	            return 'string'
+['][^\']*[']          	            return 'string'
 [a-zA-Z_][a-zA-Z0-9_]*              return 'simpleName'
 
 <<EOF>>               	            return 'EOF'
@@ -63,12 +64,22 @@
 %left '*' '/'
 %right "=" ">" ">=" "<" "<=" "<>"
 
-%start contextDeclList
+%start packageDecl
 %% /* language grammar */
+
+packageDecl
+    : 'package' pathName contextDeclList 'endpackage'
+        { return new Expression.PackageDeclaration($2, $3); }
+    | contextDeclList
+        { return new Expression.PackageDeclaration('unnamed', $1); }
+    ;
+
 contextDeclList
-	: contextDeclaration EOF
-	    { return $1 }
-	;
+    : contextDeclList contextDeclaration
+        { $$ = $1.concat($2) }
+    | contextDeclaration
+        { $$ = [$1] }
+    ;
 
 contextDeclaration
 	: classifierContextDecl
@@ -83,9 +94,13 @@ classifierContextDecl
 	;
 
 propertyContextDecl
-	: 'context' pathName ':' dataType initOrDerValueList
+	: 'context' pathName ':' type initOrDerValueList
 	    { $$ = new Expression.PropertyContextExpression($2, $5) }
 	;
+
+operation
+    : pathName '(' variableDeclarationListOptional ')' typeOptional
+    ;
 
 initOrDerValueList
     : initOrDerValueList initOrDerValue
@@ -173,21 +188,22 @@ oclExpression
 	;
 
 defExpression
-	: simpleName '=' oclExpression
-	    { $$ = new Expression.LetExpression($1, $3) }
-    | simpleName ':' dataType '=' oclExpression
-        { $$ = new Expression.LetExpression($1, $5) }
+    : simpleName typeOptional '=' oclExpression
+        { $$ = new Expression.LetExpression($1, $4) }
+    | simpleName '(' simpleName typeOptional ')' typeOptional '=' oclExpression
+        { $$ = new Expression.LetExpression($1, $8) }
 	;
 
-dataType
-    : simpleName
-        { $$ = $1 }
-    | simpleName '(' simpleName ')'
-        { $$ = $1 }
+typeOptional
+    : ':' type
+        { $$ = $2 }
+    |
     ;
 
 type
 	: pathName
+	    { $$ = $1 }
+	| pathName '(' simpleName ')'
 	    { $$ = $1 }
 	;
 
@@ -210,17 +226,17 @@ oclExpressionOptional
     |
     ;
 
+variableDeclarationListOptional
+    : variableDeclarationList
+        { $$ = $1 }
+    |
+    ;
+
 variableDeclarationList
 	:  variableDeclarationList ',' variableDeclaration
 	    { $$ = [].concat($1).concat($3) }
 	| variableDeclaration
 	    { $$ = [$1] }
-	;
-
-typeOptional
-	: ':' type
-	    { $$ = $2 }
-    |
 	;
 
 preOptional
@@ -269,7 +285,7 @@ pathName
 function functionCallExpression(fn, source) {
     if(fn.toLowerCase() === 'isempty') {
         return new Expression.IsEmptyExpression(source);
-    } else if(fn.toLowerCase() === 'isnotempty') {
+    } else if(fn.toLowerCase() === 'isnotempty' || fn.toLowerCase() === 'notempty') {
         return new Expression.IsNotEmptyExpression(source);
     } else if(fn.toLowerCase() === 'size') {
         return new Expression.SizeExpression(source);
@@ -284,13 +300,19 @@ function functionCallExpression(fn, source) {
     } else if(fn.toLowerCase() === 'first') {
         return new Expression.FirstOperation(source);
     } else if(fn.toLowerCase() === 'at') {
-        return new Expression.AOperation(source);
+        return new Expression.AtOperation(source);
     } else if(fn.toLowerCase() === 'last') {
         return new Expression.LastOperation(source);
     } else if(fn.toLowerCase() === 'asset') {
         return new Expression.AsSetOperation(source);
     } else if(fn.toLowerCase() === 'oclistypeof') {
         return new Expression.OclIsTypeOfExpression(source);
+    } else if(fn.toLowerCase() === 'sum') {
+        return new Expression.SumOperation(source);
+    } else if(fn.toLowerCase() === 'reject') {
+        return new Expression.RejectOperation(source);
+    } else if(fn.toLowerCase() === 'collect') {
+        return new Expression.CollectOperation(source);
     }
 
     throw new Error(`No function call expression found for '${fn}' on ${source}!`);

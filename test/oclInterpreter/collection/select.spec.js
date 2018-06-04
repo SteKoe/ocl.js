@@ -1,9 +1,9 @@
 'use strict';
 import { expect } from "chai";
 
-require('../../generator/oclParserGenerator');
-import { FixtureFactory } from "../fixture.factory";
-import { OclParser } from "../../lib/components/parser/OclParser";
+require('../../../generator/oclParserGenerator');
+import { FixtureFactory } from "../../fixture.factory";
+import { OclParser } from "../../../lib/components/parser/OclParser";
 
 describe('Collection->select ', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);

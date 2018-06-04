@@ -1,0 +1,167 @@
+-- Copyright (c) 2003-2007 ETH Zurich, Switzerland
+--                    2016 The University of Sheffield, UK
+--
+-- All rights reserved.
+--
+-- Redistribution and use in source and binary forms, with or without
+-- modification, are permitted provided that the following conditions are met:
+--
+-- * Redistributions of source code must retain the above copyright notice, this
+--   list of conditions and the following disclaimer.
+--
+-- * Redistributions in binary form must reproduce the above copyright notice,
+--   this list of conditions and the following disclaimer in the documentation
+--   and/or other materials provided with the distribution.
+--
+-- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+-- AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+-- IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+-- DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+-- FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+-- DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+-- SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+-- CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+-- OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+-- OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+--
+
+package Company
+
+context Company
+inv: self.numberOfEmployees > 50
+
+context Company inv:
+self.numberOfEmployees > 50
+
+context Person::income2 : Integer
+init:   (parents.income2->sum() * 1/100).round() -- pocket allowance
+derive:  if underAge
+      then (parents.income2->sum() * 1/100).round()
+      else job.salary->sum()
+      endif
+
+
+
+context Person
+def: income : Integer = self.Job.salary->sum()
+def: nickname : String = 'Little Red Rooster'
+def: hasTitle(t : String) : Boolean = self.Job->exists(tile:String | title = t)
+
+
+context Person inv:
+self.age > 0
+
+
+context Company inv:
+self.stockPrice() > 0
+
+
+context Company
+inv: self.manager.isUnemployed = false
+inv: self.employee->notEmpty()
+
+
+context Person inv:
+self.employer->size() < 3
+
+
+context Person inv:
+self.employer->isEmpty()
+
+
+context Company inv:
+self.manager->size() = 1
+
+
+context Company inv:
+self.manager.age > 40
+
+
+context Person inv:
+self.wife->notEmpty() implies self.wife.gender = Gender::female
+
+
+context Person inv:
+self.wife->notEmpty() implies self.wife.age >= 18 and
+self.husband->notEmpty() implies self.husband.age >= 18
+
+
+context Company inv:
+self.employee->size() <= 50
+
+
+context Person inv:
+self.Job->size() <= 2
+
+
+context Job
+inv: self.employer.numberOfEmployees >= 1
+inv: self.employee.age > 21
+
+
+context Bank inv:
+not self.customer->exists(underAge = true)
+
+
+context Person inv:
+self.allInstances()->forAll(p1:Person, p2:Person |
+                                 p1 <> p2 implies
+                                 p1.lastName <> p2.lastName)
+
+
+context Company inv:
+self.employee->select(e:Person | e.age > 50)->notEmpty()
+
+
+context Company inv:
+self.employee->select(e:Person | e.age > 50)->notEmpty()
+context Company inv:
+self.employee->select(p: Person | p.age > 50)->notEmpty()
+
+
+context Company inv:
+self.employee->select(p : Person | p.age > 50)->notEmpty()
+
+
+context Company inv:
+self.employee->reject( p:Person | p.isMarried )->isEmpty()
+
+
+
+
+inv: self.employee->collect(p:Person | p.birthDate)->size() > 0
+inv: self.employee.birthDate->size() > 0
+
+
+context Company
+inv:     self.employee->forAll(p:Person | p.age <= 65 )
+inv:     self.employee->forAll( p:Person | p.age <= 65 )
+inv:     self.employee->forAll( p : Person | p.age <= 65 )
+
+
+context Company inv:
+self.employee->forAll( e1 :Person , e2 : Person |
+                 e1 <> e2 implies e1.firstName <> e2.firstName)
+
+
+context Company inv:
+self.employee->forAll (e1 :Person | self.employee->forAll (e2:Person |
+                   e1 <> e2 implies e1.firstName <> e2.firstName))
+
+
+context Company inv:
+self.employee->exists( p:Person | p.firstName = 'Jack' )
+
+
+context Company inv:
+self.employee->exists( p :Person | p.firstName = 'Jack' )
+context Company inv:
+self.employee->exists( p : Person | p.firstName = 'Jack' )
+
+
+context Person inv:
+employer->forAll( e:Company | e.employee->exists( p:Person|p.lastName = e.name) )
+context Person
+inv: employer->forAll( c:Company | c.employee->exists( p : Person | p.lastName = c.name) )
+
+endpackage

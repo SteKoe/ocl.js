@@ -15,10 +15,10 @@
     "istanbul": "istanbul",
     "rimraf": "rimraf",
     "test": "npm run generate:parser && npm run test:fast",
-    "test:debug": "node %NODE_DEBUG_OPTION% ./node_modules/mocha/bin/_mocha --require babel-core/register test/**/*.spec.js",
-    "test:fast": "node ./node_modules/mocha/bin/_mocha --require babel-core/register test/**/*.spec.js",
+    "test:debug": "node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha --require babel-core/register --recursive test",
+    "test:fast": "node ./node_modules/mocha/bin/_mocha --require babel-core/register --recursive test",
     "test:coverage": "npm run generate:parser && npm run coverage",
-    "coverage": "./node_modules/.bin/babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register test/**/*.spec.js",
+    "coverage": "./node_modules/.bin/babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --recursive test",
     "webpack": "npx webpack"
   },
   "repository": {
@@ -35,6 +35,7 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
+    "cross-env": "^5.1.6",
     "highlight.js": "^9.12.0",
     "istanbul": "^0.4.5",
     "jison-gho": "^0.6.1-215",

@@ -31,7 +31,6 @@ describe('MML', () => {
                 self.isType = true implies self.isIntrinsic = false
         `;
         const oclRule = OclParser.parse(oclExpression);
-
         expect(oclRule.evaluate(metaEntity)).to.be.true;
 
         metaEntity.isIntrinsic = true;

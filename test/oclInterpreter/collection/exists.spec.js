@@ -1,8 +1,9 @@
 'use strict';
-import {expect} from "chai";
-require('../../generator/oclParserGenerator');
-import {FixtureFactory} from "./../fixture.factory.js";
-import {OclParser} from "../../lib/components/parser/OclParser";
+import { expect } from "chai";
+import { FixtureFactory } from "./../../fixture.factory.js";
+import { OclParser } from "../../../lib/components/parser/OclParser";
+
+require('../../../generator/oclParserGenerator');
 
 describe('Collection->exists', () => {
     const mother = FixtureFactory.createPerson('Hilde');

@@ -7,12 +7,15 @@ require('../../generator/oclParserGenerator');
 
 describe('OCLInterpreter ', () => {
     describe('if', () => {
+        let oclRule;
 
-        let oclExpression = `
-            context Person::underage : Boolean
-                init: if age < 18 then true else false endif
-        `;
-        let oclRule = OclParser.parse(oclExpression);
+        beforeEach(() => {
+            let oclExpression = `
+                context Person::underage : Boolean
+                    init: if age < 18 then true else false endif
+            `;
+            oclRule = OclParser.parse(oclExpression);
+        });
 
         it('sets variable for if', () => {
             let person = new Person();
