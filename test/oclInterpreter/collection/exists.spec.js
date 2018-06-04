@@ -35,4 +35,20 @@ describe('Collection->exists', () => {
         let actual = oclRule.evaluate(mother);
         expect(actual).to.be.false;
     });
+
+    it.only('should check if there are no underAged customers', () => {
+        const oclExpression = `
+            context Object inv:
+                not self.customer->exists(underAge = true)
+       `;
+
+        const oclRule = OclParser.parse(oclExpression);
+        let actual = oclRule.evaluate({
+            customer: [
+                {underAge: false},
+                {underAge: true}
+            ]
+        });
+        expect(actual).to.be.false;
+    });
 });
