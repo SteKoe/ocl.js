@@ -5,14 +5,16 @@ import { OclParser } from '../../../lib/components/parser/OclParser'
 
 require('../../../generator/oclParserGenerator');
 
-describe('Real world OCL examples', () => {
-    it('parses calendar.ocl', () => {
-        expect(() => OclParser.parse(readOclFile('calendar.ocl'))).to.not.throw()
-    });
+describe('Example', () => {
+    describe('real world', () => {
+        it('parses calendar.ocl', () => {
+            expect(() => OclParser.parse(readOclFile('calendar.ocl'))).to.not.throw()
+        });
 
-    it('parses company.ocl', () => {
-        expect(() => OclParser.parse(readOclFile('company.ocl'))).to.not.throw()
-    }).timeout(2500);
+        it('parses company.ocl', () => {
+            expect(() => OclParser.parse(readOclFile('company.ocl'))).to.not.throw()
+        }).timeout(2500);
+    });
 });
 
 function readOclFile(oclFileName) {
