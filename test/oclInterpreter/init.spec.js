@@ -19,33 +19,6 @@ describe('OCLInterpreter ', () => {
             expect(person.age).to.equal(12);
             expect(actual).to.be.true;
         });
-
-        it('sets variable on derive', () => {
-            let oclExpression = `
-                context Person::age : Integer
-                    derive: 12
-            `;
-
-            let person = new Person();
-            let oclRule = OclParser.parse(oclExpression);
-            let actual = oclRule.evaluate(person);
-            expect(person.age).to.equal(12);
-            expect(actual).to.be.true;
-        });
-
-        it('derive wins over init', () => {
-            let oclExpression = `
-                context Person::age : Integer
-                    init: 10
-                    derive: 12
-            `;
-
-            let person = new Person();
-            let oclRule = OclParser.parse(oclExpression);
-            let actual = oclRule.evaluate(person);
-            expect(person.age).to.equal(12);
-            expect(actual).to.be.true;
-        });
     });
 });
 

@@ -61,4 +61,15 @@ describe('Collection->exists', () => {
         });
         expect(actual).to.be.false;
     });
+
+    it('asd', () => {
+        const oclExpression = `
+            context Object inv:
+                self.seq->exists(underAge = true)
+       `;
+
+        const oclRule = OclParser.parse(oclExpression);
+        let actual = oclRule.evaluate({});
+        expect(actual).to.be.false;
+    });
 });

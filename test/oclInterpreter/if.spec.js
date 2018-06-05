@@ -18,16 +18,14 @@ describe('OCLInterpreter ', () => {
         });
 
         it('sets variable for if', () => {
-            let person = new Person();
-            person.age = 2;
+            let person = new Person(2);
 
             let actual = oclRule.evaluate(person);
             expect(person.underage).to.be.true;
         });
 
         it('sets variable for then', () => {
-            let person = new Person();
-            person.age = 22;
+            let person = new Person(22);
 
             let actual = oclRule.evaluate(person);
             expect(person.underage).to.be.false;

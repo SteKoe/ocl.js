@@ -48,7 +48,7 @@ describe('String->concat', () => {
     it('should concat string with string using PLUS operator', () => {
         const oclExpression = `
             context Object inv:
-                self.name + " Köninger" = "Stephan Köningers"
+                self.name + " Köninger" = "Stephan Köninger"
         `;
 
         const oclRule = OclParser.parse(oclExpression);

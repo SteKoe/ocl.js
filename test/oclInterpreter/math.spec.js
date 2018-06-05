@@ -17,6 +17,14 @@ describe('OCLInterpreter', () => {
             expect(actual).to.be.true;
         });
 
+        it('should evaluate complexer math.', () => {
+            expect(OclParser.parse(`context Object inv: 1 + 2 * 3 = 7`).evaluate()).to.be.true;
+            expect(OclParser.parse(`context Object inv: (1 + 2) * 3 = 9`).evaluate()).to.be.true;
+            expect(OclParser.parse(`context Object inv: 2^2 = 4`).evaluate()).to.be.true;
+            expect(OclParser.parse(`context Object inv: -2^2 = 4`).evaluate()).to.be.true;
+            expect(OclParser.parse(`context Object inv: -(2^2) = -4`).evaluate()).to.be.true;
+        });
+
         it('should evaluate substraction.', () => {
             const oclExpression = `
             context Object inv:
@@ -46,6 +54,7 @@ describe('OCLInterpreter', () => {
        `;
 
             const oclRule = OclParser.parse(oclExpression);
+            console.log(oclRule.contexts[0].invs[0].definition);
             let actual = oclRule.evaluate();
             expect(actual).to.be.true;
         });

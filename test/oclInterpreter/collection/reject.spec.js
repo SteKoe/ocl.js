@@ -1,11 +1,11 @@
 'use strict';
 import { expect } from "chai";
-import { OclParser } from '../../lib/components/parser/OclParser'
+import { OclParser } from '../../../lib/components/parser/OclParser'
 
-require('../../generator/oclParserGenerator');
+require('../../../generator/oclParserGenerator');
 
 describe('OCLInterpreter', () => {
-    describe('RejectExpression', () => {
+    describe('Collection->reject ', () => {
         it('checks if there are no children older than 18 years old', () => {
             let oclExpression = `
                 context Object
@@ -38,6 +38,17 @@ describe('OCLInterpreter', () => {
                 ]
             });
             expect(actual).to.be.false;
+        });
+
+        it('checks if there are no children older than 18 years old', () => {
+            let oclExpression = `
+                context Object
+                    inv: self.seq->reject(a mod 2 = 0)->size() = 3
+            `;
+
+            let oclRule = OclParser.parse(oclExpression);
+            let actual = oclRule.evaluate({seq:[1,3,5,8,10]});
+            expect(actual).to.be.true;
         });
     });
 });

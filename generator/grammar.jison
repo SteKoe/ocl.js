@@ -43,6 +43,7 @@
 ":"                                 return ':'
 "."                                 return '.'
 ","                                 return ','
+"^"                                 return '^'
 "+"                                 return '+'
 "-"                                 return '-'
 "*"                                 return '*'
@@ -60,17 +61,21 @@
 
 /* operator associations and precedence */
 %left "implies" "and" "or" "xor"
+%left '='
 %left '+' '-'
 %left '*' '/'
-%right "=" ">" ">=" "<" "<=" "<>"
+%left '^'
+%left 'mod'
+%left UMINUS
+%right ">" ">=" "<" "<=" "<>"
 
 %start packageDecl
 %% /* language grammar */
 
 packageDecl
-    : 'package' pathName contextDeclList 'endpackage'
+    : 'package' pathName contextDeclList 'endpackage' 'EOF'
         { return new Expression.PackageDeclaration($2, $3); }
-    | contextDeclList
+    | contextDeclList 'EOF'
         { return new Expression.PackageDeclaration('unnamed', $1); }
     ;
 
@@ -145,8 +150,10 @@ oclExpression
         { $$ = ($1 instanceof Expression.VariableExpression) ? new Expression.VariableExpression([$1.variable, $3].join('.')) : $1 }
     | oclExpression '+' oclExpression
         { $$ = new Expression.AdditionExpression($1, $3) }
+    | oclExpression '^' oclExpression
+        { $$ = new Expression.PowerExpression($1, $3) }
     | oclExpression '-' oclExpression
-        { $$ = new Expression.AdditionExpression($1, $3) }
+        { $$ = new Expression.SubstractionExpression($1, $3) }
     | oclExpression '*' oclExpression
         { $$ = new Expression.MultiplyExpression($1, $3) }
     | oclExpression '/' oclExpression
@@ -155,6 +162,8 @@ oclExpression
         { $$ = new Expression.ModuloExpression($1, $3) }
     | oclExpression 'div' oclExpression
         { $$ = new Expression.DivideExpression($1, $3) }
+    | '-' oclExpression %prec UMINUS
+        {$$ = new Expression.MultiplyExpression(new Expression.NumberExpression(-1), $2);}
     | oclExpression '<' oclExpression
         { $$ = new Expression.OperationCallExpression('<', $1, $3) }
     | oclExpression '<=' oclExpression
