@@ -181,11 +181,20 @@ oclExpression
         { $1.body = $5; $1.iterators = $3; $$ = $1 }
     | oclExpression '(' oclExpression ')'
         { $1.body = $3; $$ = $1 }
+    | oclExpression '(' literalExpList ')'
+        { $1.body = $3; $$ = $1 }
     | oclExpression '(' ')'
         {  }
     | oclExpression 'implies' oclExpression
         { $$ = new Expression.ImpliesExpression($1, $3) }
 	;
+
+oclExpressionList
+    : oclExpressionList ',' oclExpression
+        { $$ = $1.concat($3) }
+    | oclExpression
+        { $$ = [$1] }
+    ;
 
 defExpression
     : simpleName typeOptional '=' oclExpression
@@ -248,6 +257,13 @@ preOptional
 literalExp
 	: primitiveLiteralExp
 	    { $$ = $1 }
+	;
+
+literalExpList
+    : literalExpList ',' literalExp
+	    { $$ = [].concat($1).concat($3) }
+	| literalExp
+	    { $$ = [$1] }
 	;
 
 simpleNameOptional
@@ -313,6 +329,16 @@ function functionCallExpression(fn, source) {
         return new Expression.RejectOperation(source);
     } else if(fn.toLowerCase() === 'collect') {
         return new Expression.CollectOperation(source);
+    } else if(fn.toLowerCase() === 'concat') {
+        return new Operation.ConcatOperation(source);
+    } else if(fn.toLowerCase() === 'touppercase') {
+        return new Operation.ToUpperCaseOperation(source);
+    } else if(fn.toLowerCase() === 'tolowercase') {
+        return new Operation.ToLowerCaseOperation(source);
+    } else if(fn.toLowerCase() === 'substring') {
+        return new Operation.SubstringOperation(source);
+    } else if(fn.toLowerCase() === 'indexof') {
+        return new Operation.IndexOfOperation(source);
     }
 
     throw new Error(`No function call expression found for '${fn}' on ${source}!`);

@@ -42,6 +42,6 @@ describe('VariableExpression', () => {
 
     it('asdad', () => {
         const expr = new VariableExpression('children.age');
-        expect(expr.evaluate(person)).to.eql([1,2,3])
+        expect(expr.evaluate(person)).to.eql([1, 2, 3])
     });
 });
