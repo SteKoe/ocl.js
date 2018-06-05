@@ -23,6 +23,10 @@ describe('OCLInterpreter', () => {
             expect(OclParser.parse(`context Object inv: 2^2 = 4`).evaluate()).to.be.true;
             expect(OclParser.parse(`context Object inv: -2^2 = 4`).evaluate()).to.be.true;
             expect(OclParser.parse(`context Object inv: -(2^2) = -4`).evaluate()).to.be.true;
+            expect(OclParser.parse(`context Object inv: (0.2 * 10 + 0.1 * 10) / 10 = 0.3`).evaluate()).to.be.true;
+            expect(OclParser.parse(`context Object inv: ((1 + 2) * 3) + 6 = 15`).evaluate()).to.be.true;
+            expect(OclParser.parse(`context Object inv: ((1 + 2) * 3) ^ 2 + 9 = 90`).evaluate()).to.be.true;
+            expect(OclParser.parse(`context Object inv: (((1 + 2) * 3) ^ 2 + 9) / 3 = 30`).evaluate()).to.be.true;
         });
 
         it('should evaluate substraction.', () => {
