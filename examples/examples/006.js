@@ -13,7 +13,7 @@ person.fleet.push(car);
 `;
 const oclExpression = `
 context Person
-   def: let redCars: self.fleet->select(c|c.color="red")
+   def: redCars = self.fleet->select(c|c.color="red")
    inv: self.redCars->size > 0
 `;
 

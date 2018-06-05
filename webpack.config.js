@@ -1,7 +1,9 @@
 const path = require('path');
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 
 module.exports = {
     entry: "./lib/index",
+    mode: 'production',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: "ocl.min.js",
@@ -21,5 +23,8 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new MinifyPlugin()
+    ]
 };
