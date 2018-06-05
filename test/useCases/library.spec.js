@@ -1,5 +1,5 @@
-import Library, { Book, Writer } from "../../examples/class/Library";
 import { OclParser } from "../../lib/components/parser/OclParser";
+import { Book, Library, Writer } from "../fixture.factory";
 
 const { expect } = require('chai');
 

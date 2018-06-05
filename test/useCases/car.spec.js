@@ -1,13 +1,14 @@
+import { Car, Person } from "../fixture.factory";
+
 const { expect } = require('chai');
 
 require('../../generator/oclParserGenerator');
 import { OclParser } from "../../lib/components/parser/OclParser";
-import Car from "../../examples/class/car";
-import Person from "../../examples/class/person";
 
 describe('Example', () => {
     describe('Car', () => {
         const person = new Person(29);
+        person.fleet = [];
 
         const redCar = new Car('red');
         redCar.owner = person;

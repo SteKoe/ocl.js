@@ -1,7 +1,7 @@
 'use strict';
 import { expect } from "chai";
 import { OclParser } from "../../lib/components/parser/OclParser";
-import Person from "../../examples/class/person";
+import { Person } from "../fixture.factory";
 
 require('../../generator/oclParserGenerator');
 

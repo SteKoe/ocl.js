@@ -4,22 +4,17 @@
   "description": "Object Constraint Language parser written in JavaScript.",
   "main": "./dist/ocl.min.js",
   "scripts": {
-    "babel-node": "babel-node",
-    "build:examples": "npm run build && npm run build:examples:fast",
-    "build:examples:fast": "npm run webpack -- --mode=production --config webpack.examples.config.js",
-    "build": "npm run clean:dist && npm run test && npm run build:dist && npm run build:examples:fast",
-    "build:dist": "npm run webpack -- --mode=production --config webpack.config.js",
-    "clean:dist": "npm run rimraf -- dist",
-    "clean": "npm run rimraf -- node_modules dist",
+    "build": "npm run clean:dist && npm run test && npm run build:dist",
+    "build:dist": "npx webpack --mode=production --config webpack.config.js",
+    "clean:dist": "npx rimraf -- dist",
+    "clean": "npx rimraf -- node_modules dist",
     "generate:parser": "rm -rf ./lib/components/parser/parser.js && node generator/oclParserGenerator.js",
     "istanbul": "istanbul",
-    "rimraf": "rimraf",
     "test": "npm run generate:parser && npm run test:fast",
     "test:debug": "node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha --require babel-core/register --recursive test",
-    "test:fast": "node ./node_modules/mocha/bin/_mocha --require babel-core/register --recursive test",
+    "test:fast": "npx mocha --require babel-core/register --recursive test",
     "test:coverage": "npm run generate:parser && npm run coverage",
-    "coverage": "./node_modules/.bin/babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --recursive test",
-    "webpack": "npx webpack"
+    "coverage": "npx babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --recursive test"
   },
   "repository": {
     "type": "git",
