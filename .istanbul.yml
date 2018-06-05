@@ -4,4 +4,5 @@ instrumentation:
         - .js
     default-excludes: true
     excludes:
-        - src/components/parser/parser.js
+        - generator/*
+        - lib/components/parser/*
