@@ -5,7 +5,7 @@ import { OclParser } from '../../lib/components/parser/OclParser'
 require('../../generator/oclParserGenerator');
 
 describe('OCLInterpreter', () => {
-    describe('RejectOperation', () => {
+    describe('RejectExpression', () => {
         it('checks if there are no children older than 18 years old', () => {
             let oclExpression = `
                 context Object

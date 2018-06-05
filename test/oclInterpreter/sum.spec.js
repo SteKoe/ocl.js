@@ -5,7 +5,7 @@ import { OclParser } from '../../lib/components/parser/OclParser'
 require('../../generator/oclParserGenerator');
 
 describe('OCLInterpreter', () => {
-    describe('SumOperation', () => {
+    describe('SumExpression', () => {
         it('sums up the numbers', () => {
             let oclExpression = `
                 context Object

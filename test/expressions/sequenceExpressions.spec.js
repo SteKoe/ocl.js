@@ -1,10 +1,10 @@
 import { expect } from "chai";
 import {
-    AtOperation,
-    FirstOperation,
-    LastOperation,
+    AtExpression,
+    FirstExpression,
+    LastExpression,
     NumberExpression,
-    UnionOperation,
+    UnionExpression,
     VariableExpression
 } from "../../lib/components/expressions";
 
@@ -16,9 +16,9 @@ describe('SequenceExpressions', () => {
         b: [3, 4]
     };
 
-    describe('UnionOperation', () => {
+    describe('UnionExpression', () => {
         it('concats arrays', () => {
-            const expr = new UnionOperation(selfA, selfB);
+            const expr = new UnionExpression(selfA, selfB);
             var result = expr.evaluate(obj);
             expect(result).to.eql([1, 2, 3, 4]);
         });
@@ -26,23 +26,23 @@ describe('SequenceExpressions', () => {
 
     describe('AtOperation', () => {
         it('returns position', () => {
-            const expr = new AtOperation(selfA, new NumberExpression(1));
+            const expr = new AtExpression(selfA, new NumberExpression(1));
             var result = expr.evaluate(obj);
             expect(result).to.eql(2);
         });
     });
 
-    describe('FirstOperation', () => {
+    describe('FirstExpression', () => {
         it('returns position', () => {
-            const expr = new FirstOperation(selfA);
+            const expr = new FirstExpression(selfA);
             var result = expr.evaluate(obj);
             expect(result).to.eql(1);
         });
     });
 
-    describe('LastOperation', () => {
+    describe('LastExpression', () => {
         it('returns position', () => {
-            const expr = new LastOperation(selfA);
+            const expr = new LastExpression(selfA);
             var result = expr.evaluate(obj);
             expect(result).to.eql(2);
         });

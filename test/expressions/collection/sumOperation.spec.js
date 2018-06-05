@@ -1,9 +1,9 @@
 import { expect } from "chai";
-import { SumOperation } from '../../../lib/components/expressions/collection'
+import { SumExpression } from '../../../lib/components/expressions/collection'
 
-describe('SumOperation', () => {
+describe('SumExpression', () => {
     it('works for numbers', () => {
-        const expr = new SumOperation({
+        const expr = new SumExpression({
             evaluate() {
                 return [1, 2, 3, 4]
             }

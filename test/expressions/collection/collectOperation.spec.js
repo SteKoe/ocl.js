@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import { VariableExpression } from '../../../lib/components/expressions/VariableExpression'
-import { CollectOperation } from '../../../lib/components/expressions/collection/CollectOperation'
+import { CollectExpression } from '../../../lib/components/expressions/collection/CollectExpression'
 
-describe('CollectOperation', () => {
+describe('CollectExpression', () => {
     const self = {
         children: [
             { name: 'A' },
@@ -14,7 +14,7 @@ describe('CollectOperation', () => {
     it('works for properties', () => {
         const source = new VariableExpression('self.children');
         const expression = new VariableExpression('child.name');
-        const expr = new CollectOperation(source, 'child', expression);
+        const expr = new CollectExpression(source, 'child', expression);
         expect(expr.evaluate(self)).to.eql(['A', 'B', 'C']);
     });
 });
