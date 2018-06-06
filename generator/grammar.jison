@@ -23,7 +23,7 @@
 "xor"                               return 'xor'
 "not"\b                             return 'not'
 "implies"                           return 'implies'
-"if"                                return 'if'
+"if"\b                              return 'if'
 "then"                              return 'then'
 "else"                              return 'else'
 "endif"                             return 'endif'
