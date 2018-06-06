@@ -3,8 +3,6 @@ import path from "path";
 import { expect } from "chai";
 import { OclParser } from '../../../lib/components/parser/OclParser'
 
-require('../../../generator/oclParserGenerator');
-
 if (process.env.RUN_SLOW_TESTS) {
     describe('Example', () => {
         describe('real world', () => {

@@ -1,9 +1,7 @@
-import { OclParser } from "../../lib/components/parser/OclParser";
+import { expect } from 'chai';
 import { Book, Library, Writer } from "../fixture.factory";
+import { expectOclRuleValidatesToFalse } from '../matcher'
 
-const { expect } = require('chai');
-
-require('../../generator/oclParserGenerator');
 
 describe('Example', () => {
     describe('Library', () => {
@@ -22,8 +20,7 @@ describe('Example', () => {
                 def: unpublishedWriters = writers->select(books->isEmpty())
                 inv: unpublishedWriters->isEmpty()
         `;
-            const oclRule = OclParser.parse(oclExpression);
-            expect(oclRule.evaluate(library)).to.be.false;
+            expectOclRuleValidatesToFalse(oclExpression, library);
         });
 
         it('parent is same', () => {
@@ -44,8 +41,23 @@ describe('Example', () => {
             -- so, here we use one such definition
             inv writers_have_written: unpublishedWriters->isEmpty()
         `;
-            const oclRule = OclParser.parse(oclExpression);
-            expect(oclRule.evaluate(library)).to.be.false;
+            expectOclRuleValidatesToFalse(oclExpression, library);
+        });
+
+        it('parent is same', () => {
+            let library = new Library();
+
+            const julesVerne = new Writer("Jules Verne");
+            julesVerne.books.push(new Book("Le Tour du monde en quatre-vingts jours"));
+            julesVerne.books.push(new Book("Vingt mille lieues sous les mers"));
+
+            const unknownAuthor = new Writer("Unknown Author")
+
+            library.writers.push(julesVerne);
+            library.writers.push(unknownAuthor);
+
+            const oclExpression = `context Library inv: writers->select(books->isEmpty())->size() = 1`;
+            expectOclRuleValidatesToFalse(oclExpression, library);
         });
     });
 });

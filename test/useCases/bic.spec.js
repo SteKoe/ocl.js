@@ -1,7 +1,5 @@
-const { expect } = require('chai');
-
-require('../../generator/oclParserGenerator');
-import { OclParser } from "../../lib/components/parser/OclParser";
+import { expect } from "chai";
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher'
 
 class AST_SEQUENCE_FLOW {
 }
@@ -13,12 +11,8 @@ describe('Example', () => {
             ast.source = { _parent: { _id: 1 } };
             ast.target = { _parent: { _id: 1 } };
 
-            const oclExpression = `
-            context AST_SEQUENCE_FLOW
-                inv: self.source._parent._id = self.target._parent._id
-        `;
-            const oclRule = OclParser.parse(oclExpression);
-            expect(oclRule.evaluate(ast)).to.be.true;
+            const oclExpression = `context AST_SEQUENCE_FLOW inv: self.source._parent._id = self.target._parent._id`;
+            expectOclRuleValidatesToTrue(oclExpression, ast);
         });
 
         it('parent is not same', () => {
@@ -26,12 +20,8 @@ describe('Example', () => {
             ast.source = { _parent: { _id: 1 } };
             ast.target = { _parent: { _id: 2 } };
 
-            const oclExpression = `
-            context AST_SEQUENCE_FLOW
-                inv: self.source._parent._id = self.target._parent._id
-        `;
-            const oclRule = OclParser.parse(oclExpression);
-            expect(oclRule.evaluate(ast)).to.be.false;
+            const oclExpression = `context AST_SEQUENCE_FLOW inv: self.source._parent._id = self.target._parent._id`;
+            expectOclRuleValidatesToFalse(oclExpression, ast);
         });
     });
 });

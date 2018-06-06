@@ -91,6 +91,8 @@ contextDeclaration
 	    { $$ = $1 }
 	| propertyContextDecl
 	    { $$ = $1 }
+    | operationContextDecl
+        { $$ = $1 }
 	;
 
 classifierContextDecl
@@ -103,8 +105,28 @@ propertyContextDecl
 	    { $$ = new Expression.PropertyContextExpression($2, $5) }
 	;
 
+operationContextDecl
+	: 'context' operation prePostOrBodyDeclList
+	    { $$ = new Expression.OperationContextExpression($2, $3) }
+	;
+
+prePostOrBodyDeclList
+    : prePostOrBodyDeclList prePostOrBodyDecl
+        { $$ = $1.concat($2) }
+    | prePostOrBodyDecl
+        { $$ = [$1] }
+    ;
+
+prePostOrBodyDecl
+	: 'pre' simpleNameOptional ':' oclExpression
+	    { $$ = new Expression.PreExpression($2, $4) }
+	| 'post' simpleNameOptional ':' oclExpression
+	| 'body' simpleNameOptional ':' oclExpression
+	;
+
 operation
     : pathName '(' variableDeclarationListOptional ')' typeOptional
+        { $$ = {pathName: $1, params: $3, returnType: $5 }; }
     ;
 
 initOrDerValueList

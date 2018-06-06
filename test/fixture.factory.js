@@ -19,6 +19,19 @@ export class Person {
 export class MetaEntity {
 }
 
+export class MetaAttribute {
+}
+
+export class Company {
+    constructor() {
+        this.employees = [];
+    }
+
+    hire(person) {
+        this.employees.push(person);
+    }
+}
+
 export class MetaAssociationLink {
     constructor(roleName) {
         this.roleName = roleName;

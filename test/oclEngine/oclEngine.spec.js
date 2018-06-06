@@ -1,35 +1,8 @@
-'use strict';
 import { expect } from 'chai';
 import { OclEngine } from "../../lib/components/OclEngine";
 import { FixtureFactory, MetaAssociationLink, MetaEntity } from "../fixture.factory";
 
-require('../../generator/oclParserGenerator');
-
 describe('OclEngine', function () {
-    it('should manage oclExpressions by target type.', function () {
-        const oclEngine = OclEngine.create()
-            .addOclExpression(`
-                context MetaEntity inv: 
-                    self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
-            `);
-
-        expect(oclEngine.getOclExpressionsForType('MetaEntity').length).to.eql(1)
-    });
-
-    it('should manage multiple oclExpressions by target type.', function () {
-        const oclEngine = new OclEngine();
-        oclEngine.addOclExpression(`
-            context MetaEntity inv: 
-                self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
-        `);
-        oclEngine.addOclExpression(`
-            context MetaEntity inv: 
-                self.isType = true implies self.isIntrinsic = false
-        `);
-
-        expect(oclEngine.getOclExpressionsForType('MetaEntity').length).to.be.eql(2);
-    });
-
     it('should evaluate oclExpression for given instance data when all are valid.', function () {
         let metaEntity = new MetaEntity();
         metaEntity.metaAssociationLinks = [
@@ -128,16 +101,16 @@ describe('OclEngine', function () {
             let actual;
 
             actual = oclEngine._inferType({})
-            expect(actual).to.equal('Object');
+            expect(actual, "{}").to.equal('Object');
 
             actual = oclEngine._inferType("i am a string")
-            expect(actual).to.be.undefined;
+            expect(actual, "i am a string").to.be.undefined;
 
             actual = oclEngine._inferType(1)
-            expect(actual).to.be.undefined;
+            expect(actual, "1").to.be.undefined;
 
             actual = oclEngine._inferType(FixtureFactory.createPerson("Stephan", 30))
-            expect(actual).to.equal('Person');
+            expect(actual, "Person").to.equal('Person');
         });
 
         it('infers types based on custom TypeDeterminer', () => {

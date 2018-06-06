@@ -1,25 +1,17 @@
 import { expect } from "chai";
-import { OclParser } from "../../lib/components/parser/OclParser";
 import { MetaAssociationLink, MetaEntity } from "../fixture.factory";
-
-require('../../generator/oclParserGenerator');
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher'
 
 describe('Example', () => {
     describe('MML', () => {
         it('MetaEntity metaAssociationLinks have different role names.', () => {
-            const oclExpression = `
-            context MetaEntity inv: 
-                self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
-        `;
-            const oclRule = OclParser.parse(oclExpression);
-
-
             let metaEntity = new MetaEntity();
             metaEntity.metaAssociationLinks = [
                 new MetaAssociationLink('roleA'),
                 new MetaAssociationLink('roleB')
             ];
-            expect(oclRule.evaluate(metaEntity)).to.be.true;
+            const oclExpression = `context MetaEntity inv: self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)`;
+            expectOclRuleValidatesToTrue(oclExpression, metaEntity);
         });
 
         it('MetaEntity: self.isType = true implies self.isIntrinsic = false', () => {
@@ -27,15 +19,11 @@ describe('Example', () => {
             metaEntity.isType = true;
             metaEntity.isIntrinsic = false;
 
-            const oclExpression = `
-            context MetaEntity inv: 
-                self.isType = true implies self.isIntrinsic = false
-        `;
-            const oclRule = OclParser.parse(oclExpression);
-            expect(oclRule.evaluate(metaEntity)).to.be.true;
+            const oclExpression = `context MetaEntity inv: self.isType = true implies self.isIntrinsic = false`;
+            expectOclRuleValidatesToTrue(oclExpression, metaEntity);
 
             metaEntity.isIntrinsic = true;
-            expect(oclRule.evaluate(metaEntity)).to.not.be.true;
+            expectOclRuleValidatesToFalse(oclExpression, metaEntity);
         });
     });
 });

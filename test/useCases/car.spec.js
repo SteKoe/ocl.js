@@ -1,9 +1,6 @@
+import { expect } from "chai";
 import { Car, Person } from "../fixture.factory";
-
-const { expect } = require('chai');
-
-require('../../generator/oclParserGenerator');
-import { OclParser } from "../../lib/components/parser/OclParser";
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher'
 
 describe('Example', () => {
     describe('Car', () => {
@@ -27,8 +24,7 @@ describe('Example', () => {
                 self.fleet->forAll(c|c.color = "red")
         `;
 
-            const oclRule = OclParser.parse(oclExpression);
-            expect(oclRule.evaluate(person)).to.be.false;
+            expectOclRuleValidatesToFalse(oclExpression, person);
         });
 
         it('The owner of a car is at least 18 years old.', () => {
@@ -37,8 +33,7 @@ describe('Example', () => {
                 self.owner.age >= 18
         `;
 
-            const oclRule = OclParser.parse(oclExpression);
-            expect(oclRule.evaluate(redCar)).to.be.true;
+            expectOclRuleValidatesToTrue(oclExpression, redCar);
         });
     });
 });
