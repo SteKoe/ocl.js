@@ -25,6 +25,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new MinifyPlugin()
-    ]
+        new MinifyPlugin({}, { comments: false })
+    ],
 };

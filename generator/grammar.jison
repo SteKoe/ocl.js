@@ -253,18 +253,11 @@ variableDeclaration
     ;
 
 oclExpressionListOptional
-    :
-    | oclExpression ',' oclExpression
-        { $$ = [].concat($1).concat($3) }
-    | oclExpressionOptional
-        { $$ = [$1] }
-    ;
-
-oclExpressionOptional
-    : oclExpression
+    : oclExpressionList
         { $$ = $1 }
     |
     ;
+
 
 variableDeclarationListOptional
     : variableDeclarationList
