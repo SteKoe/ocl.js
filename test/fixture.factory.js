@@ -6,8 +6,17 @@ export class FixtureFactory {
     }
 }
 
-export class Person {
+export class Dog {
+
+}
+
+export class Human {
+
+}
+
+export class Person extends Human {
     constructor(age) {
+        super();
         this.age = age;
     }
 

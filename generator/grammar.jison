@@ -160,7 +160,7 @@ oclExpression
 	: literalExp
 	    { $$ = $1 }
 	| pathName preOptional
-	    { $$ = new Expression.VariableExpression($1) }
+	    { $$ = new Expression.VariableExpression($1); }
     | 'not' oclExpression
         { $$ = new Expression.NotExpression($2) }
     | '(' oclExpression ')'
