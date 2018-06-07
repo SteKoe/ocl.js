@@ -169,7 +169,7 @@ oclExpression
     | oclExpression '.' simpleName '(' oclExpressionListOptional ')'
         { $$ = functionCallExpression($3, $1, $5) }
     | oclExpression '.' simpleName preOptional
-        { $$ = ($1 instanceof Expression.VariableExpression) ? new Expression.VariableExpression([$1.variable, $3].join('.')) : $1 }
+        { $$ = ($1 instanceof Expression.VariableExpression) ? new Expression.VariableExpression([$1.source, $3].join('.')) : $1 }
     | oclExpression '+' oclExpression
         { $$ = new Expression.AdditionExpression($1, $3) }
     | oclExpression '^' oclExpression
