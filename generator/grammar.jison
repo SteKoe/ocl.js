@@ -167,7 +167,7 @@ oclExpression
     | '(' oclExpression ')'
         { $$ = $2 }
     | oclExpression '.' simpleName '(' oclExpressionListOptional ')'
-        { $$ = methodCallExpression($3, $1, $5) }
+        { $$ = functionCallExpression($3, $1, $5) }
     | oclExpression '.' simpleName preOptional
         { $$ = ($1 instanceof Expression.VariableExpression) ? new Expression.VariableExpression([$1.variable, $3].join('.')) : $1 }
     | oclExpression '+' oclExpression
@@ -322,57 +322,14 @@ pathName
 %%
 /* start of helper functions */
 
-function functionCallExpression(fn, source) {
-    if(fn.toLowerCase() === 'isempty') {
-        return new Expression.IsEmptyExpression(source);
-    } else if(fn.toLowerCase() === 'isnotempty' || fn.toLowerCase() === 'notempty') {
-        return new Expression.IsNotEmptyExpression(source);
-    } else if(fn.toLowerCase() === 'size') {
-        return new Expression.SizeExpression(source);
-    } else if(fn.toLowerCase() === 'forall') {
-        return new Expression.IteratorExpression(source);
-    } else if(fn.toLowerCase() === 'select') {
-        return new Expression.SelectExpression(source);
-    } else if(fn.toLowerCase() === 'exists') {
-        return new Expression.ExistsExpression(source);
-    } else if(fn.toLowerCase() === 'union') {
-        return new Expression.UnionExpression(source);
-    } else if(fn.toLowerCase() === 'first') {
-        return new Expression.FirstExpression(source);
-    } else if(fn.toLowerCase() === 'at') {
-        return new Expression.AtExpression(source);
-    } else if(fn.toLowerCase() === 'last') {
-        return new Expression.LastExpression(source);
-    } else if(fn.toLowerCase() === 'asset') {
-        return new Expression.AsSetExpression(source);
-    } else if(fn.toLowerCase() === 'oclistypeof') {
-        return new Expression.OclIsTypeOfExpression(source);
-    } else if(fn.toLowerCase() === 'sum') {
-        return new Expression.SumExpression(source);
-    } else if(fn.toLowerCase() === 'reject') {
-        return new Expression.RejectExpression(source);
-    } else if(fn.toLowerCase() === 'collect') {
-        return new Expression.CollectExpression(source);
-    } else if(fn.toLowerCase() === 'concat') {
-        return new Expression.ConcatExpression(source);
-    } else if(fn.toLowerCase() === 'touppercase') {
-        return new Expression.ToUpperCaseExpression(source);
-    } else if(fn.toLowerCase() === 'tolowercase') {
-        return new Expression.ToLowerCaseExpression(source);
-    } else if(fn.toLowerCase() === 'substring') {
-        return new Expression.SubstringExpression(source);
-    } else if(fn.toLowerCase() === 'indexof') {
-        return new Expression.IndexOfExpression(source);
+function functionCallExpression(fn, source, params) {
+    let expressionTypeName = `${Utils.ucfirst(fn)}Expression`
+    let ExpressionType = Expression[expressionTypeName];
+    let typeExists = typeof ExpressionType === 'function'
+
+    if (typeExists && !params) {
+        return new ExpressionType(source);
+    } else {
+        return new Expression.NativeJsFunctionCallExpression(source, fn, params);
     }
-
-    throw new Error(`No function call expression found for '${fn}' on ${source}!`);
-}
-
-
-function methodCallExpression(fn, source, params) {
-    if(fn.toLowerCase() === 'oclisundefined') {
-        return new Expression.OclIsUndefinedExpression(source);
-    }
-
-    return new Expression.NativeJsFunctionCallExpression(source, fn, params);
 }

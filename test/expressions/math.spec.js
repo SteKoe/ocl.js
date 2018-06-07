@@ -47,4 +47,9 @@ describe('Math', () => {
         const oclExpression = `context Object inv: 7 mod 4 = 3`;
         expectOclRuleValidatesToTrue(oclExpression);
     });
+
+    it('should evaluate abs.', () => {
+        const oclExpression = `context Object inv: -2->abs() = 2`;
+        expectOclRuleValidatesToTrue(oclExpression);
+    });
 });

@@ -8,6 +8,7 @@ const parserOutputFile = path.resolve('./lib/components/parser/Parser.js');
 
 const imports = [
     "import * as Expression from '../expressions';",
+    "import { Utils } from '../Utils'",
 ].join('\n');
 
 fs.writeFileSync(parserOutputFile, [imports, parser.generate({
