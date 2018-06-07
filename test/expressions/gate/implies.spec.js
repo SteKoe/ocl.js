@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { FixtureFactory } from "../fixture.factory";
-import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher'
+import { FixtureFactory } from "../../fixture.factory";
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../../matcher'
 
 describe('implies', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);
