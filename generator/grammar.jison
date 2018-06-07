@@ -97,7 +97,7 @@ contextDeclaration
 
 classifierContextDecl
 	: 'context' pathName invOrDefList
-	    { $$ = new Expression.ContextExpression($2, $3) }
+	    { $$ = new Expression.ClassifierContextExpression($2, $3) }
 	;
 
 propertyContextDecl

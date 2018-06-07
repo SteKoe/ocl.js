@@ -4,9 +4,9 @@ import { Person } from '../fixture.factory'
 
 describe('OclEngine', function () {
     let oclEngine = OclEngine.create();
-    oclEngine.registeredTypes = {
+    oclEngine.registerTypes({
         "Person": Person
-    };
+    });
 
     it('should register types for oclIsTypeOf', function () {
         oclEngine.addOclExpression(`
