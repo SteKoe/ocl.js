@@ -14,7 +14,9 @@
     "test:debug": "node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha --require babel-core/register --recursive test",
     "test:fast": "npx mocha --require babel-core/register --recursive test",
     "test:coverage": "npm run generate:parser && npm run coverage",
-    "coverage": "npx babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --recursive test"
+    "test:coverage:expressions": "npm run generate:parser && npm run coverage:expressions",
+    "coverage": "npx babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --recursive test",
+    "coverage:expressions": "npx babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --recursive test/expressions"
   },
   "repository": {
     "type": "git",

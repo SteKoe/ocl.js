@@ -52,4 +52,14 @@ describe('Math', () => {
         const oclExpression = `context Object inv: -2->abs() = 2`;
         expectOclRuleValidatesToTrue(oclExpression);
     });
+
+    it('should evaluate sqrt.', () => {
+        const oclExpression = `context Object inv: 9->sqrt() = 3`;
+        expectOclRuleValidatesToTrue(oclExpression);
+    });
+
+    it('should evaluate sqrt with n.', () => {
+        const oclExpression = `context Object inv: 729->sqrt(3) = 8.999999999999998`;
+        expectOclRuleValidatesToTrue(oclExpression);
+    });
 });

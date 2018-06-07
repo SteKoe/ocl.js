@@ -119,7 +119,6 @@ prePostOrBodyDeclList
 
 prePostOrBodyDecl
 	: 'pre' simpleNameOptional ':' oclExpression
-	    { $$ = new Expression.PreExpression($2, $4) }
 	| 'post' simpleNameOptional ':' oclExpression
 	| 'body' simpleNameOptional ':' oclExpression
 	;
