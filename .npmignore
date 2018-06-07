@@ -1,6 +1,7 @@
-src
 test
 examples
+generator
+coverage
 .DS_Store
 *.log
 *.tgs
