@@ -1,5 +1,5 @@
-import {LeftRightBasedExpression} from '../Expression'
-import {OclVisitor} from "../../OclVisitor";
+import { LeftRightBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Multiply
@@ -8,7 +8,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample 1 * 2
  */
 export class MultiplyExpression extends LeftRightBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitMultiplyExpression(this);
     }
 }

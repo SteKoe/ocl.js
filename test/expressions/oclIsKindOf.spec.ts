@@ -36,7 +36,7 @@ describe('oclIsKindOf', () => {
 
     it('negative tests', () => {
         let oclExpression = `context Person inv: self->oclIsKindOf(Dog)`;
-        expectFalse(oclExpression, visitor)
+        expectFalse(oclExpression, visitor);
 
         oclExpression = `context Person inv: self->oclIsKindOf()`;
         expectFalse(oclExpression, visitor);

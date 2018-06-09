@@ -1,5 +1,5 @@
-import {SourceBasedExpression} from "./Expression";
-import {OclVisitor} from "../OclVisitor";
+import { SourceBasedExpression } from './Expression';
+import { OclVisitor } from '../OclVisitor';
 
 /**
  * Checks if *self* is not defined
@@ -7,7 +7,7 @@ import {OclVisitor} from "../OclVisitor";
  * @oclExpression oclIsUndefined() : Boolean
  */
 export class OclIsUndefinedExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitOclIsUndefinedExpression(this);
     }
 }

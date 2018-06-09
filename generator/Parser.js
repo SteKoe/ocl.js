@@ -1031,6 +1031,8 @@ case 6:
     /*! Production::    contextDeclaration : propertyContextDecl */
 case 7:
     /*! Production::    contextDeclaration : operationContextDecl */
+case 25:
+    /*! Production::    oclExpression : literalExp */
 case 59:
     /*! Production::    typeOptional : ":" type */
 case 61:
@@ -1107,12 +1109,6 @@ case 24:
     /*! Production::    invOrDef : def simpleNameOptional ":" defExpression */
 
     this.$ = new yy.Expression.LetExpression(yyvstack[yysp - 2], yyvstack[yysp]);
-    break;
-
-case 25:
-    /*! Production::    oclExpression : literalExp */
-
-    this.$ = yyvstack[yysp]
     break;
 
 case 26:
@@ -5449,9 +5445,9 @@ parser.lexer = lexer;
 /* start of helper functions */
 
 function functionCallExpression(yy, fn, source, params = undefined) {
-    let expressionTypeName = `${yy.Utils.ucfirst(fn)}Expression`
+    let expressionTypeName = `${yy.Utils.ucfirst(fn)}Expression`;
     let ExpressionType = yy.Expression[expressionTypeName];
-    let typeExists = typeof ExpressionType === 'function'
+    let typeExists = typeof ExpressionType === 'function';
 
     if (typeExists && !params) {
         return new ExpressionType(source);

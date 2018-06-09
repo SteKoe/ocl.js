@@ -21,13 +21,13 @@ describe('Collection->reject ', () => {
                 {age: 2},
                 {age: 30}
             ]
-        }
+        };
         let oclExpression = `context Object inv: self.children->reject(child | child.age < 18)->size() = 0`;
         expectOclRuleValidatesToFalse(oclExpression, obj);
     });
 
     it('removes all elements from array that are odd', () => {
-        let obj = {seq: [1, 3, 5, 8, 10]}
+        let obj = {seq: [1, 3, 5, 8, 10]};
         let oclExpression = `context Object inv: self.seq->reject(a mod 2 = 0)->size() = 3`;
         expectOclRuleValidatesToTrue(oclExpression, obj);
     });

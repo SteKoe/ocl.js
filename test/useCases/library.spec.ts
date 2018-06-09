@@ -50,7 +50,7 @@ describe('Example', () => {
             julesVerne.books.push(new Book("Le Tour du monde en quatre-vingts jours"));
             julesVerne.books.push(new Book("Vingt mille lieues sous les mers"));
 
-            const unknownAuthor = new Writer("Unknown Author")
+            const unknownAuthor = new Writer("Unknown Author");
 
             library.writers.push(julesVerne);
             library.writers.push(unknownAuthor);

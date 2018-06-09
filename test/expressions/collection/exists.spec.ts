@@ -10,7 +10,7 @@ describe('Collection->exists', () => {
     ];
 
     it('should evaluate exists() using iterator', () => {
-        let oclExpression = `context Person inv: self.children->exists(c|c.age > 20)`
+        let oclExpression = `context Person inv: self.children->exists(c|c.age > 20)`;
         expectOclRuleValidatesToFalse(oclExpression, mother);
     });
 
@@ -36,7 +36,7 @@ describe('Collection->exists', () => {
                 {underAge: false},
                 {underAge: true}
             ]
-        }
+        };
 
         const oclExpression = `context Object inv: self.customer->exists(underAge = true)`;
         expectOclRuleValidatesToTrue(oclExpression, obj);

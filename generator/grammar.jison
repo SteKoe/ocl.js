@@ -158,7 +158,7 @@ invOrDef
 
 oclExpression
 	: literalExp
-	    { $$ = $1 }
+	    { $$ = $1; }
 	| pathName preOptional
 	    { $$ = new yy.Expression.VariableExpression($1); }
     | 'not' oclExpression
@@ -322,9 +322,9 @@ pathName
 /* start of helper functions */
 
 function functionCallExpression(yy, fn, source, params = undefined) {
-    let expressionTypeName = `${yy.Utils.ucfirst(fn)}Expression`
+    let expressionTypeName = `${yy.Utils.ucfirst(fn)}Expression`;
     let ExpressionType = yy.Expression[expressionTypeName];
-    let typeExists = typeof ExpressionType === 'function'
+    let typeExists = typeof ExpressionType === 'function';
 
     if (typeExists && !params) {
         return new ExpressionType(source);

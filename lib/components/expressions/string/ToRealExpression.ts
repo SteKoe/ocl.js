@@ -1,5 +1,5 @@
-import {SourceBasedExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { SourceBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Tries to convert a string to a number.
@@ -8,7 +8,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample "3.414"->toReal()
  */
 export class ToRealExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitToRealExpression(this);
     }
 }

@@ -1,5 +1,5 @@
-import {BodyBasedExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { BodyBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Returns the element of the collection at index index.
@@ -8,7 +8,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample self.collection->at(2)
  */
 export class AtExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitAtExpression(this);
     }
 }

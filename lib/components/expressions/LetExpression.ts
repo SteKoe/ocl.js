@@ -1,5 +1,5 @@
-import {Expression} from "./Expression";
-import {OclVisitor} from "../OclVisitor";
+import { Expression } from './Expression';
+import { OclVisitor } from '../OclVisitor';
 
 /**
  */
@@ -13,15 +13,15 @@ export class LetExpression extends Expression {
         this.value = value;
     }
 
-    getKey() {
+    getKey(): string {
         return this.key;
     }
 
-    getValue() {
+    getValue(): Expression {
         return this.value;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitLetExpression(this);
     }
 }

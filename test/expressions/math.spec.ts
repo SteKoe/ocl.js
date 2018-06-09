@@ -17,7 +17,7 @@ describe('Math', () => {
             `context Object inv: ((1 + 2) * 3) + 6 = 15`,
             `context Object inv: ((1 + 2) * 3) ^ 2 + 9 = 90`,
             `context Object inv: (((1 + 2) * 3) ^ 2 + 9) / 3 = 30`
-        ]
+        ];
 
         positiveFixtures.forEach(fixture => expectOclRuleValidatesToTrue(fixture));
     });

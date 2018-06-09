@@ -1,11 +1,11 @@
-import {Expression} from './Expression'
-import {Utils} from '../Utils'
+import { Expression } from './Expression';
+import { Utils } from '../Utils';
 
 export abstract class ContextExpression extends Expression {
-    labels: any[] = [];
+    labels: Array<any> = [];
     targetType: string;
 
-    accept(visitor) {
+    accept(visitor): boolean {
         if (visitor.labelsToExecute.length === 0 || this.labels.length === 0) {
             return true;
         }

@@ -1,5 +1,5 @@
-import {IteratorExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { IteratorExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Operation which checks whether a collection contains an element specified by expr.
@@ -8,7 +8,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample self.collection->exists(i | i < 2)
  */
 export class ExistsExpression extends IteratorExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitExistsExpression(this);
     }
 }

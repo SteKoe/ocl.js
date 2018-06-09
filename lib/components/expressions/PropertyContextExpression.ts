@@ -1,8 +1,8 @@
-import {ContextExpression} from "./ContextExpression";
-import {InitExpression} from "./InitExpression";
-import {DeriveExpression} from "./DeriveExpression";
-import {Utils} from '../Utils'
-import {OclVisitor} from "../OclVisitor";
+import { ContextExpression } from './ContextExpression';
+import { InitExpression } from './InitExpression';
+import { DeriveExpression } from './DeriveExpression';
+import { Utils } from '../Utils';
+import { OclVisitor } from '../OclVisitor';
 
 /**
  */
@@ -26,11 +26,11 @@ export class PropertyContextExpression extends ContextExpression {
         this.derived = rules.filter(i => i instanceof DeriveExpression);
     }
 
-    accept(visitor) {
-        return Utils.getClassName(visitor.obj) === this.targetType
+    accept(visitor): boolean {
+        return Utils.getClassName(visitor.obj) === this.targetType;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitPropertyContextExpression(this);
     }
 }

@@ -1,21 +1,21 @@
+import { ContextExpression } from './ContextExpression';
+import { OclVisitor } from '../OclVisitor';
+
 /**
  * In order to group and organise OCL constraints, packages can be used.
  */
-import {ContextExpression} from "./ContextExpression";
-import {OclVisitor} from "../OclVisitor";
-
 export class PackageDeclaration {
-    private contexts: ContextExpression[];
+    private contexts: Array<ContextExpression>;
 
-    constructor(type, contexts: ContextExpression[]) {
+    constructor(type, contexts: Array<ContextExpression>) {
         this.contexts = contexts;
     }
 
-    getContexts() {
+    getContexts(): Array<ContextExpression> {
         return this.contexts;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitPackageDeclaration(this);
     }
 }

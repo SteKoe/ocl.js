@@ -1,13 +1,13 @@
-import {InvariantExpression} from "./InvariantExpression";
-import {LetExpression} from "./LetExpression";
-import {ContextExpression} from './ContextExpression'
-import {OclVisitor} from "../OclVisitor";
+import { InvariantExpression } from './InvariantExpression';
+import { LetExpression } from './LetExpression';
+import { ContextExpression } from './ContextExpression';
+import { OclVisitor } from '../OclVisitor';
 
 export class ClassifierContextExpression extends ContextExpression {
-    private invs: InvariantExpression[];
-    private defs: LetExpression[];
+    private invs: Array<InvariantExpression>;
+    private defs: Array<LetExpression>;
 
-    constructor(targetType, rules: any[]) {
+    constructor(targetType, rules: Array<any>) {
         super();
 
         if (!(rules instanceof Array)) {
@@ -19,16 +19,16 @@ export class ClassifierContextExpression extends ContextExpression {
         this.defs = rules.filter(i => i instanceof LetExpression);
     }
 
-    getInvs() {
+    getInvs(): Array<InvariantExpression> {
         return this.invs;
     }
 
-    getDefs() {
+    getDefs(): Array<LetExpression> {
         return this.defs;
     }
 
-    accept(visitor) {
-        let accept = super.accept(visitor);
+    accept(visitor): boolean {
+        const accept = super.accept(visitor);
 
         if (accept === false) {
             return false;
@@ -36,17 +36,17 @@ export class ClassifierContextExpression extends ContextExpression {
             const visitorTargetType = visitor.registeredTypes[visitor.targetType] || visitor.targetType;
             const expressionTargetType = visitor.registeredTypes[this.targetType] || this.targetType;
 
-            if (typeof visitorTargetType === "string" || typeof expressionTargetType === "string") {
-                accept = this.targetType === visitor.targetType;
+            if (typeof visitorTargetType === 'string' || typeof expressionTargetType === 'string') {
+                return this.targetType === visitor.targetType;
             } else {
-                accept = visitorTargetType instanceof expressionTargetType || visitorTargetType === expressionTargetType;
+                return visitorTargetType instanceof expressionTargetType || visitorTargetType === expressionTargetType;
             }
-
-            return accept;
         }
+
+        return accept;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitClassifierContextExpression(this);
     }
 }

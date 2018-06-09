@@ -1,14 +1,14 @@
-import {LiteralExpression} from "./LiteralExpression";
-import {OclVisitor} from "../../OclVisitor";
+import { LiteralExpression } from './LiteralExpression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  */
 export class BooleanExpression extends LiteralExpression<boolean> {
-    parseValue(value) {
+    parseValue(value): boolean {
         return JSON.parse(value);
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitLiteralExpression(this);
     }
 }

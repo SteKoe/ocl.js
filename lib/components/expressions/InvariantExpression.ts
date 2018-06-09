@@ -1,5 +1,5 @@
-import {Expression} from "./Expression";
-import {OclVisitor} from "../OclVisitor";
+import { Expression } from './Expression';
+import { OclVisitor } from '../OclVisitor';
 
 /**
  */
@@ -13,15 +13,15 @@ export class InvariantExpression extends Expression {
         this.definition = oclExpression;
     }
 
-    getName() {
+    getName(): string {
         return this.name;
     }
 
-    getDefinition() {
+    getDefinition(): any {
         return this.definition;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitInvariantExpression(this);
     }
 }

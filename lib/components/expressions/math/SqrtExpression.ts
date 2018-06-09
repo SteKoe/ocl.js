@@ -1,5 +1,5 @@
-import {BodyBasedExpression} from '../Expression'
-import {OclVisitor} from "../../OclVisitor";
+import { BodyBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Sqrt
@@ -7,7 +7,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExpression Symbol: sqrt
  */
 export class SqrtExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitSqrtExpression(this);
     }
 }

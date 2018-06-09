@@ -1,5 +1,5 @@
-import {Expression} from "./Expression";
-import {OclVisitor} from "../OclVisitor";
+import { Expression } from './Expression';
+import { OclVisitor } from '../OclVisitor';
 
 /**
  * The IfExpression allows to execute a statement if the given condition is truthy.
@@ -17,19 +17,19 @@ export class IfExpression extends Expression {
         this._else = _else;
     }
 
-    getCondition() {
+    getCondition(): Expression {
         return this.condition;
     }
 
-    getThenExpression() {
+    getThenExpression(): Expression {
         return this._then;
     }
 
-    getElseExpression() {
+    getElseExpression(): Expression {
         return this._else;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): boolean {
         return visitor.visitIfExpression(this);
     }
 

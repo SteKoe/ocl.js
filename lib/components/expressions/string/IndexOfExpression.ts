@@ -1,5 +1,5 @@
-import {BodyBasedExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { BodyBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Returns the index of the given string in self or 0 if it is not condained.
@@ -8,7 +8,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample self.name->indexOf("string")
  */
 export class IndexOfExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitIndexOfExpression(this);
     }
 }

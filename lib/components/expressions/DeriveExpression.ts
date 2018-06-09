@@ -1,5 +1,5 @@
-import {Expression} from "./Expression";
-import {OclVisitor} from "../OclVisitor";
+import { Expression } from './Expression';
+import { OclVisitor } from '../OclVisitor';
 
 /**
  * A derived value expression is an expression that may be linked to a property
@@ -12,11 +12,11 @@ export class DeriveExpression extends Expression {
         this.value = value;
     }
 
-    getValue() {
+    getValue(): any {
         return this.value;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitDeriveExpression(this);
     }
 }

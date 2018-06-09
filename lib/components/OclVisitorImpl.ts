@@ -1,4 +1,4 @@
-import {Utils} from './Utils'
+import { Utils } from './Utils';
 import {
     AbsExpression,
     AdditionExpression,
@@ -52,17 +52,17 @@ import {
     UnionExpression,
     VariableExpression,
     XorExpression
-} from './expressions'
-import {OclParser} from './parser/OclParser'
-import {OclVisitor} from "./OclVisitor";
+} from './expressions';
+import { OclParser } from './parser/OclParser';
+import { OclVisitor } from './OclVisitor';
 
 export class OclVisitorImpl implements OclVisitor {
-    public evaluationResult: any = undefined;
-    labelsToExecute: any[] = [];
-    evaluatedContexts: number = 0;
+    evaluationResult: any = undefined;
+    labelsToExecute: Array<any> = [];
+    evaluatedContexts = 0;
     targetType: any | string;
     _targetType: any;
-    failedInvariants: any[] = [];
+    failedInvariants: Array<any> = [];
     DEBUG: boolean;
     private obj: any;
     private registeredTypes: any;
@@ -75,15 +75,16 @@ export class OclVisitorImpl implements OclVisitor {
 
     setObjectToEvaluate(obj): OclVisitorImpl {
         this.obj = obj;
+
         return this;
     }
 
     registerTypes(types): void {
-        this.registeredTypes = Object.assign({}, this.registeredTypes, types);
+        this.registeredTypes = {...this.registeredTypes, ...types};
     }
 
     visitPackageDeclaration(expr: PackageDeclaration): OclVisitorImpl {
-        let contextsToVisit = expr.getContexts()
+        const contextsToVisit = expr.getContexts()
             .filter(ctx => ctx.accept(this));
 
         this.evaluatedContexts += contextsToVisit.length;
@@ -97,16 +98,18 @@ export class OclVisitorImpl implements OclVisitor {
 
     visitClassifierContextExpression(expr: ClassifierContextExpression): boolean {
         if (expr.accept(this)) {
-            expr.getDefs().forEach(def => def.visit(this));
+            expr.getDefs()
+                .forEach(def => def.visit(this));
 
             const invs = expr.getInvs();
 
             return !invs
                 .map(inv => {
-                    let evaluationResult = inv.visit(this);
+                    const evaluationResult = inv.visit(this);
                     if (evaluationResult === false) {
                         this.failedInvariants.push(inv);
                     }
+
                     return evaluationResult;
                 })
                 .some(inv => inv === false);
@@ -127,26 +130,33 @@ export class OclVisitorImpl implements OclVisitor {
 
     visitOperationContextExpression(expr: OperationContextExpression): void {
         if (expr.accept(this)) {
-            expr.getExpressions().forEach(expression => {
-                expression.visit(this);
-            });
+            expr.getExpressions()
+                .forEach(expression => {
+                    expression.visit(this);
+                });
         }
     }
 
     visitIfExpression(expr: IfExpression): boolean {
-        return expr.getCondition().visit(this) ? expr.getThenExpression().visit(this) : expr.getElseExpression().visit(this);
+        return expr.getCondition()
+            .visit(this) ? expr.getThenExpression()
+            .visit(this) : expr.getElseExpression()
+            .visit(this);
     }
 
     visitDeriveExpression(expr: DeriveExpression): any {
-        return expr.getValue().visit(this);
+        return expr.getValue()
+            .visit(this);
     }
 
     visitInitExpression(expr: InitExpression): any {
-        return expr.getValue().visit(this);
+        return expr.getValue()
+            .visit(this);
     }
 
     visitInvariantExpression(expr: InvariantExpression): boolean {
-        return expr.getDefinition().visit(this);
+        return expr.getDefinition()
+            .visit(this);
     }
 
     visitOperationCallExpression(expr: OperationCallExpression): boolean {
@@ -168,17 +178,21 @@ export class OclVisitorImpl implements OclVisitor {
     }
 
     visitOclIsUndefinedExpression(expr: OclIsUndefinedExpression): boolean {
-        let result = expr.getSource().visit(this);
+        const result = expr.getSource()
+            .visit(this);
+
         return result === undefined || typeof result === 'undefined';
     }
 
     visitOclIsTypeOfExpression(expr: OclIsTypeOfExpression): boolean {
-        let source = expr.getSource().visit(this);
+        let source = expr.getSource()
+            .visit(this);
         source = Utils.getClassName(source);
 
-        let body = expr.getBody().visit(this);
+        let body = expr.getBody()
+            .visit(this);
 
-        if (typeof body !== "string") {
+        if (typeof body !== 'string') {
             body = Utils.getClassName(body);
         }
 
@@ -186,8 +200,11 @@ export class OclVisitorImpl implements OclVisitor {
     }
 
     visitOclIsKindOfExpression(expr: OclIsKindOfExpression): boolean {
-        let source = expr.getSource().visit(this);
-        let body = expr.getBody() ? expr.getBody().visit(this) : undefined;
+        const source = expr.getSource()
+            .visit(this);
+
+        const body = expr.getBody() ? expr.getBody()
+            .visit(this) : undefined;
 
         if (!body) {
             return false;
@@ -197,20 +214,25 @@ export class OclVisitorImpl implements OclVisitor {
     }
 
     visitNativeJsFunctionCallExpression(expr: NativeJsFunctionCallExpression): any {
-        let source = expr.getSource().visit(this);
-        const params = expr.getParams().map(param => param.visit(this));
+        const source = expr.getSource()
+            .visit(this);
+
+        const params = expr.getParams()
+            .map(param => param.visit(this));
 
         if (!source) {
             return false;
         }
 
-        let fn = source[expr.getFn()];
-        let isFunction = typeof fn === 'function';
+        const fn = source[expr.getFn()];
+        const isFunction = typeof fn === 'function';
+
         return isFunction ? fn.apply(source, params) : false;
     }
 
     visitLetExpression(expr: LetExpression): void {
-        this.obj[expr.getKey()] = expr.getValue().visit(this);
+        this.obj[expr.getKey()] = expr.getValue()
+            .visit(this);
     }
 
     visitLiteralExpression(expr: LiteralExpression<any>): any {
@@ -218,7 +240,9 @@ export class OclVisitorImpl implements OclVisitor {
     }
 
     visitIteratorExpression(expr: ForAllExpression): boolean {
-        const collection = expr.getSource().visit(this);
+        const collection = expr.getSource()
+            .visit(this);
+
         if (collection instanceof Array) {
             const iterators = expr.getIterators();
             const body = expr.getBody();
@@ -229,8 +253,9 @@ export class OclVisitorImpl implements OclVisitor {
             } else if (iterators.length === 1) {
                 return !collection.some(c => {
                     body.variables[expr.getIterators()[0]] = c;
-                    let result = body.visit(this) === false;
+                    const result = body.visit(this) === false;
                     body.variables[expr.getIterators()[0]] = undefined;
+
                     return result;
                 });
             } else if (iterators.length === 2) {
@@ -239,17 +264,19 @@ export class OclVisitorImpl implements OclVisitor {
                     body.variables[iterators[0]] = collection[i];
                     for (let j = i + 1; j < sourceLength; j++) {
                         body.variables[iterators[1]] = collection[j];
-                        let items = body.visit(this);
+                        const items = body.visit(this);
 
                         body.variables[iterators[1]] = undefined;
 
                         if (items === false) {
                             body.variables[iterators[0]] = undefined;
+
                             return false;
                         }
                     }
                     body.variables[iterators[0]] = undefined;
                 }
+
                 return true;
             }
         } else {
@@ -268,42 +295,43 @@ export class OclVisitorImpl implements OclVisitor {
     }
 
     visitVariableExpression(expr: VariableExpression): any {
-        let o;
+        let obj;
         const source = expr.getSource();
-        let parts = source.split('.');
+        const parts = source.split('.');
         if (parts[0] === 'self') {
             parts.shift();
-            o = this.obj;
+            obj = this.obj;
         } else if (expr.variables === undefined) {
-            let type = this.registeredTypes[source];
+            const type = this.registeredTypes[source];
             if (type) {
-                return type
+                return type;
             } else {
-                o = this.obj;
+                obj = this.obj;
             }
         } else {
-            o = expr.variables;
+            obj = expr.variables;
         }
 
-        return this.registeredTypes[o] || _resolvePath(o, parts.join('.'));
+        return this.registeredTypes[obj] || _resolvePath(obj, parts.join('.'));
 
-        function _resolvePath(object, reference) {
-            return reference.split('.').reduce(dot_deref, object);
+        function _resolvePath(object, reference): any {
+            return reference.split('.')
+                .reduce(dot_deref, object);
 
-
-            function dot_deref(o, ref) {
+            function dot_deref(o, ref): any {
                 if (!o) return;
-                return !ref ? o : ref.split('[').reduce(arr_deref, o);
+
+                return !ref ? o : ref.split('[')
+                    .reduce(arr_deref, o);
             }
 
-            function arr_deref(o, ref, i) {
+            function arr_deref(o, ref, i): any {
                 if (!o) return;
 
                 if (!ref) {
                     return o;
                 } else {
-                    let prop = ref.slice(0, i ? -1 : ref.length);
-                    let result;
+                    const prop = ref.slice(0, i ? -1 : ref.length);
 
                     if (Array.isArray(o)) {
                         return o
@@ -314,6 +342,7 @@ export class OclVisitorImpl implements OclVisitor {
                                 } else {
                                     prev.push(cur);
                                 }
+
                                 return prev;
                             }, []);
                     } else {
@@ -325,7 +354,9 @@ export class OclVisitorImpl implements OclVisitor {
     }
 
     visitSizeExpression(expr: SizeExpression): number {
-        let source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+
         if (source && (source instanceof Array || typeof source === 'string')) {
             return source.length;
         } else {
@@ -334,17 +365,23 @@ export class OclVisitorImpl implements OclVisitor {
     }
 
     visitNotExpression(expr: NotExpression): boolean {
-        let source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+
         return source !== true;
     }
 
     visitIsEmptyExpression(expr: IsEmptyExpression): boolean {
-        let source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+
         return Array.isArray(source) ? source.length === 0 : true;
     }
 
     visitNotEmptyExpression(expr: NotEmptyExpression): boolean {
-        let source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+
         return Array.isArray(source) ? source.length !== 0 : false;
     }
 
@@ -352,26 +389,34 @@ export class OclVisitorImpl implements OclVisitor {
      * String ====================================
      */
     visitConcatExpression(expr: ConcatExpression): string {
-        let source = expr.getSource().visit(this);
-        let body = expr.getBody().visit(this);
-        return String(source).concat(String(body));
+        const source = expr.getSource()
+            .visit(this);
+        const body = expr.getBody()
+            .visit(this);
+
+        return String(source)
+            .concat(String(body));
     }
 
     visitIndexOfExpression(expr: IndexOfExpression): number {
-        let source = expr.getSource().visit(this);
-        let indexOfString = expr.getBody().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+        const indexOfString = expr.getBody()
+            .visit(this);
 
         return indexOfString.length === 0 ? 0 : source.indexOf(indexOfString) + 1;
     }
 
     visitSubstringExpression(expr: SubstringExpression): string {
-        let source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
 
         if (!expr.getBody()) {
             return source;
         }
 
-        let start, end;
+        let start;
+        let end;
         if (Array.isArray(expr.getBody())) {
             start = expr.getBody()[0];
             end = expr.getBody()[1];
@@ -379,28 +424,39 @@ export class OclVisitorImpl implements OclVisitor {
             start = expr.getBody();
         }
 
-        let startIndex = start.visit(this);
-        let endIndex = end ? end.visit(this) : source.length;
+        const startIndex = start.visit(this);
+        const endIndex = end ? end.visit(this) : source.length;
+
         return source.substring(startIndex, endIndex);
     }
 
     visitToLowerCaseExpression(expr: ToLowerCaseExpression): string {
-        let source = expr.getSource().visit(this);
-        return String(source).toLowerCase();
+        const source = expr.getSource()
+            .visit(this);
+
+        return String(source)
+            .toLowerCase();
     }
 
     visitToUpperCaseExpression(expr: ToUpperCaseExpression): string {
-        let source = expr.getSource().visit(this);
-        return String(source).toUpperCase();
+        const source = expr.getSource()
+            .visit(this);
+
+        return String(source)
+            .toUpperCase();
     }
 
     visitToRealExpression(expr: ToRealExpression): number {
-        let source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+
         return Number.parseFloat(source);
     }
 
     visitToIntegerExpression(expr: ToIntegerExpression): number {
-        let source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+
         return Number.parseInt(source);
     }
 
@@ -408,29 +464,37 @@ export class OclVisitorImpl implements OclVisitor {
      * Collection ================================
      */
     visitLastExpression(expr: LastExpression): any {
-        const source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+
         if (source instanceof Array) {
             return source[source.length - 1];
         }
     }
 
     visitFirstExpression(expr: FirstExpression): any {
-        const source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+
         if (source instanceof Array) {
             return source[0];
         }
     }
 
-    visitAsSetExpression(expr: AsSetExpression): any[] {
-        const source = expr.getSource().visit(this);
+    visitAsSetExpression(expr: AsSetExpression): Array<any> {
+        const source = expr.getSource()
+            .visit(this);
+
         if (source instanceof Array) {
             return Array.from(new Set(source));
         }
     }
 
     visitAtExpression(expr: AtExpression): any {
-        const source = expr.getSource().visit(this);
-        const index = expr.getBody().visit(this);
+        const source = expr.getSource()
+            .visit(this);
+        const index = expr.getBody()
+            .visit(this);
 
         if (source instanceof Array && Number.isInteger(index) && index >= 1 && index < source.length) {
             return source[index - 1];
@@ -438,7 +502,8 @@ export class OclVisitorImpl implements OclVisitor {
     }
 
     visitSumExpression(expr: SumExpression): number {
-        const source = expr.getSource().visit(this);
+        const source = expr.getSource()
+            .visit(this);
 
         if (source instanceof Array && source instanceof Array) {
             return source.reduce((prev, cur) => prev + cur, 0);
@@ -447,20 +512,22 @@ export class OclVisitorImpl implements OclVisitor {
         return 0;
     }
 
-    visitCollectExpression(expr: CollectExpression): any[] {
-        const collection = expr.getSource().visit(this);
+    visitCollectExpression(expr: CollectExpression): Array<any> {
+        const collection = expr.getSource()
+            .visit(this);
+
         if (collection instanceof Array) {
             return collection.map(c => {
                 expr.getBody().variables = {};
                 if (expr.getIterators()) {
                     expr.getBody().variables[expr.getIterators()[0]] = c;
                 } else {
-                    let variableName = Utils.getVariableName(expr);
-                    expr.getBody().variables[variableName.source] = c;
+                    const variableName = Utils.getVariableName(expr);
+                    expr.getBody().variables[variableName.getSource()] = c;
                 }
 
-                let visitResult = expr.getBody().visit(this);
-                return visitResult;
+                return expr.getBody()
+                    .visit(this);
             });
         } else {
             return collection;
@@ -468,18 +535,22 @@ export class OclVisitorImpl implements OclVisitor {
     }
 
     visitExistsExpression(expr: ExistsExpression): boolean {
-        const collection = expr.getSource().visit(this);
+        const collection = expr.getSource()
+            .visit(this);
+
         if (collection instanceof Array) {
             return collection.some(c => {
                 expr.getBody().variables = {};
                 if (expr.getIterators()) {
                     expr.getBody().variables[expr.getIterators()[0]] = c;
                 } else {
-                    let variableName = Utils.getVariableName(expr);
-                    expr.getBody().variables[variableName.source] = c[variableName.source];
+                    const variableName = Utils.getVariableName(expr);
+                    expr.getBody().variables[variableName.getSource()] = c[variableName.getSource()];
                 }
 
-                let visitResult = expr.getBody().visit(this);
+                const visitResult = expr.getBody()
+                    .visit(this);
+
                 return visitResult === true;
             });
         } else {
@@ -487,19 +558,23 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitRejectExpression(expr: RejectExpression): any[] {
-        const collection = expr.getSource().visit(this);
+    visitRejectExpression(expr: RejectExpression): Array<any> {
+        const collection = expr.getSource()
+            .visit(this);
+
         if (collection instanceof Array) {
             return collection.filter(c => {
                 expr.getBody().variables = {};
                 if (expr.getIterators()) {
                     expr.getBody().variables[expr.getIterators()[0]] = c;
                 } else {
-                    let variableName = Utils.getVariableName(expr);
-                    expr.getBody().variables[variableName.source] = c;
+                    const variableName = Utils.getVariableName(expr);
+                    expr.getBody().variables[variableName.getSource()] = c;
                 }
 
-                let visitResult = expr.getBody().visit(this);
+                const visitResult = expr.getBody()
+                    .visit(this);
+
                 return !visitResult;
             });
         } else {
@@ -507,35 +582,40 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitSelectExpression(expr: SelectExpression): any[] {
-        const collection = expr.getSource().visit(this);
+    visitSelectExpression(expr: SelectExpression): Array<any> {
+        const collection = expr.getSource()
+            .visit(this);
+
         if (collection instanceof Array) {
             return collection.filter(c => {
                 expr.getBody().variables = {};
                 if (expr.getIterators()) {
                     expr.getBody().variables[expr.getIterators()[0]] = c;
                 } else {
-                    let variableName = Utils.getVariableName(expr);
-                    expr.getBody().variables[variableName.source] = c;
+                    const variableName = Utils.getVariableName(expr);
+                    expr.getBody().variables[variableName.getSource()] = c;
                 }
 
-                let visitResult = expr.getBody().visit(this);
-                return visitResult;
+                return expr.getBody()
+                    .visit(this);
             });
         } else {
             return [];
         }
     }
 
-    visitUnionExpression(expr: UnionExpression): any[] {
-        const source = expr.getSource().visit(this);
+    visitUnionExpression(expr: UnionExpression): Array<any> {
+        const source = expr.getSource()
+            .visit(this);
 
         expr.getBody().variables = expr.variables;
-        const body = expr.getBody().visit(this);
+        const body = expr.getBody()
+            .visit(this);
 
         if (source instanceof Array && body instanceof Array) {
             return source.concat(body);
         }
+
         return [];
     }
 
@@ -544,16 +624,19 @@ export class OclVisitorImpl implements OclVisitor {
      */
     visitOrExpression(expr: OrExpression): boolean {
         const {left, right} = this._visitLeftRightExpression(expr);
+
         return left || right;
     }
 
     visitXorExpression(expr: XorExpression): boolean {
         const {left, right} = this._visitLeftRightExpression(expr);
+
         return (left || right) && !(left && right);
     }
 
     visitAndExpression(expr: AndExpression): boolean {
         const {left, right} = this._visitLeftRightExpression(expr);
+
         return left && right;
     }
 
@@ -562,58 +645,69 @@ export class OclVisitorImpl implements OclVisitor {
      */
     visitAdditionExpression(expr: AdditionExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
+
         return left + right;
     }
 
     visitSubstractionExpression(expr: SubstractionExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
+
         return left - right;
     }
 
     visitMultiplyExpression(expr: MultiplyExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
+
         return left * right;
     }
 
     visitModuloExpression(expr: ModuloExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
+
         return left % right;
     }
 
     visitPowerExpression(expr: PowerExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
+
         return Math.pow(left, right);
     }
 
     visitDivideExpression(expr: DivideExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
+
         return left / right;
     }
 
     visitAbsExpression(expr: AbsExpression): number {
         expr.getSource().variables = expr.variables;
-        let left = expr.getSource().visit(this);
+        const left = expr.getSource()
+            .visit(this);
 
         return Math.abs(left);
     }
 
     visitSqrtExpression(expr: SqrtExpression): number {
-        let sqrt = expr.getBody() ? expr.getBody().visit(this) : 2;
+        const sqrt = expr.getBody() ? expr.getBody()
+            .visit(this) : 2;
 
         expr.getSource().variables = expr.variables;
-        let left = expr.getSource().visit(this);
+        const left = expr.getSource()
+            .visit(this);
 
         return Math.pow(left, 1 / sqrt);
     }
 
-    _visitLeftRightExpression(expr: LeftRightBasedExpression) {
+    _visitLeftRightExpression(expr: LeftRightBasedExpression): { left: any, right: any } {
         expr.getLeft().variables = expr.variables;
-        const left = expr.getLeft().visit(this);
+        const left = expr.getLeft()
+            .visit(this);
 
         expr.getRight().variables = expr.variables;
-        const right = expr.getRight().visit(this);
+        const right = expr.getRight()
+            .visit(this);
 
-        return {left, right}
+        return {left, right};
     }
 
 }

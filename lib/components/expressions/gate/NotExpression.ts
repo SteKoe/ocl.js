@@ -1,5 +1,5 @@
-import {SourceBasedExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { SourceBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * =====    =====
@@ -12,7 +12,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample not false
  */
 export class NotExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitNotExpression(this);
     }
 }

@@ -1,9 +1,15 @@
-import {VariableExpression} from './expressions'
+import {
+    BodyBasedExpression,
+    Expression,
+    LeftRightBasedExpression,
+    SourceBasedExpression,
+    VariableExpression
+} from './expressions';
 
 export class Utils {
     static typeDeterminerFn: Function;
 
-    static getClassName(obj) {
+    static getClassName(obj): string {
         if (typeof Utils.typeDeterminerFn === 'function') {
             return Utils.typeDeterminerFn(obj);
         }
@@ -17,38 +23,37 @@ export class Utils {
         }
     }
 
-    static _getFunctionName(fn) {
-        let name = (fn || {}).toString().split(' ')[1];
+    static _getFunctionName(fn): string {
+        let name = (fn || {}).toString()
+            .split(' ')[1];
         name = name.substring(0, name.indexOf('('));
+
         return name.length > 0 ? name : undefined;
     }
 
-    static intersect(array1, array2) {
-        return (array1 || []).filter(value => -1 !== (array2 || []).indexOf(value));
+    static intersect(array1, array2): Array<any> {
+        return (array1 || []).filter(value => (array2 || []).indexOf(value) !== -1);
     }
 
-    static getVariableName(expr) {
-        let body = expr.body;
+    static getVariableName(expr: BodyBasedExpression): VariableExpression {
+        const body = expr.getBody();
         if (body) {
             return Utils._findVariableExpression(body);
         }
     }
 
-    static _findVariableExpression(expr) {
-        let variableExpression;
-
-        if (!expr) {
-            return variableExpression;
-        } else if (expr instanceof VariableExpression) {
-            variableExpression = expr;
-        } else {
-            variableExpression = Utils._findVariableExpression(expr.source) || Utils._findVariableExpression(expr.left) || Utils._findVariableExpression(expr.right);
+    static _findVariableExpression(expr: Expression): VariableExpression {
+        if (expr instanceof VariableExpression) {
+            return expr;
+        } else if (expr instanceof SourceBasedExpression) {
+            return Utils._findVariableExpression(expr.getSource());
+        } else if (expr instanceof LeftRightBasedExpression) {
+            return Utils._findVariableExpression(expr.getLeft()) || Utils._findVariableExpression(expr.getRight());
         }
-
-        return variableExpression;
     }
 
-    static ucfirst(s) {
-        return s.charAt(0).toUpperCase() + s.substr(1);
+    static ucfirst(s: string): string {
+        return s.charAt(0)
+            .toUpperCase() + s.substr(1);
     }
 }

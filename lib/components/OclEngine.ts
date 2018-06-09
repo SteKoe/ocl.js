@@ -1,6 +1,7 @@
-import {OclParser} from "./parser/OclParser";
-import {Utils} from "./Utils";
-import {OclVisitorImpl} from './OclVisitorImpl'
+import { OclParser } from './parser/OclParser';
+import { Utils } from './Utils';
+import { OclVisitorImpl } from './OclVisitorImpl';
+import { ContextExpression } from './expressions/ContextExpression';
 
 /**
  * The OclEngine class is the main entry point to the OCL.js library.
@@ -16,44 +17,43 @@ export class OclEngine {
     private typeDeterminerFn: Function;
     private registeredTypes: object;
 
+    /**
+     * Static create method.
+     *
+     * @returns a fresh new instance of the OclEngine
+     */
+    static create(): OclEngine {
+        return new OclEngine();
+    }
+
     constructor() {
         this.registeredTypes = OclParser.registeredTypes;
     }
 
     /**
-     * Static create method.
-     *
-     * @returns {OclEngine} a fresh new instance of the OclEngine
-     */
-    static create() {
-        return new OclEngine();
-    }
-
-    /**
      * Set a TypeDeterminer function that receives an object and returns the type of the object.
-     *
-     * @param {function} fn
      */
-    setTypeDeterminer(fn) {
+    setTypeDeterminer(fn): void {
         if (typeof fn === 'function') {
             OclEngine.Utils.typeDeterminerFn = fn;
         }
     }
 
-    registerTypes(types) {
-        this.registeredTypes = Object.assign({}, this.registeredTypes, types);
+    registerTypes(types): void {
+        this.registeredTypes = {...this.registeredTypes, ...types};
         OclParser.registeredTypes = this.registeredTypes;
     }
 
     /**
      * Register a list of OCL expressions.
      *
-     * @param {Array<String>} oclExpressions The OCL expressions as string list. It will be parsed and added to the list of existing OCL expressions.
-     * @returns {OclEngine} the current OclEngine object for chaining
+     * @param oclExpressions The OCL expressions as string list. It will be parsed and added to the list of existing OCL expressions.
+     * @returns the current OclEngine object for chaining
      * @throws ParserError
      */
-    addOclExpressions(oclExpressions) {
+    addOclExpressions(oclExpressions): OclEngine {
         oclExpressions.forEach(this.addOclExpression.bind(this));
+
         return this;
     }
 
@@ -68,12 +68,11 @@ export class OclEngine {
      * Will be sorted into the map using "Person" as key. This allows faster lookup of OCL rules that should be applied
      * when running OclEngine.evaluate.
      *
-     * @param {String} oclExpression The OCL expression as string. It will be parsed and added to the list of existing OCL expressions.
-     * @param {Array<String>} labels
-     * @returns {OclEngine} the current OclEngine object for chaining
+     * @param oclExpression The OCL expression as string. It will be parsed and added to the list of existing OCL expressions.
+     * @returns the current OclEngine object for chaining
      * @throws ParserError
      */
-    addOclExpression(oclExpression, labels: string[] = []) {
+    addOclExpression(oclExpression, labels: Array<string> = []): OclEngine {
         try {
             OclParser.DEBUG = OclEngine.DEBUG;
             const parsedExpression = OclParser.parse(oclExpression, labels);
@@ -89,12 +88,12 @@ export class OclEngine {
     /**
      * This function actually evaluates the given object against the registered OCL expressions.
      *
-     * @param {Object} obj The object which is going to be evaluated against registered OCL expressions.
-     * @param {Array<String>} labels An array of labels that address expressions that should be evaluated.
-     * @returns {OclResult} a result object, which contains the actual result and other info @see OclResult
+     * @param obj The object which is going to be evaluated against registered OCL expressions.
+     * @param labels An array of labels that address expressions that should be evaluated.
+     * @returns a result object, which contains the actual result and other info @see OclResult
      */
-    evaluate(obj, labels = []) {
-        let visitor = new OclVisitorImpl(obj);
+    evaluate(obj: any, labels: Array<any> = []): OclResult {
+        const visitor = new OclVisitorImpl(obj);
         visitor.DEBUG = OclEngine.DEBUG;
         visitor.targetType = this._inferType(obj);
         visitor._targetType = obj;
@@ -106,15 +105,8 @@ export class OclEngine {
         return new OclResult(visitor.failedInvariants.map(inv => inv.name), visitor.evaluatedContexts);
     }
 
-    /**
-     * Tries to infer a type for the given object.
-     *
-     * @param obj
-     * @return {String} type of the object
-     * @private
-     */
-    _inferType(obj) {
-        return Utils.getClassName(obj)
+    _inferType(obj: any): string {
+        return Utils.getClassName(obj);
     }
 }
 
@@ -125,9 +117,9 @@ export class OclEngine {
  * of all names of invariants that have failed.
  */
 class OclResult {
-    private evaluatedContexts: any;
+    private evaluatedContexts: Array<ContextExpression>;
     private result: any;
-    private namesOfFailedInvs: Array<any>;
+    private namesOfFailedInvs: Array<string>;
 
     constructor(namesOfFailedInvs, evaluatedContexts) {
         this.setResult(namesOfFailedInvs.length === 0);
@@ -135,23 +127,23 @@ class OclResult {
         this.evaluatedContexts = evaluatedContexts;
     }
 
-    setResult(result) {
+    setResult(result): any {
         this.result = result;
     }
 
-    getResult() {
+    getResult(): any {
         return this.result;
     }
 
-    setNamesOfFailedInvs(names) {
+    setNamesOfFailedInvs(names): void {
         this.namesOfFailedInvs = Array.isArray(names) ? names : [];
     }
 
-    getNamesOfFailedInvs() {
+    getNamesOfFailedInvs(): Array<string> {
         return this.namesOfFailedInvs;
     }
 
-    getEvaluatedContextsCount() {
+    getEvaluatedContextsCount(): Array<ContextExpression> {
         return this.evaluatedContexts;
     }
 }

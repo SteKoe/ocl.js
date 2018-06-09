@@ -16,13 +16,13 @@ describe('if', () => {
 
     it('then works in inv', () => {
         let person = new Person(2);
-        let oclExpression = 'context Person inv: if age < 18 then "underage" else "adult" endif = "underage"'
+        let oclExpression = 'context Person inv: if age < 18 then "underage" else "adult" endif = "underage"';
         expectOclRuleValidatesToTrue(oclExpression, person);
     });
 
     it('else works in inv', () => {
         let person = new Person(22);
-        let oclExpression = 'context Person inv: if age < 18 then "underage" else "adult" endif = "adult"'
+        let oclExpression = 'context Person inv: if age < 18 then "underage" else "adult" endif = "adult"';
         expectOclRuleValidatesToTrue(oclExpression, person);
     });
 });

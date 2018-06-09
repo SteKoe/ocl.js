@@ -1,21 +1,21 @@
-import {LeftRightBasedExpression} from "./Expression";
-import {OclVisitor} from "../OclVisitor";
+import { LeftRightBasedExpression } from './Expression';
+import { OclVisitor } from '../OclVisitor';
 
 /**
  */
 export class OperationCallExpression extends LeftRightBasedExpression {
-    private operator: any;
+    private operator: Operator;
 
     constructor(operator, left, right) {
         super(left, right);
         this.operator = operator;
     }
 
-    getOperator() {
+    getOperator(): Operator {
         return this.operator;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): boolean {
         return visitor.visitOperationCallExpression(this);
     }
 }

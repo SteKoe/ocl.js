@@ -1,4 +1,4 @@
-import {Expression} from "../Expression";
+import { Expression } from '../Expression';
 
 export class LiteralExpression<T> extends Expression {
     private value: T;
@@ -13,6 +13,6 @@ export class LiteralExpression<T> extends Expression {
     }
 
     parseValue(value): T {
-        throw new Error('parseValue() function not implemented!')
+        throw new Error('parseValue() function not implemented!');
     }
 }

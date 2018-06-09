@@ -1,5 +1,5 @@
-import {IteratorExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { IteratorExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Returns a collection having the same size as the original one.
@@ -9,7 +9,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample self.children->collect(age)
  */
 export class CollectExpression extends IteratorExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitCollectExpression(this);
     }
 }

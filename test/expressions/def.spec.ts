@@ -45,4 +45,4 @@ describe('def', () => {
         `;
         expectOclRuleValidatesToTrue(oclExpression, obj);
     });
-})
+});

@@ -23,7 +23,7 @@ describe('Eval FunctionCall', () => {
                     }
                 }
             }
-        }
+        };
         const oclExpression = `context Object inv: self.getB().getC() = "C"`;
         expectOclRuleValidatesToTrue(oclExpression, A);
     });
@@ -43,7 +43,7 @@ describe('Eval FunctionCall', () => {
             getValue(val) {
                 return val;
             }
-        }
+        };
         const oclExpression = `context Object inv: self.getValue("A") = "A"`;
         expectOclRuleValidatesToTrue(oclExpression, A);
     });
@@ -53,7 +53,7 @@ describe('Eval FunctionCall', () => {
             add(a, b) {
                 return a + b;
             }
-        }
+        };
         const oclExpression = `context Object inv: self.add(6,4) = 10`;
         expectOclRuleValidatesToTrue(oclExpression, A);
     });
@@ -63,7 +63,7 @@ describe('Eval FunctionCall', () => {
             add(a, b) {
                 return a + b;
             }
-        }
+        };
         const oclExpression = `context Object inv: self.add(6, self.add(2,2)) = 10`;
         expectOclRuleValidatesToTrue(oclExpression, A);
     });

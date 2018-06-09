@@ -1,10 +1,10 @@
-import {LiteralExpression} from "./LiteralExpression";
-import {OclVisitor} from "../../OclVisitor";
+import { LiteralExpression } from './LiteralExpression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  */
 export class NumberExpression extends LiteralExpression<number> {
-    parseValue(value) {
+    parseValue(value): number {
         if (!isNaN(+value)) {
             return +value;
         } else {
@@ -12,7 +12,7 @@ export class NumberExpression extends LiteralExpression<number> {
         }
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitLiteralExpression(this);
     }
 }

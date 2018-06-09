@@ -1,5 +1,5 @@
-import {BodyBasedExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { BodyBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Returns a string that is concatenated using source and body
@@ -8,7 +8,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample self.name->concat("string")
  */
 export class ConcatExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitConcatExpression(this);
     }
 }

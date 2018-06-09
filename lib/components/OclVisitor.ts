@@ -49,106 +49,106 @@ import {
     UnionExpression,
     VariableExpression,
     XorExpression
-} from "./expressions";
+} from './expressions';
 
 export interface OclVisitor {
-    visitPackageDeclaration(expr: PackageDeclaration): OclVisitor
+    visitPackageDeclaration(expr: PackageDeclaration): OclVisitor;
 
-    visitClassifierContextExpression(expr: ClassifierContextExpression): boolean
+    visitClassifierContextExpression(expr: ClassifierContextExpression): boolean;
 
-    visitPropertyContextExpression(expr: PropertyContextExpression): boolean
+    visitPropertyContextExpression(expr: PropertyContextExpression): boolean;
 
-    visitOperationContextExpression(expr: OperationContextExpression): void
+    visitOperationContextExpression(expr: OperationContextExpression): void;
 
-    visitIfExpression(expr: IfExpression): boolean
+    visitIfExpression(expr: IfExpression): boolean;
 
-    visitDeriveExpression(expr: DeriveExpression): any
+    visitDeriveExpression(expr: DeriveExpression): any;
 
-    visitInitExpression(expr: InitExpression): any
+    visitInitExpression(expr: InitExpression): any;
 
-    visitInvariantExpression(expr: InvariantExpression): boolean
+    visitInvariantExpression(expr: InvariantExpression): boolean;
 
-    visitOperationCallExpression(expr: OperationCallExpression): boolean
+    visitOperationCallExpression(expr: OperationCallExpression): boolean;
 
-    visitOclIsUndefinedExpression(expr: OclIsUndefinedExpression): boolean
+    visitOclIsUndefinedExpression(expr: OclIsUndefinedExpression): boolean;
 
-    visitOclIsTypeOfExpression(expr: OclIsTypeOfExpression): boolean
+    visitOclIsTypeOfExpression(expr: OclIsTypeOfExpression): boolean;
 
-    visitOclIsKindOfExpression(expr: OclIsKindOfExpression): boolean
+    visitOclIsKindOfExpression(expr: OclIsKindOfExpression): boolean;
 
-    visitNativeJsFunctionCallExpression(expr: NativeJsFunctionCallExpression): any
+    visitNativeJsFunctionCallExpression(expr: NativeJsFunctionCallExpression): any;
 
-    visitLetExpression(expr: LetExpression): void
+    visitLetExpression(expr: LetExpression): void;
 
-    visitLiteralExpression(expr: LiteralExpression<any>): any
+    visitLiteralExpression(expr: LiteralExpression<any>): any;
 
-    visitIteratorExpression(expr: ForAllExpression): boolean
+    visitIteratorExpression(expr: ForAllExpression): boolean;
 
-    visitImpliesExpression(expr: ImpliesExpression): boolean
+    visitImpliesExpression(expr: ImpliesExpression): boolean;
 
-    visitVariableExpression(expr: VariableExpression): any
+    visitVariableExpression(expr: VariableExpression): any;
 
-    visitSizeExpression(expr: SizeExpression): number
+    visitSizeExpression(expr: SizeExpression): number;
 
-    visitNotExpression(expr: NotExpression): boolean
+    visitNotExpression(expr: NotExpression): boolean;
 
-    visitIsEmptyExpression(expr: IsEmptyExpression): boolean
+    visitIsEmptyExpression(expr: IsEmptyExpression): boolean;
 
-    visitNotEmptyExpression(expr: NotEmptyExpression): boolean
+    visitNotEmptyExpression(expr: NotEmptyExpression): boolean;
 
-    visitConcatExpression(expr: ConcatExpression): string
+    visitConcatExpression(expr: ConcatExpression): string;
 
-    visitIndexOfExpression(expr: IndexOfExpression): number
+    visitIndexOfExpression(expr: IndexOfExpression): number;
 
-    visitSubstringExpression(expr: SubstringExpression): string
+    visitSubstringExpression(expr: SubstringExpression): string;
 
-    visitToLowerCaseExpression(expr: ToLowerCaseExpression): string
+    visitToLowerCaseExpression(expr: ToLowerCaseExpression): string;
 
-    visitToUpperCaseExpression(expr: ToUpperCaseExpression): string
+    visitToUpperCaseExpression(expr: ToUpperCaseExpression): string;
 
-    visitToRealExpression(expr: ToRealExpression): number
+    visitToRealExpression(expr: ToRealExpression): number;
 
-    visitToIntegerExpression(expr: ToIntegerExpression): number
+    visitToIntegerExpression(expr: ToIntegerExpression): number;
 
-    visitLastExpression(expr: LastExpression): any
+    visitLastExpression(expr: LastExpression): any;
 
-    visitFirstExpression(expr: FirstExpression): any
+    visitFirstExpression(expr: FirstExpression): any;
 
-    visitAsSetExpression(expr: AsSetExpression): any[]
+    visitAsSetExpression(expr: AsSetExpression): Array<any>;
 
-    visitAtExpression(expr: AtExpression): any
+    visitAtExpression(expr: AtExpression): any;
 
-    visitSumExpression(expr: SumExpression): number
+    visitSumExpression(expr: SumExpression): number;
 
-    visitCollectExpression(expr: CollectExpression): any[]
+    visitCollectExpression(expr: CollectExpression): Array<any>;
 
-    visitExistsExpression(expr: ExistsExpression): boolean
+    visitExistsExpression(expr: ExistsExpression): boolean;
 
-    visitRejectExpression(expr: RejectExpression): any[]
+    visitRejectExpression(expr: RejectExpression): Array<any>;
 
-    visitSelectExpression(expr: SelectExpression): any[]
+    visitSelectExpression(expr: SelectExpression): Array<any>;
 
-    visitUnionExpression(expr: UnionExpression): any[]
+    visitUnionExpression(expr: UnionExpression): Array<any>;
 
-    visitOrExpression(expr: OrExpression): boolean
+    visitOrExpression(expr: OrExpression): boolean;
 
-    visitXorExpression(expr: XorExpression): boolean
+    visitXorExpression(expr: XorExpression): boolean;
 
-    visitAndExpression(expr: AndExpression): boolean
+    visitAndExpression(expr: AndExpression): boolean;
 
-    visitAdditionExpression(expr: AdditionExpression): number
+    visitAdditionExpression(expr: AdditionExpression): number;
 
-    visitSubstractionExpression(expr: SubstractionExpression): number
+    visitSubstractionExpression(expr: SubstractionExpression): number;
 
-    visitMultiplyExpression(expr: MultiplyExpression): number
+    visitMultiplyExpression(expr: MultiplyExpression): number;
 
-    visitModuloExpression(expr: ModuloExpression): number
+    visitModuloExpression(expr: ModuloExpression): number;
 
-    visitPowerExpression(expr: PowerExpression): number
+    visitPowerExpression(expr: PowerExpression): number;
 
-    visitDivideExpression(expr: DivideExpression): number
+    visitDivideExpression(expr: DivideExpression): number;
 
-    visitAbsExpression(expr: AbsExpression): number
+    visitAbsExpression(expr: AbsExpression): number;
 
-    visitSqrtExpression(expr: SqrtExpression): number
+    visitSqrtExpression(expr: SqrtExpression): number;
 }

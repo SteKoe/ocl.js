@@ -1,5 +1,5 @@
-import {BodyBasedExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { BodyBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Returns a string in lower case
@@ -8,7 +8,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample self.name->substring(0,2)
  */
 export class SubstringExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitSubstringExpression(this);
     }
 }

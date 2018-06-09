@@ -7,7 +7,7 @@ export abstract class Expression {
         this.type = this.constructor.name;
     }
 
-    accept(obj) {
+    accept(obj): boolean {
         return true;
     }
 
@@ -32,23 +32,23 @@ export abstract class SourceBasedExpression extends Expression {
 export abstract class BodyBasedExpression extends SourceBasedExpression {
     private body: Expression;
 
-    setBody(body: Expression) {
+    setBody(body: Expression): any {
         this.body = body;
     }
 
-    getBody() {
+    getBody(): any {
         return this.body;
     }
 }
 
 export abstract class IteratorExpression extends BodyBasedExpression {
-    private iterators: any[];
+    private iterators: Array<any>;
 
-    setIterators(iterators: any[]) {
+    setIterators(iterators: Array<any>): void {
         this.iterators = iterators;
     }
 
-    getIterators() {
+    getIterators(): Array<any> {
         return this.iterators;
     }
 }
@@ -63,11 +63,11 @@ export abstract class LeftRightBasedExpression extends Expression {
         this.right = right;
     }
 
-    getLeft() {
+    getLeft(): any {
         return this.left;
     }
 
-    getRight() {
+    getRight(): any {
         return this.right;
     }
 }

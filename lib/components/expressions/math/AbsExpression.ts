@@ -1,5 +1,5 @@
-import {SourceBasedExpression} from '../Expression'
-import {OclVisitor} from "../../OclVisitor";
+import { SourceBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Abs
@@ -7,7 +7,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExpression Symbol: abs
  */
 export class AbsExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitAbsExpression(this);
     }
 }

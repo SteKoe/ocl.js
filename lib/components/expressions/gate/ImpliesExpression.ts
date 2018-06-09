@@ -1,5 +1,5 @@
-import {LeftRightBasedExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { LeftRightBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * =====    =====   ===========
@@ -14,7 +14,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample false implies true
  */
 export class ImpliesExpression extends LeftRightBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitImpliesExpression(this);
     }
 }

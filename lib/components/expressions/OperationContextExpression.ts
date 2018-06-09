@@ -1,5 +1,5 @@
-import {ContextExpression} from './ContextExpression'
-import {OclVisitor} from "../OclVisitor";
+import { ContextExpression } from './ContextExpression';
+import { OclVisitor } from '../OclVisitor';
 
 /**
  */
@@ -12,7 +12,7 @@ export class OperationContextExpression extends ContextExpression {
     constructor(operationMetaInfo, expressions) {
         super();
 
-        let split = operationMetaInfo.pathName.split('::');
+        const split = operationMetaInfo.pathName.split('::');
         this.targetType = split[0];
         this.fnName = split[1];
         this.params = operationMetaInfo.params;
@@ -20,15 +20,15 @@ export class OperationContextExpression extends ContextExpression {
         this.expressions = expressions;
     }
 
-    getExpressions() {
+    getExpressions(): any {
         return this.expressions;
     }
 
-    accept(visitor) {
+    accept(visitor): boolean {
         return true;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         visitor.visitOperationContextExpression(this);
     }
 }

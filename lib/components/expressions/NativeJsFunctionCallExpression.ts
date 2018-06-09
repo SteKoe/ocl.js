@@ -1,9 +1,9 @@
-import {SourceBasedExpression} from "./Expression";
-import {OclVisitor} from "../OclVisitor";
+import { SourceBasedExpression } from './Expression';
+import { OclVisitor } from '../OclVisitor';
 
 export class NativeJsFunctionCallExpression extends SourceBasedExpression {
     private fn: any;
-    private params: any[];
+    private params: Array<any>;
 
     constructor(source, fn, params) {
         super(source);
@@ -11,15 +11,15 @@ export class NativeJsFunctionCallExpression extends SourceBasedExpression {
         this.params = (params || []).filter(param => !!param);
     }
 
-    getFn() {
+    getFn(): any {
         return this.fn;
     }
 
-    getParams() {
+    getParams(): Array<any> {
         return this.params;
     }
 
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitNativeJsFunctionCallExpression(this);
     }
 

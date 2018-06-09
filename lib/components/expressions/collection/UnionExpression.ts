@@ -1,5 +1,5 @@
-import {BodyBasedExpression} from "../Expression";
-import {OclVisitor} from "../../OclVisitor";
+import { BodyBasedExpression } from '../Expression';
+import { OclVisitor } from '../../OclVisitor';
 
 /**
  * Returns a collection containing all elements of self and all elements of the passed in collection.
@@ -8,7 +8,7 @@ import {OclVisitor} from "../../OclVisitor";
  * @oclExample self.collection->union(self.anotherCollection)
  */
 export class UnionExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor) {
+    visit(visitor: OclVisitor): any {
         return visitor.visitUnionExpression(this);
     }
 }
