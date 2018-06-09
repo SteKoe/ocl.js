@@ -1,22 +1,31 @@
 {
   "name": "@stekoe/ocl.js",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "Object Constraint Language parser written in JavaScript.",
   "main": "./dist/ocl.min.js",
   "scripts": {
     "build": "npm run clean:dist && npm run test && npm run build:dist",
-    "build:dist": "npx webpack --mode=production --config webpack.config.js",
+    "build:dist": "npx webpack-command --mode=production --config webpack.config.js",
     "clean:dist": "npx rimraf -- dist",
     "clean": "npx rimraf -- node_modules dist",
-    "generate:parser": "rm -rf ./lib/components/parser/parser.js && node generator/oclParserGenerator.js",
-    "istanbul": "istanbul",
+    "generate:parser": "rm -rf ./lib/components/parser/parser.ts && ts-node -O {\\\"module\\\":\\\"commonjs\\\"} generator/oclParserGenerator.ts",
     "test": "npm run generate:parser && npm run test:fast",
-    "test:debug": "node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha --require babel-core/register --recursive test",
-    "test:fast": "npx mocha --require babel-core/register --recursive test",
-    "test:coverage": "npm run generate:parser && npm run coverage",
-    "test:coverage:expressions": "npm run generate:parser && npm run coverage:expressions",
-    "coverage": "npx babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --recursive test",
-    "coverage:expressions": "npx babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --compilers js:babel-core/register --recursive test/expressions"
+    "test:debug": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts'",
+    "test:fast": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} npx mocha -r ts-node/register 'test/**/*.spec.ts'",
+    "test:coverage": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} nyc ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts'"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "include": [
+      "**/lib"
+    ],
+    "reporter": [
+      "html"
+    ],
+    "all": true
   },
   "repository": {
     "type": "git",
@@ -26,20 +35,24 @@
   "homepage": "https://github.com/SteKoe/ocl.js#readme",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-istanbul": "^0.12.2",
-    "babel-loader": "^7.1.4",
-    "babel-minify-webpack-plugin": "^0.3.1",
-    "babel-preset-env": "^1.7.0",
+    "@types/chai": "^4.1.3",
+    "@types/mocha": "^5.2.1",
+    "@types/node": "^10.3.2",
     "chai": "^4.1.2",
     "cross-env": "^5.1.6",
-    "highlight.js": "^9.12.0",
-    "istanbul": "^0.4.5",
     "jison-gho": "^0.6.1-215",
     "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
     "rimraf": "^2.6.2",
+    "ts-loader": "^4.4.0",
+    "ts-node": "^6.1.0",
+    "typescript": "^2.9.1",
     "webpack": "^4.9.1",
     "webpack-command": "^0.2.0"
+  },
+  "dependencies": {
+    "log4js": "^2.8.0",
+    "source-map-support": "^0.5.6",
+    "winston": "^2.4.2"
   }
 }

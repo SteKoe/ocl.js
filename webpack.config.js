@@ -1,8 +1,8 @@
 const path = require('path');
-const MinifyPlugin = require("babel-minify-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-    entry: "./lib/index",
+    entry: "./lib/index.ts",
     mode: 'production',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -13,18 +13,22 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    presets: [
-                        ['env']
-                    ]
-                }
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/
             }
         ]
     },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js']
+    },
     plugins: [
-        new MinifyPlugin({}, { comments: false })
-    ],
+        new UglifyJsPlugin({
+            uglifyOptions: {
+                output: {
+                    comments: false,
+                }
+            }
+        })
+    ]
 };

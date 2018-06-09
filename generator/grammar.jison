@@ -74,47 +74,47 @@
 
 packageDecl
     : 'package' pathName contextDeclList 'endpackage' 'EOF'
-        { return new Expression.PackageDeclaration($2, $3); }
+        { return new yy.Expression.PackageDeclaration($2, $3); }
     | contextDeclList 'EOF'
-        { return new Expression.PackageDeclaration('unnamed', $1); }
+        { return new yy.Expression.PackageDeclaration('unnamed', $1); console.log(yy.WURSTBROTKROKETTE); }
     ;
 
 contextDeclList
     : contextDeclList contextDeclaration
-        { $$ = $1.concat($2) }
+        { $$ = $1.concat($2); }
     | contextDeclaration
-        { $$ = [$1] }
+        { $$ = [$1]; }
     ;
 
 contextDeclaration
 	: classifierContextDecl
-	    { $$ = $1 }
+	    { $$ = $1; }
 	| propertyContextDecl
-	    { $$ = $1 }
+	    { $$ = $1; }
     | operationContextDecl
-        { $$ = $1 }
+        { $$ = $1; }
 	;
 
 classifierContextDecl
 	: 'context' pathName invOrDefList
-	    { $$ = new Expression.ClassifierContextExpression($2, $3) }
+	    { $$ = new yy.Expression.ClassifierContextExpression($2, $3); }
 	;
 
 propertyContextDecl
 	: 'context' pathName ':' type initOrDerValueList
-	    { $$ = new Expression.PropertyContextExpression($2, $5) }
+	    { $$ = new yy.Expression.PropertyContextExpression($2, $5); }
 	;
 
 operationContextDecl
 	: 'context' operation prePostOrBodyDeclList
-	    { $$ = new Expression.OperationContextExpression($2, $3) }
+	    { $$ = new yy.Expression.OperationContextExpression($2, $3); }
 	;
 
 prePostOrBodyDeclList
     : prePostOrBodyDeclList prePostOrBodyDecl
-        { $$ = $1.concat($2) }
+        { $$ = $1.concat($2); }
     | prePostOrBodyDecl
-        { $$ = [$1] }
+        { $$ = [$1]; }
     ;
 
 prePostOrBodyDecl
@@ -130,145 +130,145 @@ operation
 
 initOrDerValueList
     : initOrDerValueList initOrDerValue
-        { $$ = $1.concat($2) }
+        { $$ = $1.concat($2); }
     | initOrDerValue
-        { $$ = [$1] }
+        { $$ = [$1]; }
     ;
 
 initOrDerValue
     : 'init' ':' oclExpression
-        { $$ = new Expression.InitExpression($3) }
+        { $$ = new yy.Expression.InitExpression($3); }
     | 'derive' ':' oclExpression
-        { $$ = new Expression.DeriveExpression($3) }
+        { $$ = new yy.Expression.DeriveExpression($3); }
     ;
 
 invOrDefList
     : invOrDefList invOrDef
-        { $$ = $1.concat($2) }
+        { $$ = $1.concat($2); }
     | invOrDef
-        { $$ = [$1] }
+        { $$ = [$1]; }
     ;
 
 invOrDef
 	: 'inv' simpleNameOptional ':' oclExpression
-	    { $$ = new Expression.InvariantExpression($4, $2) }
+	    { $$ = new yy.Expression.InvariantExpression($4, $2); }
     | 'def' simpleNameOptional ':' defExpression
-        { $$ = new Expression.LetExpression($2, $4) }
+        { $$ = new yy.Expression.LetExpression($2, $4); }
 	;
 
 oclExpression
 	: literalExp
 	    { $$ = $1 }
 	| pathName preOptional
-	    { $$ = new Expression.VariableExpression($1); }
+	    { $$ = new yy.Expression.VariableExpression($1); }
     | 'not' oclExpression
-        { $$ = new Expression.NotExpression($2) }
+        { $$ = new yy.Expression.NotExpression($2); }
     | '(' oclExpression ')'
-        { $$ = $2 }
+        { $$ = $2; }
     | oclExpression '.' simpleName '(' oclExpressionListOptional ')'
-        { $$ = functionCallExpression($3, $1, $5) }
+        { $$ = functionCallExpression(yy, $3, $1, $5); }
     | oclExpression '.' simpleName preOptional
-        { $$ = ($1 instanceof Expression.VariableExpression) ? new Expression.VariableExpression([$1.source, $3].join('.')) : $1 }
+        { $$ = ($1 instanceof yy.Expression.VariableExpression) ? new yy.Expression.VariableExpression([$1.source, $3].join('.')) : $1; }
     | oclExpression '+' oclExpression
-        { $$ = new Expression.AdditionExpression($1, $3) }
+        { $$ = new yy.Expression.AdditionExpression($1, $3); }
     | oclExpression '^' oclExpression
-        { $$ = new Expression.PowerExpression($1, $3) }
+        { $$ = new yy.Expression.PowerExpression($1, $3); }
     | oclExpression '-' oclExpression
-        { $$ = new Expression.SubstractionExpression($1, $3) }
+        { $$ = new yy.Expression.SubstractionExpression($1, $3); }
     | oclExpression '*' oclExpression
-        { $$ = new Expression.MultiplyExpression($1, $3) }
+        { $$ = new yy.Expression.MultiplyExpression($1, $3); }
     | oclExpression '/' oclExpression
-        { $$ = new Expression.DivideExpression($1, $3) }
+        { $$ = new yy.Expression.DivideExpression($1, $3); }
     | oclExpression 'mod' oclExpression
-        { $$ = new Expression.ModuloExpression($1, $3) }
+        { $$ = new yy.Expression.ModuloExpression($1, $3); }
     | oclExpression 'div' oclExpression
-        { $$ = new Expression.DivideExpression($1, $3) }
+        { $$ = new yy.Expression.DivideExpression($1, $3); }
     | '-' oclExpression %prec UMINUS
-        {$$ = new Expression.MultiplyExpression(new Expression.NumberExpression(-1), $2);}
+        { $$ = new yy.Expression.MultiplyExpression(new yy.Expression.NumberExpression(-1), $2); }
     | oclExpression '<' oclExpression
-        { $$ = new Expression.OperationCallExpression('<', $1, $3) }
+        { $$ = new yy.Expression.OperationCallExpression('<', $1, $3); }
     | oclExpression '<=' oclExpression
-        { $$ = new Expression.OperationCallExpression('<=', $1, $3) }
+        { $$ = new yy.Expression.OperationCallExpression('<=', $1, $3); }
 	| oclExpression '=' oclExpression
-	    { $$ = new Expression.OperationCallExpression('=', $1, $3) }
+	    { $$ = new yy.Expression.OperationCallExpression('=', $1, $3); }
 	| oclExpression '>=' oclExpression
-	    { $$ = new Expression.OperationCallExpression('>=', $1, $3) }
+	    { $$ = new yy.Expression.OperationCallExpression('>=', $1, $3); }
 	| oclExpression '>' oclExpression
-	    { $$ = new Expression.OperationCallExpression('>', $1, $3) }
+	    { $$ = new yy.Expression.OperationCallExpression('>', $1, $3); }
 	| oclExpression '<>' oclExpression
-	    { $$ = new Expression.OperationCallExpression('<>', $1, $3) }
+	    { $$ = new yy.Expression.OperationCallExpression('<>', $1, $3); }
     | oclExpression 'and' oclExpression
-	    { $$ = new Expression.AndExpression($1, $3) }
+	    { $$ = new yy.Expression.AndExpression($1, $3); }
     | oclExpression 'or' oclExpression
-	    { $$ = new Expression.OrExpression($1, $3) }
+	    { $$ = new yy.Expression.OrExpression($1, $3); }
     | oclExpression 'xor' oclExpression
-	    { $$ = new Expression.XorExpression($1, $3) }
+	    { $$ = new yy.Expression.XorExpression($1, $3); }
     | 'if' oclExpression 'then' oclExpression 'else' oclExpression 'endif'
-        { $$ = new Expression.IfExpression($2, $4, $6) }
+        { $$ = new yy.Expression.IfExpression($2, $4, $6); }
     | oclExpression '->' simpleName
-        { $$ = functionCallExpression($3, $$); }
+        { $$ = functionCallExpression(yy, $3, $$); }
     | oclExpression '(' variableDeclarationList '|' oclExpression ')'
-        { $1.body = $5; $1.iterators = $3; $$ = $1 }
+        { $1.setBody($5); $1.setIterators($3); $$ = $1; }
     | oclExpression '(' oclExpression ')'
-        { $1.body = $3; $$ = $1 }
+        { $1.setBody($3); $$ = $1; }
     | oclExpression '(' literalExpList ')'
-        { $1.body = $3; $$ = $1 }
+        { $1.setBody($3); $$ = $1; }
     | oclExpression '(' ')'
         {  }
     | oclExpression 'implies' oclExpression
-        { $$ = new Expression.ImpliesExpression($1, $3) }
+        { $$ = new yy.Expression.ImpliesExpression($1, $3); }
 	;
 
 oclExpressionList
     : oclExpressionList ',' oclExpression
-        { $$ = $1.concat($3) }
+        { $$ = $1.concat($3); }
     | oclExpression
-        { $$ = [$1] }
+        { $$ = [$1]; }
     ;
 
 defExpression
     : simpleName typeOptional '=' oclExpression
-        { $$ = new Expression.LetExpression($1, $4) }
+        { $$ = new yy.Expression.LetExpression($1, $4); }
     | simpleName '(' simpleName typeOptional ')' typeOptional '=' oclExpression
-        { $$ = new Expression.LetExpression($1, $8) }
+        { $$ = new yy.Expression.LetExpression($1, $8); }
 	;
 
 typeOptional
     : ':' type
-        { $$ = $2 }
+        { $$ = $2; }
     |
     ;
 
 type
 	: pathName
-	    { $$ = $1 }
+	    { $$ = $1; }
 	| pathName '(' simpleName ')'
-	    { $$ = $1 }
+	    { $$ = $1; }
 	;
 
 variableDeclaration
     : simpleName typeOptional
-        { $$ = $1 }
+        { $$ = $1; }
     ;
 
 oclExpressionListOptional
     : oclExpressionList
-        { $$ = $1 }
+        { $$ = $1; }
     |
     ;
 
 
 variableDeclarationListOptional
     : variableDeclarationList
-        { $$ = $1 }
+        { $$ = $1; }
     |
     ;
 
 variableDeclarationList
 	:  variableDeclarationList ',' variableDeclaration
-	    { $$ = [].concat($1).concat($3) }
+	    { $$ = [].concat($1).concat($3); }
 	| variableDeclaration
-	    { $$ = [$1] }
+	    { $$ = [$1]; }
 	;
 
 preOptional
@@ -279,56 +279,56 @@ preOptional
 
 literalExp
 	: primitiveLiteralExp
-	    { $$ = $1 }
+	    { $$ = $1; }
 	;
 
 literalExpList
     : literalExpList ',' literalExp
-	    { $$ = [].concat($1).concat($3) }
+	    { $$ = [].concat($1).concat($3); }
 	| literalExp
-	    { $$ = [$1] }
+	    { $$ = [$1]; }
 	;
 
 simpleNameOptional
 	: simpleName
-	    { $$ = $1 }
+	    { $$ = $1; }
 	|
 	;
 
 primitiveLiteralExp
 	: integer
-	    { $$ = new Expression.NumberExpression($1) }
+	    { $$ = new yy.Expression.NumberExpression($1); }
 	| real
-	    { $$ = new Expression.NumberExpression($1) }
+	    { $$ = new yy.Expression.NumberExpression($1); }
 	| string
-	    { $$ = new Expression.StringExpression($1) }
+	    { $$ = new yy.Expression.StringExpression($1); }
 	| 'true'
-	    { $$ = new Expression.BooleanExpression(true) }
+	    { $$ = new yy.Expression.BooleanExpression(true); }
 	| 'false'
-	    { $$ = new Expression.BooleanExpression(false) }
+	    { $$ = new yy.Expression.BooleanExpression(false); }
     | 'nil'
-        { $$ = new Expression.NilExpression() }
+        { $$ = new yy.Expression.NilExpression(); }
 	;
 
 pathName
 	: simpleName
-	    { $$ = $1 }
+	    { $$ = $1; }
 	| pathName '::' simpleName
-	    { $$ = $1 + '::' + $3 }
+	    { $$ = $1 + '::' + $3; }
 	;
 
 /* end of grammar defintion */
 %%
 /* start of helper functions */
 
-function functionCallExpression(fn, source, params) {
-    let expressionTypeName = `${Utils.ucfirst(fn)}Expression`
-    let ExpressionType = Expression[expressionTypeName];
+function functionCallExpression(yy, fn, source, params = undefined) {
+    let expressionTypeName = `${yy.Utils.ucfirst(fn)}Expression`
+    let ExpressionType = yy.Expression[expressionTypeName];
     let typeExists = typeof ExpressionType === 'function'
 
     if (typeExists && !params) {
         return new ExpressionType(source);
     } else {
-        return new Expression.NativeJsFunctionCallExpression(source, fn, params);
+        return new yy.Expression.NativeJsFunctionCallExpression(source, fn, params);
     }
 }

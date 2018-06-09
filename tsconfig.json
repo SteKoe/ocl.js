@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "es6",
+      "es5"
+    ]
+  },
+  "include": [
+    "definitions/jison.d.ts",
+    "test/**/*"
+  ],
+  "exclude": [
+    "./lib/components/parser/Parser.ts",
+    "./test/**/*.spec.ts"
+  ],
+  "compileOnSave": false
+}
