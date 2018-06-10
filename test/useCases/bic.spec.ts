@@ -1,9 +1,5 @@
 import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
-
-class AstSequenceFlow {
-    source: object;
-    target: object;
-}
+import { AstSequenceFlow } from '../fixture.factory';
 
 describe('Example', () => {
     describe('BIC', () => {
@@ -12,7 +8,7 @@ describe('Example', () => {
             ast.source = {_parent: {_id: 1}};
             ast.target = {_parent: {_id: 1}};
 
-            const oclExpression = 'context AST_SEQUENCE_FLOW inv: self.source._parent._id = self.target._parent._id';
+            const oclExpression = 'context AstSequenceFlow inv: self.source._parent._id = self.target._parent._id';
             expectOclRuleValidatesToTrue(oclExpression, ast);
         });
 
@@ -21,7 +17,7 @@ describe('Example', () => {
             ast.source = {_parent: {_id: 1}};
             ast.target = {_parent: {_id: 2}};
 
-            const oclExpression = 'context AST_SEQUENCE_FLOW inv: self.source._parent._id = self.target._parent._id';
+            const oclExpression = 'context AstSequenceFlow inv: self.source._parent._id = self.target._parent._id';
             expectOclRuleValidatesToFalse(oclExpression, ast);
         });
     });

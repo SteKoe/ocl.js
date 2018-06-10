@@ -65,6 +65,11 @@ export class Company {
     }
 }
 
+export class AstSequenceFlow {
+    source: object;
+    target: object;
+}
+
 export class Car {
     typeName = 'Car';
     color: any;
