@@ -3,6 +3,7 @@ import { InitExpression } from '../InitExpression';
 import { DeriveExpression } from '../DeriveExpression';
 import { Utils } from '../../Utils';
 import { IOclVisitor } from '../../IOclVisitor';
+import { LetExpression } from '../LetExpression';
 
 /**
  * A PropertyContextDefinition allows to initialize or derive a value for the targeted property.
@@ -29,6 +30,18 @@ export class PropertyContextExpression extends ContextExpression {
         this.derived = rules.filter(i => i instanceof DeriveExpression);
     }
 
+    getInits(): Array<LetExpression> {
+        return this.inits;
+    }
+
+    getDerived(): Array<DeriveExpression> {
+        return this.derived;
+    }
+
+    getPropertyName(): string {
+        return this.propertyName;
+    }
+
     accept(visitor: IOclVisitor): boolean {
         return Utils.getClassName(visitor.getObjectToEvaluate()) === this.targetType;
     }
@@ -36,4 +49,5 @@ export class PropertyContextExpression extends ContextExpression {
     visit(visitor: IOclVisitor): any {
         return visitor.visitPropertyContextExpression(this);
     }
+
 }

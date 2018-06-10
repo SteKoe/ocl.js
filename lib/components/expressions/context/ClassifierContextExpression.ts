@@ -47,8 +47,6 @@ export class ClassifierContextExpression extends ContextExpression {
                 return visitorTargetType instanceof expressionTargetType || visitorTargetType === expressionTargetType;
             }
         }
-
-        return accept;
     }
 
     visit(visitor: IOclVisitor): any {

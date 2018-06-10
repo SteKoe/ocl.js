@@ -9,11 +9,12 @@ parser.yy = {
 
 export class OclParser {
     static registeredTypes: object = {
-        Object,
-        String,
-        Number,
+        Array,
         Boolean,
-        Function
+        Function,
+        Number,
+        Object,
+        String
     };
 
     static parse(oclExpression: any, labels: Array<string> = []): Expressions.PackageDeclaration {

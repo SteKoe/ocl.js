@@ -53,18 +53,24 @@ export class OclVisitorImpl implements IOclVisitor {
         return this.evaluationResult;
     }
 
-    visitPackageDeclaration(expr: Expr.PackageDeclaration): IOclVisitor {
+    visitOneExpression(expr: Expr.OneExpression): boolean {
+        const result = this.visitSelectExpression(expr as Expr.SelectExpression);
 
+        return result.length === 1;
+    }
+
+    visitPackageDeclaration(expr: Expr.PackageDeclaration): IOclVisitor {
         if (expr.accept(this)) {
             const contextsToVisit = expr.getContexts()
                 .filter(ctx => ctx.accept(this));
 
             this.evaluatedContexts += contextsToVisit.length;
 
-            this.evaluationResult = !contextsToVisit
-                .map(ctx => ctx.visit(this))
-                .some(inv => inv === false);
+            const anies = contextsToVisit
+                .map(ctx => ctx.visit(this));
 
+            this.evaluationResult = !anies
+                .some(inv => inv === false);
         }
 
         return this;
@@ -91,12 +97,12 @@ export class OclVisitorImpl implements IOclVisitor {
     }
 
     visitPropertyContextExpression(expr: Expr.PropertyContextExpression): boolean {
-        expr.inits.forEach(init => {
-            this.obj[expr.propertyName] = init.visit(this);
+        expr.getInits().forEach(init => {
+            this.obj[expr.getPropertyName()] = init.visit(this);
         });
 
-        expr.derived.forEach(derive => {
-            this.obj[expr.propertyName] = derive.visit(this);
+        expr.getDerived().forEach(derive => {
+            this.obj[expr.getPropertyName()] = derive.visit(this);
         });
 
         return true;

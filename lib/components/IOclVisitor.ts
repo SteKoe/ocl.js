@@ -9,7 +9,7 @@ import {
     ConcatExpression,
     DeriveExpression,
     DivideExpression,
-    ExistsExpression,
+    ExistsExpression, Expression,
     FirstExpression,
     ForAllExpression,
     IfExpression,
@@ -50,6 +50,7 @@ import {
     VariableExpression,
     XorExpression
 } from './expressions';
+import { OneExpression } from './expressions/collection';
 
 export interface IOclVisitor {
     visitPackageDeclaration(expr: PackageDeclaration): IOclVisitor;
@@ -161,4 +162,6 @@ export interface IOclVisitor {
     getTargetTypeName(): string;
 
     getEvaluationResult(): boolean;
+
+    visitOneExpression(expr: OneExpression): any;
 }
