@@ -1,14 +1,13 @@
-/// <reference path="../node_modules/@types/node/index.d.ts" />
-const fs = require("fs");
-const path = require("path");
-const jison = require("jison-gho");
+import * as fs from 'fs';
+import * as path from 'path';
+import * as jison from 'jison-gho';
 
-const bnf = fs.readFileSync(path.resolve(__dirname, 'grammar.jison'), "utf8");
+const bnf = fs.readFileSync(path.resolve(__dirname, 'grammar.jison'), 'utf8');
 const parser = new jison.Parser(bnf);
 
 const parserOutputFile = path.resolve('./generator/Parser.js');
 
-let leParser = parser.generate({
+const leParser = parser.generate({
     moduleType: 'js'
 });
 

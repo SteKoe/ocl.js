@@ -1,3 +1,5 @@
+import { OclVisitor } from '../OclVisitor';
+
 export abstract class Expression {
     variables: any;
 
@@ -7,11 +9,11 @@ export abstract class Expression {
         this.type = this.constructor.name;
     }
 
-    accept(obj): boolean {
+    accept(obj: OclVisitor): boolean {
         return true;
     }
 
-    visit(visitor): any {
+    visit(visitor: OclVisitor): any {
         throw new Error(`Visitor for '${this.type}' not yet implemented!`);
     }
 }

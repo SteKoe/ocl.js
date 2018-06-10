@@ -1,15 +1,19 @@
-import {expect} from "chai";
-import {Dog, FixtureFactory, Human, Person} from "../fixture.factory";
-import {OclVisitorImpl} from '../../lib/components/OclVisitorImpl'
-import {OclParser} from '../../lib/components/parser/OclParser'
+import { expect } from 'chai';
+import { Dog, FixtureFactory, Human, Person } from '../fixture.factory';
+import { OclVisitorImpl } from '../../lib/components/OclVisitorImpl';
+import { OclParser } from '../../lib/components/parser/OclParser';
 
-function expectTrue(oclExpression, visitor) {
-    OclParser.parse(oclExpression).visit(visitor);
+function expectTrue(oclExpression, visitor): void {
+    OclParser.parse(oclExpression)
+        .visit(visitor);
+
     expect(visitor.evaluationResult).to.be.true;
 }
 
-function expectFalse(oclExpression, visitor) {
-    OclParser.parse(oclExpression).visit(visitor);
+function expectFalse(oclExpression, visitor): void {
+    OclParser.parse(oclExpression)
+        .visit(visitor);
+
     expect(visitor.evaluationResult).to.be.false;
 }
 
@@ -18,28 +22,27 @@ describe('oclIsKindOf', () => {
 
     const visitor = new OclVisitorImpl(mother);
     visitor.registerTypes({
-        "Human": Human,
-        "Person": Person,
-        "Dog": Dog
+        Human,
+        Person,
+        Dog
     });
 
     it('positve tests', () => {
-        let oclExpression = `context Person inv: self->oclIsKindOf(Human)`;
+        let oclExpression = 'context Person inv: self->oclIsKindOf(Human)';
         expectTrue(oclExpression, visitor);
 
-        oclExpression = `context Person inv: self->oclIsKindOf(Person)`;
+        oclExpression = 'context Person inv: self->oclIsKindOf(Person)';
         expectTrue(oclExpression, visitor);
 
-        oclExpression = `context Person inv: self->oclIsKindOf(Object)`;
+        oclExpression = 'context Person inv: self->oclIsKindOf(Object)';
         expectTrue(oclExpression, visitor.setObjectToEvaluate({}));
     });
 
     it('negative tests', () => {
-        let oclExpression = `context Person inv: self->oclIsKindOf(Dog)`;
+        let oclExpression = 'context Person inv: self->oclIsKindOf(Dog)';
         expectFalse(oclExpression, visitor);
 
-        oclExpression = `context Person inv: self->oclIsKindOf()`;
+        oclExpression = 'context Person inv: self->oclIsKindOf()';
         expectFalse(oclExpression, visitor);
     });
 });
-

@@ -27,17 +27,17 @@ export class ClassifierContextExpression extends ContextExpression {
         return this.defs;
     }
 
-    accept(visitor): boolean {
+    accept(visitor: OclVisitor): boolean {
         const accept = super.accept(visitor);
 
         if (accept === false) {
             return false;
         } else {
-            const visitorTargetType = visitor.registeredTypes[visitor.targetType] || visitor.targetType;
-            const expressionTargetType = visitor.registeredTypes[this.targetType] || this.targetType;
+            const visitorTargetType = visitor.getRegisteredType(visitor.getTargetTypeName()) || visitor.getTargetTypeName();
+            const expressionTargetType = visitor.getRegisteredType(this.targetType) || this.targetType;
 
             if (typeof visitorTargetType === 'string' || typeof expressionTargetType === 'string') {
-                return this.targetType === visitor.targetType;
+                return this.targetType === visitor.getTargetTypeName();
             } else {
                 return visitorTargetType instanceof expressionTargetType || visitorTargetType === expressionTargetType;
             }

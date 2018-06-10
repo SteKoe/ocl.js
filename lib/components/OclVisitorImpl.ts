@@ -1,89 +1,59 @@
 import { Utils } from './Utils';
-import {
-    AbsExpression,
-    AdditionExpression,
-    AndExpression,
-    AsSetExpression,
-    AtExpression,
-    ClassifierContextExpression,
-    CollectExpression,
-    ConcatExpression,
-    DeriveExpression,
-    DivideExpression,
-    ExistsExpression,
-    FirstExpression,
-    ForAllExpression,
-    IfExpression,
-    ImpliesExpression,
-    IndexOfExpression,
-    InitExpression,
-    InvariantExpression,
-    IsEmptyExpression,
-    LastExpression,
-    LeftRightBasedExpression,
-    LetExpression,
-    LiteralExpression,
-    ModuloExpression,
-    MultiplyExpression,
-    NativeJsFunctionCallExpression,
-    NotEmptyExpression,
-    NotExpression,
-    OclIsKindOfExpression,
-    OclIsTypeOfExpression,
-    OclIsUndefinedExpression,
-    OperationCallExpression,
-    OperationContextExpression,
-    Operator,
-    OrExpression,
-    PackageDeclaration,
-    PowerExpression,
-    PropertyContextExpression,
-    RejectExpression,
-    SelectExpression,
-    SizeExpression,
-    SqrtExpression,
-    SubstractionExpression,
-    SubstringExpression,
-    SumExpression,
-    ToIntegerExpression,
-    ToLowerCaseExpression,
-    ToRealExpression,
-    ToUpperCaseExpression,
-    UnionExpression,
-    VariableExpression,
-    XorExpression
-} from './expressions';
+import * as Expr from './expressions';
 import { OclParser } from './parser/OclParser';
 import { OclVisitor } from './OclVisitor';
 
 export class OclVisitorImpl implements OclVisitor {
     evaluationResult: any = undefined;
-    labelsToExecute: Array<any> = [];
     evaluatedContexts = 0;
-    targetType: any | string;
-    _targetType: any;
-    failedInvariants: Array<any> = [];
-    DEBUG: boolean;
-    private obj: any;
+    private failedInvariants: Array<Expr.InvariantExpression> = [];
     private registeredTypes: any;
+    private targetTypeName: string;
 
-    constructor(obj: any) {
-        this.obj = obj;
-        this.targetType = Utils.getClassName(obj);
+    constructor(private obj: any, private labelsToExecute: Array<string> = []) {
+        this.targetTypeName = Utils.getClassName(obj);
         this.registeredTypes = OclParser.registeredTypes;
     }
 
-    setObjectToEvaluate(obj): OclVisitorImpl {
+    setObjectToEvaluate(obj): OclVisitor {
         this.obj = obj;
 
         return this;
+    }
+
+    getObjectToEvaluate(): any {
+        return this.obj;
+    }
+
+    getRegisteredType(targetTypeName: string): any {
+        return this.registeredTypes[targetTypeName];
+    }
+
+    setTargetTypeName(name: string): void {
+        this.targetTypeName = name;
+    }
+
+    getTargetTypeName(): string {
+        return this.targetTypeName;
     }
 
     registerTypes(types): void {
         this.registeredTypes = {...this.registeredTypes, ...types};
     }
 
-    visitPackageDeclaration(expr: PackageDeclaration): OclVisitorImpl {
+    getFailedInvariants(): Array<Expr.InvariantExpression> {
+        return this.failedInvariants;
+    }
+
+    getLabelsToExecute(): Array<string> {
+        return this.labelsToExecute;
+    }
+
+    getEvaluationResult(): boolean {
+        return this.evaluationResult;
+    }
+
+    visitPackageDeclaration(expr: Expr.PackageDeclaration): OclVisitor {
         const contextsToVisit = expr.getContexts()
             .filter(ctx => ctx.accept(this));
 
@@ -96,7 +66,7 @@ export class OclVisitorImpl implements OclVisitor {
         return this;
     }
 
-    visitClassifierContextExpression(expr: ClassifierContextExpression): boolean {
+    visitClassifierContextExpression(expr: Expr.ClassifierContextExpression): boolean {
         if (expr.accept(this)) {
             expr.getDefs()
                 .forEach(def => def.visit(this));
@@ -116,7 +86,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitPropertyContextExpression(expr: PropertyContextExpression): boolean {
+    visitPropertyContextExpression(expr: Expr.PropertyContextExpression): boolean {
         expr.inits.forEach(init => {
             this.obj[expr.propertyName] = init.visit(this);
         });
@@ -128,7 +98,7 @@ export class OclVisitorImpl implements OclVisitor {
         return true;
     }
 
-    visitOperationContextExpression(expr: OperationContextExpression): void {
+    visitOperationContextExpression(expr: Expr.OperationContextExpression): void {
         if (expr.accept(this)) {
             expr.getExpressions()
                 .forEach(expression => {
@@ -137,54 +107,54 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitIfExpression(expr: IfExpression): boolean {
+    visitIfExpression(expr: Expr.IfExpression): boolean {
         return expr.getCondition()
             .visit(this) ? expr.getThenExpression()
             .visit(this) : expr.getElseExpression()
             .visit(this);
     }
 
-    visitDeriveExpression(expr: DeriveExpression): any {
+    visitDeriveExpression(expr: Expr.DeriveExpression): any {
         return expr.getValue()
             .visit(this);
     }
 
-    visitInitExpression(expr: InitExpression): any {
+    visitInitExpression(expr: Expr.InitExpression): any {
         return expr.getValue()
             .visit(this);
     }
 
-    visitInvariantExpression(expr: InvariantExpression): boolean {
+    visitInvariantExpression(expr: Expr.InvariantExpression): boolean {
         return expr.getDefinition()
             .visit(this);
     }
 
-    visitOperationCallExpression(expr: OperationCallExpression): boolean {
+    visitOperationCallExpression(expr: Expr.OperationCallExpression): boolean {
         const {left, right} = this._visitLeftRightExpression(expr);
 
-        if (expr.getOperator() === Operator.NOT_EQUAL) {
+        if (expr.getOperator() === Expr.Operator.NOT_EQUAL) {
             return left !== right;
-        } else if (expr.getOperator() === Operator.LESS_EQUAL_THAN) {
+        } else if (expr.getOperator() === Expr.Operator.LESS_EQUAL_THAN) {
             return left <= right;
-        } else if (expr.getOperator() === Operator.GREATER_EQUAL_THAN) {
+        } else if (expr.getOperator() === Expr.Operator.GREATER_EQUAL_THAN) {
             return left >= right;
-        } else if (expr.getOperator() === Operator.GREATER_THAN) {
+        } else if (expr.getOperator() === Expr.Operator.GREATER_THAN) {
             return left > right;
-        } else if (expr.getOperator() === Operator.LESS_THAN) {
+        } else if (expr.getOperator() === Expr.Operator.LESS_THAN) {
             return left < right;
-        } else if (expr.getOperator() === Operator.EQUAL) {
+        } else if (expr.getOperator() === Expr.Operator.EQUAL) {
             return left === right;
         }
     }
 
-    visitOclIsUndefinedExpression(expr: OclIsUndefinedExpression): boolean {
+    visitOclIsUndefinedExpression(expr: Expr.OclIsUndefinedExpression): boolean {
         const result = expr.getSource()
             .visit(this);
 
         return result === undefined || typeof result === 'undefined';
     }
 
-    visitOclIsTypeOfExpression(expr: OclIsTypeOfExpression): boolean {
+    visitOclIsTypeOfExpression(expr: Expr.OclIsTypeOfExpression): boolean {
         let source = expr.getSource()
             .visit(this);
         source = Utils.getClassName(source);
@@ -199,7 +169,7 @@ export class OclVisitorImpl implements OclVisitor {
         return source === body;
     }
 
-    visitOclIsKindOfExpression(expr: OclIsKindOfExpression): boolean {
+    visitOclIsKindOfExpression(expr: Expr.OclIsKindOfExpression): boolean {
         const source = expr.getSource()
             .visit(this);
 
@@ -213,7 +183,7 @@ export class OclVisitorImpl implements OclVisitor {
         return source instanceof body;
     }
 
-    visitNativeJsFunctionCallExpression(expr: NativeJsFunctionCallExpression): any {
+    visitNativeJsFunctionCallExpression(expr: Expr.NativeJsFunctionCallExpression): any {
         const source = expr.getSource()
             .visit(this);
 
@@ -230,16 +200,16 @@ export class OclVisitorImpl implements OclVisitor {
         return isFunction ? fn.apply(source, params) : false;
     }
 
-    visitLetExpression(expr: LetExpression): void {
+    visitLetExpression(expr: Expr.LetExpression): void {
         this.obj[expr.getKey()] = expr.getValue()
             .visit(this);
     }
 
-    visitLiteralExpression(expr: LiteralExpression<any>): any {
+    visitLiteralExpression(expr: Expr.LiteralExpression<any>): any {
         return expr.getValue();
     }
 
-    visitIteratorExpression(expr: ForAllExpression): boolean {
+    visitIteratorExpression(expr: Expr.ForAllExpression): boolean {
         const collection = expr.getSource()
             .visit(this);
 
@@ -284,7 +254,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitImpliesExpression(expr: ImpliesExpression): boolean {
+    visitImpliesExpression(expr: Expr.ImpliesExpression): boolean {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         if (left) {
@@ -294,7 +264,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitVariableExpression(expr: VariableExpression): any {
+    visitVariableExpression(expr: Expr.VariableExpression): any {
         let obj;
         const source = expr.getSource();
         const parts = source.split('.');
@@ -353,7 +323,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitSizeExpression(expr: SizeExpression): number {
+    visitSizeExpression(expr: Expr.SizeExpression): number {
         const source = expr.getSource()
             .visit(this);
 
@@ -364,21 +334,21 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitNotExpression(expr: NotExpression): boolean {
+    visitNotExpression(expr: Expr.NotExpression): boolean {
         const source = expr.getSource()
             .visit(this);
 
         return source !== true;
     }
 
-    visitIsEmptyExpression(expr: IsEmptyExpression): boolean {
+    visitIsEmptyExpression(expr: Expr.IsEmptyExpression): boolean {
         const source = expr.getSource()
             .visit(this);
 
         return Array.isArray(source) ? source.length === 0 : true;
     }
 
-    visitNotEmptyExpression(expr: NotEmptyExpression): boolean {
+    visitNotEmptyExpression(expr: Expr.NotEmptyExpression): boolean {
         const source = expr.getSource()
             .visit(this);
 
@@ -388,7 +358,7 @@ export class OclVisitorImpl implements OclVisitor {
     /**
      * String ====================================
      */
-    visitConcatExpression(expr: ConcatExpression): string {
+    visitConcatExpression(expr: Expr.ConcatExpression): string {
         const source = expr.getSource()
             .visit(this);
         const body = expr.getBody()
@@ -398,7 +368,7 @@ export class OclVisitorImpl implements OclVisitor {
             .concat(String(body));
     }
 
-    visitIndexOfExpression(expr: IndexOfExpression): number {
+    visitIndexOfExpression(expr: Expr.IndexOfExpression): number {
         const source = expr.getSource()
             .visit(this);
         const indexOfString = expr.getBody()
@@ -407,7 +377,7 @@ export class OclVisitorImpl implements OclVisitor {
         return indexOfString.length === 0 ? 0 : source.indexOf(indexOfString) + 1;
     }
 
-    visitSubstringExpression(expr: SubstringExpression): string {
+    visitSubstringExpression(expr: Expr.SubstringExpression): string {
         const source = expr.getSource()
             .visit(this);
 
@@ -430,7 +400,7 @@ export class OclVisitorImpl implements OclVisitor {
         return source.substring(startIndex, endIndex);
     }
 
-    visitToLowerCaseExpression(expr: ToLowerCaseExpression): string {
+    visitToLowerCaseExpression(expr: Expr.ToLowerCaseExpression): string {
         const source = expr.getSource()
             .visit(this);
 
@@ -438,7 +408,7 @@ export class OclVisitorImpl implements OclVisitor {
             .toLowerCase();
     }
 
-    visitToUpperCaseExpression(expr: ToUpperCaseExpression): string {
+    visitToUpperCaseExpression(expr: Expr.ToUpperCaseExpression): string {
         const source = expr.getSource()
             .visit(this);
 
@@ -446,14 +416,14 @@ export class OclVisitorImpl implements OclVisitor {
             .toUpperCase();
     }
 
-    visitToRealExpression(expr: ToRealExpression): number {
+    visitToRealExpression(expr: Expr.ToRealExpression): number {
         const source = expr.getSource()
             .visit(this);
 
         return Number.parseFloat(source);
     }
 
-    visitToIntegerExpression(expr: ToIntegerExpression): number {
+    visitToIntegerExpression(expr: Expr.ToIntegerExpression): number {
         const source = expr.getSource()
             .visit(this);
 
@@ -463,7 +433,7 @@ export class OclVisitorImpl implements OclVisitor {
     /**
      * Collection ================================
      */
-    visitLastExpression(expr: LastExpression): any {
+    visitLastExpression(expr: Expr.LastExpression): any {
         const source = expr.getSource()
             .visit(this);
 
@@ -472,7 +442,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitFirstExpression(expr: FirstExpression): any {
+    visitFirstExpression(expr: Expr.FirstExpression): any {
         const source = expr.getSource()
             .visit(this);
 
@@ -481,7 +451,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitAsSetExpression(expr: AsSetExpression): Array<any> {
+    visitAsSetExpression(expr: Expr.AsSetExpression): Array<any> {
         const source = expr.getSource()
             .visit(this);
 
@@ -490,7 +460,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitAtExpression(expr: AtExpression): any {
+    visitAtExpression(expr: Expr.AtExpression): any {
         const source = expr.getSource()
             .visit(this);
         const index = expr.getBody()
@@ -501,7 +471,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitSumExpression(expr: SumExpression): number {
+    visitSumExpression(expr: Expr.SumExpression): number {
         const source = expr.getSource()
             .visit(this);
 
@@ -512,7 +482,7 @@ export class OclVisitorImpl implements OclVisitor {
         return 0;
     }
 
-    visitCollectExpression(expr: CollectExpression): Array<any> {
+    visitCollectExpression(expr: Expr.CollectExpression): Array<any> {
         const collection = expr.getSource()
             .visit(this);
 
@@ -534,7 +504,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitExistsExpression(expr: ExistsExpression): boolean {
+    visitExistsExpression(expr: Expr.ExistsExpression): boolean {
         const collection = expr.getSource()
             .visit(this);
 
@@ -558,7 +528,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitRejectExpression(expr: RejectExpression): Array<any> {
+    visitRejectExpression(expr: Expr.RejectExpression): Array<any> {
         const collection = expr.getSource()
             .visit(this);
 
@@ -582,7 +552,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitSelectExpression(expr: SelectExpression): Array<any> {
+    visitSelectExpression(expr: Expr.SelectExpression): Array<any> {
         const collection = expr.getSource()
             .visit(this);
 
@@ -604,7 +574,7 @@ export class OclVisitorImpl implements OclVisitor {
         }
     }
 
-    visitUnionExpression(expr: UnionExpression): Array<any> {
+    visitUnionExpression(expr: Expr.UnionExpression): Array<any> {
         const source = expr.getSource()
             .visit(this);
 
@@ -622,19 +592,19 @@ export class OclVisitorImpl implements OclVisitor {
     /**
      * Boolean Gates =============================
      */
-    visitOrExpression(expr: OrExpression): boolean {
+    visitOrExpression(expr: Expr.OrExpression): boolean {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         return left || right;
     }
 
-    visitXorExpression(expr: XorExpression): boolean {
+    visitXorExpression(expr: Expr.XorExpression): boolean {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         return (left || right) && !(left && right);
     }
 
-    visitAndExpression(expr: AndExpression): boolean {
+    visitAndExpression(expr: Expr.AndExpression): boolean {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         return left && right;
@@ -643,43 +613,43 @@ export class OclVisitorImpl implements OclVisitor {
     /**
      * Math ======================================
      */
-    visitAdditionExpression(expr: AdditionExpression): number {
+    visitAdditionExpression(expr: Expr.AdditionExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         return left + right;
     }
 
-    visitSubstractionExpression(expr: SubstractionExpression): number {
+    visitSubstractionExpression(expr: Expr.SubstractionExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         return left - right;
     }
 
-    visitMultiplyExpression(expr: MultiplyExpression): number {
+    visitMultiplyExpression(expr: Expr.MultiplyExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         return left * right;
     }
 
-    visitModuloExpression(expr: ModuloExpression): number {
+    visitModuloExpression(expr: Expr.ModuloExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         return left % right;
     }
 
-    visitPowerExpression(expr: PowerExpression): number {
+    visitPowerExpression(expr: Expr.PowerExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         return Math.pow(left, right);
     }
 
-    visitDivideExpression(expr: DivideExpression): number {
+    visitDivideExpression(expr: Expr.DivideExpression): number {
         const {left, right} = this._visitLeftRightExpression(expr);
 
         return left / right;
     }
 
-    visitAbsExpression(expr: AbsExpression): number {
+    visitAbsExpression(expr: Expr.AbsExpression): number {
         expr.getSource().variables = expr.variables;
         const left = expr.getSource()
             .visit(this);
@@ -687,7 +657,7 @@ export class OclVisitorImpl implements OclVisitor {
         return Math.abs(left);
     }
 
-    visitSqrtExpression(expr: SqrtExpression): number {
+    visitSqrtExpression(expr: Expr.SqrtExpression): number {
         const sqrt = expr.getBody() ? expr.getBody()
             .visit(this) : 2;
 
@@ -698,7 +668,7 @@ export class OclVisitorImpl implements OclVisitor {
         return Math.pow(left, 1 / sqrt);
     }
 
-    _visitLeftRightExpression(expr: LeftRightBasedExpression): { left: any, right: any } {
+    _visitLeftRightExpression(expr: Expr.LeftRightBasedExpression): { left: any, right: any } {
         expr.getLeft().variables = expr.variables;
         const left = expr.getLeft()
             .visit(this);

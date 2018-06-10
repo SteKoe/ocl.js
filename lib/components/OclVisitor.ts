@@ -151,4 +151,14 @@ export interface OclVisitor {
     visitAbsExpression(expr: AbsExpression): number;
 
     visitSqrtExpression(expr: SqrtExpression): number;
+
+    getLabelsToExecute(): Array<string>;
+
+    getObjectToEvaluate(): any;
+
+    getRegisteredType(targetTypeName: string): any;
+
+    getTargetTypeName(): string;
+
+    getEvaluationResult(): boolean;
 }

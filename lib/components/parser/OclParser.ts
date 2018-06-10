@@ -44,8 +44,6 @@ export class OclParser {
     /* tslint:enable:no-console */
 }
 
-OclParser.DEBUG = false;
-
 OclParser.registeredTypes = {
     Object,
     String,

@@ -1,5 +1,5 @@
-import {FixtureFactory} from "../../fixture.factory";
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../../matcher'
+import { FixtureFactory } from '../../fixture.factory';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('Collection->forAll', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);
@@ -10,7 +10,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('B', 50)
         ];
 
-        const oclExpression = `context Person inv ChildrenAreAllYounger: self.children->forAll(c|c.age < self.age)`;
+        const oclExpression = 'context Person inv ChildrenAreAllYounger: self.children->forAll(c|c.age < self.age)';
         expectOclRuleValidatesToFalse(oclExpression, mother);
 
     });
@@ -21,7 +21,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('B', 40)
         ];
 
-        const oclExpression = `context Person inv: self.children->forAll(c|c.age < self.age)`;
+        const oclExpression = 'context Person inv: self.children->forAll(c|c.age < self.age)';
         expectOclRuleValidatesToTrue(oclExpression, mother);
 
     });
@@ -35,7 +35,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('E', 5)
         ];
 
-        const oclExpression = `context Person inv: self.children->forAll(c1, c2|c1.age <> c2.age)`;
+        const oclExpression = 'context Person inv: self.children->forAll(c1, c2|c1.age <> c2.age)';
         expectOclRuleValidatesToTrue(oclExpression, mother);
     });
 
@@ -48,7 +48,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('E', 5)
         ];
 
-        const oclExpression = `context Person inv: self.children->forAll(c1, c2|c1.age <> c2.age)`;
+        const oclExpression = 'context Person inv: self.children->forAll(c1, c2|c1.age <> c2.age)';
         expectOclRuleValidatesToFalse(oclExpression, mother);
     });
 
@@ -61,8 +61,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('E', 10)
         ];
 
-        const oclExpression = `context Person inv: self.children->forAll(age < 10)`;
+        const oclExpression = 'context Person inv: self.children->forAll(age < 10)';
         expectOclRuleValidatesToFalse(oclExpression, mother);
     });
 });
-

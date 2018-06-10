@@ -1,7 +1,8 @@
 export class FixtureFactory {
-    static createPerson(name, age = 21) : Person {
+    static createPerson(name, age = 21): Person {
         const person = new Person(age);
         person.name = name;
+
         return person;
     }
 }
@@ -17,18 +18,18 @@ export class Human {
 export class Person extends Human {
     age: any;
     name: string;
-    children: any[] = [];
+    children: Array<Person> = [];
     income: number;
-    jobs: Job[] = [];
-    parents: Person[] = [];
-    fleet: Car[] = [];
+    jobs: Array<Job> = [];
+    parents: Array<Person> = [];
+    fleet: Array<Car> = [];
 
     constructor(age = 21) {
         super();
         this.age = age;
     }
 
-    getChildren() {
+    getChildren(): Array<Person> {
         return this.children;
     }
 }
@@ -38,7 +39,7 @@ export class Job {
 }
 
 export class MetaEntity {
-    metaAssociationLinks: MetaAssociationLink[];
+    metaAssociationLinks: Array<MetaAssociationLink>;
     isType: boolean;
     isIntrinsic: boolean;
 }
@@ -51,23 +52,21 @@ export class MetaAssociationLink {
     }
 }
 
-
 export class MetaAttribute {
     minCard: number;
     maxCard: number;
 }
 
 export class Company {
-    employees: any[] = [];
+    employees: Array<Person> = [];
 
-    hire(person) {
+    hire(person: Person): void {
         this.employees.push(person);
     }
 }
 
-
 export class Car {
-    typeName: string = 'Car';
+    typeName = 'Car';
     color: any;
     owner: Person;
 
@@ -77,7 +76,7 @@ export class Car {
 }
 
 export class Library {
-    writers: any[];
+    writers: Array<any>;
 
     constructor() {
         this.writers = [];
@@ -86,7 +85,7 @@ export class Library {
 
 export class Writer {
     name: any;
-    books: Book[];
+    books: Array<Book>;
 
     constructor(name) {
         this.name = name;

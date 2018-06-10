@@ -5,6 +5,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "sourceMap": true,
+    "typeRoots": ["node_modules/@types", "typings"],
     "experimentalDecorators": true,
     "lib": [
       "dom",
@@ -13,7 +14,7 @@
     ]
   },
   "include": [
-    "definitions/jison.d.ts",
+    "typings/jison-gho/index.d.ts",
     "test/**/*"
   ],
   "exclude": [

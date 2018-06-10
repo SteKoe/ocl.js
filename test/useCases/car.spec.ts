@@ -1,5 +1,5 @@
-import {Car, Person} from "../fixture.factory";
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../matcher'
+import { Car, Person } from '../fixture.factory';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
 
 describe('Example', () => {
     describe('Car', () => {
@@ -19,7 +19,7 @@ describe('Example', () => {
 
         it('All cars a person owns are red.', () => {
             const oclExpression = `
-            context Person inv: 
+            context Person inv:
                 self.fleet->forAll(c|c.color = "red")
         `;
 
@@ -28,7 +28,7 @@ describe('Example', () => {
 
         it('The owner of a car is at least 18 years old.', () => {
             const oclExpression = `
-            context Car inv: 
+            context Car inv:
                 self.owner.age >= 18
         `;
 
@@ -36,4 +36,3 @@ describe('Example', () => {
         });
     });
 });
-

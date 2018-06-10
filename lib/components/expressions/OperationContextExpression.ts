@@ -24,7 +24,7 @@ export class OperationContextExpression extends ContextExpression {
         return this.expressions;
     }
 
-    accept(visitor): boolean {
+    accept(visitor: OclVisitor): boolean {
         return true;
     }
 

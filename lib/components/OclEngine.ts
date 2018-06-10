@@ -10,12 +10,11 @@ import { ContextExpression } from './expressions/ContextExpression';
  */
 export class OclEngine {
 
-    static DEBUG = false;
     static Utils = Utils;
 
     private oclExpressions: Array<any> = [];
     private typeDeterminerFn: Function;
-    private registeredTypes: object;
+    private registeredTypes: object = OclParser.registeredTypes;
 
     /**
      * Static create method.
@@ -26,14 +25,10 @@ export class OclEngine {
         return new OclEngine();
     }
 
-    constructor() {
-        this.registeredTypes = OclParser.registeredTypes;
-    }
-
     /**
      * Set a TypeDeterminer function that receives an object and returns the type of the object.
      */
-    setTypeDeterminer(fn): void {
+    setTypeDeterminer(fn: Function): void {
         if (typeof fn === 'function') {
             OclEngine.Utils.typeDeterminerFn = fn;
         }
@@ -74,7 +69,6 @@ export class OclEngine {
      */
     addOclExpression(oclExpression, labels: Array<string> = []): OclEngine {
         try {
-            OclParser.DEBUG = OclEngine.DEBUG;
             const parsedExpression = OclParser.parse(oclExpression, labels);
             this.oclExpressions.push(parsedExpression);
         } catch (e) {
@@ -93,16 +87,13 @@ export class OclEngine {
      * @returns a result object, which contains the actual result and other info @see OclResult
      */
     evaluate(obj: any, labels: Array<any> = []): OclResult {
-        const visitor = new OclVisitorImpl(obj);
-        visitor.DEBUG = OclEngine.DEBUG;
-        visitor.targetType = this._inferType(obj);
-        visitor._targetType = obj;
-        visitor.labelsToExecute = Array.isArray(labels) ? labels : [labels];
+        const visitor = new OclVisitorImpl(obj, Array.isArray(labels) ? labels : [labels]);
         visitor.registerTypes(this.registeredTypes);
 
         this.oclExpressions.forEach(e => e.visit(visitor));
 
-        return new OclResult(visitor.failedInvariants.map(inv => inv.name), visitor.evaluatedContexts);
+        return new OclResult(visitor.getFailedInvariants()
+            .map(inv => inv.getName()), visitor.evaluatedContexts);
     }
 
     _inferType(obj: any): string {

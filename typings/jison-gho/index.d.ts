@@ -1,9 +1,9 @@
-declare module 'jison' {
+declare module 'jison-gho' {
     interface JisonMap {
-        [s: number]: string
+        [s: number]: string;
     }
     interface JisonLex {
-        rules: Array<JisonMap>
+        rules: Array<JisonMap>;
     }
     interface JisonBNF {
         start: Array<JisonMap>;
@@ -22,6 +22,6 @@ declare module 'jison' {
         assert: any;
         lexer: any;
         constructor(configuration: {lex: JisonLex; bnf: JisonBNF});
-        parse(input: string) : Parser;
+        parse(input: string): Parser;
     }
 }

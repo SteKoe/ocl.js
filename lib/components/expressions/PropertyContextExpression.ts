@@ -26,8 +26,8 @@ export class PropertyContextExpression extends ContextExpression {
         this.derived = rules.filter(i => i instanceof DeriveExpression);
     }
 
-    accept(visitor): boolean {
-        return Utils.getClassName(visitor.obj) === this.targetType;
+    accept(visitor: OclVisitor): boolean {
+        return Utils.getClassName(visitor.getObjectToEvaluate()) === this.targetType;
     }
 
     visit(visitor: OclVisitor): any {
