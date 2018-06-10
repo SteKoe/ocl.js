@@ -1,5 +1,5 @@
 import { IteratorExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
 /**
  * Returns a collection with all elements except for those who the given oclExpression validates to true.
@@ -8,7 +8,7 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.customer->reject(underage)
  */
 export class RejectExpression extends IteratorExpression {
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitRejectExpression(this);
     }
 }

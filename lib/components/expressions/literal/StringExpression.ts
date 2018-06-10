@@ -1,5 +1,5 @@
 import { LiteralExpression } from './LiteralExpression';
-import { OclVisitor } from '../../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
 /**
  */
@@ -8,7 +8,7 @@ export class StringExpression extends LiteralExpression<string> {
         return value.replace(/^\"|"$/g, '');
     }
 
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitLiteralExpression(this);
     }
 }

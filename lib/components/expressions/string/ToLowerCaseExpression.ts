@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
 /**
  * Returns a string in lower case
@@ -8,7 +8,7 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.name->toLowerCase()
  */
 export class ToLowerCaseExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitToLowerCaseExpression(this);
     }
 }

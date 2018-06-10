@@ -1,5 +1,5 @@
 import { LiteralExpression } from './LiteralExpression';
-import { OclVisitor } from '../../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
 /**
  */
@@ -12,7 +12,7 @@ export class NumberExpression extends LiteralExpression<number> {
         }
     }
 
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitLiteralExpression(this);
     }
 }

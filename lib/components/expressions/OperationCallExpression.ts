@@ -1,5 +1,5 @@
 import { LeftRightBasedExpression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { IOclVisitor } from '../IOclVisitor';
 
 /**
  */
@@ -15,7 +15,7 @@ export class OperationCallExpression extends LeftRightBasedExpression {
         return this.operator;
     }
 
-    visit(visitor: OclVisitor): boolean {
+    visit(visitor: IOclVisitor): boolean {
         return visitor.visitOperationCallExpression(this);
     }
 }

@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
 /**
  * Returns the sum of all elements contained in self if they support the '+' operation.
@@ -8,7 +8,7 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.jobs.salary->sum()
  */
 export class SumExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitSumExpression(this);
     }
 }

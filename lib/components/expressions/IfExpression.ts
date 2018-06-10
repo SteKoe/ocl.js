@@ -1,5 +1,5 @@
 import { Expression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { IOclVisitor } from '../IOclVisitor';
 
 /**
  * The IfExpression allows to execute a statement if the given condition is truthy.
@@ -29,7 +29,7 @@ export class IfExpression extends Expression {
         return this._else;
     }
 
-    visit(visitor: OclVisitor): boolean {
+    visit(visitor: IOclVisitor): boolean {
         return visitor.visitIfExpression(this);
     }
 

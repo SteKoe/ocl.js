@@ -4,7 +4,7 @@ export * from './literal';
 export * from './math';
 export * from './string';
 
-export * from './ClassifierContextExpression';
+export * from './context/ClassifierContextExpression';
 export * from './DeriveExpression';
 export * from './Expression';
 export * from './IfExpression';
@@ -16,7 +16,7 @@ export * from './OclIsKindOfExpression';
 export * from './OclIsTypeOfExpression';
 export * from './OclIsUndefinedExpression';
 export * from './OperationCallExpression';
-export * from './OperationContextExpression';
+export * from './context/OperationContextExpression';
 export * from './PackageDeclaration';
-export * from './PropertyContextExpression';
+export * from './context/PropertyContextExpression';
 export * from './VariableExpression';

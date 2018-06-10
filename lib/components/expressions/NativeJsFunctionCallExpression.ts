@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { IOclVisitor } from '../IOclVisitor';
 
 export class NativeJsFunctionCallExpression extends SourceBasedExpression {
     private fn: any;
@@ -19,7 +19,7 @@ export class NativeJsFunctionCallExpression extends SourceBasedExpression {
         return this.params;
     }
 
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitNativeJsFunctionCallExpression(this);
     }
 

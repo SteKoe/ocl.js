@@ -1,9 +1,9 @@
 import { Utils } from './Utils';
 import * as Expr from './expressions';
 import { OclParser } from './parser/OclParser';
-import { OclVisitor } from './OclVisitor';
+import { IOclVisitor } from './IOclVisitor';
 
-export class OclVisitorImpl implements OclVisitor {
+export class OclVisitorImpl implements IOclVisitor {
     evaluationResult: any = undefined;
     evaluatedContexts = 0;
     private failedInvariants: Array<Expr.InvariantExpression> = [];
@@ -15,7 +15,7 @@ export class OclVisitorImpl implements OclVisitor {
         this.registeredTypes = OclParser.registeredTypes;
     }
 
-    setObjectToEvaluate(obj): OclVisitor {
+    setObjectToEvaluate(obj): IOclVisitor {
         this.obj = obj;
 
         return this;
@@ -53,15 +53,19 @@ export class OclVisitorImpl implements OclVisitor {
         return this.evaluationResult;
     }
 
-    visitPackageDeclaration(expr: Expr.PackageDeclaration): OclVisitor {
-        const contextsToVisit = expr.getContexts()
-            .filter(ctx => ctx.accept(this));
+    visitPackageDeclaration(expr: Expr.PackageDeclaration): IOclVisitor {
 
-        this.evaluatedContexts += contextsToVisit.length;
+        if (expr.accept(this)) {
+            const contextsToVisit = expr.getContexts()
+                .filter(ctx => ctx.accept(this));
 
-        this.evaluationResult = !contextsToVisit
-            .map(ctx => ctx.visit(this))
-            .some(inv => inv === false);
+            this.evaluatedContexts += contextsToVisit.length;
+
+            this.evaluationResult = !contextsToVisit
+                .map(ctx => ctx.visit(this))
+                .some(inv => inv === false);
+
+        }
 
         return this;
     }

@@ -1,10 +1,10 @@
 import { SourceBasedExpression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { IOclVisitor } from '../IOclVisitor';
 
 /**
  */
 export class VariableExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitVariableExpression(this);
     }
 }

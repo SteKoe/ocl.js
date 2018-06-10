@@ -1,10 +1,10 @@
 import { IteratorExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
 /**
  */
 export class ForAllExpression extends IteratorExpression {
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitIteratorExpression(this);
     }
 }

@@ -1,16 +1,16 @@
 import { LiteralExpression } from './index';
-import { OclVisitor } from '../../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
 export class NilExpression extends LiteralExpression<void> {
     constructor() {
         super(undefined);
     }
 
-    parseValue(): void {
-        return;
+    parseValue(value): void {
+        return undefined;
     }
 
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitLiteralExpression(this);
     }
 }

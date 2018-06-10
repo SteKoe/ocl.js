@@ -34,6 +34,7 @@
     "new-parens": true,
     "no-misused-new": true,
     "no-construct": true,
+    "interface-name": [true, "always-prefix"],
     "no-empty-interface": true,
     "prefer-method-signature": true,
     "interface-over-type-literal": true,

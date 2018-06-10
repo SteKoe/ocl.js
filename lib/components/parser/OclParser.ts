@@ -8,21 +8,19 @@ parser.yy = {
 };
 
 export class OclParser {
-    static registeredTypes: object;
-    static DEBUG: boolean;
+    static registeredTypes: object = {
+        Object,
+        String,
+        Number,
+        Boolean,
+        Function
+    };
 
     static parse(oclExpression: any, labels: Array<string> = []): Expressions.PackageDeclaration {
-        const parsedExpression = parser.parse(oclExpression) as Expressions.PackageDeclaration;
+        const packageDeclaration = parser.parse(oclExpression) as Expressions.PackageDeclaration;
+        packageDeclaration.setExecutionLabels(labels);
 
-        const unregisteredUsedTypes = parsedExpression.getContexts()
-            .map(ctx => {
-                ctx.labels = Array.isArray(labels) ? labels : [labels];
-
-                return ctx.targetType;
-            })
-            .filter(type => OclParser.registeredTypes[type] === undefined);
-
-        return parsedExpression;
+        return packageDeclaration;
     }
 
     /* tslint:disable:no-console */
@@ -41,13 +39,6 @@ export class OclParser {
             console.log(`<${token}, ${lexer.yytext}>`);
         }
     }
+
     /* tslint:enable:no-console */
 }
-
-OclParser.registeredTypes = {
-    Object,
-    String,
-    Number,
-    Boolean,
-    Function
-};

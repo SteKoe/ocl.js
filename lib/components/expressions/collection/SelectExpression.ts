@@ -1,5 +1,5 @@
 import { IteratorExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
 /**
  * Selects all elements from collection which fit the expr.
@@ -8,7 +8,7 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.collection->select(item | item.name = "random")
  */
 export class SelectExpression extends IteratorExpression {
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitSelectExpression(this);
     }
 }

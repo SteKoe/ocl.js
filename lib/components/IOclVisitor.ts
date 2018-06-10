@@ -51,8 +51,8 @@ import {
     XorExpression
 } from './expressions';
 
-export interface OclVisitor {
-    visitPackageDeclaration(expr: PackageDeclaration): OclVisitor;
+export interface IOclVisitor {
+    visitPackageDeclaration(expr: PackageDeclaration): IOclVisitor;
 
     visitClassifierContextExpression(expr: ClassifierContextExpression): boolean;
 

@@ -1,8 +1,13 @@
-import { InvariantExpression } from './InvariantExpression';
-import { LetExpression } from './LetExpression';
+import { InvariantExpression } from '../InvariantExpression';
+import { LetExpression } from '../LetExpression';
 import { ContextExpression } from './ContextExpression';
-import { OclVisitor } from '../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
+/**
+ * Define invariants and definitions on a given types
+ *
+ * @oclExpression context <Type> (inv|def)
+ */
 export class ClassifierContextExpression extends ContextExpression {
     private invs: Array<InvariantExpression>;
     private defs: Array<LetExpression>;
@@ -27,7 +32,7 @@ export class ClassifierContextExpression extends ContextExpression {
         return this.defs;
     }
 
-    accept(visitor: OclVisitor): boolean {
+    accept(visitor: IOclVisitor): boolean {
         const accept = super.accept(visitor);
 
         if (accept === false) {
@@ -46,7 +51,7 @@ export class ClassifierContextExpression extends ContextExpression {
         return accept;
     }
 
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitClassifierContextExpression(this);
     }
 }

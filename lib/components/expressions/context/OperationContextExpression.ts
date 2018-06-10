@@ -1,7 +1,8 @@
 import { ContextExpression } from './ContextExpression';
-import { OclVisitor } from '../OclVisitor';
+import { IOclVisitor } from '../../IOclVisitor';
 
 /**
+ *
  */
 export class OperationContextExpression extends ContextExpression {
     private fnName: any;
@@ -24,11 +25,11 @@ export class OperationContextExpression extends ContextExpression {
         return this.expressions;
     }
 
-    accept(visitor: OclVisitor): boolean {
+    accept(visitor: IOclVisitor): boolean {
         return true;
     }
 
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         visitor.visitOperationContextExpression(this);
     }
 }

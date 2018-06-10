@@ -12,12 +12,16 @@
     "test": "npm run generate:parser && npm run test:fast",
     "test:debug": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts'",
     "test:fast": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} npx mocha -r ts-node/register 'test/**/*.spec.ts'",
-    "test:coverage": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} nyc ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts'"
+    "test:coverage": "npx rimraf -- coverage && cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} nyc ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts' && npx rimraf -- .nyc_output"
   },
   "nyc": {
     "extension": [
       ".ts",
       ".tsx"
+    ],
+    "exclude": [
+      "**/I[A-Z][a-z]*.ts",
+      "**/index.ts"
     ],
     "include": [
       "**/lib"

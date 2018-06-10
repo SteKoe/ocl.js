@@ -39,4 +39,11 @@ describe('OclEngine', () => {
         const result = oclEngine.evaluate(new Person(), 'live');
         expect(result.getEvaluatedContextsCount()).to.equal(1);
     });
+
+    it('should execute all expressions when using array', () => {
+        oclEngine.addOclExpression('context Person inv: self->oclIsTypeOf(Person)', ['batch']);
+        oclEngine.addOclExpression('context Person inv: self->oclIsTypeOf(Person)', ['live']);
+        const result = oclEngine.evaluate(new Person(), ['live', 'batch']);
+        expect(result.getEvaluatedContextsCount()).to.equal(2);
+    });
 });

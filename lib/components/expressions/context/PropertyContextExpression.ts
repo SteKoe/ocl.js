@@ -1,15 +1,18 @@
 import { ContextExpression } from './ContextExpression';
-import { InitExpression } from './InitExpression';
-import { DeriveExpression } from './DeriveExpression';
-import { Utils } from '../Utils';
-import { OclVisitor } from '../OclVisitor';
+import { InitExpression } from '../InitExpression';
+import { DeriveExpression } from '../DeriveExpression';
+import { Utils } from '../../Utils';
+import { IOclVisitor } from '../../IOclVisitor';
 
 /**
+ * A PropertyContextDefinition allows to initialize or derive a value for the targeted property.
+ *
+ * @oclExpression context Person::age (init|derive)
  */
 export class PropertyContextExpression extends ContextExpression {
-    propertyName: any;
-    inits: any;
-    derived: any;
+    private derived: any;
+    private inits: any;
+    private propertyName: any;
 
     constructor(targetType, rules) {
         super();
@@ -26,11 +29,11 @@ export class PropertyContextExpression extends ContextExpression {
         this.derived = rules.filter(i => i instanceof DeriveExpression);
     }
 
-    accept(visitor: OclVisitor): boolean {
+    accept(visitor: IOclVisitor): boolean {
         return Utils.getClassName(visitor.getObjectToEvaluate()) === this.targetType;
     }
 
-    visit(visitor: OclVisitor): any {
+    visit(visitor: IOclVisitor): any {
         return visitor.visitPropertyContextExpression(this);
     }
 }

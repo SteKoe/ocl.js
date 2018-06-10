@@ -1,7 +1,7 @@
 import { OclParser } from './parser/OclParser';
 import { Utils } from './Utils';
 import { OclVisitorImpl } from './OclVisitorImpl';
-import { ContextExpression } from './expressions/ContextExpression';
+import { ContextExpression } from './expressions/context/ContextExpression';
 
 /**
  * The OclEngine class is the main entry point to the OCL.js library.
@@ -12,7 +12,7 @@ export class OclEngine {
 
     static Utils = Utils;
 
-    private oclExpressions: Array<any> = [];
+    private packageDeclarations: Array<any> = [];
     private typeDeterminerFn: Function;
     private registeredTypes: object = OclParser.registeredTypes;
 
@@ -70,7 +70,7 @@ export class OclEngine {
     addOclExpression(oclExpression, labels: Array<string> = []): OclEngine {
         try {
             const parsedExpression = OclParser.parse(oclExpression, labels);
-            this.oclExpressions.push(parsedExpression);
+            this.packageDeclarations.push(parsedExpression);
         } catch (e) {
             e.oclExpression = oclExpression;
             throw e;
@@ -86,11 +86,11 @@ export class OclEngine {
      * @param labels An array of labels that address expressions that should be evaluated.
      * @returns a result object, which contains the actual result and other info @see OclResult
      */
-    evaluate(obj: any, labels: Array<any> = []): OclResult {
+    evaluate(obj: any, labels: Array<string> = []): OclResult {
         const visitor = new OclVisitorImpl(obj, Array.isArray(labels) ? labels : [labels]);
         visitor.registerTypes(this.registeredTypes);
 
-        this.oclExpressions.forEach(e => e.visit(visitor));
+        this.packageDeclarations.forEach(e => e.visit(visitor));
 
         return new OclResult(visitor.getFailedInvariants()
             .map(inv => inv.getName()), visitor.evaluatedContexts);
