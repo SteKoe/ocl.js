@@ -1,5 +1,4 @@
 import { OclExecutionContext } from '../OclExecutionContext';
-import * as Expr from './index';
 
 export abstract class Expression {
     variables: any;
