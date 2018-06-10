@@ -1,18 +1,18 @@
 import { expect } from 'chai';
 import { Dog, FixtureFactory, Human, Person } from '../fixture.factory';
-import { OclVisitorImpl } from '../../lib/components/OclVisitorImpl';
 import { OclParser } from '../../lib/components/parser/OclParser';
+import { OclExecutionContext } from '../../lib/components/OclExecutionContext';
 
 function expectTrue(oclExpression, visitor): void {
     OclParser.parse(oclExpression)
-        .visit(visitor);
+        .evaluate(visitor);
 
     expect(visitor.evaluationResult).to.be.true;
 }
 
 function expectFalse(oclExpression, visitor): void {
     OclParser.parse(oclExpression)
-        .visit(visitor);
+        .evaluate(visitor);
 
     expect(visitor.evaluationResult).to.be.false;
 }
@@ -20,7 +20,7 @@ function expectFalse(oclExpression, visitor): void {
 describe('oclIsKindOf', () => {
     const mother = FixtureFactory.createPerson('Hilde');
 
-    const visitor = new OclVisitorImpl(mother);
+    const visitor = new OclExecutionContext(mother);
     visitor.registerTypes({
         Human,
         Person,

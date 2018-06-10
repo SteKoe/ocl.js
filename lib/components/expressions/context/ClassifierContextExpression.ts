@@ -1,7 +1,7 @@
 import { InvariantExpression } from '../InvariantExpression';
 import { LetExpression } from '../LetExpression';
 import { ContextExpression } from './ContextExpression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Define invariants and definitions on a given types
@@ -32,7 +32,7 @@ export class ClassifierContextExpression extends ContextExpression {
         return this.defs;
     }
 
-    accept(visitor: IOclVisitor): boolean {
+    accept(visitor: OclExecutionContext): boolean {
         const accept = super.accept(visitor);
 
         if (accept === false) {
@@ -49,7 +49,26 @@ export class ClassifierContextExpression extends ContextExpression {
         }
     }
 
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitClassifierContextExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        super.evaluate(visitor);
+
+        if (this.accept(visitor)) {
+
+            this.getDefs()
+                .forEach(def => def.evaluate(visitor));
+
+            const invs = this.getInvs();
+
+            return !invs
+                .map(inv => {
+                    const evaluationResult = inv.evaluate(visitor);
+                    if (evaluationResult === false) {
+                        visitor.addFailedInvariant(inv);
+                    }
+
+                    return evaluationResult;
+                })
+                .some(inv => inv === false);
+        }
     }
 }

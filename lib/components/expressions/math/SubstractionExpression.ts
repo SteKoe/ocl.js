@@ -1,5 +1,5 @@
 import { LeftRightBasedExpression } from '../Expression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Substraction
@@ -8,7 +8,9 @@ import { IOclVisitor } from '../../IOclVisitor';
  * @oclExample 1 - 2
  */
 export class SubstractionExpression extends LeftRightBasedExpression {
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitSubstractionExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const {left, right} = this._visitLeftRightExpression(visitor);
+
+        return left - right;
     }
 }

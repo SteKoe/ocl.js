@@ -1,5 +1,5 @@
 import { LiteralExpression } from './LiteralExpression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  */
@@ -10,9 +10,5 @@ export class NumberExpression extends LiteralExpression<number> {
         } else {
             throw new SyntaxError(`NumberExpression: '${value}' is not a Number!`);
         }
-    }
-
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitLiteralExpression(this);
     }
 }

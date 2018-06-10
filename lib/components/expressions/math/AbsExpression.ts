@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Abs
@@ -7,7 +7,11 @@ import { IOclVisitor } from '../../IOclVisitor';
  * @oclExpression Symbol: abs
  */
 export class AbsExpression extends SourceBasedExpression {
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitAbsExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        this.getSource().variables = this.variables;
+        const left = this.getSource()
+            .evaluate(visitor);
+
+        return Math.abs(left);
     }
 }

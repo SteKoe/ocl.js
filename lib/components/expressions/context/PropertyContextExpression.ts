@@ -2,7 +2,7 @@ import { ContextExpression } from './ContextExpression';
 import { InitExpression } from '../InitExpression';
 import { DeriveExpression } from '../DeriveExpression';
 import { Utils } from '../../Utils';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 import { LetExpression } from '../LetExpression';
 
 /**
@@ -42,12 +42,22 @@ export class PropertyContextExpression extends ContextExpression {
         return this.propertyName;
     }
 
-    accept(visitor: IOclVisitor): boolean {
+    accept(visitor: OclExecutionContext): boolean {
         return Utils.getClassName(visitor.getObjectToEvaluate()) === this.targetType;
     }
 
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitPropertyContextExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        super.evaluate(visitor);
+
+        this.getInits().forEach(init => {
+            visitor.getObjectToEvaluate()[this.getPropertyName()] = init.evaluate(visitor);
+        });
+
+        this.getDerived().forEach(derive => {
+            visitor.getObjectToEvaluate()[this.getPropertyName()] = derive.evaluate(visitor);
+        });
+
+        return true;
     }
 
 }

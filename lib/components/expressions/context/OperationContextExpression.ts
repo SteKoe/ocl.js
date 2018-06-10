@@ -1,5 +1,5 @@
 import { ContextExpression } from './ContextExpression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  *
@@ -25,11 +25,18 @@ export class OperationContextExpression extends ContextExpression {
         return this.expressions;
     }
 
-    accept(visitor: IOclVisitor): boolean {
+    accept(visitor: OclExecutionContext): boolean {
         return true;
     }
 
-    visit(visitor: IOclVisitor): any {
-        visitor.visitOperationContextExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        super.evaluate(visitor);
+
+        if (this.accept(visitor)) {
+            this.getExpressions()
+                .forEach(expression => {
+                    expression.visit(visitor);
+                });
+        }
     }
 }

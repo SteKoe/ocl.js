@@ -1,14 +1,10 @@
 import { LiteralExpression } from './LiteralExpression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  */
 export class StringExpression extends LiteralExpression<string> {
     parseValue(value): string {
         return value.replace(/^\"|"$/g, '');
-    }
-
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitLiteralExpression(this);
     }
 }

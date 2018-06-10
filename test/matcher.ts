@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import { OclParser } from '../lib/components/parser/OclParser';
-import { OclVisitorImpl } from '../lib/components/OclVisitorImpl';
-import { IOclVisitor } from '../lib/components/IOclVisitor';
+import { OclExecutionContext } from '../lib/components/OclExecutionContext';
 
 export function expectOclRuleValidatesToTrue(oclExpression, obj?): void {
     const visitor = _parseAndEvaluate(oclExpression, obj);
@@ -14,10 +13,10 @@ export function expectOclRuleValidatesToFalse(oclExpression, obj?): void {
 }
 
 // ===
-function _parseAndEvaluate(oclExpression, obj?): IOclVisitor {
-    const visitor = new OclVisitorImpl(obj || {});
+function _parseAndEvaluate(oclExpression, obj?): OclExecutionContext {
+    const visitor = new OclExecutionContext(obj || {});
     const ast = OclParser.parse(oclExpression);
-    ast.visit(visitor);
+    ast.evaluate(visitor);
 
     return visitor;
 }

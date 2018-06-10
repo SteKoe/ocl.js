@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns the size of the given collection.
@@ -8,7 +8,14 @@ import { IOclVisitor } from '../../IOclVisitor';
  * @oclExample self.collection->size()
  */
 export class SizeExpression extends SourceBasedExpression {
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitSizeExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        if (source && (source instanceof Array || typeof source === 'string')) {
+            return source.length;
+        } else {
+            return 0;
+        }
     }
 }

@@ -1,5 +1,5 @@
 import { LeftRightBasedExpression } from '../Expression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Power
@@ -8,7 +8,9 @@ import { IOclVisitor } from '../../IOclVisitor';
  * @oclExample 4 ^ 2
  */
 export class PowerExpression extends LeftRightBasedExpression {
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitPowerExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const {left, right} = this._visitLeftRightExpression(visitor);
+
+        return Math.pow(left, right);
     }
 }

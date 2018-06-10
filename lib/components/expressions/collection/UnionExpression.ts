@@ -1,5 +1,5 @@
 import { BodyBasedExpression } from '../Expression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns a collection containing all elements of self and all elements of the passed in collection.
@@ -8,7 +8,18 @@ import { IOclVisitor } from '../../IOclVisitor';
  * @oclExample self.collection->union(self.anotherCollection)
  */
 export class UnionExpression extends BodyBasedExpression {
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitUnionExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        this.getBody().variables = this.variables;
+        const body = this.getBody()
+            .evaluate(visitor);
+
+        if (source instanceof Array && body instanceof Array) {
+            return source.concat(body);
+        }
+
+        return [];
     }
 }

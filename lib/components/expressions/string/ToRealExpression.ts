@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Tries to convert a string to a number.
@@ -8,7 +8,10 @@ import { IOclVisitor } from '../../IOclVisitor';
  * @oclExample "3.414"->toReal()
  */
 export class ToRealExpression extends SourceBasedExpression {
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitToRealExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        return Number.parseFloat(source);
     }
 }

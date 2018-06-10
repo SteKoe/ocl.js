@@ -1,5 +1,5 @@
 import { LeftRightBasedExpression } from '../Expression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Modulo
@@ -8,7 +8,9 @@ import { IOclVisitor } from '../../IOclVisitor';
  * @oclExample 4 mod 2
  */
 export class ModuloExpression extends LeftRightBasedExpression {
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitModuloExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const {left, right} = this._visitLeftRightExpression(visitor);
+
+        return left % right;
     }
 }

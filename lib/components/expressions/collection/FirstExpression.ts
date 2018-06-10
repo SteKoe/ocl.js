@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns the first element of the collection.
@@ -8,7 +8,12 @@ import { IOclVisitor } from '../../IOclVisitor';
  * @oclExample self.collection->first()
  */
 export class FirstExpression extends SourceBasedExpression {
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitFirstExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        if (source instanceof Array) {
+            return source[0];
+        }
     }
 }

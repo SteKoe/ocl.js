@@ -1,5 +1,5 @@
 import { LeftRightBasedExpression } from '../Expression';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * =====    =====   ===========
@@ -14,7 +14,13 @@ import { IOclVisitor } from '../../IOclVisitor';
  * @oclExample false implies true
  */
 export class ImpliesExpression extends LeftRightBasedExpression {
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitImpliesExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const {left, right} = this._visitLeftRightExpression(visitor);
+
+        if (left) {
+            return right;
+        } else {
+            return true;
+        }
     }
 }

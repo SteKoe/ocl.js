@@ -1,5 +1,5 @@
 import { LiteralExpression } from './index';
-import { IOclVisitor } from '../../IOclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 export class NilExpression extends LiteralExpression<void> {
     constructor() {
@@ -8,9 +8,5 @@ export class NilExpression extends LiteralExpression<void> {
 
     parseValue(): void {
         return;
-    }
-
-    visit(visitor: IOclVisitor): any {
-        return visitor.visitLiteralExpression(this);
     }
 }
