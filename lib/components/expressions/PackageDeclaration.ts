@@ -24,7 +24,6 @@ export class PackageDeclaration {
         return anies.length > 0;
     }
 
-
     getContexts(): Array<ContextExpression> {
         return this.contexts;
     }

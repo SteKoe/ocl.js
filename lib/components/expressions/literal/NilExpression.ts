@@ -6,8 +6,8 @@ export class NilExpression extends LiteralExpression<void> {
         super(undefined);
     }
 
-    parseValue(value): void {
-        return undefined;
+    parseValue(): void {
+        return;
     }
 
     visit(visitor: IOclVisitor): any {
