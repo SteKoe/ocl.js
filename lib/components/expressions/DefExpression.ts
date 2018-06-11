@@ -3,7 +3,7 @@ import { OclExecutionContext } from '../OclExecutionContext';
 
 /**
  */
-export class LetExpression extends Expression {
+export class DefExpression extends Expression {
     private key: string;
     private value: Expression;
 

@@ -1,5 +1,8 @@
 import { ContextExpression } from './ContextExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
+import { OclValidationError } from '../../OclValidationError';
+import { PreExpression } from '../PreExpression';
+import { PostExpression } from '../PostExpression';
 
 /**
  *
@@ -7,10 +10,11 @@ import { OclExecutionContext } from '../../OclExecutionContext';
 export class OperationContextExpression extends ContextExpression {
     private fnName: any;
     private returnType: any;
-    private expressions: any;
-    private params: any;
+    private preExpressions: Array<PreExpression>;
+    private postExpressions: Array<PostExpression>;
+    private params: Array<string>;
 
-    constructor(operationMetaInfo, expressions) {
+    constructor(operationMetaInfo, expressions, registeredTypes) {
         super();
 
         const split = operationMetaInfo.pathName.split('::');
@@ -18,25 +22,45 @@ export class OperationContextExpression extends ContextExpression {
         this.fnName = split[1];
         this.params = operationMetaInfo.params;
         this.returnType = operationMetaInfo.returnType;
-        this.expressions = expressions;
-    }
+        this.preExpressions = expressions.filter(expr => expr instanceof PreExpression);
+        this.postExpressions = expressions.filter(expr => expr instanceof PostExpression);
 
-    getExpressions(): any {
-        return this.expressions;
-    }
+        const actualType = registeredTypes[this.targetType];
+        if (actualType && typeof actualType.prototype[this.fnName] === 'function') {
+            const self = this;
+            const originalFn = actualType.prototype[this.fnName];
 
-    accept(visitor: OclExecutionContext): boolean {
-        return true;
-    }
+            actualType.prototype[this.fnName] = function(...args): any {
+                const oclExecutionContext = new OclExecutionContext(this);
+                oclExecutionContext.registerTypes(registeredTypes);
 
-    evaluate(visitor: OclExecutionContext): any {
-        super.evaluate(visitor);
+                const anies = (self.params || []).reduce((prev, cur, i) => {
+                    prev[cur] = args[i];
 
-        if (this.accept(visitor)) {
-            this.getExpressions()
-                .forEach(expression => {
-                    expression.visit(visitor);
+                    return prev;
+                }, {result: undefined});
+
+                self.preExpressions.forEach(preExpression => {
+                    preExpression.variables = anies;
+                    const evaluationResult = preExpression.evaluate(oclExecutionContext);
+                    if (!evaluationResult) {
+                        throw new OclValidationError(`A precondition failed on type ${self.targetType}.`);
+                    }
                 });
+
+                const result = originalFn.call(this, ...args);
+                anies.result = result;
+
+                self.postExpressions.forEach(postExpression => {
+                    postExpression.variables = anies;
+                    const evaluationResult = postExpression.evaluate(oclExecutionContext);
+                    if (!evaluationResult) {
+                        throw new OclValidationError(`A postcondition failed on type ${self.targetType}.`);
+                    }
+                });
+
+                return result;
+            };
         }
     }
 }

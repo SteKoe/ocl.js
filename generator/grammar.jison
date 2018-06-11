@@ -24,6 +24,8 @@
 "not"\b                             return 'not'
 "implies"                           return 'implies'
 "if"\b                              return 'if'
+"pre"                               return 'pre'
+"post"                               return 'post'
 "then"                              return 'then'
 "else"                              return 'else'
 "endif"                             return 'endif'
@@ -107,7 +109,7 @@ propertyContextDecl
 
 operationContextDecl
 	: 'context' operation prePostOrBodyDeclList
-	    { $$ = new yy.Expression.OperationContextExpression($2, $3); }
+	    { $$ = new yy.Expression.OperationContextExpression($2, $3, yy.registeredTypes); }
 	;
 
 prePostOrBodyDeclList
@@ -119,7 +121,9 @@ prePostOrBodyDeclList
 
 prePostOrBodyDecl
 	: 'pre' simpleNameOptional ':' oclExpression
+	    { $$ = new yy.Expression.PreExpression($4);}
 	| 'post' simpleNameOptional ':' oclExpression
+	    { $$ = new yy.Expression.PostExpression($4);}
 	| 'body' simpleNameOptional ':' oclExpression
 	;
 
@@ -153,7 +157,7 @@ invOrDef
 	: 'inv' simpleNameOptional ':' oclExpression
 	    { $$ = new yy.Expression.InvariantExpression($4, $2); }
     | 'def' simpleNameOptional ':' defExpression
-        { $$ = new yy.Expression.LetExpression($2, $4); }
+        { $$ = new yy.Expression.DefExpression($2, $4); }
 	;
 
 oclExpression
@@ -228,9 +232,9 @@ oclExpressionList
 
 defExpression
     : simpleName typeOptional '=' oclExpression
-        { $$ = new yy.Expression.LetExpression($1, $4); }
+        { $$ = new yy.Expression.DefExpression($1, $4); }
     | simpleName '(' simpleName typeOptional ')' typeOptional '=' oclExpression
-        { $$ = new yy.Expression.LetExpression($1, $8); }
+        { $$ = new yy.Expression.DefExpression($1, $8); }
 	;
 
 typeOptional

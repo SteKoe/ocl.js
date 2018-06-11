@@ -3,7 +3,7 @@ import { InitExpression } from '../InitExpression';
 import { DeriveExpression } from '../DeriveExpression';
 import { Utils } from '../../Utils';
 import { OclExecutionContext } from '../../OclExecutionContext';
-import { LetExpression } from '../LetExpression';
+import { DefExpression } from '../DefExpression';
 
 /**
  * A PropertyContextDefinition allows to initialize or derive a value for the targeted property.
@@ -30,7 +30,7 @@ export class PropertyContextExpression extends ContextExpression {
         this.derived = rules.filter(i => i instanceof DeriveExpression);
     }
 
-    getInits(): Array<LetExpression> {
+    getInits(): Array<DefExpression> {
         return this.inits;
     }
 

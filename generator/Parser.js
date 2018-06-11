@@ -1066,13 +1066,21 @@ case 9:
 case 10:
     /*! Production::    operationContextDecl : context operation prePostOrBodyDeclList */
 
-    this.$ = new yy.Expression.OperationContextExpression(yyvstack[yysp - 1], yyvstack[yysp]);
+    this.$ = new yy.Expression.OperationContextExpression(yyvstack[yysp - 1], yyvstack[yysp], yy.registeredTypes);
     break;
 
 case 13:
     /*! Production::    prePostOrBodyDecl : pre simpleNameOptional ":" oclExpression */
+
+    this.$ = new yy.Expression.PreExpression(yyvstack[yysp]);
+    break;
+
 case 14:
     /*! Production::    prePostOrBodyDecl : post simpleNameOptional ":" oclExpression */
+
+    this.$ = new yy.Expression.PostExpression(yyvstack[yysp]);
+    break;
+
 case 15:
     /*! Production::    prePostOrBodyDecl : body simpleNameOptional ":" oclExpression */
 
@@ -1108,7 +1116,7 @@ case 23:
 case 24:
     /*! Production::    invOrDef : def simpleNameOptional ":" defExpression */
 
-    this.$ = new yy.Expression.LetExpression(yyvstack[yysp - 2], yyvstack[yysp]);
+    this.$ = new yy.Expression.DefExpression(yyvstack[yysp - 2], yyvstack[yysp]);
     break;
 
 case 26:
@@ -1290,13 +1298,13 @@ case 55:
 case 57:
     /*! Production::    defExpression : simpleName typeOptional "=" oclExpression */
 
-    this.$ = new yy.Expression.LetExpression(yyvstack[yysp - 3], yyvstack[yysp]);
+    this.$ = new yy.Expression.DefExpression(yyvstack[yysp - 3], yyvstack[yysp]);
     break;
 
 case 58:
     /*! Production::    defExpression : simpleName "(" simpleName typeOptional ")" typeOptional "=" oclExpression */
 
-    this.$ = new yy.Expression.LetExpression(yyvstack[yysp - 7], yyvstack[yysp]);
+    this.$ = new yy.Expression.DefExpression(yyvstack[yysp - 7], yyvstack[yysp]);
     break;
 
 case 60:
@@ -5199,128 +5207,136 @@ EOF: 1,
       19: 38,
 
       /*! Conditions:: INITIAL */
+      /*! Rule::       pre */
+      20: 21,
+
+      /*! Conditions:: INITIAL */
+      /*! Rule::       post */
+      21: 22,
+
+      /*! Conditions:: INITIAL */
       /*! Rule::       then */
-      20: 39,
+      22: 39,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       else */
-      21: 40,
+      23: 40,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       endif */
-      22: 41,
+      24: 41,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       package */
-      23: 18,
+      25: 18,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       endpackage */
-      24: 19,
+      26: 19,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \( */
-      25: 4,
+      27: 4,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \) */
-      26: 5,
+      28: 5,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \| */
-      27: 15,
+      29: 15,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       -> */
-      28: 42,
+      30: 42,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       <= */
-      29: 32,
+      31: 32,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       >= */
-      30: 33,
+      32: 33,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       <> */
-      31: 34,
+      33: 34,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       < */
-      32: 12,
+      34: 12,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       = */
-      33: 13,
+      35: 13,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       > */
-      34: 14,
+      36: 14,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       :: */
-      35: 50,
+      37: 50,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       : */
-      36: 3,
+      38: 3,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \. */
-      37: 6,
+      39: 6,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       , */
-      38: 16,
+      40: 16,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \^ */
-      39: 8,
+      41: 8,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \+ */
-      40: 7,
+      42: 7,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       - */
-      41: 9,
+      43: 9,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \* */
-      42: 10,
+      44: 10,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \/ */
-      43: 11,
+      45: 11,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       @ */
-      44: 17,
+      46: 17,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       pre */
-      45: 21,
+      47: 21,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       nil */
-      46: 49,
+      48: 49,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       ["][^\"]*["] */
-      47: 46,
+      49: 46,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       ['][^\']*['] */
-      48: 46,
+      50: 46,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       [a-zA-Z_][a-zA-Z0-9_]* */
-      49: 29,
+      51: 29,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       $ */
-      50: 1
+      52: 1
     },
 
     rules: [
@@ -5344,37 +5360,39 @@ EOF: 1,
       /* 17: */  /^(?:not\b)/,
       /* 18: */  /^(?:implies)/,
       /* 19: */  /^(?:if\b)/,
-      /* 20: */  /^(?:then)/,
-      /* 21: */  /^(?:else)/,
-      /* 22: */  /^(?:endif)/,
-      /* 23: */  /^(?:package)/,
-      /* 24: */  /^(?:endpackage)/,
-      /* 25: */  /^(?:\()/,
-      /* 26: */  /^(?:\))/,
-      /* 27: */  /^(?:\|)/,
-      /* 28: */  /^(?:->)/,
-      /* 29: */  /^(?:<=)/,
-      /* 30: */  /^(?:>=)/,
-      /* 31: */  /^(?:<>)/,
-      /* 32: */  /^(?:<)/,
-      /* 33: */  /^(?:=)/,
-      /* 34: */  /^(?:>)/,
-      /* 35: */  /^(?:::)/,
-      /* 36: */  /^(?::)/,
-      /* 37: */  /^(?:\.)/,
-      /* 38: */  /^(?:,)/,
-      /* 39: */  /^(?:\^)/,
-      /* 40: */  /^(?:\+)/,
-      /* 41: */  /^(?:-)/,
-      /* 42: */  /^(?:\*)/,
-      /* 43: */  /^(?:\/)/,
-      /* 44: */  /^(?:@)/,
-      /* 45: */  /^(?:pre)/,
-      /* 46: */  /^(?:nil)/,
-      /* 47: */  /^(?:["][^"]*["])/,
-      /* 48: */  /^(?:['][^']*['])/,
-      /* 49: */  /^(?:[^\W\d]\w*)/,
-      /* 50: */  /^(?:$)/
+      /* 20: */  /^(?:pre)/,
+      /* 21: */  /^(?:post)/,
+      /* 22: */  /^(?:then)/,
+      /* 23: */  /^(?:else)/,
+      /* 24: */  /^(?:endif)/,
+      /* 25: */  /^(?:package)/,
+      /* 26: */  /^(?:endpackage)/,
+      /* 27: */  /^(?:\()/,
+      /* 28: */  /^(?:\))/,
+      /* 29: */  /^(?:\|)/,
+      /* 30: */  /^(?:->)/,
+      /* 31: */  /^(?:<=)/,
+      /* 32: */  /^(?:>=)/,
+      /* 33: */  /^(?:<>)/,
+      /* 34: */  /^(?:<)/,
+      /* 35: */  /^(?:=)/,
+      /* 36: */  /^(?:>)/,
+      /* 37: */  /^(?:::)/,
+      /* 38: */  /^(?::)/,
+      /* 39: */  /^(?:\.)/,
+      /* 40: */  /^(?:,)/,
+      /* 41: */  /^(?:\^)/,
+      /* 42: */  /^(?:\+)/,
+      /* 43: */  /^(?:-)/,
+      /* 44: */  /^(?:\*)/,
+      /* 45: */  /^(?:\/)/,
+      /* 46: */  /^(?:@)/,
+      /* 47: */  /^(?:pre)/,
+      /* 48: */  /^(?:nil)/,
+      /* 49: */  /^(?:["][^"]*["])/,
+      /* 50: */  /^(?:['][^']*['])/,
+      /* 51: */  /^(?:[^\W\d]\w*)/,
+      /* 52: */  /^(?:$)/
     ],
 
     conditions: {
@@ -5430,7 +5448,9 @@ EOF: 1,
           47,
           48,
           49,
-          50
+          50,
+          51,
+          52
         ],
 
         inclusive: true

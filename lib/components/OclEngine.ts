@@ -70,7 +70,7 @@ export class OclEngine {
      */
     addOclExpression(oclExpression, labels: Array<string> = []): OclEngine {
         try {
-            const parsedExpression = OclParser.parse(oclExpression, labels);
+            const parsedExpression = OclParser.parse(oclExpression, labels, this.registeredTypes);
             this.packageDeclarations.push(parsedExpression);
         } catch (e) {
             e.oclExpression = oclExpression;

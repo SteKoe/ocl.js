@@ -23,10 +23,23 @@ export class Person extends Human {
     jobs: Array<Job> = [];
     parents: Array<Person> = [];
     fleet: Array<Car> = [];
+    private isAlive: boolean = true;
 
     constructor(age = 21) {
         super();
         this.age = age;
+    }
+
+    setAge(age: number): void {
+        this.age = age;
+    }
+
+    getAge(): number {
+        return this.age;
+    }
+
+    setDead(): void {
+        this.isAlive = false;
     }
 
     getChildren(): Array<Person> {
