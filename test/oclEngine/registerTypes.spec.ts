@@ -1,20 +1,20 @@
-import {expect} from 'chai';
-import {OclEngine} from "../../lib/components/OclEngine";
-import {Person} from '../fixture.factory'
+import { expect } from 'chai';
+import { OclEngine } from '../../lib';
+import { Person } from '../fixture.factory';
 
-describe('OclEngine', function () {
-    let oclEngine = OclEngine.create();
+describe('OclEngine', () => {
+    const oclEngine = OclEngine.create();
     oclEngine.registerTypes({
-        "Person": Person
+        Person
     });
 
-    it('should register types for oclIsTypeOf', function () {
+    it('should register types for oclIsTypeOf', () => {
         oclEngine.addOclExpression(`
             context Person inv: self->oclIsTypeOf(Person)
         `);
 
-        let oclResult = oclEngine.evaluate(new Person());
-        let result = oclResult.getResult();
+        const oclResult = oclEngine.evaluate(new Person());
+        const result = oclResult.getResult();
         expect(result).to.be.true;
     });
 });

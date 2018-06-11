@@ -1,3 +1,5 @@
+import { OclExecutionContext } from '../OclExecutionContext';
+
 export abstract class Expression {
     variables: any;
 
@@ -7,24 +9,24 @@ export abstract class Expression {
         this.type = this.constructor.name;
     }
 
-    accept(obj): boolean {
+    accept(obj: OclExecutionContext): boolean {
         return true;
     }
 
-    visit(visitor): any {
+    evaluate(visitor: OclExecutionContext): any {
         throw new Error(`Visitor for '${this.type}' not yet implemented!`);
     }
 }
 
 export abstract class SourceBasedExpression extends Expression {
-    private source: any;
+    protected source: any;
 
     constructor(source) {
         super();
         this.source = source;
     }
 
-    getSource(): any {
+    getSource(): Expression {
         return this.source;
     }
 }
@@ -36,7 +38,7 @@ export abstract class BodyBasedExpression extends SourceBasedExpression {
         this.body = body;
     }
 
-    getBody(): any {
+    getBody(): Expression {
         return this.body;
     }
 }
@@ -63,11 +65,23 @@ export abstract class LeftRightBasedExpression extends Expression {
         this.right = right;
     }
 
-    getLeft(): any {
+    getLeft(): Expression {
         return this.left;
     }
 
-    getRight(): any {
+    getRight(): Expression {
         return this.right;
+    }
+
+    _visitLeftRightExpression(visitor: OclExecutionContext): { left: any, right: any } {
+        this.getLeft().variables = this.variables;
+        const left = this.getLeft()
+            .evaluate(visitor);
+
+        this.getRight().variables = this.variables;
+        const right = this.getRight()
+            .evaluate(visitor);
+
+        return {left, right};
     }
 }

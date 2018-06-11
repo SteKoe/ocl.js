@@ -7,6 +7,7 @@ export * from './ForAllExpression';
 export * from './IsEmptyExpression';
 export * from './NotEmptyExpression';
 export * from './LastExpression';
+export * from './OneExpression';
 export * from './RejectExpression';
 export * from './SelectExpression';
 export * from './SizeExpression';

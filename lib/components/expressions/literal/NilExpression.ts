@@ -1,5 +1,4 @@
 import { LiteralExpression } from './index';
-import { OclVisitor } from '../../OclVisitor';
 
 export class NilExpression extends LiteralExpression<void> {
     constructor() {
@@ -8,9 +7,5 @@ export class NilExpression extends LiteralExpression<void> {
 
     parseValue(): void {
         return;
-    }
-
-    visit(visitor: OclVisitor): any {
-        return visitor.visitLiteralExpression(this);
     }
 }

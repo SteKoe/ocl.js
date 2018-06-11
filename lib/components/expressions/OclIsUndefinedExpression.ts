@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { OclExecutionContext } from '../OclExecutionContext';
 
 /**
  * Checks if *self* is not defined
@@ -7,7 +7,10 @@ import { OclVisitor } from '../OclVisitor';
  * @oclExpression oclIsUndefined() : Boolean
  */
 export class OclIsUndefinedExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitOclIsUndefinedExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const result = this.getSource()
+            .evaluate(visitor);
+
+        return result === undefined || typeof result === 'undefined';
     }
 }

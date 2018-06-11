@@ -1,5 +1,5 @@
 import { BodyBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns the index of the given string in self or 0 if it is not condained.
@@ -8,7 +8,12 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.name->indexOf("string")
  */
 export class IndexOfExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitIndexOfExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+        const indexOfString = this.getBody()
+            .evaluate(visitor);
+
+        return indexOfString.length === 0 ? 0 : source.indexOf(indexOfString) + 1;
     }
 }

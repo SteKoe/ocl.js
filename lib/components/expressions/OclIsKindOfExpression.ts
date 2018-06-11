@@ -1,5 +1,5 @@
 import { BodyBasedExpression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { OclExecutionContext } from '../OclExecutionContext';
 
 /**
  * Checks if *self* is an instance of the class identified by the name
@@ -7,7 +7,17 @@ import { OclVisitor } from '../OclVisitor';
  * @oclExpression oclIsKindOf(type : T) : Boolean
  */
 export class OclIsKindOfExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitOclIsKindOfExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        const body = this.getBody() ? this.getBody()
+            .evaluate(visitor) : undefined;
+
+        if (!body) {
+            return false;
+        }
+
+        return source instanceof body;
     }
 }

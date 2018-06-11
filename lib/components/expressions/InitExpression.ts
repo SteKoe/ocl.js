@@ -1,5 +1,5 @@
 import { Expression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { OclExecutionContext } from '../OclExecutionContext';
 
 /**
  */
@@ -11,11 +11,12 @@ export class InitExpression extends Expression {
         this.value = value;
     }
 
-    getValue(): any {
+    getValue(): Expression {
         return this.value;
     }
 
-    visit(visitor: OclVisitor): any {
-        return visitor.visitInitExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        return this.getValue()
+            .evaluate(visitor);
     }
 }

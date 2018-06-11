@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * =====    =====
@@ -12,7 +12,10 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample not false
  */
 export class NotExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitNotExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        return source !== true;
     }
 }

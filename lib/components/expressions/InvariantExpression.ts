@@ -1,11 +1,11 @@
 import { Expression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { OclExecutionContext } from '../OclExecutionContext';
 
 /**
  */
 export class InvariantExpression extends Expression {
     private name: string;
-    private definition: any;
+    private definition: Expression;
 
     constructor(oclExpression, name) {
         super();
@@ -21,7 +21,8 @@ export class InvariantExpression extends Expression {
         return this.definition;
     }
 
-    visit(visitor: OclVisitor): any {
-        return visitor.visitInvariantExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        return this.getDefinition()
+            .evaluate(visitor);
     }
 }

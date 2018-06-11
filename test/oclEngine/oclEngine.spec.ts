@@ -1,25 +1,25 @@
-import {expect} from 'chai';
-import {OclEngine} from "../../lib/components/OclEngine";
-import {FixtureFactory, MetaAssociationLink, MetaEntity} from "../fixture.factory";
+import { expect } from 'chai';
+import { OclEngine } from '../../lib';
+import { FixtureFactory, MetaAssociationLink, MetaEntity } from '../fixture.factory';
 
-describe('OclEngine', function () {
-    it('should evaluate oclExpression for given instance data when all are valid.', function () {
-        let metaEntity = new MetaEntity();
+describe('OclEngine', () => {
+    it('should evaluate oclExpression for given instance data when all are valid.', () => {
+        const metaEntity = new MetaEntity();
         metaEntity.metaAssociationLinks = [
             new MetaAssociationLink('roleA'),
             new MetaAssociationLink('roleB')
         ];
 
-        let rule_distinctRoleNames = `
-            context MetaEntity inv: 
+        const rule_distinctRoleNames = `
+            context MetaEntity inv:
                 self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
         `;
-        let rule_ifTypeImpliesIntrinsic = `
-            context MetaEntity inv: 
+        const rule_ifTypeImpliesIntrinsic = `
+            context MetaEntity inv:
                 self.isType = true implies self.isIntrinsic = false
         `;
 
-        let result = OclEngine.create()
+        const result = OclEngine.create()
             .addOclExpression(rule_distinctRoleNames)
             .addOclExpression(rule_ifTypeImpliesIntrinsic)
             .evaluate(metaEntity)
@@ -27,18 +27,18 @@ describe('OclEngine', function () {
         expect(result).to.be.true;
     });
 
-    it('should evaluate oclExpression for given instance data when one is invalid.', function () {
+    it('should evaluate oclExpression for given instance data when one is invalid.', () => {
         const oclEngine = new OclEngine();
         oclEngine.addOclExpression(`
-            context MetaEntity inv: 
+            context MetaEntity inv:
                 self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
         `);
         oclEngine.addOclExpression(`
-            context MetaEntity inv: 
+            context MetaEntity inv:
                 self.isType = true implies self.isIntrinsic = false
         `);
 
-        let metaEntity = new MetaEntity();
+        const metaEntity = new MetaEntity();
         metaEntity.metaAssociationLinks = [
             new MetaAssociationLink('roleA'),
             new MetaAssociationLink('roleA')
@@ -47,18 +47,18 @@ describe('OclEngine', function () {
         expect(oclEngine.evaluate(metaEntity).getResult()).to.be.false;
     });
 
-    it('should allow to set names for expressions', function () {
+    it('should allow to set names for expressions', () => {
         const oclEngine = new OclEngine();
         oclEngine.addOclExpression(`
-            context MetaEntity 
+            context MetaEntity
                 inv linkNamesMustBeUnique: self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
         `);
         oclEngine.addOclExpression(`
-            context MetaEntity inv: 
+            context MetaEntity inv:
                 self.isType = true implies self.isIntrinsic = false
         `);
 
-        let metaEntity = new MetaEntity();
+        const metaEntity = new MetaEntity();
         metaEntity.metaAssociationLinks = [
             new MetaAssociationLink('roleA'),
             new MetaAssociationLink('roleA')
@@ -69,14 +69,14 @@ describe('OclEngine', function () {
         expect(evaluationResult.getNamesOfFailedInvs()).to.contain('linkNamesMustBeUnique');
     });
 
-    it('should allow to add multiple constraints as array', function () {
+    it('should allow to add multiple constraints as array', () => {
         const oclConstraints = [
             `
-                context MetaEntity 
+                context MetaEntity
                     inv linkNamesMustBeUnique: self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
                 `,
             `
-                context MetaEntity inv: 
+                context MetaEntity inv:
                     1=1asdasdsd
                 `
         ];
@@ -86,7 +86,7 @@ describe('OclEngine', function () {
         try {
             oclEngine.addOclExpressions(oclConstraints);
         } catch (e) {
-            expect(e.oclExpression).to.eql(oclConstraints[1])
+            expect(e.oclExpression).to.eql(oclConstraints[1]);
         }
     });
 
@@ -101,16 +101,16 @@ describe('OclEngine', function () {
             let actual;
 
             actual = oclEngine._inferType({});
-            expect(actual, "{}").to.equal('Object');
+            expect(actual, '{}').to.equal('Object');
 
-            actual = oclEngine._inferType("i am a string");
-            expect(actual, "i am a string").to.be.undefined;
+            actual = oclEngine._inferType('i am a string');
+            expect(actual, 'i am a string').to.be.undefined;
 
             actual = oclEngine._inferType(1);
-            expect(actual, "1").to.be.undefined;
+            expect(actual, '1').to.be.undefined;
 
-            actual = oclEngine._inferType(FixtureFactory.createPerson("Stephan", 30));
-            expect(actual, "Person").to.equal('Person');
+            actual = oclEngine._inferType(FixtureFactory.createPerson('Stephan', 30));
+            expect(actual, 'Person').to.equal('Person');
         });
 
         it('infers types based on custom TypeDeterminer', () => {
@@ -127,22 +127,21 @@ describe('OclEngine', function () {
             OclEngine.Utils.typeDeterminerFn = undefined;
         });
 
-        it('should allow to add multiple constraints as array', function () {
+        it('should allow to add multiple constraints as array', () => {
             const oclConstraints = [
                 `
-                context MetaEntity 
+                context MetaEntity
                     inv linkNamesMustBeUnique: self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
                 `,
                 `
-                context MetaEntity inv: 
+                context MetaEntity inv:
                     self.isType = true implies self.isIntrinsic = false
                 `
             ];
-            const oclEngine = new OclEngine();
 
             oclEngine.addOclExpressions(oclConstraints);
 
-            let metaEntity = new MetaEntity();
+            const metaEntity = new MetaEntity();
             metaEntity.metaAssociationLinks = [
                 new MetaAssociationLink('roleA'),
                 new MetaAssociationLink('roleA')
@@ -153,20 +152,19 @@ describe('OclEngine', function () {
             expect(evaluationResult.getNamesOfFailedInvs()).to.contain('linkNamesMustBeUnique');
         });
 
-        it('should allow to add multiple constraints as string', function () {
+        it('should allow to add multiple constraints as string', () => {
             const oclConstraints = `
-                context MetaEntity inv linkNamesMustBeUnique: 
+                context MetaEntity inv linkNamesMustBeUnique:
                     self.metaAssociationLinks->forAll(a1,a2|a1<>a2 implies a1.roleName <> a2.roleName)
-                    
-                context MetaEntity inv ifIsTypeItMustNotBeIntrinsic: 
+
+                context MetaEntity inv ifIsTypeItMustNotBeIntrinsic:
                     self.isType = true implies self.isIntrinsic = false
                 `
             ;
-            const oclEngine = new OclEngine();
 
             oclEngine.addOclExpression(oclConstraints);
 
-            let metaEntity = new MetaEntity();
+            const metaEntity = new MetaEntity();
             metaEntity.metaAssociationLinks = [
                 new MetaAssociationLink('roleA'),
                 new MetaAssociationLink('roleA')
@@ -176,6 +174,5 @@ describe('OclEngine', function () {
             expect(evaluationResult.getResult()).to.be.false;
             expect(evaluationResult.getNamesOfFailedInvs()).to.contain('linkNamesMustBeUnique');
         });
-
     });
 });

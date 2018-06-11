@@ -1,5 +1,5 @@
 import { LeftRightBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Multiply
@@ -8,7 +8,9 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample 1 * 2
  */
 export class MultiplyExpression extends LeftRightBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitMultiplyExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const {left, right} = this._visitLeftRightExpression(visitor);
+
+        return left * right;
     }
 }

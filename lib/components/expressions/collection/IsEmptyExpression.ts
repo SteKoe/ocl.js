@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns true if self is empty, false otherwise.
@@ -8,7 +8,10 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.cars->isEmpty()
  */
 export class IsEmptyExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitIsEmptyExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        return Array.isArray(source) ? source.length === 0 : true;
     }
 }

@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns a string in upper case
@@ -8,7 +8,11 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.name->toUpperCase()
  */
 export class ToUpperCaseExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitToUpperCaseExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        return String(source)
+            .toUpperCase();
     }
 }

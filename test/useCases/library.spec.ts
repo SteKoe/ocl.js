@@ -1,21 +1,20 @@
-import {Book, Library, Writer} from "../fixture.factory";
-import {expectOclRuleValidatesToFalse} from '../matcher'
-
+import { Book, Library, Writer } from '../fixture.factory';
+import { expectOclRuleValidatesToFalse } from '../matcher';
 
 describe('Example', () => {
     describe('Library', () => {
         it('parent is same', () => {
-            let library = new Library();
+            const library = new Library();
 
-            const julesVerne = new Writer("Jules Verne");
-            julesVerne.books.push(new Book("Le Tour du monde en quatre-vingts jours"));
-            julesVerne.books.push(new Book("Vingt mille lieues sous les mers"));
+            const julesVerne = new Writer('Jules Verne');
+            julesVerne.books.push(new Book('Le Tour du monde en quatre-vingts jours'));
+            julesVerne.books.push(new Book('Vingt mille lieues sous les mers'));
 
             library.writers.push(julesVerne);
-            library.writers.push(new Writer("Unknown Author"));
+            library.writers.push(new Writer('Unknown Author'));
 
             const oclExpression = `
-            context Library 
+            context Library
                 def: unpublishedWriters = writers->select(books->isEmpty())
                 inv: unpublishedWriters->isEmpty()
         `;
@@ -23,14 +22,14 @@ describe('Example', () => {
         });
 
         it('parent is same', () => {
-            let library = new Library();
+            const library = new Library();
 
-            const julesVerne = new Writer("Jules Verne");
-            julesVerne.books.push(new Book("Le Tour du monde en quatre-vingts jours"));
-            julesVerne.books.push(new Book("Vingt mille lieues sous les mers"));
+            const julesVerne = new Writer('Jules Verne');
+            julesVerne.books.push(new Book('Le Tour du monde en quatre-vingts jours'));
+            julesVerne.books.push(new Book('Vingt mille lieues sous les mers'));
 
             library.writers.push(julesVerne);
-            library.writers.push(new Writer("Unknown Author"));
+            library.writers.push(new Writer('Unknown Author'));
 
             const oclExpression = `
             context Library
@@ -44,20 +43,19 @@ describe('Example', () => {
         });
 
         it('parent is same', () => {
-            let library = new Library();
+            const library = new Library();
 
-            const julesVerne = new Writer("Jules Verne");
-            julesVerne.books.push(new Book("Le Tour du monde en quatre-vingts jours"));
-            julesVerne.books.push(new Book("Vingt mille lieues sous les mers"));
+            const julesVerne = new Writer('Jules Verne');
+            julesVerne.books.push(new Book('Le Tour du monde en quatre-vingts jours'));
+            julesVerne.books.push(new Book('Vingt mille lieues sous les mers'));
 
-            const unknownAuthor = new Writer("Unknown Author");
+            const unknownAuthor = new Writer('Unknown Author');
 
             library.writers.push(julesVerne);
             library.writers.push(unknownAuthor);
 
-            const oclExpression = `context Library inv: writers->select(books->isEmpty())->size() = 1`;
+            const oclExpression = 'context Library inv: writers->select(books->isEmpty())->size() = 1';
             expectOclRuleValidatesToFalse(oclExpression, library);
         });
     });
 });
-

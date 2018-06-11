@@ -1,5 +1,5 @@
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../../matcher'
-import {FixtureFactory} from "../../fixture.factory";
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../../matcher';
+import { FixtureFactory } from '../../fixture.factory';
 
 describe('Collection->exists', () => {
     const mother = FixtureFactory.createPerson('Hilde');
@@ -10,12 +10,12 @@ describe('Collection->exists', () => {
     ];
 
     it('should evaluate exists() using iterator', () => {
-        let oclExpression = `context Person inv: self.children->exists(c|c.age > 20)`;
+        const oclExpression = 'context Person inv: self.children->exists(c|c.age > 20)';
         expectOclRuleValidatesToFalse(oclExpression, mother);
     });
 
     it('should evaluate exists() without iterator', () => {
-        const oclExpression = `context Person inv: self.children->exists(age > 20)`;
+        const oclExpression = 'context Person inv: self.children->exists(age > 20)';
         expectOclRuleValidatesToFalse(oclExpression, mother);
     });
 
@@ -31,14 +31,14 @@ describe('Collection->exists', () => {
     });
 
     it('should check if there are underAged customers', () => {
-        let obj = {
+        const obj = {
             customer: [
                 {underAge: false},
                 {underAge: true}
             ]
         };
 
-        const oclExpression = `context Object inv: self.customer->exists(underAge = true)`;
+        const oclExpression = 'context Object inv: self.customer->exists(underAge = true)';
         expectOclRuleValidatesToTrue(oclExpression, obj);
     });
 });

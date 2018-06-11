@@ -1,5 +1,5 @@
 import { LeftRightBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Division
@@ -8,7 +8,9 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample 17 / 2
  */
 export class DivideExpression extends LeftRightBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitDivideExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const {left, right} = this._visitLeftRightExpression(visitor);
+
+        return left / right;
     }
 }

@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns the last element of the collection.
@@ -8,7 +8,12 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.collection->last()
  */
 export class LastExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitLastExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        if (source instanceof Array) {
+            return source[source.length - 1];
+        }
     }
 }

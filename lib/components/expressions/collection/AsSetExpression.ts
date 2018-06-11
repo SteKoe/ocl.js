@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns the given collection as set, containing unique entries.
@@ -8,7 +8,12 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.collection->asSet()
  */
 export class AsSetExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitAsSetExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        if (source instanceof Array) {
+            return Array.from(new Set(source));
+        }
     }
 }

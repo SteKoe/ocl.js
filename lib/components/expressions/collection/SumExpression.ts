@@ -1,5 +1,5 @@
 import { SourceBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns the sum of all elements contained in self if they support the '+' operation.
@@ -8,7 +8,14 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.jobs.salary->sum()
  */
 export class SumExpression extends SourceBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitSumExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        if (source instanceof Array && source instanceof Array) {
+            return source.reduce((prev, cur) => prev + cur, 0);
+        }
+
+        return 0;
     }
 }

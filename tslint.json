@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "tslint-no-unused-expression-chai"
+  ],
   "rules": {
     "no-unnecessary-class": [
       true,
@@ -31,6 +34,7 @@
     "new-parens": true,
     "no-misused-new": true,
     "no-construct": true,
+    "interface-name": [true, "always-prefix"],
     "no-empty-interface": true,
     "prefer-method-signature": true,
     "interface-over-type-literal": true,
@@ -62,7 +66,7 @@
       "check-parameters"
     ],
     "no-unnecessary-initializer": true,
-    "no-implicit-dependencies": true,
+    "no-implicit-dependencies": [true, "dev"],
     "ordered-imports": [
       true,
       {
@@ -74,7 +78,6 @@
     "no-duplicate-imports": true,
     "no-require-imports": true,
     "no-default-export": true,
-    "no-reference": true,
     "typedef": [
       true,
       "call-signature",
@@ -112,10 +115,6 @@
     "no-bitwise": true,
     "use-isnan": true,
     "no-conditional-assignment": true,
-    "prefer-conditional-expression": [
-      true,
-      "check-else-if"
-    ],
     "prefer-while": true,
     "prefer-for-of": true,
     "forin": true,
@@ -134,7 +133,7 @@
     ],
     "max-line-length": [
       true,
-      140
+      200
     ],
     "indent": [
       true,
@@ -186,7 +185,6 @@
     "import-spacing": true,
     "no-trailing-whitespace": true,
     "newline-before-return": true,
-    "newline-per-chained-call": true,
     "one-line": [
       true,
       "check-open-brace",
@@ -220,17 +218,16 @@
     "class-name": true,
     "variable-name": [
       true,
-      "check-format",
       "allow-leading-underscore",
       "ban-keywords"
     ],
     "comment-format": [
       true,
       "check-space",
-      "check-lowercase",
       {
         "ignore-words": [
-          "TODO"
+          "TODO",
+          "FIXME"
         ]
       }
     ],
@@ -254,10 +251,6 @@
     "no-namespace": true,
     "no-internal-module": true,
     "radix": true,
-    "no-unused-expression": [
-      true,
-      "allow-fast-null-checks"
-    ],
     "no-empty": true
   }
 }

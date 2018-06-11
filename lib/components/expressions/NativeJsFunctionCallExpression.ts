@@ -1,9 +1,9 @@
-import { SourceBasedExpression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { Expression, SourceBasedExpression } from './Expression';
+import { OclExecutionContext } from '../OclExecutionContext';
 
 export class NativeJsFunctionCallExpression extends SourceBasedExpression {
     private fn: any;
-    private params: Array<any>;
+    private params: Array<Expression>;
 
     constructor(source, fn, params) {
         super(source);
@@ -15,12 +15,25 @@ export class NativeJsFunctionCallExpression extends SourceBasedExpression {
         return this.fn;
     }
 
-    getParams(): Array<any> {
+    getParams(): Array<Expression> {
         return this.params;
     }
 
-    visit(visitor: OclVisitor): any {
-        return visitor.visitNativeJsFunctionCallExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+
+        const params = this.getParams()
+            .map(param => param.evaluate(visitor));
+
+        if (!source) {
+            return false;
+        }
+
+        const fn = source[this.getFn()];
+        const isFunction = typeof fn === 'function';
+
+        return isFunction ? fn.apply(source, params) : false;
     }
 
 }

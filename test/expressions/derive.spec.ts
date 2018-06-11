@@ -1,18 +1,18 @@
-import {expect} from "chai";
-import {Job, Person} from "../fixture.factory";
-import {expectOclRuleValidatesToTrue} from '../matcher'
+import { expect } from 'chai';
+import { Job, Person } from '../fixture.factory';
+import { expectOclRuleValidatesToTrue } from '../matcher';
 
 describe('derive', () => {
     it('sets variable on derive', () => {
-        let obj = new Person();
-        let oclExpression = `context Person::age : Integer derive: 12`;
+        const obj = new Person();
+        const oclExpression = 'context Person::age : Integer derive: 12';
         expectOclRuleValidatesToTrue(oclExpression, obj);
         expect(obj.age).to.equal(12);
     });
 
     it('derive wins over init', () => {
-        let person = new Person();
-        let oclExpression = `
+        const person = new Person();
+        const oclExpression = `
                 context Person::age : Integer
                     init: 10
                     derive: 12
@@ -23,8 +23,8 @@ describe('derive', () => {
     });
 
     it('derive using if', () => {
-        let person = new Person(12);
-        let oclExpression = `context Person::income : Integer derive: if age < 18 then 15 else 10000 endif`;
+        const person = new Person(12);
+        const oclExpression = 'context Person::income : Integer derive: if age < 18 then 15 else 10000 endif';
         expectOclRuleValidatesToTrue(oclExpression, person);
         expect(person.income).to.equal(15);
     });
@@ -40,11 +40,11 @@ describe('derive', () => {
         const mother = new Person();
         mother.jobs.push(jobMother);
 
-        let child = new Person(12);
+        const child = new Person(12);
         child.parents.push(father);
         child.parents.push(mother);
 
-        let oclExpression = `context Person::income : Integer derive: if age < 18 then self.parents.jobs.salary->sum() * 0.02 / 12 else self.jobs.salary->sum() endif`;
+        const oclExpression = 'context Person::income : Integer derive: if age < 18 then self.parents.jobs.salary->sum() * 0.02 / 12 else self.jobs.salary->sum() endif';
         expectOclRuleValidatesToTrue(oclExpression, child);
         expect(child.income).to.equal(60);
 
@@ -58,4 +58,3 @@ describe('derive', () => {
         expect(child.income).to.equal(17000);
     });
 });
-

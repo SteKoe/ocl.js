@@ -1,12 +1,12 @@
-import {expect} from "chai";
-import {OclParser} from "../../lib/components/parser/OclParser";
+import { expect } from 'chai';
+import { OclParser } from '../../lib/components/parser/OclParser';
 
 describe('Comments', () => {
     it('should be allowed using -- for single line comments', () => {
         const oclExpression = `
             -- This is a valid comment
             context Person inv:
-                self.children->exists(c|c.age > 20) 
+                self.children->exists(c|c.age > 20)
         `;
 
         expect(() => OclParser.parse(oclExpression)).not.to.throw();
@@ -17,7 +17,7 @@ describe('Comments', () => {
             -- This is a valid comment
               this is not
             context Person inv:
-                self.children->exists(c|c.age > 20) 
+                self.children->exists(c|c.age > 20)
         `;
 
         expect(() => OclParser.parse(oclExpression)).to.throw();

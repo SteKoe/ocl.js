@@ -1,11 +1,11 @@
-import {FixtureFactory, MetaAttribute} from "../fixture.factory";
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../matcher'
+import { FixtureFactory, MetaAttribute } from '../fixture.factory';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
 
 describe('inv', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);
 
     it('should evaluate self.parents->forAll(p | p <> self)', () => {
-        const oclExpression = `context Person inv: self.parents->forAll(p | p <> self)`;
+        const oclExpression = 'context Person inv: self.parents->forAll(p | p <> self)';
         expectOclRuleValidatesToTrue(oclExpression, mother);
 
         // Now set self to parent
@@ -18,7 +18,7 @@ describe('inv', () => {
         obj.minCard = 0;
         obj.maxCard = 10;
 
-        const oclExpression = `context MetaAttribute inv: self.minCard <= self.maxCard or (self.minCard = nil and self.maxCard = nil)`;
+        const oclExpression = 'context MetaAttribute inv: self.minCard <= self.maxCard or (self.minCard = nil and self.maxCard = nil)';
         expectOclRuleValidatesToTrue(oclExpression, obj);
     });
 
@@ -30,7 +30,7 @@ describe('inv', () => {
             FixtureFactory.createPerson('D', 8)
         ];
 
-        const oclExpression = `context Person inv: self.children->size() = 4`;
+        const oclExpression = 'context Person inv: self.children->size() = 4';
         expectOclRuleValidatesToTrue(oclExpression, mother);
     });
 
@@ -43,7 +43,7 @@ describe('inv', () => {
         ];
 
         const oclExpression = `
-            context Person 
+            context Person
                 inv: self.children->size() = 4
                 inv: self.children->isEmpty()
            `;

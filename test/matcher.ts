@@ -1,21 +1,22 @@
-import {expect} from "chai";
-import {OclParser} from '../lib/components/parser/OclParser'
-import {OclVisitorImpl} from '../lib/components/OclVisitorImpl'
+import { expect } from 'chai';
+import { OclParser } from '../lib/components/parser/OclParser';
+import { OclExecutionContext } from '../lib/components/OclExecutionContext';
 
-export function expectOclRuleValidatesToTrue(oclExpression, obj = undefined) {
+export function expectOclRuleValidatesToTrue(oclExpression, obj?): void {
     const visitor = _parseAndEvaluate(oclExpression, obj);
-    expect(visitor.evaluationResult).to.be.true;
+    expect(visitor.getEvaluationResult()).to.be.true;
 }
 
-export function expectOclRuleValidatesToFalse(oclExpression, obj = undefined) {
+export function expectOclRuleValidatesToFalse(oclExpression, obj?): void {
     const visitor = _parseAndEvaluate(oclExpression, obj);
-    expect(visitor.evaluationResult).to.be.false;
+    expect(visitor.getEvaluationResult()).to.be.false;
 }
 
 // ===
-function _parseAndEvaluate(oclExpression, obj = undefined) {
-    const visitor = new OclVisitorImpl(obj || {});
-    let ast = OclParser.parse(oclExpression);
-    ast.visit(visitor);
-    return visitor
+function _parseAndEvaluate(oclExpression, obj?): OclExecutionContext {
+    const visitor = new OclExecutionContext(obj || {});
+    const ast = OclParser.parse(oclExpression);
+    ast.evaluate(visitor);
+
+    return visitor;
 }

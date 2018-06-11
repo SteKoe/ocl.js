@@ -1,6 +1,7 @@
 import { Expression } from '../Expression';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
-export class LiteralExpression<T> extends Expression {
+export abstract class LiteralExpression<T> extends Expression {
     private value: T;
 
     constructor(value) {
@@ -12,7 +13,9 @@ export class LiteralExpression<T> extends Expression {
         return this.value;
     }
 
-    parseValue(value): T {
-        throw new Error('parseValue() function not implemented!');
+    abstract parseValue(value): T;
+
+    evaluate(visitor: OclExecutionContext): T {
+        return this.getValue();
     }
 }

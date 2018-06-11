@@ -1,5 +1,5 @@
 import { BodyBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns the element of the collection at index index.
@@ -8,7 +8,14 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.collection->at(2)
  */
 export class AtExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitAtExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+        const index = this.getBody()
+            .evaluate(visitor);
+
+        if (source instanceof Array && Number.isInteger(index) && index >= 1 && index < source.length) {
+            return source[index - 1];
+        }
     }
 }

@@ -1,5 +1,5 @@
 import { Expression } from './Expression';
-import { OclVisitor } from '../OclVisitor';
+import { OclExecutionContext } from '../OclExecutionContext';
 
 /**
  * The IfExpression allows to execute a statement if the given condition is truthy.
@@ -29,8 +29,11 @@ export class IfExpression extends Expression {
         return this._else;
     }
 
-    visit(visitor: OclVisitor): boolean {
-        return visitor.visitIfExpression(this);
+    evaluate(visitor: OclExecutionContext): boolean {
+        return this.getCondition()
+            .evaluate(visitor) ? this.getThenExpression()
+            .evaluate(visitor) : this.getElseExpression()
+            .evaluate(visitor);
     }
 
 }

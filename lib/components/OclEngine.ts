@@ -1,7 +1,8 @@
 import { OclParser } from './parser/OclParser';
 import { Utils } from './Utils';
-import { OclVisitorImpl } from './OclVisitorImpl';
-import { ContextExpression } from './expressions/ContextExpression';
+import { OclExecutionContext } from './OclExecutionContext';
+import { PackageDeclaration } from './expressions';
+import { OclResult } from './OclResult';
 
 /**
  * The OclEngine class is the main entry point to the OCL.js library.
@@ -10,12 +11,11 @@ import { ContextExpression } from './expressions/ContextExpression';
  */
 export class OclEngine {
 
-    static DEBUG = false;
     static Utils = Utils;
 
-    private oclExpressions: Array<any> = [];
+    private packageDeclarations: Array<PackageDeclaration> = [];
     private typeDeterminerFn: Function;
-    private registeredTypes: object;
+    private registeredTypes: object = OclParser.registeredTypes;
 
     /**
      * Static create method.
@@ -26,14 +26,10 @@ export class OclEngine {
         return new OclEngine();
     }
 
-    constructor() {
-        this.registeredTypes = OclParser.registeredTypes;
-    }
-
     /**
      * Set a TypeDeterminer function that receives an object and returns the type of the object.
      */
-    setTypeDeterminer(fn): void {
+    setTypeDeterminer(fn: Function): void {
         if (typeof fn === 'function') {
             OclEngine.Utils.typeDeterminerFn = fn;
         }
@@ -74,9 +70,8 @@ export class OclEngine {
      */
     addOclExpression(oclExpression, labels: Array<string> = []): OclEngine {
         try {
-            OclParser.DEBUG = OclEngine.DEBUG;
             const parsedExpression = OclParser.parse(oclExpression, labels);
-            this.oclExpressions.push(parsedExpression);
+            this.packageDeclarations.push(parsedExpression);
         } catch (e) {
             e.oclExpression = oclExpression;
             throw e;
@@ -92,58 +87,17 @@ export class OclEngine {
      * @param labels An array of labels that address expressions that should be evaluated.
      * @returns a result object, which contains the actual result and other info @see OclResult
      */
-    evaluate(obj: any, labels: Array<any> = []): OclResult {
-        const visitor = new OclVisitorImpl(obj);
-        visitor.DEBUG = OclEngine.DEBUG;
-        visitor.targetType = this._inferType(obj);
-        visitor._targetType = obj;
-        visitor.labelsToExecute = Array.isArray(labels) ? labels : [labels];
+    evaluate(obj: any, labels: Array<string> = []): OclResult {
+        const visitor = new OclExecutionContext(obj, Array.isArray(labels) ? labels : [labels]);
         visitor.registerTypes(this.registeredTypes);
 
-        this.oclExpressions.forEach(e => e.visit(visitor));
+        this.packageDeclarations.forEach(e => e.evaluate(visitor));
 
-        return new OclResult(visitor.failedInvariants.map(inv => inv.name), visitor.evaluatedContexts);
+        return new OclResult(visitor.getFailedInvariants()
+            .map(inv => inv.getName()), visitor.getEvaluatedContexts());
     }
 
     _inferType(obj: any): string {
         return Utils.getClassName(obj);
-    }
-}
-
-/**
- * This class is a data class that is returned by OclEngine.evaluate method.
- *
- * It contains useful information about the evaluation result like the actual result (true / false) and in addition a list
- * of all names of invariants that have failed.
- */
-class OclResult {
-    private evaluatedContexts: Array<ContextExpression>;
-    private result: any;
-    private namesOfFailedInvs: Array<string>;
-
-    constructor(namesOfFailedInvs, evaluatedContexts) {
-        this.setResult(namesOfFailedInvs.length === 0);
-        this.setNamesOfFailedInvs(namesOfFailedInvs);
-        this.evaluatedContexts = evaluatedContexts;
-    }
-
-    setResult(result): any {
-        this.result = result;
-    }
-
-    getResult(): any {
-        return this.result;
-    }
-
-    setNamesOfFailedInvs(names): void {
-        this.namesOfFailedInvs = Array.isArray(names) ? names : [];
-    }
-
-    getNamesOfFailedInvs(): Array<string> {
-        return this.namesOfFailedInvs;
-    }
-
-    getEvaluatedContextsCount(): Array<ContextExpression> {
-        return this.evaluatedContexts;
     }
 }

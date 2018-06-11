@@ -1,5 +1,5 @@
 import { BodyBasedExpression } from '../Expression';
-import { OclVisitor } from '../../OclVisitor';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns a string that is concatenated using source and body
@@ -8,7 +8,13 @@ import { OclVisitor } from '../../OclVisitor';
  * @oclExample self.name->concat("string")
  */
 export class ConcatExpression extends BodyBasedExpression {
-    visit(visitor: OclVisitor): any {
-        return visitor.visitConcatExpression(this);
+    evaluate(visitor: OclExecutionContext): any {
+        const source = this.getSource()
+            .evaluate(visitor);
+        const body = this.getBody()
+            .evaluate(visitor);
+
+        return String(source)
+            .concat(String(body));
     }
 }
