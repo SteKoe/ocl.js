@@ -1,4 +1,5 @@
 import * as Expressions from '../expressions';
+import { Expression } from '../expressions';
 import { Utils } from '../Utils';
 import * as parser from '../../../generator/Parser';
 
@@ -17,9 +18,15 @@ export class OclParser {
         String
     };
 
-    static parse(oclExpression: any, labels: Array<string> = [], registeredTypes?: object): Expressions.PackageDeclaration {
+    static parseQuery(oclExpression: any, registeredTypes?: object): Expression {
         parser.yy.registeredTypes = registeredTypes || {};
-        const packageDeclaration = parser.parse(oclExpression) as Expressions.PackageDeclaration;
+        const packageDeclaration = parser.parse(oclExpression) as Expression;
+
+        return packageDeclaration;
+    }
+
+    static parse(oclExpression: any, labels: Array<string> = [], registeredTypes?: object): Expressions.PackageDeclaration {
+        const packageDeclaration = OclParser.parseQuery(oclExpression, registeredTypes)as Expressions.PackageDeclaration;
         packageDeclaration.setExecutionLabels(labels);
 
         return packageDeclaration;

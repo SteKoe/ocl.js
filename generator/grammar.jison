@@ -25,7 +25,7 @@
 "implies"                           return 'implies'
 "if"\b                              return 'if'
 "pre"                               return 'pre'
-"post"                               return 'post'
+"post"                              return 'post'
 "then"                              return 'then'
 "else"                              return 'else'
 "endif"                             return 'endif'
@@ -71,14 +71,22 @@
 %left UMINUS
 %right ">" ">=" "<" "<=" "<>"
 
-%start packageDecl
+%token START_FOO START_BAR;
+%start start
 %% /* language grammar */
+
+start
+    : packageDecl
+        { return $1 }
+    | oclExpression
+        { return $1 }
+    ;
 
 packageDecl
     : 'package' pathName contextDeclList 'endpackage' 'EOF'
         { return new yy.Expression.PackageDeclaration($2, $3); }
     | contextDeclList 'EOF'
-        { return new yy.Expression.PackageDeclaration('unnamed', $1); console.log(yy.WURSTBROTKROKETTE); }
+        { return new yy.Expression.PackageDeclaration('unnamed', $1); }
     ;
 
 contextDeclList

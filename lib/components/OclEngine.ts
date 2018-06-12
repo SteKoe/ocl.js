@@ -1,7 +1,7 @@
 import { OclParser } from './parser/OclParser';
 import { Utils } from './Utils';
 import { OclExecutionContext } from './OclExecutionContext';
-import { PackageDeclaration } from './expressions';
+import { Expression, PackageDeclaration } from './expressions';
 import { OclResult } from './OclResult';
 
 /**
@@ -99,5 +99,16 @@ export class OclEngine {
 
     _inferType(obj: any): string {
         return Utils.getClassName(obj);
+    }
+
+    createQuery(oclExpression: string): Expression {
+        return OclParser.parseQuery(oclExpression, this.registeredTypes);
+    }
+
+    evaluateQuery(obj: object, oclExpression: Expression): any {
+        const visitor = new OclExecutionContext(obj);
+        visitor.registerTypes(this.registeredTypes);
+
+        return oclExpression.evaluate(visitor);
     }
 }
