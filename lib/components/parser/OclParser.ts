@@ -1,5 +1,4 @@
 import * as Expressions from '../expressions';
-import { Expression } from '../expressions';
 import { Utils } from '../Utils';
 import * as parser from '../../../generator/Parser';
 
@@ -18,9 +17,9 @@ export class OclParser {
         String
     };
 
-    static parseQuery(oclExpression: any, registeredTypes?: object): Expression {
+    static parseQuery(oclExpression: any, registeredTypes?: object): Expressions.Expression {
         parser.yy.registeredTypes = registeredTypes || {};
-        const packageDeclaration = parser.parse(oclExpression) as Expression;
+        const packageDeclaration = parser.parse(oclExpression) as Expressions.Expression;
 
         return packageDeclaration;
     }
