@@ -1,3 +1,4 @@
+import * as pkg from '../../package.json';
 import { OclParser } from './parser/OclParser';
 import { Utils } from './Utils';
 import { OclExecutionContext } from './OclExecutionContext';
@@ -10,6 +11,8 @@ import { OclResult } from './OclResult';
  * This class allows to add new OCL expressions as well as evaluating given objects agains the saved OCL expressions.
  */
 export class OclEngine {
+
+    static version = (pkg as any).version;
 
     static Utils = Utils;
 
