@@ -5,8 +5,8 @@
 \s+                                 /* skip whitespace */
 \-\-[^\n]*                          /* skip comment */
 
-\-?[0-9][0-9]*\.[0-9]*              return 'real'
-\-?[0-9][0-9]*                      return 'integer'
+\-?[0-9][0-9_]*\.[0-9_]*            return 'real'
+\-?[0-9][0-9_]*                     return 'integer'
 
 "context"                           return 'context'
 "inv"                               return 'inv'

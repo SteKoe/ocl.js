@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { OclEngine } from '../../lib';
 import { Job, Person } from '../fixture.factory';
 
-describe.only('OclQuery', () => {
+describe('OclQuery', () => {
     let oclEngine;
 
     beforeEach(() => {
