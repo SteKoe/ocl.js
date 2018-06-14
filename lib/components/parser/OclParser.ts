@@ -32,7 +32,7 @@ export class OclParser {
     }
 
     /* tslint:disable:no-console */
-    static _lex /* istanbul ignore next */(oclExpression: Expressions.Expression): void {
+    static _lex /* istanbul ignore next */(oclExpression: string): void {
         const lexer = parser.lexer;
         lexer.setInput(oclExpression);
 

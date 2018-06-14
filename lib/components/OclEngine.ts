@@ -15,6 +15,7 @@ export class OclEngine {
     static version = (pkg as any).version;
 
     static Utils = Utils;
+    static Parser = OclParser;
 
     private packageDeclarations: Array<PackageDeclaration> = [];
     private typeDeterminerFn: Function;
@@ -73,7 +74,7 @@ export class OclEngine {
      */
     addOclExpression(oclExpression, labels: Array<string> = []): OclEngine {
         try {
-            const parsedExpression = OclParser.parse(oclExpression, labels, this.registeredTypes);
+            const parsedExpression = OclEngine.Parser.parse(oclExpression, labels, this.registeredTypes);
             this.packageDeclarations.push(parsedExpression);
         } catch (e) {
             e.oclExpression = oclExpression;
@@ -105,7 +106,7 @@ export class OclEngine {
     }
 
     createQuery(oclExpression: string): Expression {
-        return OclParser.parseQuery(oclExpression, this.registeredTypes);
+        return OclEngine.Parser.parseQuery(oclExpression, this.registeredTypes);
     }
 
     evaluateQuery(obj: object, oclExpression: Expression): any {

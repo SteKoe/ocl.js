@@ -1,5 +1,6 @@
 export * from './AbsExpression';
 export * from './AdditionExpression';
+export * from './DivExpression';
 export * from './DivideExpression';
 export * from './MaxExpression';
 export * from './MinExpression';

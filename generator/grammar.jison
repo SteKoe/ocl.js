@@ -5,7 +5,7 @@
 \s+                                 /* skip whitespace */
 \-\-[^\n]*                          /* skip comment */
 
-\-?[0-9][0-9_]*\.[0-9_]*            return 'real'
+\-?[0-9][0-9_]*\.[0-9_]+            return 'real'
 \-?[0-9][0-9_]*                     return 'integer'
 
 "context"                           return 'context'
@@ -193,8 +193,8 @@ oclExpression
         { $$ = new yy.Expression.DivideExpression($1, $3); }
     | oclExpression 'mod' oclExpression
         { $$ = new yy.Expression.ModuloExpression($1, $3); }
-    | oclExpression 'div' oclExpression
-        { $$ = new yy.Expression.DivideExpression($1, $3); }
+    | oclExpression '.' 'div' '(' oclExpression ')'
+        { $$ = new yy.Expression.DivExpression($1, $5); }
     | '-' oclExpression %prec UMINUS
         { $$ = new yy.Expression.MultiplyExpression(new yy.Expression.NumberExpression(-1), $2); }
     | oclExpression '<' oclExpression
