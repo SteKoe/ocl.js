@@ -1,4 +1,5 @@
 export * from './AnyExpression';
+export * from './AppendExpression';
 export * from './AsSetExpression';
 export * from './AtExpression';
 export * from './CollectExpression';
