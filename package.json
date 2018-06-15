@@ -10,7 +10,7 @@
     "clean": "npx rimraf -- node_modules dist",
     "generate:parser": "rm -rf ./lib/components/parser/parser.ts && ts-node -O {\\\"module\\\":\\\"commonjs\\\"} generator/oclParserGenerator.ts",
     "test": "npm run generate:parser && npm run test:fast",
-    "test:debug": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts'",
+    "test:debug": "npm run generate:parser && cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts'",
     "test:fast": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} npx mocha -r ts-node/register 'test/**/*.spec.ts'",
     "test:coverage": "npx rimraf -- coverage && cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} nyc ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts' && npx rimraf -- .nyc_output"
   },

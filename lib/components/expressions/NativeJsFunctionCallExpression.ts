@@ -33,7 +33,10 @@ export class NativeJsFunctionCallExpression extends SourceBasedExpression {
         const fn = source[this.getFn()];
         const isFunction = typeof fn === 'function';
 
-        return isFunction ? fn.apply(source, params) : false;
+        if (isFunction) {
+            return fn.apply(source, params);
+        } else {
+            return false;
+        }
     }
-
 }

@@ -615,11 +615,11 @@ symbols_: {
   "+": 7,
   ",": 16,
   "-": 9,
-  "->": 42,
+  "->": 30,
   ".": 6,
   "/": 11,
   ":": 3,
-  "::": 50,
+  "::": 49,
   "<": 12,
   "<=": 32,
   "<>": 34,
@@ -631,61 +631,60 @@ symbols_: {
   "^": 8,
   "and": 35,
   "body": 23,
-  "classifierContextDecl": 55,
+  "classifierContextDecl": 54,
   "context": 20,
-  "contextDeclList": 53,
-  "contextDeclaration": 54,
+  "contextDeclList": 52,
+  "contextDeclaration": 53,
   "def": 27,
-  "defExpression": 67,
+  "defExpression": 66,
   "derive": 25,
-  "div": 31,
   "else": 40,
   "endif": 41,
   "endpackage": 19,
   "error": 2,
-  "false": 48,
+  "false": 47,
   "if": 38,
-  "implies": 43,
+  "implies": 42,
   "init": 24,
-  "initOrDerValue": 62,
-  "initOrDerValueList": 61,
-  "integer": 44,
+  "initOrDerValue": 61,
+  "initOrDerValueList": 60,
+  "integer": 43,
   "inv": 26,
-  "invOrDef": 64,
-  "invOrDefList": 63,
-  "literalExp": 75,
-  "literalExpList": 76,
-  "mod": 30,
-  "nil": 49,
+  "invOrDef": 63,
+  "invOrDefList": 62,
+  "literalExp": 74,
+  "literalExpList": 75,
+  "mod": 31,
+  "nil": 48,
   "not": 28,
-  "oclExpression": 65,
-  "oclExpressionList": 66,
-  "oclExpressionListOptional": 71,
-  "operation": 60,
-  "operationContextDecl": 57,
+  "oclExpression": 64,
+  "oclExpressionList": 65,
+  "oclExpressionListOptional": 70,
+  "operation": 59,
+  "operationContextDecl": 56,
   "or": 36,
   "package": 18,
-  "packageDecl": 52,
-  "pathName": 79,
+  "packageDecl": 51,
+  "pathName": 78,
   "post": 22,
   "pre": 21,
-  "preOptional": 74,
-  "prePostOrBodyDecl": 59,
-  "prePostOrBodyDeclList": 58,
-  "primitiveLiteralExp": 78,
-  "propertyContextDecl": 56,
-  "real": 45,
+  "preOptional": 73,
+  "prePostOrBodyDecl": 58,
+  "prePostOrBodyDeclList": 57,
+  "primitiveLiteralExp": 77,
+  "propertyContextDecl": 55,
+  "real": 44,
   "simpleName": 29,
-  "simpleNameOptional": 77,
-  "start": 51,
-  "string": 46,
+  "simpleNameOptional": 76,
+  "start": 50,
+  "string": 45,
   "then": 39,
-  "true": 47,
-  "type": 69,
-  "typeOptional": 68,
-  "variableDeclaration": 70,
-  "variableDeclarationList": 73,
-  "variableDeclarationListOptional": 72,
+  "true": 46,
+  "type": 68,
+  "typeOptional": 67,
+  "variableDeclaration": 69,
+  "variableDeclarationList": 72,
+  "variableDeclarationListOptional": 71,
   "xor": 37,
   "|": 15
 },
@@ -719,8 +718,8 @@ terminals_: {
   27: "def",
   28: "not",
   29: "simpleName",
-  30: "mod",
-  31: "div",
+  30: "->",
+  31: "mod",
   32: "<=",
   33: ">=",
   34: "<>",
@@ -731,15 +730,14 @@ terminals_: {
   39: "then",
   40: "else",
   41: "endif",
-  42: "->",
-  43: "implies",
-  44: "integer",
-  45: "real",
-  46: "string",
-  47: "true",
-  48: "false",
-  49: "nil",
-  50: "::"
+  42: "implies",
+  43: "integer",
+  44: "real",
+  45: "string",
+  46: "true",
+  47: "false",
+  48: "nil",
+  49: "::"
 },
 TERROR: 2,
     EOF: 1,
@@ -845,19 +843,21 @@ TERROR: 2,
     },
 productions_: bp({
   pop: u([
+  50,
+  50,
   51,
   51,
   52,
   52,
-  53,
-  53,
   s,
-  [54, 3],
+  [53, 3],
   s,
-  [55, 4, 1],
-  58,
+  [54, 4, 1],
+  57,
   s,
-  [59, 3],
+  [58, 3],
+  59,
+  60,
   60,
   61,
   61,
@@ -865,10 +865,10 @@ productions_: bp({
   62,
   63,
   63,
-  64,
-  64,
   s,
-  [65, 30],
+  [64, 29],
+  65,
+  65,
   66,
   66,
   67,
@@ -876,7 +876,7 @@ productions_: bp({
   68,
   68,
   69,
-  69,
+  70,
   70,
   71,
   71,
@@ -885,16 +885,14 @@ productions_: bp({
   73,
   73,
   74,
-  74,
+  75,
   75,
   76,
   76,
-  77,
-  77,
   s,
-  [78, 6],
-  79,
-  79
+  [77, 6],
+  78,
+  78
 ]),
   rule: u([
   1,
@@ -922,18 +920,18 @@ productions_: bp({
   2,
   3,
   6,
+  3,
   4,
   s,
   [3, 6],
-  6,
   2,
   s,
   [3, 9],
   7,
+  6,
+  4,
   c,
-  [21, 3],
-  c,
-  [22, 4],
+  [20, 4],
   1,
   4,
   8,
@@ -1034,11 +1032,11 @@ case 20:
     /*! Production::    initOrDerValueList : initOrDerValue */
 case 24:
     /*! Production::    invOrDefList : invOrDef */
-case 58:
+case 57:
     /*! Production::    oclExpressionList : oclExpression */
-case 71:
+case 70:
     /*! Production::    variableDeclarationList : variableDeclaration */
-case 76:
+case 75:
     /*! Production::    literalExpList : literalExp */
 
     this.$ = [yyvstack[yysp]];
@@ -1052,19 +1050,19 @@ case 9:
     /*! Production::    contextDeclaration : operationContextDecl */
 case 27:
     /*! Production::    oclExpression : literalExp */
-case 61:
+case 60:
     /*! Production::    typeOptional : ":" type */
-case 63:
+case 62:
     /*! Production::    type : pathName */
-case 66:
+case 65:
     /*! Production::    oclExpressionListOptional : oclExpressionList */
-case 68:
+case 67:
     /*! Production::    variableDeclarationListOptional : variableDeclarationList */
-case 74:
+case 73:
     /*! Production::    literalExp : primitiveLiteralExp */
-case 77:
+case 76:
     /*! Production::    simpleNameOptional : simpleName */
-case 85:
+case 84:
     /*! Production::    pathName : simpleName */
 
     this.$ = yyvstack[yysp];
@@ -1152,7 +1150,7 @@ case 29:
 
 case 30:
     /*! Production::    oclExpression : "(" oclExpression ")" */
-case 65:
+case 64:
     /*! Production::    variableDeclaration : simpleName typeOptional */
 
     this.$ = yyvstack[yysp - 1];
@@ -1165,51 +1163,51 @@ case 31:
     break;
 
 case 32:
+    /*! Production::    oclExpression : oclExpression "->" simpleName */
+
+    this.$ = functionCallExpression(yy, yyvstack[yysp], this.$);
+    break;
+
+case 33:
     /*! Production::    oclExpression : oclExpression "." simpleName preOptional */
 
     this.$ = (yyvstack[yysp - 3] instanceof yy.Expression.VariableExpression) ? new yy.Expression.VariableExpression([yyvstack[yysp - 3].source, yyvstack[yysp - 1]].join('.')) : yyvstack[yysp - 3];
     break;
 
-case 33:
+case 34:
     /*! Production::    oclExpression : oclExpression "+" oclExpression */
 
     this.$ = new yy.Expression.AdditionExpression(yyvstack[yysp - 2], yyvstack[yysp]);
     break;
 
-case 34:
+case 35:
     /*! Production::    oclExpression : oclExpression "^" oclExpression */
 
     this.$ = new yy.Expression.PowerExpression(yyvstack[yysp - 2], yyvstack[yysp]);
     break;
 
-case 35:
+case 36:
     /*! Production::    oclExpression : oclExpression "-" oclExpression */
 
     this.$ = new yy.Expression.SubstractionExpression(yyvstack[yysp - 2], yyvstack[yysp]);
     break;
 
-case 36:
+case 37:
     /*! Production::    oclExpression : oclExpression "*" oclExpression */
 
     this.$ = new yy.Expression.MultiplyExpression(yyvstack[yysp - 2], yyvstack[yysp]);
     break;
 
-case 37:
+case 38:
     /*! Production::    oclExpression : oclExpression "/" oclExpression */
 
     this.$ = new yy.Expression.DivideExpression(yyvstack[yysp - 2], yyvstack[yysp]);
     break;
 
-case 38:
+case 39:
     /*! Production::    oclExpression : oclExpression mod oclExpression */
 
     this.$ = new yy.Expression.ModuloExpression(yyvstack[yysp - 2], yyvstack[yysp]);
-    break;
-
-case 39:
-    /*! Production::    oclExpression : oclExpression "." div "(" oclExpression ")" */
-
-    this.$ = new yy.Expression.DivExpression(yyvstack[yysp - 5], yyvstack[yysp - 1]);
     break;
 
 case 40:
@@ -1279,26 +1277,20 @@ case 50:
     break;
 
 case 51:
-    /*! Production::    oclExpression : oclExpression "->" simpleName */
-
-    this.$ = functionCallExpression(yy, yyvstack[yysp], this.$);
-    break;
-
-case 52:
     /*! Production::    oclExpression : oclExpression "(" variableDeclarationList "|" oclExpression ")" */
 
     yyvstack[yysp - 5].setBody(yyvstack[yysp - 1]); yyvstack[yysp - 5].setIterators(yyvstack[yysp - 3]); this.$ = yyvstack[yysp - 5];
     break;
 
-case 53:
+case 52:
     /*! Production::    oclExpression : oclExpression "(" oclExpression ")" */
-case 54:
+case 53:
     /*! Production::    oclExpression : oclExpression "(" literalExpList ")" */
 
     yyvstack[yysp - 3].setBody(yyvstack[yysp - 1]); this.$ = yyvstack[yysp - 3];
     break;
 
-case 55:
+case 54:
     /*! Production::    oclExpression : oclExpression "(" ")" */
 
     // default action (generated by JISON mode classic/merge :: 3,VT,VA,-,-,-,-,-,-):
@@ -1306,39 +1298,39 @@ case 55:
     // END of default action (generated by JISON mode classic/merge :: 3,VT,VA,-,-,-,-,-,-)
     break;
 
-case 56:
+case 55:
     /*! Production::    oclExpression : oclExpression implies oclExpression */
 
     this.$ = new yy.Expression.ImpliesExpression(yyvstack[yysp - 2], yyvstack[yysp]);
     break;
 
-case 57:
+case 56:
     /*! Production::    oclExpressionList : oclExpressionList "," oclExpression */
 
     this.$ = yyvstack[yysp - 2].concat(yyvstack[yysp]);
     break;
 
-case 59:
+case 58:
     /*! Production::    defExpression : simpleName typeOptional "=" oclExpression */
 
     this.$ = new yy.Expression.DefExpression(yyvstack[yysp - 3], yyvstack[yysp]);
     break;
 
-case 60:
+case 59:
     /*! Production::    defExpression : simpleName "(" simpleName typeOptional ")" typeOptional "=" oclExpression */
 
     this.$ = new yy.Expression.DefExpression(yyvstack[yysp - 7], yyvstack[yysp]);
     break;
 
-case 62:
+case 61:
     /*! Production::    typeOptional : %epsilon */
-case 67:
+case 66:
     /*! Production::    oclExpressionListOptional : %epsilon */
-case 69:
+case 68:
     /*! Production::    variableDeclarationListOptional : %epsilon */
-case 73:
+case 72:
     /*! Production::    preOptional : %epsilon */
-case 78:
+case 77:
     /*! Production::    simpleNameOptional : %epsilon */
 
     // default action (generated by JISON mode classic/merge :: 0,VT,VA,-,-,-,-,-,-):
@@ -1346,21 +1338,21 @@ case 78:
     // END of default action (generated by JISON mode classic/merge :: 0,VT,VA,-,-,-,-,-,-)
     break;
 
-case 64:
+case 63:
     /*! Production::    type : pathName "(" simpleName ")" */
 
     this.$ = yyvstack[yysp - 3];
     break;
 
-case 70:
+case 69:
     /*! Production::    variableDeclarationList : variableDeclarationList "," variableDeclaration */
-case 75:
+case 74:
     /*! Production::    literalExpList : literalExpList "," literalExp */
 
     this.$ = [].concat(yyvstack[yysp - 2]).concat(yyvstack[yysp]);
     break;
 
-case 72:
+case 71:
     /*! Production::    preOptional : "@" pre */
 
     // default action (generated by JISON mode classic/merge :: 2,VT,VA,-,-,-,-,-,-):
@@ -1368,39 +1360,39 @@ case 72:
     // END of default action (generated by JISON mode classic/merge :: 2,VT,VA,-,-,-,-,-,-)
     break;
 
-case 79:
+case 78:
     /*! Production::    primitiveLiteralExp : integer */
-case 80:
+case 79:
     /*! Production::    primitiveLiteralExp : real */
 
     this.$ = new yy.Expression.NumberExpression(yyvstack[yysp]);
     break;
 
-case 81:
+case 80:
     /*! Production::    primitiveLiteralExp : string */
 
     this.$ = new yy.Expression.StringExpression(yyvstack[yysp]);
     break;
 
-case 82:
+case 81:
     /*! Production::    primitiveLiteralExp : true */
 
     this.$ = new yy.Expression.BooleanExpression(true);
     break;
 
-case 83:
+case 82:
     /*! Production::    primitiveLiteralExp : false */
 
     this.$ = new yy.Expression.BooleanExpression(false);
     break;
 
-case 84:
+case 83:
     /*! Production::    primitiveLiteralExp : nil */
 
     this.$ = new yy.Expression.NilExpression();
     break;
 
-case 86:
+case 85:
     /*! Production::    pathName : pathName "::" simpleName */
 
     this.$ = yyvstack[yysp - 2] + '::' + yyvstack[yysp];
@@ -1423,10 +1415,10 @@ table: bt({
   s,
   [0, 12],
   3,
-  2,
+  1,
+  1,
   s,
   [15, 15],
-  1,
   19,
   15,
   7,
@@ -1441,10 +1433,9 @@ table: bt({
   7,
   5,
   36,
-  1,
+  0,
   s,
   [34, 15],
-  0,
   2,
   20,
   2,
@@ -1470,13 +1461,11 @@ table: bt({
   18,
   0,
   15,
-  15,
   c,
-  [26, 3],
+  [25, 3],
   8,
-  0,
-  3,
-  1,
+  c,
+  [81, 3],
   20,
   0,
   4,
@@ -1488,29 +1477,29 @@ table: bt({
   0,
   1,
   c,
-  [72, 3],
+  [70, 3],
   1,
   1,
   2,
   21,
-  20,
   20,
   s,
   [0, 4],
   15,
   6,
   c,
-  [15, 4],
+  [14, 4],
   5,
   15,
+  2,
   c,
-  [115, 4],
+  [129, 4],
+  15,
   0,
-  c,
-  [134, 3],
   20,
-  c,
-  [50, 3],
+  0,
+  15,
+  15,
   1,
   0,
   24,
@@ -1523,7 +1512,7 @@ table: bt({
   24,
   24,
   c,
-  [30, 3],
+  [29, 3],
   15,
   3,
   24,
@@ -1542,25 +1531,23 @@ table: bt({
   29,
   38,
   s,
-  [44, 6, 1],
+  [43, 6, 1],
   s,
-  [51, 7, 1],
-  65,
-  75,
+  [50, 7, 1],
+  64,
+  74,
+  77,
   78,
-  79,
   1,
   1,
   4,
   s,
   [6, 9, 1],
-  30,
   s,
-  [32, 6, 1],
+  [30, 8, 1],
   42,
-  43,
   29,
-  79,
+  78,
   1,
   20,
   c,
@@ -1573,11 +1560,11 @@ table: bt({
   s,
   [19, 9, 1],
   c,
-  [40, 7],
+  [40, 8],
   s,
-  [39, 5, 1],
-  50,
-  74,
+  [39, 4, 1],
+  49,
+  73,
   4,
   9,
   c,
@@ -1587,69 +1574,65 @@ table: bt({
   c,
   [15, 45],
   29,
-  60,
-  79,
+  59,
+  78,
   29,
-  31,
+  29,
   c,
   [65, 60],
   c,
-  [15, 165],
-  29,
-  4,
+  [15, 166],
   5,
   c,
-  [17, 11],
-  70,
-  73,
+  [16, 11],
+  69,
+  72,
+  74,
   75,
-  76,
   c,
-  [35, 17],
+  [34, 17],
   20,
-  50,
+  49,
   c,
-  [402, 5],
+  [401, 5],
   29,
   21,
   c,
-  [371, 13],
+  [370, 13],
   c,
-  [370, 21],
+  [369, 21],
   c,
   [33, 11],
   c,
-  [433, 9],
+  [432, 9],
   c,
   [54, 35],
   c,
-  [53, 16],
+  [53, 17],
   39,
   42,
-  43,
   3,
   4,
   26,
   27,
-  50,
+  49,
+  62,
   63,
-  64,
   c,
   [46, 3],
+  57,
   58,
-  59,
   c,
-  [491, 35],
-  74,
-  4,
+  [490, 35],
+  73,
   c,
-  [103, 34],
+  [102, 34],
   c,
   [34, 476],
   15,
   16,
   c,
-  [635, 20],
+  [634, 20],
   5,
   c,
   [22, 12],
@@ -1660,73 +1643,72 @@ table: bt({
   [3, 15, 1],
   c,
   [24, 9],
-  50,
-  68,
+  49,
+  67,
   c,
   [105, 34],
   19,
   c,
-  [1149, 5],
+  [1147, 5],
   c,
-  [802, 15],
+  [801, 15],
   1,
   19,
   20,
   26,
   27,
-  64,
+  63,
   29,
-  69,
-  79,
+  68,
+  78,
   5,
   29,
-  70,
+  69,
+  71,
   72,
-  73,
   3,
   29,
-  77,
+  76,
   c,
   [3, 3],
   c,
   [20, 3],
   c,
   [63, 3],
-  59,
+  58,
   c,
   [13, 6],
   c,
   [3, 3],
   c,
-  [872, 13],
-  66,
-  71,
-  c,
-  [921, 34],
+  [871, 13],
+  65,
   70,
   c,
+  [1134, 19],
+  69,
+  c,
   [12, 6],
-  75,
-  78,
+  74,
+  77,
   c,
-  [88, 3],
+  [73, 3],
   c,
-  [1289, 18],
+  [1272, 19],
   40,
   42,
-  43,
   24,
   25,
+  60,
   61,
-  62,
   4,
   5,
   13,
   15,
   16,
   c,
-  [167, 5],
-  50,
+  [152, 5],
+  49,
   5,
   5,
   16,
@@ -1734,60 +1716,58 @@ table: bt({
   5,
   15,
   16,
-  68,
+  67,
   s,
   [3, 5],
   c,
   [13, 3],
   c,
-  [251, 21],
+  [236, 21],
   c,
-  [294, 20],
+  [279, 20],
   c,
-  [20, 21],
-  c,
-  [225, 17],
+  [190, 18],
   24,
   25,
-  62,
+  61,
   3,
   3,
   29,
   3,
   c,
-  [108, 3],
-  68,
-  c,
-  [170, 16],
+  [88, 3],
   67,
   c,
-  [1168, 61],
+  [150, 16],
+  66,
   c,
-  [125, 16],
+  [1116, 61],
   c,
-  [1041, 4],
+  [125, 17],
+  c,
+  [1005, 3],
   c,
   [50, 29],
   5,
   c,
-  [270, 11],
+  [250, 11],
   c,
-  [377, 4],
+  [342, 4],
   c,
-  [472, 11],
+  [437, 11],
   13,
   c,
-  [450, 3],
+  [415, 3],
   c,
   [28, 11],
   c,
   [173, 3],
   c,
-  [1159, 11],
+  [1123, 11],
   c,
   [25, 48],
   c,
-  [321, 21],
+  [301, 21],
   c,
   [46, 13],
   24,
@@ -1795,9 +1775,8 @@ table: bt({
   c,
   [24, 33],
   13,
-  29,
   c,
-  [190, 15],
+  [1566, 16],
   3,
   5,
   c,
@@ -1807,7 +1786,7 @@ table: bt({
   5,
   3,
   13,
-  68,
+  67,
   13,
   c,
   [378, 16],
@@ -1840,9 +1819,9 @@ table: bt({
   c,
   [15, 175],
   c,
-  [380, 9],
+  [379, 8],
   c,
-  [35, 17],
+  [34, 17],
   c,
   [22, 16],
   s,
@@ -1854,45 +1833,43 @@ table: bt({
   c,
   [158, 116],
   s,
-  [2, 466],
+  [2, 465],
   c,
-  [1109, 38],
+  [1107, 38],
   c,
-  [837, 23],
+  [835, 23],
   c,
-  [1073, 6],
+  [1071, 6],
   c,
-  [816, 6],
+  [815, 6],
   c,
   [75, 9],
   c,
   [13, 9],
   c,
-  [91, 13],
+  [871, 19],
   c,
-  [871, 23],
+  [1134, 17],
   c,
-  [1151, 15],
+  [756, 9],
   c,
-  [772, 9],
-  c,
-  [770, 25],
+  [754, 25],
   c,
   [25, 20],
   c,
-  [778, 81],
+  [762, 61],
   c,
-  [225, 11],
+  [190, 11],
   c,
-  [1366, 23],
+  [1329, 23],
   c,
-  [1153, 74],
+  [1116, 73],
   c,
-  [366, 42],
+  [331, 43],
   c,
-  [1032, 181],
+  [996, 181],
   c,
-  [1358, 7],
+  [1322, 7],
   c,
   [192, 40],
   c,
@@ -1974,92 +1951,89 @@ table: bt({
   72,
   c,
   [4, 3],
-  75,
-  78,
   74,
-  79,
-  76,
+  77,
+  73,
+  78,
+  75,
   13,
   7,
-  81,
+  80,
   c,
   [11, 3],
-  82,
+  81,
   c,
   [104, 4],
-  87,
-  90,
+  86,
+  89,
+  92,
   93,
-  94,
-  99,
-  106,
+  98,
+  104,
   c,
   [105, 4],
-  109,
+  107,
   c,
   [19, 3],
+  108,
+  109,
   110,
+  77,
   111,
   112,
-  78,
-  113,
   114,
-  116,
   s,
-  [118, 5, 1],
-  125,
-  124,
+  [116, 5, 1],
   123,
+  122,
+  121,
   c,
   [18, 3],
+  124,
+  c,
+  [4, 3],
+  125,
   126,
-  c,
-  [4, 3],
-  127,
-  c,
-  [4, 3],
-  128,
-  129,
   13,
+  127,
+  110,
   130,
-  112,
-  133,
-  134,
-  106,
-  148,
+  131,
+  104,
+  144,
   c,
   [12, 3],
+  145,
   149,
-  153,
-  154,
+  150,
   c,
   [6, 3],
-  155,
-  157,
+  151,
+  153,
   c,
   [5, 3],
+  154,
+  c,
+  [4, 3],
+  155,
+  c,
+  [4, 3],
+  156,
+  c,
+  [4, 3],
   158,
   c,
   [4, 3],
   159,
   c,
   [4, 3],
-  160,
-  c,
-  [4, 3],
-  162,
-  c,
-  [4, 3],
-  163,
-  c,
-  [4, 3],
+  161,
   165,
-  169,
   c,
   [5, 3],
+  166,
+  168,
   170,
-  172,
-  174,
   c,
   [6, 3]
 ]),
@@ -2076,103 +2050,101 @@ table: bt({
   c,
   [22, 9],
   s,
-  [1, 240],
+  [1, 239],
   c,
-  [264, 3],
+  [263, 3],
   c,
-  [288, 19],
+  [287, 19],
   c,
-  [17, 10],
+  [18, 11],
   c,
-  [54, 26],
+  [54, 25],
   c,
-  [326, 7],
+  [325, 7],
   c,
-  [328, 12],
+  [54, 12],
   c,
-  [68, 9],
+  [45, 4],
   c,
-  [386, 24],
+  [328, 35],
   c,
-  [62, 9],
+  [379, 13],
   c,
-  [392, 33],
+  [391, 22],
   c,
-  [90, 5],
+  [89, 5],
   c,
-  [71, 5],
+  [80, 6],
+  c,
+  [151, 16],
   c,
   [34, 12],
   c,
-  [166, 10],
+  [131, 18],
   c,
-  [7, 3],
-  c,
-  [132, 21],
-  c,
-  [34, 17],
+  [34, 16],
   c,
   [68, 34],
   c,
-  [231, 5],
+  [229, 5],
   c,
   [34, 63],
   c,
-  [268, 29],
+  [267, 29],
   c,
   [34, 72],
   c,
-  [318, 18],
+  [317, 18],
   c,
   [136, 124],
   c,
-  [560, 16],
+  [559, 17],
   c,
-  [34, 76],
+  [34, 75],
   c,
-  [570, 25],
+  [569, 25],
   c,
-  [556, 22],
+  [554, 22],
   s,
   [2, 24],
   c,
   [104, 46],
   c,
-  [233, 7],
+  [16, 6],
   c,
-  [497, 9],
+  [497, 10],
   c,
   [12, 8],
   c,
-  [717, 30],
+  [1101, 24],
   c,
-  [869, 37],
+  [857, 32],
   c,
-  [124, 10],
+  [113, 10],
   c,
   [3, 4],
   c,
-  [854, 8],
+  [109, 8],
   c,
-  [91, 13],
+  [80, 13],
   c,
-  [101, 61],
+  [90, 41],
   c,
-  [83, 10],
+  [63, 10],
   c,
-  [1219, 101],
+  [1186, 101],
   c,
   [100, 11],
   c,
-  [1333, 15],
+  [295, 15],
   c,
   [13, 12],
   c,
-  [1361, 14],
+  [323, 14],
   c,
   [25, 50],
   c,
-  [285, 21],
+  [265, 21],
   c,
   [123, 24],
   c,
@@ -2196,24 +2168,27 @@ table: bt({
   [18, 6, 1],
   2,
   42,
+  25,
   s,
-  [25, 6, 1],
-  32,
-  34,
-  36,
+  [27, 5, 1],
+  33,
+  35,
+  37,
+  26,
   s,
-  [31, 4, 2],
-  s,
-  [38, 4, 1],
+  [32, 4, 2],
+  39,
+  40,
+  41,
   43,
   14,
   45,
   24,
   s,
-  [73, 13],
+  [72, 13],
   49,
   s,
-  [73, 21],
+  [72, 21],
   48,
   9,
   10,
@@ -2227,288 +2202,271 @@ table: bt({
   c,
   [47, 44],
   c,
-  [11, 121],
-  73,
-  9,
-  77,
+  [11, 122],
+  76,
   10,
   8,
-  80,
+  79,
   c,
-  [24, 18],
+  [23, 18],
   24,
   48,
+  82,
   83,
-  84,
   29,
   42,
   29,
   c,
-  [300, 9],
+  [299, 9],
   s,
   [29, 10],
   c,
-  [310, 7],
+  [309, 8],
   s,
   [29, 3],
-  41,
   43,
   42,
-  85,
+  84,
   c,
-  [333, 18],
+  [332, 18],
   40,
   42,
   40,
   25,
   s,
   [40, 5],
-  32,
+  33,
   40,
-  36,
+  37,
   s,
-  [40, 11],
-  c,
-  [31, 3],
+  [40, 10],
+  26,
+  40,
+  s,
+  [34, 4, 2],
   s,
   [40, 6],
-  41,
-  40,
   c,
-  [386, 17],
-  86,
-  41,
+  [385, 18],
+  85,
   43,
+  87,
   88,
-  89,
+  90,
   91,
-  92,
   48,
+  94,
   95,
   96,
+  72,
   97,
-  73,
-  98,
   c,
-  [392, 33],
-  100,
-  33,
-  42,
-  33,
-  25,
-  33,
-  27,
-  33,
-  c,
-  [66, 3],
-  33,
-  36,
-  s,
-  [33, 10],
-  c,
-  [76, 4],
-  s,
-  [33, 6],
-  41,
-  33,
+  [391, 33],
   34,
   42,
   34,
   25,
-  s,
-  [34, 5],
+  34,
+  28,
+  34,
   c,
-  [100, 3],
+  [65, 3],
+  34,
+  37,
   s,
   [34, 10],
   c,
-  [34, 4],
+  [75, 5],
   s,
-  [34, 6],
-  41,
-  34,
+  [34, 7],
   35,
   42,
   35,
   25,
-  35,
-  27,
-  35,
+  s,
+  [35, 5],
   c,
-  [68, 3],
-  35,
-  36,
+  [99, 3],
   s,
   [35, 10],
   c,
-  [34, 4],
+  [34, 5],
   s,
-  [35, 6],
-  41,
-  35,
+  [35, 7],
   36,
   42,
   36,
   25,
   36,
-  27,
-  s,
-  [36, 3],
-  32,
-  s,
-  [36, 12],
+  28,
+  36,
   c,
-  [34, 4],
-  s,
-  [36, 6],
-  41,
+  [68, 3],
   36,
+  37,
+  s,
+  [36, 10],
+  c,
+  [34, 5],
+  s,
+  [36, 7],
   37,
   42,
   37,
   25,
   37,
-  27,
+  28,
   s,
   [37, 3],
-  32,
-  37,
-  36,
+  33,
   s,
-  [37, 10],
+  [37, 12],
   c,
-  [34, 4],
+  [34, 5],
   s,
-  [37, 6],
-  41,
-  37,
+  [37, 7],
   38,
   42,
   38,
   25,
-  s,
-  [38, 5],
-  32,
   38,
-  36,
+  28,
   s,
-  [38, 11],
+  [38, 3],
+  33,
+  38,
+  37,
+  s,
+  [38, 10],
   c,
-  [246, 4],
+  [34, 5],
   s,
-  [38, 5],
-  41,
-  38,
+  [38, 7],
+  39,
+  42,
+  39,
+  25,
+  s,
+  [39, 5],
+  33,
+  39,
+  37,
+  s,
+  [39, 10],
+  26,
+  39,
+  c,
+  [245, 4],
+  s,
+  [39, 6],
   41,
   42,
   41,
   25,
   s,
   [41, 5],
-  32,
+  33,
   41,
-  36,
+  37,
   s,
-  [41, 11],
+  [41, 10],
+  26,
+  41,
   c,
   [34, 3],
   s,
-  [41, 8],
+  [41, 7],
   s,
   [42, 3],
   25,
   s,
   [42, 5],
-  32,
+  33,
   42,
-  36,
+  37,
   s,
-  [42, 11],
+  [42, 10],
+  26,
+  42,
   c,
   [34, 3],
   s,
-  [42, 6],
-  41,
-  42,
+  [42, 7],
   43,
   42,
   43,
   c,
-  [338, 7],
+  [337, 7],
   43,
-  36,
+  37,
   s,
   [43, 10],
   c,
-  [136, 4],
+  [136, 5],
   s,
-  [43, 6],
-  41,
-  43,
+  [43, 7],
   44,
   42,
   44,
   25,
   s,
   [44, 5],
-  32,
+  33,
   44,
-  36,
+  37,
   s,
-  [44, 11],
+  [44, 10],
+  26,
+  44,
   c,
   [34, 3],
   s,
-  [44, 6],
-  41,
-  44,
+  [44, 7],
   45,
   42,
   45,
   25,
   s,
   [45, 5],
-  32,
+  33,
   45,
-  36,
+  37,
   s,
-  [45, 11],
+  [45, 10],
+  26,
+  45,
   c,
   [34, 3],
   s,
-  [45, 6],
-  41,
-  45,
+  [45, 7],
   46,
   42,
   46,
   25,
   s,
   [46, 5],
-  32,
+  33,
   46,
-  36,
+  37,
   s,
-  [46, 11],
+  [46, 10],
+  26,
+  46,
   c,
   [34, 3],
   s,
-  [46, 6],
-  41,
-  46,
+  [46, 7],
   47,
   42,
   47,
   c,
-  [474, 9],
+  [473, 9],
   s,
   [47, 10],
   c,
-  [136, 4],
+  [136, 5],
   s,
-  [47, 6],
-  41,
-  47,
+  [47, 7],
   48,
   42,
   48,
@@ -2517,11 +2475,9 @@ table: bt({
   s,
   [48, 10],
   c,
-  [34, 4],
+  [34, 5],
   s,
-  [48, 6],
-  41,
-  48,
+  [48, 7],
   49,
   42,
   49,
@@ -2530,135 +2486,126 @@ table: bt({
   s,
   [49, 10],
   c,
-  [34, 4],
+  [34, 5],
   s,
-  [49, 6],
-  41,
-  49,
-  101,
-  102,
+  [49, 7],
+  99,
+  100,
   42,
-  103,
+  101,
   c,
-  [630, 18],
-  104,
-  105,
+  [629, 18],
+  102,
+  103,
   s,
   [27, 11],
-  76,
+  75,
   s,
   [27, 9],
-  107,
+  105,
   s,
-  [85, 11],
-  62,
-  62,
+  [84, 11],
+  61,
+  61,
   s,
-  [85, 11],
-  56,
+  [84, 11],
+  55,
   42,
-  56,
+  55,
   c,
   [69, 9],
   s,
-  [56, 10],
+  [55, 10],
   c,
-  [79, 4],
+  [79, 5],
   s,
-  [56, 6],
-  41,
-  56,
-  108,
+  [55, 7],
+  106,
   24,
   c,
-  [783, 11],
+  [782, 11],
   s,
   [10, 3],
+  90,
   91,
-  92,
   14,
-  69,
+  68,
+  113,
+  77,
   115,
-  78,
-  117,
-  78,
-  117,
+  77,
+  115,
   s,
   [12, 3],
   c,
-  [681, 3],
+  [680, 3],
   c,
   [10, 4],
-  78,
-  117,
-  9,
-  67,
-  c,
-  [865, 32],
+  77,
   115,
-  c,
-  [1040, 7],
-  131,
-  c,
-  [758, 17],
-  132,
-  41,
-  43,
-  135,
-  136,
-  137,
-  s,
-  [63, 9],
-  48,
-  138,
-  68,
-  102,
-  107,
-  s,
-  [62, 3],
-  s,
-  [139, 6, 1],
+  9,
   66,
-  145,
+  c,
+  [852, 21],
+  113,
+  c,
+  [1027, 7],
+  128,
+  c,
+  [746, 18],
+  129,
+  43,
+  132,
+  133,
+  134,
+  s,
+  [62, 9],
+  48,
+  135,
+  67,
+  100,
+  105,
+  s,
+  [61, 3],
+  s,
+  [136, 6, 1],
+  65,
+  142,
   42,
-  58,
+  57,
   c,
   [49, 9],
-  58,
+  57,
   c,
-  [231, 9],
+  [220, 9],
   42,
-  146,
+  143,
   c,
-  [251, 18],
-  42,
-  147,
+  [240, 18],
   c,
-  [20, 18],
-  c,
-  [129, 11],
+  [109, 11],
   s,
   [11, 3],
-  135,
-  136,
-  150,
-  151,
-  152,
+  132,
+  133,
+  146,
+  147,
+  148,
   c,
-  [92, 4],
+  [72, 4],
   c,
   [23, 11],
-  156,
+  152,
   c,
-  [1062, 44],
+  [1029, 44],
   c,
-  [188, 17],
-  161,
+  [168, 18],
+  157,
   c,
-  [99, 13],
+  [99, 12],
   c,
   [11, 11],
-  164,
+  160,
   25,
   c,
   [44, 10],
@@ -2666,9 +2613,9 @@ table: bt({
   [25, 4],
   c,
   [146, 9],
-  107,
-  166,
-  62,
+  105,
+  162,
+  61,
   15,
   c,
   [27, 10],
@@ -2690,10 +2637,10 @@ table: bt({
   [17, 5],
   c,
   [244, 10],
-  57,
+  56,
   c,
   [25, 9],
-  57,
+  56,
   c,
   [21, 9],
   21,
@@ -2710,30 +2657,30 @@ table: bt({
   [22, 4],
   c,
   [24, 9],
-  167,
-  168,
+  163,
+  164,
   c,
   [185, 11],
-  107,
-  62,
+  105,
+  61,
+  58,
+  c,
+  [39, 10],
+  s,
+  [58, 4],
+  c,
+  [39, 9],
+  167,
+  105,
+  61,
+  169,
+  c,
+  [41, 11],
   59,
   c,
   [39, 10],
   s,
   [59, 4],
-  c,
-  [39, 9],
-  171,
-  107,
-  62,
-  173,
-  c,
-  [41, 11],
-  60,
-  c,
-  [39, 10],
-  s,
-  [60, 4],
   c,
   [39, 9]
 ])
@@ -2747,75 +2694,73 @@ defaultActions: bda({
   45,
   46,
   47,
-  73,
+  57,
+  76,
   77,
-  78,
+  82,
   83,
   84,
-  85,
-  90,
-  94,
-  99,
-  103,
+  89,
+  93,
+  98,
+  101,
+  102,
   104,
-  106,
-  110,
+  108,
+  115,
   117,
-  119,
   s,
-  [128, 4, 1],
-  134,
-  144,
-  146,
-  147,
+  [125, 4, 1],
+  131,
+  141,
+  143,
+  145,
   149,
-  153,
-  155,
-  161,
-  164
+  151,
+  157,
+  160
 ]),
   goto: u([
   1,
   27,
   6,
-  74,
-  85,
+  73,
+  84,
   7,
   8,
   9,
   s,
-  [79, 6, 1],
+  [78, 6, 1],
   4,
   5,
   28,
-  51,
-  55,
+  32,
+  54,
+  70,
+  85,
   71,
-  86,
-  72,
   30,
   24,
   14,
-  32,
+  33,
+  52,
   53,
-  54,
-  65,
+  64,
   23,
-  77,
+  76,
   13,
-  70,
-  75,
-  61,
+  69,
+  74,
+  60,
   3,
   20,
   31,
-  39,
-  52,
+  51,
   19,
   18,
   26,
   50,
-  64
+  63
 ])
 }),
 parseError: function parseError(str, hash, ExceptionClass) {
@@ -2855,7 +2800,7 @@ parse: function parse(input) {
     var TERROR = this.TERROR;
     var EOF = this.EOF;
     var ERROR_RECOVERY_TOKEN_DISCARD_COUNT = (this.options.errorRecoveryTokenDiscardCount | 0) || 3;
-    var NO_ACTION = [0, 175 /* === table.length :: ensures that anyone using this new state will fail dramatically! */];
+    var NO_ACTION = [0, 171 /* === table.length :: ensures that anyone using this new state will fail dramatically! */];
 
     var lexer;
     if (this.__lexer__) {
@@ -5173,207 +5118,203 @@ EOF: 1,
     simpleCaseActionClusters: {
       /*! Conditions:: INITIAL */
       /*! Rule::       -?[0-9][0-9_]*\.[0-9_]+ */
-      2: 45,
+      2: 44,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       -?[0-9][0-9_]* */
-      3: 44,
+      3: 43,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       context */
+      /*! Rule::       context\b */
       4: 20,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       inv */
+      /*! Rule::       inv\b */
       5: 26,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       init */
+      /*! Rule::       init\b */
       6: 24,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       derive */
+      /*! Rule::       derive\b */
       7: 25,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       def */
+      /*! Rule::       def\b */
       8: 27,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       let */
+      /*! Rule::       let\b */
       9: 'let',
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       true */
-      10: 47,
+      /*! Rule::       true\b */
+      10: 46,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       false */
-      11: 48,
+      /*! Rule::       false\b */
+      11: 47,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       and */
+      /*! Rule::       and\b */
       12: 35,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       or */
+      /*! Rule::       or\b */
       13: 36,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       mod */
-      14: 30,
+      /*! Rule::       mod\b */
+      14: 31,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       div */
-      15: 31,
-
-      /*! Conditions:: INITIAL */
-      /*! Rule::       xor */
-      16: 37,
+      /*! Rule::       xor\b */
+      15: 37,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       not\b */
-      17: 28,
+      16: 28,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       implies */
-      18: 43,
+      /*! Rule::       implies\b */
+      17: 42,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       if\b */
-      19: 38,
+      18: 38,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       pre */
-      20: 21,
+      /*! Rule::       pre\b */
+      19: 21,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       post */
-      21: 22,
+      /*! Rule::       post\b */
+      20: 22,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       then */
-      22: 39,
+      /*! Rule::       then\b */
+      21: 39,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       else */
-      23: 40,
+      /*! Rule::       else\b */
+      22: 40,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       endif */
-      24: 41,
+      /*! Rule::       endif\b */
+      23: 41,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       package */
-      25: 18,
+      /*! Rule::       package\b */
+      24: 18,
 
       /*! Conditions:: INITIAL */
-      /*! Rule::       endpackage */
-      26: 19,
+      /*! Rule::       endpackage\b */
+      25: 19,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \( */
-      27: 4,
+      26: 4,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \) */
-      28: 5,
+      27: 5,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \| */
-      29: 15,
+      28: 15,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       -> */
-      30: 42,
+      29: 30,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       <= */
-      31: 32,
+      30: 32,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       >= */
-      32: 33,
+      31: 33,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       <> */
-      33: 34,
+      32: 34,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       < */
-      34: 12,
+      33: 12,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       = */
-      35: 13,
+      34: 13,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       > */
-      36: 14,
+      35: 14,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       :: */
-      37: 50,
+      36: 49,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       : */
-      38: 3,
+      37: 3,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \. */
-      39: 6,
+      38: 6,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       , */
-      40: 16,
+      39: 16,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \^ */
-      41: 8,
+      40: 8,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \+ */
-      42: 7,
+      41: 7,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       - */
-      43: 9,
+      42: 9,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \* */
-      44: 10,
+      43: 10,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       \/ */
-      45: 11,
+      44: 11,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       @ */
-      46: 17,
+      45: 17,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       pre */
-      47: 21,
+      46: 21,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       nil */
-      48: 49,
+      47: 48,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       ["][^\"]*["] */
-      49: 46,
+      48: 45,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       ['][^\']*['] */
-      50: 46,
+      49: 45,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       [a-zA-Z_][a-zA-Z0-9_]* */
-      51: 29,
+      50: 29,
 
       /*! Conditions:: INITIAL */
       /*! Rule::       $ */
-      52: 1
+      51: 1
     },
 
     rules: [
@@ -5381,55 +5322,54 @@ EOF: 1,
       /*  1: */  /^(?:--[^\n]*)/,
       /*  2: */  /^(?:-?\d[\d_]*\.[\d_]+)/,
       /*  3: */  /^(?:-?\d[\d_]*)/,
-      /*  4: */  /^(?:context)/,
-      /*  5: */  /^(?:inv)/,
-      /*  6: */  /^(?:init)/,
-      /*  7: */  /^(?:derive)/,
-      /*  8: */  /^(?:def)/,
-      /*  9: */  /^(?:let)/,
-      /* 10: */  /^(?:true)/,
-      /* 11: */  /^(?:false)/,
-      /* 12: */  /^(?:and)/,
-      /* 13: */  /^(?:or)/,
-      /* 14: */  /^(?:mod)/,
-      /* 15: */  /^(?:div)/,
-      /* 16: */  /^(?:xor)/,
-      /* 17: */  /^(?:not\b)/,
-      /* 18: */  /^(?:implies)/,
-      /* 19: */  /^(?:if\b)/,
-      /* 20: */  /^(?:pre)/,
-      /* 21: */  /^(?:post)/,
-      /* 22: */  /^(?:then)/,
-      /* 23: */  /^(?:else)/,
-      /* 24: */  /^(?:endif)/,
-      /* 25: */  /^(?:package)/,
-      /* 26: */  /^(?:endpackage)/,
-      /* 27: */  /^(?:\()/,
-      /* 28: */  /^(?:\))/,
-      /* 29: */  /^(?:\|)/,
-      /* 30: */  /^(?:->)/,
-      /* 31: */  /^(?:<=)/,
-      /* 32: */  /^(?:>=)/,
-      /* 33: */  /^(?:<>)/,
-      /* 34: */  /^(?:<)/,
-      /* 35: */  /^(?:=)/,
-      /* 36: */  /^(?:>)/,
-      /* 37: */  /^(?:::)/,
-      /* 38: */  /^(?::)/,
-      /* 39: */  /^(?:\.)/,
-      /* 40: */  /^(?:,)/,
-      /* 41: */  /^(?:\^)/,
-      /* 42: */  /^(?:\+)/,
-      /* 43: */  /^(?:-)/,
-      /* 44: */  /^(?:\*)/,
-      /* 45: */  /^(?:\/)/,
-      /* 46: */  /^(?:@)/,
-      /* 47: */  /^(?:pre)/,
-      /* 48: */  /^(?:nil)/,
-      /* 49: */  /^(?:["][^"]*["])/,
-      /* 50: */  /^(?:['][^']*['])/,
-      /* 51: */  /^(?:[^\W\d]\w*)/,
-      /* 52: */  /^(?:$)/
+      /*  4: */  /^(?:context\b)/,
+      /*  5: */  /^(?:inv\b)/,
+      /*  6: */  /^(?:init\b)/,
+      /*  7: */  /^(?:derive\b)/,
+      /*  8: */  /^(?:def\b)/,
+      /*  9: */  /^(?:let\b)/,
+      /* 10: */  /^(?:true\b)/,
+      /* 11: */  /^(?:false\b)/,
+      /* 12: */  /^(?:and\b)/,
+      /* 13: */  /^(?:or\b)/,
+      /* 14: */  /^(?:mod\b)/,
+      /* 15: */  /^(?:xor\b)/,
+      /* 16: */  /^(?:not\b)/,
+      /* 17: */  /^(?:implies\b)/,
+      /* 18: */  /^(?:if\b)/,
+      /* 19: */  /^(?:pre\b)/,
+      /* 20: */  /^(?:post\b)/,
+      /* 21: */  /^(?:then\b)/,
+      /* 22: */  /^(?:else\b)/,
+      /* 23: */  /^(?:endif\b)/,
+      /* 24: */  /^(?:package\b)/,
+      /* 25: */  /^(?:endpackage\b)/,
+      /* 26: */  /^(?:\()/,
+      /* 27: */  /^(?:\))/,
+      /* 28: */  /^(?:\|)/,
+      /* 29: */  /^(?:->)/,
+      /* 30: */  /^(?:<=)/,
+      /* 31: */  /^(?:>=)/,
+      /* 32: */  /^(?:<>)/,
+      /* 33: */  /^(?:<)/,
+      /* 34: */  /^(?:=)/,
+      /* 35: */  /^(?:>)/,
+      /* 36: */  /^(?:::)/,
+      /* 37: */  /^(?::)/,
+      /* 38: */  /^(?:\.)/,
+      /* 39: */  /^(?:,)/,
+      /* 40: */  /^(?:\^)/,
+      /* 41: */  /^(?:\+)/,
+      /* 42: */  /^(?:-)/,
+      /* 43: */  /^(?:\*)/,
+      /* 44: */  /^(?:\/)/,
+      /* 45: */  /^(?:@)/,
+      /* 46: */  /^(?:pre)/,
+      /* 47: */  /^(?:nil)/,
+      /* 48: */  /^(?:["][^"]*["])/,
+      /* 49: */  /^(?:['][^']*['])/,
+      /* 50: */  /^(?:[^\W\d]\w*)/,
+      /* 51: */  /^(?:$)/
     ],
 
     conditions: {
@@ -5486,8 +5426,7 @@ EOF: 1,
           48,
           49,
           50,
-          51,
-          52
+          51
         ],
 
         inclusive: true
@@ -5506,8 +5445,14 @@ function functionCallExpression(yy, fn, source, params = undefined) {
     let ExpressionType = yy.Expression[expressionTypeName];
     let typeExists = typeof ExpressionType === 'function';
 
-    if (typeExists && !params) {
-        return new ExpressionType(source);
+    if (typeExists) {
+        const expr = new ExpressionType(source);
+        if (expr instanceof yy.Expression.SubstringExpression && !!params) {
+            expr.setBody(params);
+         } else if (expr instanceof yy.Expression.BodyBasedExpression && !!params) {
+            expr.setBody(params[0]);
+        }
+        return expr;
     } else {
         return new yy.Expression.NativeJsFunctionCallExpression(source, fn, params);
     }

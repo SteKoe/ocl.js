@@ -4,8 +4,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
 /**
  * Tries to convert a string to a number.
  *
- * @oclExpression toReal() : Number
- * @oclExample "3.414"->toReal()
+ * @oclExpression String:: toReal () : Number
+ * @oclExample "3.414".toReal()
  */
 export class ToRealExpression extends SourceBasedExpression {
     evaluate(visitor: OclExecutionContext): any {

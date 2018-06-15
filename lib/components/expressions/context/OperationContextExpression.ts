@@ -5,7 +5,12 @@ import { PreExpression } from '../PreExpression';
 import { PostExpression } from '../PostExpression';
 
 /**
+ * The Operation Context Expression allows to define pre and or post conditions of functions.
  *
+ * @oclExpression context Person::kill() (pre|post)
+ * @oclExample
+ *     context Person::setAge(age: number)
+ *         pre: age > 0
  */
 export class OperationContextExpression extends ContextExpression {
     private fnName: any;

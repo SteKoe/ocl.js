@@ -2,9 +2,10 @@ import { SourceBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
- * Abs
+ * Returns the absolute value of self.
  *
- * @oclExpression Symbol: abs
+ * @oclExpression Number::abs () : Number
+ * @oclExample -2.abs() = 2
  */
 export class AbsExpression extends SourceBasedExpression {
     evaluate(visitor: OclExecutionContext): any {

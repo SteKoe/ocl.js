@@ -8,7 +8,7 @@ describe('Math.div', () => {
         oclEngine = new OclEngine();
     });
 
-    it.only('should find quotient', () => {
+    it('should find quotient', () => {
         let result = oclEngine.evaluateQuery({}, oclEngine.createQuery('3.div(2)'));
         expect(result).to.equal(1);
     });

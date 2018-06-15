@@ -8,29 +8,28 @@
 \-?[0-9][0-9_]*\.[0-9_]+            return 'real'
 \-?[0-9][0-9_]*                     return 'integer'
 
-"context"                           return 'context'
-"inv"                               return 'inv'
-"init"                              return 'init'
-"derive"                            return 'derive'
-"def"                               return 'def'
-"let"                               return 'let'
-"true"                              return 'true'
-"false"                             return 'false'
-"and"                               return 'and'
-"or"                                return 'or'
-"mod"                               return 'mod'
-"div"                               return 'div'
-"xor"                               return 'xor'
+"context"\b                         return 'context'
+"inv"\b                             return 'inv'
+"init"\b                            return 'init'
+"derive"\b                          return 'derive'
+"def"\b                             return 'def'
+"let"\b                             return 'let'
+"true"\b                            return 'true'
+"false"\b                           return 'false'
+"and"\b                             return 'and'
+"or"\b                              return 'or'
+"mod"\b                             return 'mod'
+"xor"\b                             return 'xor'
 "not"\b                             return 'not'
-"implies"                           return 'implies'
+"implies"\b                         return 'implies'
 "if"\b                              return 'if'
-"pre"                               return 'pre'
-"post"                              return 'post'
-"then"                              return 'then'
-"else"                              return 'else'
-"endif"                             return 'endif'
-"package"                           return 'package'
-"endpackage"                        return 'endpackage'
+"pre"\b                             return 'pre'
+"post"\b                            return 'post'
+"then"\b                            return 'then'
+"else"\b                            return 'else'
+"endif"\b                           return 'endif'
+"package"\b                         return 'package'
+"endpackage"\b                      return 'endpackage'
 "("                                 return '('
 ")"                                 return ')'
 "|"                                 return '|'
@@ -179,6 +178,8 @@ oclExpression
         { $$ = $2; }
     | oclExpression '.' simpleName '(' oclExpressionListOptional ')'
         { $$ = functionCallExpression(yy, $3, $1, $5); }
+    | oclExpression '->' simpleName
+        { $$ = functionCallExpression(yy, $3, $$); }
     | oclExpression '.' simpleName preOptional
         { $$ = ($1 instanceof yy.Expression.VariableExpression) ? new yy.Expression.VariableExpression([$1.source, $3].join('.')) : $1; }
     | oclExpression '+' oclExpression
@@ -193,8 +194,6 @@ oclExpression
         { $$ = new yy.Expression.DivideExpression($1, $3); }
     | oclExpression 'mod' oclExpression
         { $$ = new yy.Expression.ModuloExpression($1, $3); }
-    | oclExpression '.' 'div' '(' oclExpression ')'
-        { $$ = new yy.Expression.DivExpression($1, $5); }
     | '-' oclExpression %prec UMINUS
         { $$ = new yy.Expression.MultiplyExpression(new yy.Expression.NumberExpression(-1), $2); }
     | oclExpression '<' oclExpression
@@ -217,8 +216,6 @@ oclExpression
 	    { $$ = new yy.Expression.XorExpression($1, $3); }
     | 'if' oclExpression 'then' oclExpression 'else' oclExpression 'endif'
         { $$ = new yy.Expression.IfExpression($2, $4, $6); }
-    | oclExpression '->' simpleName
-        { $$ = functionCallExpression(yy, $3, $$); }
     | oclExpression '(' variableDeclarationList '|' oclExpression ')'
         { $1.setBody($5); $1.setIterators($3); $$ = $1; }
     | oclExpression '(' oclExpression ')'
@@ -338,8 +335,14 @@ function functionCallExpression(yy, fn, source, params = undefined) {
     let ExpressionType = yy.Expression[expressionTypeName];
     let typeExists = typeof ExpressionType === 'function';
 
-    if (typeExists && !params) {
-        return new ExpressionType(source);
+    if (typeExists) {
+        const expr = new ExpressionType(source);
+        if (expr instanceof yy.Expression.SubstringExpression && !!params) {
+            expr.setBody(params);
+         } else if (expr instanceof yy.Expression.BodyBasedExpression && !!params) {
+            expr.setBody(params[0]);
+        }
+        return expr;
     } else {
         return new yy.Expression.NativeJsFunctionCallExpression(source, fn, params);
     }
