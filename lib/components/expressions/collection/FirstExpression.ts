@@ -4,7 +4,7 @@ import { OclExecutionContext } from '../../OclExecutionContext';
 /**
  * Returns the first element of the collection.
  *
- * @oclExpression first() : T
+ * @oclExpression collection->first() : T
  * @oclExample self.collection->first()
  */
 export class FirstExpression extends SourceBasedExpression {

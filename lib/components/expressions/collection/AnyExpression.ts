@@ -3,7 +3,7 @@ import { OclExecutionContext } from '../../OclExecutionContext';
 import { Utils } from '../../Utils';
 
 /**
- * Return the first element that matches the given OclExpression.
+ * Returns the first element that validates the given expression.
  *
  * @oclExpression any(expr : OclExpression) : T
  * @oclExample self.collection->any(i < 2)
