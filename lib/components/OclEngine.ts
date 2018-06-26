@@ -32,6 +32,8 @@ export class OclEngine {
 
     /**
      * Set a TypeDeterminer function that receives an object and returns the type of the object.
+     *
+     * @param fn A callback function that is used to determine the type if the object that is passed into the callback function
      */
     setTypeDeterminer(fn: Function): void {
         if (typeof fn === 'function') {
@@ -39,6 +41,19 @@ export class OclEngine {
         }
     }
 
+    /**
+     * Register additional object types in the engine which than can be used for instanceof checking.
+     *
+     * The following build-in JavaScript types are already registered:
+     *  - Array
+     *  - Boolean
+     *  - Function
+     *  - Number
+     *  - Object
+     *  - String
+     *
+     * @param types A list of types to register
+     */
     registerTypes(types): void {
         this.registeredTypes = {...this.registeredTypes, ...types};
         OclParser.registeredTypes = this.registeredTypes;
@@ -105,10 +120,24 @@ export class OclEngine {
         return Utils.getClassName(obj);
     }
 
+    /**
+     * Specify a OCL query that can be used to extract information from an object.
+     *
+     * @example oclEngine.createQuery('self.children.name') // Returns an array of the children's names
+     * @param oclExpression An OCL expression that is used to create a query of
+     * @returns Expression The AST of the parsed oclExpresion
+     */
     createQuery(oclExpression: string): Expression {
         return OclEngine.Parser.parseQuery(oclExpression, this.registeredTypes);
     }
 
+    /**
+     * Execute a given OCL query on a given object.
+     *
+     * @param obj The object to query
+     * @param oclExpression The query to run on the given object
+     * @returns the result of the provided query.
+     */
     evaluateQuery(obj: object, oclExpression: Expression): any {
         const visitor = new OclExecutionContext(obj);
         visitor.registerTypes(this.registeredTypes);

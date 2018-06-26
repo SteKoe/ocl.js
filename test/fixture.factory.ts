@@ -49,6 +49,10 @@ export class Person extends Human {
 
 export class Job {
     salary: number;
+
+    constructor(salary?: number) {
+        this.salary = salary;
+    }
 }
 
 export class MetaEntity {
