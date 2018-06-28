@@ -42,6 +42,10 @@
     "@types/chai": "^4.1.3",
     "@types/mocha": "^5.2.1",
     "@types/node": "^10.3.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
     "cross-env": "^5.1.6",
     "jison-gho": "^0.6.1-215",
@@ -56,5 +60,8 @@
     "typescript": "^2.9.1",
     "webpack": "^4.9.1",
     "webpack-command": "^0.2.0"
+  },
+  "dependencies": {
+    "babel": "^6.23.0"
   }
 }
