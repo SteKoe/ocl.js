@@ -53,12 +53,12 @@
     "nyc": "^12.0.2",
     "rimraf": "^2.6.2",
     "ts-loader": "^4.4.0",
-    "ts-node": "^6.1.0",
+    "ts-node": "^7.0.0",
     "tslint": "^5.10.0",
     "tslint-loader": "^3.6.0",
     "tslint-no-unused-expression-chai": "^0.1.3",
     "typescript": "^2.9.1",
     "webpack": "^4.9.1",
-    "webpack-command": "^0.2.0"
+    "webpack-command": "^0.3.1"
   }
 }
