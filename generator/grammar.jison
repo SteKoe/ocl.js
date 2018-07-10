@@ -68,16 +68,16 @@
 %left '^'
 %left 'mod'
 %left UMINUS
-%right ">" ">=" "<" "<=" "<>"
+%right 'not' ">" ">=" "<" "<=" "<>"
 
 %token START_FOO START_BAR;
 %start start
 %% /* language grammar */
 
 start
-    : packageDecl
+    : packageDecl EOF
         { return $1 }
-    | oclExpression
+    | oclExpression EOF
         { return $1 }
     ;
 

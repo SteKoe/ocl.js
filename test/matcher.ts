@@ -4,7 +4,7 @@ import { OclExecutionContext } from '../lib/components/OclExecutionContext';
 
 export function expectOclRuleValidatesToTrue(oclExpression, obj?): void {
     const visitor = _parseAndEvaluate(oclExpression, obj);
-    expect(visitor.getEvaluationResult()).to.be.true;
+    expect(visitor.getEvaluationResult(), oclExpression).to.be.true;
 }
 
 export function expectOclRuleValidatesToFalse(oclExpression, obj?): void {
