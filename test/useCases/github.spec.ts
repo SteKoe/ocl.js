@@ -15,16 +15,16 @@ describe('UseCase', () => {
                 other: 'other'
             };
 
+            const voterId = {
+                Type: VoterIdType.other,
+                OtherType: undefined
+            };
+
             oclEngine.registerEnum('VoterIdType', VoterIdType);
             oclEngine.addOclExpression(`
                 context Object inv ViOtherTypeMustBeDefined:
                     self.Type = VoterIdType::other implies not self.OtherType.oclIsUndefined()
             `);
-
-            const voterId = {
-                Type: VoterIdType.other,
-                OtherType: undefined
-            };
 
             let evaluationResult = oclEngine.evaluate(voterId);
             expect(evaluationResult.getResult()).to.be.false;

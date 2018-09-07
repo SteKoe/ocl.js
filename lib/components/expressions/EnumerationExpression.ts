@@ -19,8 +19,7 @@ export class EnumerationExpression extends Expression {
     evaluate(visitor: OclExecutionContext): any {
         const enumeration = visitor.getRegisteredEnumeration(this.enumeration);
         if (enumeration) {
-            let any = enumeration[this.field];
-            return any;
+            return enumeration[this.field];
         }
     }
 }

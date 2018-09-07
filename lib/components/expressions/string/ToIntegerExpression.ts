@@ -12,6 +12,6 @@ export class ToIntegerExpression extends SourceBasedExpression {
         const source = this.getSource()
             .evaluate(visitor);
 
-        return Number.parseInt(source);
+        return parseInt(source, 10);
     }
 }
