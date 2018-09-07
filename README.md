@@ -8,7 +8,7 @@
   <a href="https://travis-ci.org/SteKoe/ocl.js"><img alt="Travis Status" src="https://img.shields.io/travis/SteKoe/ocl.js/master.svg"></a>
   <a href="https://david-dm.org/SteKoe/ocl.js#info=devDependencies"><img alt="devDependency Status" src="https://david-dm.org/SteKoe/ocl.js/dev-status.svg"></a>
   <a href="https://github.com/SteKoe/ocl.js"><img alt="License: MIT" src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
-  <a href="https://github.com/SteKoe/ocl.js"><img alt="npm (scoped)" src="https://img.shields.io/npm/v/@stekoe/ocl.js.svg"></a>
+  <a href="https://www.npmjs.com/package/@stekoe/ocl.js"><img alt="npm (scoped)" src="https://img.shields.io/npm/v/@stekoe/ocl.js.svg"></a>
 </p>
 
 The Object Constraint Language (OCL) is a language for describing rules that apply to MOF conform modelling languages like UML.
