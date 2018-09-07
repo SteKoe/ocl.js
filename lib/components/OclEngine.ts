@@ -20,6 +20,7 @@ export class OclEngine {
     private packageDeclarations: Array<PackageDeclaration> = [];
     private typeDeterminerFn: Function;
     private registeredTypes: object = OclParser.registeredTypes;
+    private registeredEnums: object = OclParser.registeredEnums;
 
     /**
      * Static create method.
@@ -57,6 +58,11 @@ export class OclEngine {
     registerTypes(types): void {
         this.registeredTypes = {...this.registeredTypes, ...types};
         OclParser.registeredTypes = this.registeredTypes;
+    }
+
+    registerEnum(name: string, values: object): void {
+        this.registeredEnums = {...this.registeredEnums, [name]: values};
+        OclParser.registeredEnums = this.registeredEnums;
     }
 
     /**
@@ -109,6 +115,7 @@ export class OclEngine {
     evaluate(obj: any, labels: Array<string> = []): OclResult {
         const visitor = new OclExecutionContext(obj, Array.isArray(labels) ? labels : [labels]);
         visitor.registerTypes(this.registeredTypes);
+        visitor.setRegisteredEnumerations(this.registeredEnums);
 
         this.packageDeclarations.forEach(e => e.evaluate(visitor));
 

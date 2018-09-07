@@ -13,7 +13,7 @@ export function expectOclRuleValidatesToFalse(oclExpression, obj?): void {
 }
 
 // ===
-function _parseAndEvaluate(oclExpression, obj?): OclExecutionContext {
+function _parseAndEvaluate(oclExpression: string, obj?): OclExecutionContext {
     const visitor = new OclExecutionContext(obj || {});
     const ast = OclParser.parse(oclExpression);
     ast.evaluate(visitor);

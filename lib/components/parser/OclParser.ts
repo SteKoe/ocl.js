@@ -17,6 +17,8 @@ export class OclParser {
         String
     };
 
+    static registeredEnums: object = {};
+
     static parseQuery(oclExpression: any, registeredTypes?: object): Expressions.Expression {
         parser.yy.registeredTypes = registeredTypes || {};
         const packageDeclaration = parser.parse(oclExpression) as Expressions.Expression;

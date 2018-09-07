@@ -171,7 +171,7 @@ oclExpression
 	: literalExp
 	    { $$ = $1; }
 	| pathName preOptional
-	    { $$ = new yy.Expression.VariableExpression($1); }
+	    { $$ = ($1.indexOf('::') === -1) ? new yy.Expression.VariableExpression($1) : new yy.Expression.EnumerationExpression($1); }
     | 'not' oclExpression
         { $$ = new yy.Expression.NotExpression($2); }
     | '(' oclExpression ')'
