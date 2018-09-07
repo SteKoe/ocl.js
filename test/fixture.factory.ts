@@ -18,6 +18,7 @@ export class Human {
 export class Person extends Human {
     age: any;
     name: string;
+    gender: string;
     children: Array<Person> = [];
     income: number;
     jobs: Array<Job> = [];

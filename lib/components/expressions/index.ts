@@ -6,6 +6,7 @@ export * from './math';
 export * from './string';
 
 export * from './DeriveExpression';
+export * from './EnumerationExpression';
 export * from './Expression';
 export * from './IfExpression';
 export * from './InitExpression';

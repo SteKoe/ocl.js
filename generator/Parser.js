@@ -1139,7 +1139,7 @@ case 26:
 case 28:
     /*! Production::    oclExpression : pathName preOptional */
 
-    this.$ = new yy.Expression.VariableExpression(yyvstack[yysp - 1]);
+    this.$ = (yyvstack[yysp - 1].indexOf('::') === -1) ? new yy.Expression.VariableExpression(yyvstack[yysp - 1]) : new yy.Expression.EnumerationExpression(yyvstack[yysp - 1]);
     break;
 
 case 29:

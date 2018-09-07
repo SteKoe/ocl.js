@@ -7,6 +7,7 @@ export class OclExecutionContext {
     private evaluationResult: any = undefined;
     private failedInvariants: Array<Expr.InvariantExpression> = [];
     private registeredTypes: any;
+    private registeredEnumerations: any;
     private targetTypeName: string;
     private evaluatedContexts: Array<ContextExpression> = [];
 
@@ -43,6 +44,14 @@ export class OclExecutionContext {
 
     registerTypes(types): void {
         this.registeredTypes = {...this.registeredTypes, ...types};
+    }
+
+    setRegisteredEnumerations(enumerations): void {
+        this.registeredEnumerations = {...this.registeredEnumerations, ...enumerations};
+    }
+
+    getRegisteredEnumeration(key): Array<any> {
+        return this.registeredEnumerations[key] || [];
     }
 
     getFailedInvariants(): Array<Expr.InvariantExpression> {
