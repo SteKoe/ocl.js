@@ -16,6 +16,6 @@ export class NotExpression extends SourceBasedExpression {
         const source = this.getSource()
             .evaluate(visitor);
 
-        return source !== true;
+        return !source;
     }
 }
