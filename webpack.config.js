@@ -7,9 +7,9 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: "ocl.min.js",
         libraryTarget: "umd",
-        libraryExport: "OclEngine"
+        libraryExport: "OclEngine",
+        globalObject: `typeof self !== 'undefined' ? self : this`,
     },
-
     module: {
         rules: [
             {
