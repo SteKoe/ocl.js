@@ -1,13 +1,18 @@
 /* lexical grammar */
 %lex
 
+BSL                 "\\".
+SN_ECSSQ             "_'"
+SN_SECESQ            "'"
+SN_ECSDQ             "_\""
+SN_SECEDQ            "\""
+
 %%
+
 \s+                                 /* skip whitespace */
 \-\-[^\n]*                          /* skip comment */
-
 \-?[0-9][0-9_]*\.[0-9_]+            return 'real'
 \-?[0-9][0-9_]*                     return 'integer'
-
 "context"\b                         return 'context'
 "inv"\b                             return 'inv'
 "init"\b                            return 'init'
@@ -55,7 +60,13 @@
 'nil'                               return 'nil'
 ["][^\"]*["]          	            return 'string'
 ['][^\']*[']          	            return 'string'
+"'"([^']|{BSL})*"'"                 return 'string'
+"\""([^"]|{BSL})*"\""               return 'string'
+
+{SN_ECSDQ}([^"])*{SN_SECEDQ}        return 'simpleNameEscaped'
+{SN_ECSSQ}([^'])*{SN_SECESQ}        return 'simpleNameEscaped'
 [a-zA-Z_][a-zA-Z0-9_]*              return 'simpleName'
+
 
 <<EOF>>               	            return 'EOF'
 /lex
@@ -176,11 +187,11 @@ oclExpression
         { $$ = new yy.Expression.NotExpression($2); }
     | '(' oclExpression ')'
         { $$ = $2; }
-    | oclExpression '.' simpleName '(' oclExpressionListOptional ')'
+    | oclExpression '.' simpleNameExpression '(' oclExpressionListOptional ')'
         { $$ = functionCallExpression(yy, $3, $1, $5); }
-    | oclExpression '->' simpleName
-        { $$ = functionCallExpression(yy, $3, $$); }
-    | oclExpression '.' simpleName preOptional
+    | oclExpression '->' simpleNameExpression
+        { $$ = functionCallExpression(yy, $3, $1); }
+    | oclExpression '.' simpleNameExpression preOptional
         { $$ = ($1 instanceof yy.Expression.VariableExpression) ? new yy.Expression.VariableExpression([$1.source, $3].join('.')) : $1; }
     | oclExpression '+' oclExpression
         { $$ = new yy.Expression.AdditionExpression($1, $3); }
@@ -236,9 +247,9 @@ oclExpressionList
     ;
 
 defExpression
-    : simpleName typeOptional '=' oclExpression
+    : simpleNameExpression typeOptional '=' oclExpression
         { $$ = new yy.Expression.DefExpression($1, $4); }
-    | simpleName '(' simpleName typeOptional ')' typeOptional '=' oclExpression
+    | simpleNameExpression '(' simpleNameExpression typeOptional ')' typeOptional '=' oclExpression
         { $$ = new yy.Expression.DefExpression($1, $8); }
 	;
 
@@ -251,12 +262,12 @@ typeOptional
 type
 	: pathName
 	    { $$ = $1; }
-	| pathName '(' simpleName ')'
+	| pathName '(' simpleNameExpression ')'
 	    { $$ = $1; }
 	;
 
 variableDeclaration
-    : simpleName typeOptional
+    : simpleNameExpression typeOptional
         { $$ = $1; }
     ;
 
@@ -299,7 +310,7 @@ literalExpList
 	;
 
 simpleNameOptional
-	: simpleName
+	: simpleNameExpression
 	    { $$ = $1; }
 	|
 	;
@@ -320,11 +331,20 @@ primitiveLiteralExp
 	;
 
 pathName
-	: simpleName
+	: simpleNameExpression
 	    { $$ = $1; }
-	| pathName '::' simpleName
+	| pathName '::' simpleNameExpression
 	    { $$ = $1 + '::' + $3; }
 	;
+
+
+simpleNameExpression
+    : simpleName
+        { $$ = $1; }
+    | simpleNameEscaped
+        { $$ = $1.slice(2, -1); }
+    ;
+
 
 /* end of grammar defintion */
 %%

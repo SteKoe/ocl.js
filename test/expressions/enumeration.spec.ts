@@ -6,14 +6,20 @@ describe('enumeration', () => {
     const Gender = {
         MALE: 'male',
         FEMALE: 'female',
-        OTHER: 'other'
+        OTHER: 'other',
+        'GENDER-FEMALE': 'female'
     };
 
-    const oclEngine = OclEngine.create();
-    oclEngine.registerEnum('Gender', Gender);
+    let mother;
+    let oclEngine;
 
-    const mother = FixtureFactory.createPerson('Hilde', 50);
-    mother.gender = Gender.FEMALE;
+    beforeEach(() => {
+        oclEngine = OclEngine.create();
+        oclEngine.registerEnum('Gender', Gender);
+
+        mother = FixtureFactory.createPerson('Hilde', 50);
+        mother.gender = Gender.FEMALE;
+    });
 
     it('should work when addressing existing enum key', () => {
         oclEngine.addOclExpression('context Person inv: self.gender = Gender::FEMALE');
@@ -27,6 +33,23 @@ describe('enumeration', () => {
         const oclResult = oclEngine.evaluate(mother);
         const result = oclResult.getResult();
         expect(result).to.be.false;
+    });
+
+    it('should return false when addressing escaped property', () => {
+        mother.gender = Gender['GENDER-FEMALE'];
+
+        oclEngine.addOclExpression("context Person inv: self.gender = Gender::_'GENDER-FEMALE'");
+        const oclResult = oclEngine.evaluate(mother);
+        const result = oclResult.getResult();
+        expect(result).to.be.true;
+    });
+
+    it('should return false when addressing escaped property 2', () => {
+        mother.gender = Gender['GENDER-FEMALE'];
+        oclEngine.addOclExpression('context Person inv: self.gender = Gender::_"GENDER-FEMALE"');
+        const oclResult = oclEngine.evaluate(mother);
+        const result = oclResult.getResult();
+        expect(result).to.be.true;
     });
 
     it('should return false when addressing non existing enum', () => {

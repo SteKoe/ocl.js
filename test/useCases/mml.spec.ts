@@ -1,5 +1,6 @@
 import { MetaAssociationLink, MetaEntity } from '../fixture.factory';
 import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
+import {OclParser} from "../../lib/components/parser/OclParser";
 
 describe('Example', () => {
     describe('MML', () => {
