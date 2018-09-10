@@ -5,6 +5,7 @@
 * [Usage](usage.md)
 * [Examples](examples/README.md)
     * [Person](examples/person.md)
+    * [Company](examples/company.md)
 * [Supported language features](expressions/README.md)
     * [Collection](expressions/collection.gen.md)
     * [Context](expressions/context.gen.md)
