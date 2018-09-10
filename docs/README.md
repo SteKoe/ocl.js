@@ -4,6 +4,7 @@
 * [Introduction](introduction/README.md)
 * [Usage](usage.md)
     * [Customize type detection](usage/custom-type-detection.md)
+    * [Register custom types](usage/register-custom-types.md)
     * [Register enumerations](usage/register-enumerations.md)
 * [Examples](examples/README.md)
     * [Person](examples/person.md)
