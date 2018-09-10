@@ -4,15 +4,17 @@
 
 Return the first element that matches the given OclExpression.
 
-`any(expr : OclExpression) : T`
-
 {% tabs %}
-{% tab title="First Tab" %}
-asdasd
+{% tab title="Definition" %}
+```
+any(expr : OclExpression) : T
+```
 {% endtab %}
 
-{% tab title="Second Tab" %}
-ghfhgfgh
+{% tab title="Example" %}
+```ocl
+self.collection->any(i < 2)
+```
 {% endtab %}
 {% endtabs %}
 

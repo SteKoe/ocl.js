@@ -1,9 +1,8 @@
-# Table of contents
+# Table of Contents
 
 * [Read Me](../README.md)
-* [Introduction](../introduction.md)
-* [Supported language features](../supported-language-features/README.md)
-  * [Collection](../supported-language-features/collection.md)
-* [Changelog](../changelog.md)
-* [License](../license.md)
-
+* [Introduction](introduction/README.md)
+* [Supported language features](expressions/README.md)
+    * [Collection](expressions/collection.md)
+* [Changelog](../CHANGELOG.md)
+* [License](../LICENSE.md)
