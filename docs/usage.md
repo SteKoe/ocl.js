@@ -35,6 +35,7 @@ const oclResult = oclEngine.evaluate(obj);
 ```
 
 The resulting `oclResult` object contains three fields: 
-1. `result` contains the actual result of the evaluation run as a boolean value 
-1. `namesOfFailedInvs` contains the names of failed invariants or `anonymous` if none has been provided
-1. `evaluatedContexts` contains all `ContextExpressions` that have been evaluated 
+
+ 1. `result` contains the actual result of the evaluation run as a boolean value 
+ 1. `namesOfFailedInvs` contains the names of failed invariants or `anonymous` if none has been provided
+ 1. `evaluatedContexts` contains all `ContextExpressions` that have been evaluated 
