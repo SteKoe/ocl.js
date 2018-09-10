@@ -1,15 +1,15 @@
 # Expressions
 
 ## DefExpression
-    
-    The Let expression allows a variable to be used in one OCL expression.
-    To enable reuse of variables/operations over multiple OCL expressions one can use a Constraint with the stereotype «definition», in which helper variables/operations are defined.
-    This «definition» Constraint must be attached to a Classifier and may only contain variable and/or operation definitions, nothing else.
-    All variables and operations defined in the «definition» constraint are known in the same context as where any property of the Classifier can be used.
-    Such variables and operations are attributes and operations with stereotype «OclHelper» of the classifier.
-    They are used in an OCL expression in exactly the same way as normal attributes or operations are used.
-    The syntax of the attribute or operation definitions is similar to the Let expression, but each attribute and operation definition is prefixed with the keyword ‘def’ as shown below.
-    
+> 
+> The Let expression allows a variable to be used in one OCL expression.
+> To enable reuse of variables/operations over multiple OCL expressions one can use a Constraint with the stereotype «definition», in which helper variables/operations are defined.
+> This «definition» Constraint must be attached to a Classifier and may only contain variable and/or operation definitions, nothing else.
+> All variables and operations defined in the «definition» constraint are known in the same context as where any property of the Classifier can be used.
+> Such variables and operations are attributes and operations with stereotype «OclHelper» of the classifier.
+> They are used in an OCL expression in exactly the same way as normal attributes or operations are used.
+> The syntax of the attribute or operation definitions is similar to the Let expression, but each attribute and operation definition is prefixed with the keyword ‘def’ as shown below.
+> 
 
 
 {% tabs %}
@@ -60,12 +60,12 @@ Otherwise the else part is taken.
 {% endtabs %}
 
 ## InvariantExpression
-    
-    The OCL expression can be part of an Invariant which is a Constraint stereotyped as an «invariant».
-    When the invariant is associated with a Classifier, the latter is referred to as a “type” in this clause.
-    An OCL expression is an invariant of the type and must be true for all instances of that type at any time.
-    (Note that all OCL expressions that express invariants are of the type Boolean.)
-    
+> 
+> The OCL expression can be part of an Invariant which is a Constraint stereotyped as an «invariant».
+> When the invariant is associated with a Classifier, the latter is referred to as a “type” in this clause.
+> An OCL expression is an invariant of the type and must be true for all instances of that type at any time.
+> (Note that all OCL expressions that express invariants are of the type Boolean.)
+> 
 
 
 {% tabs %}

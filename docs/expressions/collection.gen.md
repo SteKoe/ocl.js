@@ -69,11 +69,11 @@ self.collection->at(2)
 {% endtabs %}
 
 ## CollectExpression
-    
-    When we want to specify a collection that is derived from some other collection, but which contains different
-    objects from the original collection (i.e., it is not a sub-collection), we can use a collect operation.
-    The collect operation uses the same syntax as the select and reject.
-    
+> 
+> When we want to specify a collection that is derived from some other collection, but which contains different
+> objects from the original collection (i.e., it is not a sub-collection), we can use a collect operation.
+> The collect operation uses the same syntax as the select and reject.
+> 
 
 
 {% tabs %}
@@ -124,10 +124,10 @@ self.collection->first()
 {% endtabs %}
 
 ## ForAllExpression
-    
-    Many times a constraint is needed on all elements of a collection.
-    The forAll operation in OCL allows specifying a Boolean expression, which must hold for all objects in a collection.
-    
+> 
+> Many times a constraint is needed on all elements of a collection.
+> The forAll operation in OCL allows specifying a Boolean expression, which must hold for all objects in a collection.
+> 
 
 
 {% tabs %}
@@ -207,13 +207,13 @@ self.collection->one(age < 18)
 {% endtabs %}
 
 ## RejectExpression
-    
-    The reject operation specifies a subset of a collection.
-    A reject is an operation on a collection and is specified using the arrow-syntax.
-    This results in a collection that removes all the elements from collection for which the boolean-expression evaluates to true.
-    To find the result of this expression, for each element in collection the expression boolean-expression is evaluated.
-    If this evaluates to true, the element is excluded in the result collection, otherwise not.
-    
+> 
+> The reject operation specifies a subset of a collection.
+> A reject is an operation on a collection and is specified using the arrow-syntax.
+> This results in a collection that removes all the elements from collection for which the boolean-expression evaluates to true.
+> To find the result of this expression, for each element in collection the expression boolean-expression is evaluated.
+> If this evaluates to true, the element is excluded in the result collection, otherwise not.
+> 
 
 
 {% tabs %}
@@ -230,13 +230,13 @@ self.customer->reject(underage)
 {% endtabs %}
 
 ## SelectExpression
-    
-    The select operation specifies a subset of a collection.
-    A select is an operation on a collection and is specified using the arrow-syntax.
-    This results in a collection that contains all the elements from collection for which the boolean-expression evaluates to true.
-    To find the result of this expression, for each element in collection the expression boolean-expression is evaluated.
-    If this evaluates to true, the element is included in the result collection, otherwise not.
-    
+> 
+> The select operation specifies a subset of a collection.
+> A select is an operation on a collection and is specified using the arrow-syntax.
+> This results in a collection that contains all the elements from collection for which the boolean-expression evaluates to true.
+> To find the result of this expression, for each element in collection the expression boolean-expression is evaluated.
+> If this evaluates to true, the element is included in the result collection, otherwise not.
+> 
 
 
 {% tabs %}
