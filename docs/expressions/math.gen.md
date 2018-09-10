@@ -12,7 +12,7 @@ Number::abs () : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
--2.abs() &#x3D; 2
+-2.abs() = 2
 ```
 {% endtab %}
 {% endtabs %}
@@ -46,7 +46,7 @@ Number::div ( i : Number ) : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-3 div 2 &#x3D; 1
+3 div 2 = 1
 ```
 {% endtab %}
 {% endtabs %}
@@ -80,7 +80,7 @@ Number::max ( i : Number ) : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-6.max(3) &#x3D; 6
+6.max(3) = 6
 ```
 {% endtab %}
 {% endtabs %}
@@ -97,7 +97,7 @@ Number::min ( i : Number ) : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-6.max(3) &#x3D; 3
+6.max(3) = 3
 ```
 {% endtab %}
 {% endtabs %}
@@ -114,7 +114,7 @@ Number::mod ( i : Number ) : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-4 mod 2 &#x3D; 0
+4 mod 2 = 0
 ```
 {% endtab %}
 {% endtabs %}
@@ -177,7 +177,7 @@ Number::sqrt () : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-9.sqrt() &#x3D; 3
+9.sqrt() = 3
 ```
 {% endtab %}
 {% endtabs %}

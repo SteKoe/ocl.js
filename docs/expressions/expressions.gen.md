@@ -16,7 +16,7 @@
 {% tab title="Example" %}
 ```ocl
 context Person def:
-    income : Integer &#x3D; self.job.salary-&gt;sum()
+    income : Integer = self.job.salary->sum()
 ```
 {% endtab %}
 {% endtabs %}
@@ -30,8 +30,8 @@ A derived value expression is an expression that may be linked to a property.
 ```ocl
 context Person::income : Integer
     derive:  if underAge
-      then (parents.income-&gt;sum() * 1/100).round()
-      else job.salary-&gt;sum()
+      then (parents.income->sum() * 1/100).round()
+      else job.salary->sum()
     endif
 ```
 {% endtab %}
@@ -72,7 +72,7 @@ Otherwise the else part is taken.
 {% tab title="Example" %}
 ```ocl
 context Person inv:
-    self.age &gt; 0
+    self.age > 0
 ```
 {% endtab %}
 {% endtabs %}

@@ -7,7 +7,7 @@ Define invariants and definitions on a given types
 {% tabs %}
 {% tab title="Definition" %}
 ```ocl
-context &lt;Type&gt; (inv|def)
+context <Type> (inv|def)
 ```
 {% endtab %}
 {% endtabs %}
@@ -26,7 +26,7 @@ context Person::kill() (pre|post)
 ```ocl
 
     context Person::setAge(age: number)
-        pre: age &gt; 0
+        pre: age > 0
 ```
 {% endtab %}
 {% endtabs %}

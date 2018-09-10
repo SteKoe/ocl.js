@@ -12,7 +12,7 @@ any(expr : OclExpression) : T
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;any(i &lt; 2)
+self.collection->any(i < 2)
 ```
 {% endtab %}
 {% endtabs %}
@@ -24,12 +24,12 @@ Appends the given element to the given collection and returns the extended colle
 {% tabs %}
 {% tab title="Definition" %}
 ```ocl
-append(elem : T) : Collection&lt;T&gt;
+append(elem : T) : Collection<T>
 ```
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;append(&quot;string&quot;)
+self.collection->append("string")
 ```
 {% endtab %}
 {% endtabs %}
@@ -46,7 +46,7 @@ asSet() : Collection
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;asSet()
+self.collection->asSet()
 ```
 {% endtab %}
 {% endtabs %}
@@ -63,7 +63,7 @@ at(index : Number) : T
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;at(2)
+self.collection->at(2)
 ```
 {% endtab %}
 {% endtabs %}
@@ -84,7 +84,7 @@ collect(expr : OclExpression) : Collection
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.children-&gt;collect(age)
+self.children->collect(age)
 ```
 {% endtab %}
 {% endtabs %}
@@ -101,7 +101,7 @@ exists(expr : OclExpression) : Boolean
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;exists(i | i &lt; 2)
+self.collection->exists(i | i < 2)
 ```
 {% endtab %}
 {% endtabs %}
@@ -113,12 +113,12 @@ Returns the first element of the collection.
 {% tabs %}
 {% tab title="Definition" %}
 ```ocl
-collection-&gt;first() : T
+collection->first() : T
 ```
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;first()
+self.collection->first()
 ```
 {% endtab %}
 {% endtabs %}
@@ -150,7 +150,7 @@ isEmpty() : Boolean
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.cars-&gt;isEmpty()
+self.cars->isEmpty()
 ```
 {% endtab %}
 {% endtabs %}
@@ -167,7 +167,7 @@ last() : T
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;last()
+self.collection->last()
 ```
 {% endtab %}
 {% endtabs %}
@@ -184,7 +184,7 @@ notEmpty() : Boolean
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.cars-&gt;notEmpty()
+self.cars->notEmpty()
 ```
 {% endtab %}
 {% endtabs %}
@@ -201,7 +201,7 @@ one(expr : oclExpression) : boolean
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;one(age &lt; 18)
+self.collection->one(age < 18)
 ```
 {% endtab %}
 {% endtabs %}
@@ -224,7 +224,7 @@ reject(expr : oclExpression) : Collection
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.customer-&gt;reject(underage)
+self.customer->reject(underage)
 ```
 {% endtab %}
 {% endtabs %}
@@ -247,7 +247,7 @@ select(expr : oclExpression) : Collection
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;select(item | item.name &#x3D; &quot;random&quot;)
+self.collection->select(item | item.name = "random")
 ```
 {% endtab %}
 {% endtabs %}
@@ -264,7 +264,7 @@ size() : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;size()
+self.collection->size()
 ```
 {% endtab %}
 {% endtabs %}
@@ -281,7 +281,7 @@ sum() : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.jobs.salary-&gt;sum()
+self.jobs.salary->sum()
 ```
 {% endtab %}
 {% endtabs %}
@@ -298,7 +298,7 @@ union(c : Collection) : Collection
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.collection-&gt;union(self.anotherCollection)
+self.collection->union(self.anotherCollection)
 ```
 {% endtab %}
 {% endtabs %}

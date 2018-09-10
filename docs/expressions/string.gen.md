@@ -12,7 +12,7 @@ String::concat (s : String) : String
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.name.concat(&quot;string&quot;)
+self.name.concat("string")
 ```
 {% endtab %}
 {% endtabs %}
@@ -29,7 +29,7 @@ String::indexOf (s : String) : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-self.name.indexOf(&quot;string&quot;)
+self.name.indexOf("string")
 ```
 {% endtab %}
 {% endtabs %}
@@ -65,7 +65,7 @@ String::toInteger () : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-&quot;3.414&quot;.toInteger()
+"3.414".toInteger()
 ```
 {% endtab %}
 {% endtabs %}
@@ -99,7 +99,7 @@ String:: toReal () : Number
 {% endtab %}
 {% tab title="Example" %}
 ```ocl
-&quot;3.414&quot;.toReal()
+"3.414".toReal()
 ```
 {% endtab %}
 {% endtabs %}
