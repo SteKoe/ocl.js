@@ -53,7 +53,7 @@ Then you can pass in a callback into the setTypeDeterminer function to override 
 import OCLEngine from "@stekoe/ocl.js"
 
 const oclEngine = new OclEngine();
-oclEngine.setTypeDeterminer(obj => return obj._type);
+oclEngine.setTypeDeterminer(obj => obj._type);
 
 const person = new MyCustomType('Person');
 oclEngine.evaluate(person);
