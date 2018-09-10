@@ -6,7 +6,7 @@
 * [Examples](examples/README.md)
     * [Person](examples/person.md)
 * [Supported language features](expressions/README.md)
-    * [Collection](collection.gen.md)
+    * [Collection](collection.md)
     * [Context](context.gen.md)
     * [Expressions](expressions.gen.md)
     * [Gate](gate.gen.md)

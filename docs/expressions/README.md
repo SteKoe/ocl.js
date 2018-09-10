@@ -1,6 +1,6 @@
 # Supported language features
 
-* [Collection](collection.gen.md)
+* [Collection](collection.md)
 * [Context](context.gen.md)
 * [Expressions](expressions.gen.md)
 * [Gate](gate.gen.md)
