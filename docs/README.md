@@ -3,6 +3,8 @@
 * [Read Me](../README.md)
 * [Introduction](introduction/README.md)
 * [Usage](usage.md)
+    * [Customize type detection](usage/custom-type-detection.md)
+    * [Register enumerations](usage/register-enumerations.md)
 * [Examples](examples/README.md)
     * [Person](examples/person.md)
     * [Company](examples/company.md)
