@@ -1,0 +1,14 @@
+context Person::income : Integer
+    derive:
+        if
+            age < 18
+        then
+            self.parents.jobs.salary->sum() * 0.02
+        else
+            self.jobs.salary->sum()
+        endif
+
+context Person
+    inv:
+        self.age < 18 implies
+        self.income = self.parents.jobs.salary->sum() * 0.02
