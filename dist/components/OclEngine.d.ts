@@ -47,7 +47,6 @@ export declare class OclEngine {
     registerTypes(types: any): void;
 
     registerEnum(name: string, values: object): void;
-
     /**
      * Register a list of OCL expressions.
      *

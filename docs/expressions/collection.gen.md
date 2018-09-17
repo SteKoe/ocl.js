@@ -74,7 +74,7 @@ self.collection->at(2)
 > objects from the original collection (i.e., it is not a sub-collection), we can use a collect operation.
 > The collect operation uses the same syntax as the select and reject.
 > 
-
+    
 
 {% tabs %}
 {% tab title="Definition" %}
@@ -214,92 +214,92 @@ self.collection->one(age < 18)
 > To find the result of this expression, for each element in collection the expression boolean-expression is evaluated.
 > If this evaluates to true, the element is excluded in the result collection, otherwise not.
 > 
+    
 
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        reject(expr : oclExpression) : Collection
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.customer->reject(underage)
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-reject(expr : oclExpression) : Collection
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.customer->reject(underage)
-```
-{% endtab %}
-{% endtabs %}
-
-## SelectExpression
-> 
+    ## SelectExpression
+    > 
 > The select operation specifies a subset of a collection.
 > A select is an operation on a collection and is specified using the arrow-syntax.
 > This results in a collection that contains all the elements from collection for which the boolean-expression evaluates to true.
 > To find the result of this expression, for each element in collection the expression boolean-expression is evaluated.
 > If this evaluates to true, the element is included in the result collection, otherwise not.
 > 
+    
 
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        select(expr : oclExpression) : Collection
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->select(item | item.name = "random")
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-select(expr : oclExpression) : Collection
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->select(item | item.name = "random")
-```
-{% endtab %}
-{% endtabs %}
+    ## SizeExpression
+    
+    Returns the size of the given collection.
 
-## SizeExpression
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        size() : Number
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->size()
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-Returns the size of the given collection.
+    ## SumExpression
+    
+    Returns the sum of all elements contained in self if they support the &#x27;+&#x27; operation.
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-size() : Number
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->size()
-```
-{% endtab %}
-{% endtabs %}
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        sum() : Number
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.jobs.salary->sum()
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-## SumExpression
+    ## UnionExpression
+    
+    Returns a collection containing all elements of self and all elements of the passed in collection.
 
-Returns the sum of all elements contained in self if they support the &#x27;+&#x27; operation.
-
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-sum() : Number
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.jobs.salary->sum()
-```
-{% endtab %}
-{% endtabs %}
-
-## UnionExpression
-
-Returns a collection containing all elements of self and all elements of the passed in collection.
-
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-union(c : Collection) : Collection
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->union(self.anotherCollection)
-```
-{% endtab %}
-{% endtabs %}
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        union(c : Collection) : Collection
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->union(self.anotherCollection)
+        ```
+        {% endtab %}
+    {% endtabs %}
 
