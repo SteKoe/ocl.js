@@ -1,4 +1,4 @@
-import {LiteralExpression} from './index';
+import { LiteralExpression } from './index';
 
 export class NilExpression extends LiteralExpression<void> {
     constructor() {

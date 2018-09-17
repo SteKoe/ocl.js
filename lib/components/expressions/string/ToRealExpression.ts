@@ -1,5 +1,5 @@
-import {SourceBasedExpression} from '../Expression';
-import {OclExecutionContext} from '../../OclExecutionContext';
+import { SourceBasedExpression } from '../Expression';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Tries to convert a string to a number.

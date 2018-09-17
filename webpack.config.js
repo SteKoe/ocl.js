@@ -8,7 +8,7 @@ module.exports = {
         filename: "ocl.min.js",
         libraryTarget: "umd",
         libraryExport: "OclEngine",
-        globalObject: `typeof self !== 'undefined' ? self : this`,
+        globalObject: `typeof self !== 'undefined' ? self : this`
     },
     module: {
         rules: [
@@ -39,7 +39,7 @@ module.exports = {
         new UglifyJsPlugin({
             uglifyOptions: {
                 output: {
-                    comments: false,
+                    comments: false
                 }
             }
         })

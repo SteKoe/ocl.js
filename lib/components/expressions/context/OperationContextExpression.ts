@@ -1,8 +1,8 @@
-import {ContextExpression} from './ContextExpression';
-import {OclExecutionContext} from '../../OclExecutionContext';
-import {OclValidationError} from '../../OclValidationError';
-import {PreExpression} from '../PreExpression';
-import {PostExpression} from '../PostExpression';
+import { ContextExpression } from './ContextExpression';
+import { OclExecutionContext } from '../../OclExecutionContext';
+import { OclValidationError } from '../../OclValidationError';
+import { PreExpression } from '../PreExpression';
+import { PostExpression } from '../PostExpression';
 
 /**
  * The Operation Context Expression allows to define pre and or post conditions of functions.
@@ -35,7 +35,7 @@ export class OperationContextExpression extends ContextExpression {
             const self = this;
             const originalFn = actualType.prototype[this.fnName];
 
-            actualType.prototype[this.fnName] = function (...args): any {
+            actualType.prototype[this.fnName] = function(...args): any {
                 const oclExecutionContext = new OclExecutionContext(this);
                 oclExecutionContext.registerTypes(registeredTypes);
 

@@ -1,4 +1,4 @@
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../../matcher';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('Collection->reject ', () => {
     it('checks if there are no children older than 18 years old', () => {

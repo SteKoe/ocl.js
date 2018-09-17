@@ -1,6 +1,6 @@
-import {IteratorExpression} from '../Expression';
-import {OclExecutionContext} from '../../OclExecutionContext';
-import {SelectExpression} from './SelectExpression';
+import { IteratorExpression } from '../Expression';
+import { OclExecutionContext } from '../../OclExecutionContext';
+import { SelectExpression } from './SelectExpression';
 
 /**
  * Returns true of there is exactly one element matching the given expression, false otherwise.

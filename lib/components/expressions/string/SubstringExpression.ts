@@ -1,5 +1,5 @@
-import {BodyBasedExpression} from '../Expression';
-import {OclExecutionContext} from '../../OclExecutionContext';
+import { BodyBasedExpression } from '../Expression';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns a string containing all characters from self starting from index *start* up to index *end* included.

@@ -1,9 +1,9 @@
-import {ContextExpression} from './ContextExpression';
-import {InitExpression} from '../InitExpression';
-import {DeriveExpression} from '../DeriveExpression';
-import {Utils} from '../../Utils';
-import {OclExecutionContext} from '../../OclExecutionContext';
-import {DefExpression} from '../DefExpression';
+import { ContextExpression } from './ContextExpression';
+import { InitExpression } from '../InitExpression';
+import { DeriveExpression } from '../DeriveExpression';
+import { Utils } from '../../Utils';
+import { OclExecutionContext } from '../../OclExecutionContext';
+import { DefExpression } from '../DefExpression';
 
 /**
  * A PropertyContextDefinition allows to initialize or derive a value for the targeted property.

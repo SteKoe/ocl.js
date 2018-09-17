@@ -1,4 +1,4 @@
-import {expectOclRuleValidatesToTrue} from '../../matcher';
+import { expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('String.size', () => {
     it('should return the correct length of a given string', () => {

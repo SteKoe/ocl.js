@@ -1,5 +1,5 @@
-import {OclParser} from '../../../lib/components/parser/OclParser';
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../../matcher';
+import { OclParser } from '../../../lib/components/parser/OclParser';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('Collection->at', () => {
     it('should return an element from within the sequence', () => {

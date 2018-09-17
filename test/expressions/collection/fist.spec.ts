@@ -1,4 +1,4 @@
-import {expectOclRuleValidatesToTrue} from '../../matcher';
+import { expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('Collection->first', () => {
     it('should return the last element of a seq', () => {

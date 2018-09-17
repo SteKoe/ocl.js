@@ -2,6 +2,7 @@ import { OclParser } from './parser/OclParser';
 import { Utils } from './Utils';
 import { Expression } from './expressions';
 import { OclResult } from './OclResult';
+
 /**
  * The OclEngine class is the main entry point to the OCL.js library.
  *
@@ -15,18 +16,21 @@ export declare class OclEngine {
     private typeDeterminerFn;
     private registeredTypes;
     private registeredEnums;
+
     /**
      * Static create method.
      *
      * @returns a fresh new instance of the OclEngine
      */
     static create(): OclEngine;
+
     /**
      * Set a TypeDeterminer function that receives an object and returns the type of the object.
      *
      * @param fn A callback function that is used to determine the type if the object that is passed into the callback function
      */
     setTypeDeterminer(fn: Function): void;
+
     /**
      * Register additional object types in the engine which than can be used for instanceof checking.
      *
@@ -41,7 +45,9 @@ export declare class OclEngine {
      * @param types A list of types to register
      */
     registerTypes(types: any): void;
+
     registerEnum(name: string, values: object): void;
+
     /**
      * Register a list of OCL expressions.
      *
@@ -50,6 +56,7 @@ export declare class OclEngine {
      * @throws ParserError
      */
     addOclExpressions(oclExpressions: any): OclEngine;
+
     /**
      * Register a new OCL expression.
      *
@@ -66,6 +73,7 @@ export declare class OclEngine {
      * @throws ParserError
      */
     addOclExpression(oclExpression: any, labels?: Array<string>): OclEngine;
+
     /**
      * This function actually evaluates the given object against the registered OCL expressions.
      *
@@ -74,7 +82,9 @@ export declare class OclEngine {
      * @returns a result object, which contains the actual result and other info @see OclResult
      */
     evaluate(obj: any, labels?: Array<string>): OclResult;
+
     _inferType(obj: any): string;
+
     /**
      * Specify a OCL query that can be used to extract information from an object.
      *
@@ -83,6 +93,7 @@ export declare class OclEngine {
      * @returns Expression The AST of the parsed oclExpresion
      */
     createQuery(oclExpression: string): Expression;
+
     /**
      * Execute a given OCL query on a given object.
      *

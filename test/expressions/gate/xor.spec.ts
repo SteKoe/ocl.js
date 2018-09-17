@@ -1,4 +1,4 @@
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../../matcher';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('xor', () => {
     it('true xor true', () => {

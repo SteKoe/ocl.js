@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {OclParser} from '../../lib/components/parser/OclParser';
+import { expect } from 'chai';
+import { OclParser } from '../../lib/components/parser/OclParser';
 
 describe('Comments', () => {
     it('should be allowed using -- for single line comments', () => {

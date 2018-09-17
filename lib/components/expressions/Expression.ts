@@ -1,4 +1,4 @@
-import {OclExecutionContext} from '../OclExecutionContext';
+import { OclExecutionContext } from '../OclExecutionContext';
 
 export abstract class Expression {
     variables: any;

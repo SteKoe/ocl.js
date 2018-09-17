@@ -1,4 +1,4 @@
-import {expectOclRuleValidatesToTrue} from '../../matcher';
+import { expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('String.substring', () => {
     it('should return substring specifing start and end', () => {

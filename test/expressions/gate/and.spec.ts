@@ -1,4 +1,4 @@
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../../matcher';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('and', () => {
     it('true and true', () => {

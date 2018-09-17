@@ -1,4 +1,4 @@
-import {expectOclRuleValidatesToTrue} from '../matcher';
+import { expectOclRuleValidatesToTrue } from '../matcher';
 
 describe('VariableExpression', () => {
     it('returns simple value', () => {

@@ -1,4 +1,4 @@
-import {expectOclRuleValidatesToTrue} from '../../matcher';
+import { expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('Collection->collect', () => {
     it('sums up the age using collect', () => {

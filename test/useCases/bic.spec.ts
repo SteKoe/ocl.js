@@ -1,5 +1,5 @@
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../matcher';
-import {AstSequenceFlow} from '../fixture.factory';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
+import { AstSequenceFlow } from '../fixture.factory';
 
 describe('Example', () => {
     describe('BIC', () => {

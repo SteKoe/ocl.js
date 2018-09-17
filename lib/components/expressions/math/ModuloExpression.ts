@@ -1,5 +1,5 @@
-import {LeftRightBasedExpression} from '../Expression';
-import {OclExecutionContext} from '../../OclExecutionContext';
+import { LeftRightBasedExpression } from '../Expression';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Returns the number remainder of the division of self by *i*.

@@ -1,5 +1,5 @@
-import {IteratorExpression} from '../Expression';
-import {OclExecutionContext} from '../../OclExecutionContext';
+import { IteratorExpression } from '../Expression';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * @oclSpecification

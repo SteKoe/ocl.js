@@ -1,7 +1,7 @@
-import {expect} from 'chai';
-import {OclEngine} from '../../lib';
-import {Person} from '../fixture.factory';
-import {OclParser} from "../../lib/components/parser/OclParser";
+import { expect } from 'chai';
+import { OclEngine } from '../../lib';
+import { Person } from '../fixture.factory';
+import { OclParser } from '../../lib/components/parser/OclParser';
 
 describe('OclEngine', () => {
     const oclEngine = OclEngine.create();
@@ -10,7 +10,7 @@ describe('OclEngine', () => {
     });
 
     it('should register types for oclIsTypeOf', () => {
-        let oclExpression = `
+        const oclExpression = `
             context Person inv: self->oclIsTypeOf(Person)
         `;
         oclEngine.addOclExpression(oclExpression);
@@ -23,7 +23,7 @@ describe('OclEngine', () => {
     });
 
     it('asdfg', () => {
-        let expression = oclEngine.createQuery('self->oclIsTypeOf(String)');
+        const expression = oclEngine.createQuery('self->oclIsTypeOf(String)');
         console.log(expression);
     });
 });

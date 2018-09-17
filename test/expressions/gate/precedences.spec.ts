@@ -1,4 +1,4 @@
-import {expectOclRuleValidatesToTrue} from '../../matcher';
+import { expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('precedences', () => {
     it('monotone laws', () => {
@@ -24,7 +24,7 @@ describe('precedences', () => {
             'context Object inv: (not (a or b)) = not a and not b',
             'context Object inv: (a or not a) = true',
             'context Object inv: not true = false',
-            'context Object inv: (a and (a or b)) = a',
+            'context Object inv: (a and (a or b)) = a'
         ];
 
         invs.forEach(inv => {

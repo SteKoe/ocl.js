@@ -1,5 +1,5 @@
-import {expect} from 'chai';
-import {NilExpression} from '../../../lib/components/expressions/literal';
+import { expect } from 'chai';
+import { NilExpression } from '../../../lib/components/expressions/literal';
 
 describe('NilExpression', () => {
     it('asdasd', () => {

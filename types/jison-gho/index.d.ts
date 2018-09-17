@@ -3,8 +3,11 @@ declare module 'jison-gho' {
         yy: any;
         assert: any;
         lexer: any;
+
         constructor(grammar, optionalLexerSection?, options?);
+
         parse(input): any;
+
         generate(generatorOptions?: object): string;
     }
 }

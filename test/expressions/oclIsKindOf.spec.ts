@@ -1,7 +1,7 @@
-import {expect} from 'chai';
-import {Dog, FixtureFactory, Human, Person} from '../fixture.factory';
-import {OclParser} from '../../lib/components/parser/OclParser';
-import {OclExecutionContext} from '../../lib/components/OclExecutionContext';
+import { expect } from 'chai';
+import { Dog, FixtureFactory, Human, Person } from '../fixture.factory';
+import { OclParser } from '../../lib/components/parser/OclParser';
+import { OclExecutionContext } from '../../lib/components/OclExecutionContext';
 
 function expectTrue(oclExpression, visitor): void {
     OclParser.parse(oclExpression)

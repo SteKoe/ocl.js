@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import {expect} from 'chai';
-import {OclParser} from '../../../lib/components/parser/OclParser';
+import { expect } from 'chai';
+import { OclParser } from '../../../lib/components/parser/OclParser';
 
 if (process.env.RUN_SLOW_TESTS) {
     describe('Example', () => {

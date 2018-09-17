@@ -33,7 +33,10 @@
     "new-parens": true,
     "no-misused-new": true,
     "no-construct": true,
-    "interface-name": [true, "always-prefix"],
+    "interface-name": [
+      true,
+      "always-prefix"
+    ],
     "no-empty-interface": true,
     "prefer-method-signature": true,
     "interface-over-type-literal": true,
@@ -60,7 +63,10 @@
       "check-parameters"
     ],
     "no-unnecessary-initializer": true,
-    "no-implicit-dependencies": [true, "dev"],
+    "no-implicit-dependencies": [
+      true,
+      "dev"
+    ],
     "ordered-imports": [
       true,
       {
@@ -228,7 +234,6 @@
       true,
       "check-multiline-start"
     ],
-    "no-redundant-jsdoc": true,
     "no-console": [
       true,
       "log",

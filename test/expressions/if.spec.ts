@@ -1,5 +1,5 @@
-import {Person} from '../fixture.factory';
-import {expectOclRuleValidatesToTrue} from '../matcher';
+import { Person } from '../fixture.factory';
+import { expectOclRuleValidatesToTrue } from '../matcher';
 
 describe('if', () => {
 

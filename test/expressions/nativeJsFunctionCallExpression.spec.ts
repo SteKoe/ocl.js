@@ -1,5 +1,5 @@
-import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../matcher';
-import {FixtureFactory} from '../fixture.factory';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
+import { FixtureFactory } from '../fixture.factory';
 
 describe('Eval FunctionCall', () => {
     const mother = FixtureFactory.createPerson('Hilde');

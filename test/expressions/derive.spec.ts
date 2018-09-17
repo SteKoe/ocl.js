@@ -1,6 +1,6 @@
-import {expect} from 'chai';
-import {Job, Person} from '../fixture.factory';
-import {expectOclRuleValidatesToTrue} from '../matcher';
+import { expect } from 'chai';
+import { Job, Person } from '../fixture.factory';
+import { expectOclRuleValidatesToTrue } from '../matcher';
 
 describe('derive', () => {
     it('sets variable on derive', () => {

@@ -1,6 +1,6 @@
-import {IteratorExpression} from '../Expression';
-import {OclExecutionContext} from '../../OclExecutionContext';
-import {Utils} from '../../Utils';
+import { IteratorExpression } from '../Expression';
+import { OclExecutionContext } from '../../OclExecutionContext';
+import { Utils } from '../../Utils';
 
 /**
  * @oclSpecification

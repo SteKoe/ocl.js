@@ -1,7 +1,7 @@
-import {InvariantExpression} from '../InvariantExpression';
-import {DefExpression} from '../DefExpression';
-import {ContextExpression} from './ContextExpression';
-import {OclExecutionContext} from '../../OclExecutionContext';
+import { InvariantExpression } from '../InvariantExpression';
+import { DefExpression } from '../DefExpression';
+import { ContextExpression } from './ContextExpression';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Define invariants and definitions on a given types
