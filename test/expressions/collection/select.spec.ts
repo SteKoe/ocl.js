@@ -1,5 +1,5 @@
-import { FixtureFactory } from '../../fixture.factory';
-import { expectOclRuleValidatesToTrue } from '../../matcher';
+import {FixtureFactory} from '../../fixture.factory';
+import {expectOclRuleValidatesToTrue} from '../../matcher';
 
 describe('Collection->select ', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);

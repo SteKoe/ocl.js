@@ -1,7 +1,7 @@
-import { Utils } from './Utils';
+import {Utils} from './Utils';
 import * as Expr from './expressions';
-import { OclParser } from './parser/OclParser';
-import { ContextExpression } from './expressions/context/ContextExpression';
+import {OclParser} from './parser/OclParser';
+import {ContextExpression} from './expressions/context/ContextExpression';
 
 export class OclExecutionContext {
     private evaluationResult: any = undefined;

@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { Person } from '../fixture.factory';
-import { OclEngine } from '../../lib';
+import {expect} from 'chai';
+import {Person} from '../fixture.factory';
+import {OclEngine} from '../../lib';
 
 describe('ContextExpression', () => {
     const oclEngine = OclEngine.create();

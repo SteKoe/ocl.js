@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { OclEngine } from '../../lib';
-import { FixtureFactory, MetaAssociationLink, MetaEntity, Person } from '../fixture.factory';
+import {expect} from 'chai';
+import {OclEngine} from '../../lib';
+import {FixtureFactory, MetaAssociationLink, MetaEntity} from '../fixture.factory';
 
 describe('OclEngine', () => {
     it('should evaluate oclExpression for given instance data when all are valid.', () => {
@@ -89,7 +89,6 @@ describe('OclEngine', () => {
             expect(e.oclExpression).to.eql(oclConstraints[1]);
         }
     });
-
 
 
     describe('_inferType', () => {

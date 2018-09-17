@@ -1,6 +1,6 @@
-import {FixtureFactory} from "../fixture.factory";
-import {OclEngine} from "../../lib";
-import {expect} from "chai";
+import {FixtureFactory} from '../fixture.factory';
+import {OclEngine} from '../../lib';
+import {expect} from 'chai';
 
 describe('enumeration', () => {
     const Gender = {

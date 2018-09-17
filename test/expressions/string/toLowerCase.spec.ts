@@ -1,5 +1,5 @@
 'use strict';
-import { expectOclRuleValidatesToTrue } from '../../matcher';
+import {expectOclRuleValidatesToTrue} from '../../matcher';
 
 describe('String.toLowerCase', () => {
     it('should return string in lower case', () => {

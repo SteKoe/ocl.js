@@ -1,4 +1,4 @@
-import { expectOclRuleValidatesToTrue } from '../../matcher';
+import {expectOclRuleValidatesToTrue} from '../../matcher';
 
 describe('Collection->one ', () => {
     it('should return true if there is exactly one matching element', () => {

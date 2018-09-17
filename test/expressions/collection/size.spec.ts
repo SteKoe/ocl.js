@@ -1,4 +1,4 @@
-import { expectOclRuleValidatesToTrue } from '../../matcher';
+import {expectOclRuleValidatesToTrue} from '../../matcher';
 
 describe('Collection->size', () => {
     it('should return the correct length of a given array', () => {

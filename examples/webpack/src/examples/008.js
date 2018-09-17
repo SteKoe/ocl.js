@@ -2,7 +2,7 @@ import OclEngine from "@stekoe/ocl.js";
 import Person from "../class/person";
 import Example from "../class/example";
 import oclExpression from "./008.ocl";
-import { Job } from "../class/job";
+import {Job} from "../class/job";
 
 const title = 'An under age person\'s income is the pocket money given by their parents.';
 const context = `
@@ -45,7 +45,7 @@ const fn = function () {
         .evaluate(child);
 };
 
-export default  Example.builder()
+export default Example.builder()
     .title(title)
     .context(context)
     .oclExpression(oclExpression)

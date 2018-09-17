@@ -1,4 +1,4 @@
-import { expectOclRuleValidatesToTrue } from '../../matcher';
+import {expectOclRuleValidatesToTrue} from '../../matcher';
 
 describe('StringExpression', () => {
     it('should except string using double-quotes and single-quotes', () => {

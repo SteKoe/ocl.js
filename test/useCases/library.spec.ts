@@ -1,5 +1,5 @@
-import { Book, Library, Writer } from '../fixture.factory';
-import { expectOclRuleValidatesToFalse } from '../matcher';
+import {Book, Library, Writer} from '../fixture.factory';
+import {expectOclRuleValidatesToFalse} from '../matcher';
 
 describe('Example', () => {
     describe('Library', () => {

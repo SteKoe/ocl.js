@@ -1,5 +1,5 @@
-import { SourceBasedExpression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
+import {SourceBasedExpression} from '../Expression';
+import {OclExecutionContext} from '../../OclExecutionContext';
 
 /**
  * Returns true if self is empty, false otherwise.

@@ -1,4 +1,4 @@
-import { expectOclRuleValidatesToTrue } from '../../matcher';
+import {expectOclRuleValidatesToTrue} from '../../matcher';
 import {OclParser} from "../../../lib/components/parser/OclParser";
 
 describe('Collection->asSet', () => {

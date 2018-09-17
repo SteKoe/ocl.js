@@ -1,4 +1,4 @@
-import { expectOclRuleValidatesToTrue } from '../../matcher';
+import {expectOclRuleValidatesToTrue} from '../../matcher';
 
 describe('Collection->isEmpty', () => {
     it('should return an element from within the sequence', () => {

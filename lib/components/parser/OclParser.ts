@@ -1,5 +1,5 @@
 import * as Expressions from '../expressions';
-import { Utils } from '../Utils';
+import {Utils} from '../Utils';
 import * as parser from '../../../generator/Parser';
 
 parser.yy = {

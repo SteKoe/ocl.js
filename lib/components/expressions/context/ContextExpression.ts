@@ -1,5 +1,5 @@
-import { Expression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
+import {Expression} from '../Expression';
+import {OclExecutionContext} from '../../OclExecutionContext';
 
 export abstract class ContextExpression extends Expression {
     protected targetType: string;

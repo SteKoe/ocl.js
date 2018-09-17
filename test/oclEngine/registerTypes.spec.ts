@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { OclEngine } from '../../lib';
-import { Person } from '../fixture.factory';
+import {expect} from 'chai';
+import {OclEngine} from '../../lib';
+import {Person} from '../fixture.factory';
 import {OclParser} from "../../lib/components/parser/OclParser";
 
 describe('OclEngine', () => {
@@ -23,7 +23,7 @@ describe('OclEngine', () => {
     });
 
     it('asdfg', () => {
-       let expression = oclEngine.createQuery('self->oclIsTypeOf(String)');
-       console.log(expression);
+        let expression = oclEngine.createQuery('self->oclIsTypeOf(String)');
+        console.log(expression);
     });
 });

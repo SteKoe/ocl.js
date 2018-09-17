@@ -1,4 +1,4 @@
-import { expectOclRuleValidatesToTrue } from '../matcher';
+import {expectOclRuleValidatesToTrue} from '../matcher';
 
 describe('def', () => {
     it('should set simple string variable', () => {

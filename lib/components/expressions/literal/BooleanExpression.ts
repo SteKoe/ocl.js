@@ -1,4 +1,4 @@
-import { LiteralExpression } from './LiteralExpression';
+import {LiteralExpression} from './LiteralExpression';
 
 /**
  */

@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { OclEngine } from '../../lib';
-import { Job, Person } from '../fixture.factory';
+import {expect} from 'chai';
+import {OclEngine} from '../../lib';
+import {Job, Person} from '../fixture.factory';
 
 describe('OclQuery', () => {
     let oclEngine;

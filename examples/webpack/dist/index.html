@@ -1,65 +1,73 @@
 <!doctype html>
 <html>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>OCL.js Examples</title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/vs.min.css">
-    <style>
-        .hljs {
-            position: relative;
-            font-size: 90%;
-        }
-        code:before {
-            position: absolute;
-            top: 0;
-            right: 0;
-            border: 1px solid #e1e1e1;
-            border-top: none;
-            border-right: none;
-            border-bottom-left-radius: 4px;
-            background-color: rgba(255,255,255,0.4);
-            padding: 0 6px;
-        }
-        .ocl:before {
-            content: 'OCL';
-        }
-        .javascript:before {
-            content: 'JavaScript';
-        }
-        .operations dt {
-            font-weight: bold;
-        }
-        .status {
-            padding: 0 3px;
-        }
-        .pass {
-            background-color: #a5ff9b;
-        }
-        .not-pass {
-            background-color: #ffacae;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OCL.js Examples</title>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/vs.min.css">
+<style>
+    .hljs {
+        position: relative;
+        font-size: 90%;
+    }
+
+    code:before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: 1px solid #e1e1e1;
+        border-top: none;
+        border-right: none;
+        border-bottom-left-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.4);
+        padding: 0 6px;
+    }
+
+    .ocl:before {
+        content: 'OCL';
+    }
+
+    .javascript:before {
+        content: 'JavaScript';
+    }
+
+    .operations dt {
+        font-weight: bold;
+    }
+
+    .status {
+        padding: 0 3px;
+    }
+
+    .pass {
+        background-color: #a5ff9b;
+    }
+
+    .not-pass {
+        background-color: #ffacae;
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-       <h1>Examples</h1>
-        <p>
-            The following paragraphs contain some OCL constraints which are evaluated live while this page loads.
-            To create a use case, the following images shows two connected classes which describe the following:
-            A person can own multiple cars.
-            A car belongs to just one person.
-            A car has a color.
-            A person has a name as well as its age.
-        </p>
+<div class="container">
+    <h1>Examples</h1>
+    <p>
+        The following paragraphs contain some OCL constraints which are evaluated live while this page loads.
+        To create a use case, the following images shows two connected classes which describe the following:
+        A person can own multiple cars.
+        A car belongs to just one person.
+        A car has a color.
+        A person has a name as well as its age.
+    </p>
 
-        <div id="examples">
+    <div id="examples">
 
-        </div>
-
-        <hr>
-        <p class="text-center">
-            &copy; Stephan Köninger
-        </p>
     </div>
-<script type="text/javascript" src="main.js"></script></body>
+
+    <hr>
+    <p class="text-center">
+        &copy; Stephan Köninger
+    </p>
+</div>
+<script type="text/javascript" src="main.js"></script>
+</body>
 </html>

@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import { OclEngine } from '../../lib';
+import {expect} from 'chai';
+import {OclEngine} from '../../lib';
 
 describe('UseCase', () => {
     let oclEngine;

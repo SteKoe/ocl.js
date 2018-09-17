@@ -1,5 +1,5 @@
-import { FixtureFactory, MetaAttribute } from '../fixture.factory';
-import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
+import {FixtureFactory, MetaAttribute} from '../fixture.factory';
+import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../matcher';
 
 describe('inv', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);

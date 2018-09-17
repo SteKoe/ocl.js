@@ -1,5 +1,5 @@
-import { SourceBasedExpression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
+import {SourceBasedExpression} from '../Expression';
+import {OclExecutionContext} from '../../OclExecutionContext';
 
 /**
  * Returns the sum of all elements contained in self if they support the '+' operation.

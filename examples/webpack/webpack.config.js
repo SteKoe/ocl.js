@@ -9,8 +9,8 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    { loader: "style-loader" },
-                    { loader: "css-loader" }
+                    {loader: "style-loader"},
+                    {loader: "css-loader"}
                 ]
             },
             {
@@ -23,7 +23,7 @@ module.exports = {
                 test: /\.(html)$/i,
                 use: [
                     'html-loader'
-                ],
+                ]
             },
             {
                 test: /\.(png|jp(e*)g|svg)$/,
@@ -51,7 +51,7 @@ module.exports = {
         new UglifyJsPlugin({
             uglifyOptions: {
                 output: {
-                    comments: false,
+                    comments: false
                 }
             }
         })

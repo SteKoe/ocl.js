@@ -1,4 +1,4 @@
-import { ContextExpression } from './expressions/context/ContextExpression';
+import {ContextExpression} from './expressions/context/ContextExpression';
 
 /**
  * This class is a data class that is returned by OclEngine.evaluate method.

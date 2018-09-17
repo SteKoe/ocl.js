@@ -1,4 +1,4 @@
-module.exports = function(hljs) {
+module.exports = function (hljs) {
     return {
         case_insensitive: true, // language is case-insensitive
         keywords: 'endif and body context def derive else endif endpackage false if implies in init inv invalid let not null or package post pre self static then true xor',

@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { Person } from '../fixture.factory';
-import { expectOclRuleValidatesToTrue } from '../matcher';
+import {expect} from 'chai';
+import {Person} from '../fixture.factory';
+import {expectOclRuleValidatesToTrue} from '../matcher';
 
 describe('init', () => {
     it('sets variable on init', () => {
