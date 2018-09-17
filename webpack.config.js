@@ -7,9 +7,9 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: "ocl.min.js",
         libraryTarget: "umd",
-        libraryExport: "OclEngine"
+        libraryExport: "OclEngine",
+        globalObject: `typeof self !== 'undefined' ? self : this`
     },
-
     module: {
         rules: [
             {
@@ -22,6 +22,13 @@ module.exports = {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
                 exclude: /node_modules/
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader'
+                }
             }
         ]
     },
@@ -32,7 +39,7 @@ module.exports = {
         new UglifyJsPlugin({
             uglifyOptions: {
                 output: {
-                    comments: false,
+                    comments: false
                 }
             }
         })

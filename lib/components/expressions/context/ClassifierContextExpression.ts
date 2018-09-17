@@ -1,5 +1,5 @@
 import { InvariantExpression } from '../InvariantExpression';
-import { LetExpression } from '../LetExpression';
+import { DefExpression } from '../DefExpression';
 import { ContextExpression } from './ContextExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 
@@ -10,7 +10,7 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  */
 export class ClassifierContextExpression extends ContextExpression {
     private invs: Array<InvariantExpression>;
-    private defs: Array<LetExpression>;
+    private defs: Array<DefExpression>;
 
     constructor(targetType, rules: Array<any>) {
         super();
@@ -21,14 +21,14 @@ export class ClassifierContextExpression extends ContextExpression {
 
         this.targetType = targetType;
         this.invs = rules.filter(i => i instanceof InvariantExpression);
-        this.defs = rules.filter(i => i instanceof LetExpression);
+        this.defs = rules.filter(i => i instanceof DefExpression);
     }
 
     getInvs(): Array<InvariantExpression> {
         return this.invs;
     }
 
-    getDefs(): Array<LetExpression> {
+    getDefs(): Array<DefExpression> {
         return this.defs;
     }
 

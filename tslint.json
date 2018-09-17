@@ -27,8 +27,7 @@
       "allow-protected"
     ],
     "no-invalid-this": [
-      true,
-      "check-function-in-method"
+      true
     ],
     "no-duplicate-super": true,
     "new-parens": true,
@@ -39,11 +38,6 @@
     "prefer-method-signature": true,
     "interface-over-type-literal": true,
     "no-arg": true,
-    "only-arrow-functions": [
-      true,
-      "allow-declarations",
-      "allow-named-functions"
-    ],
     "arrow-parens": [
       true,
       "ban-single-arg-parens"
@@ -83,7 +77,6 @@
       "call-signature",
       "property-declaration"
     ],
-    "no-inferrable-types": true,
     "no-angle-bracket-type-assertion": true,
     "callable-types": true,
     "no-null-keyword": true,
@@ -235,7 +228,6 @@
       true,
       "check-multiline-start"
     ],
-    "no-redundant-jsdoc": true,
     "no-console": [
       true,
       "log",

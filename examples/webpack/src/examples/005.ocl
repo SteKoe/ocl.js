@@ -1,0 +1,2 @@
+context Person
+    inv: self.fleet->select(c|c.color="red")->size > 0

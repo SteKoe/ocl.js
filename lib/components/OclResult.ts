@@ -7,20 +7,29 @@ import { ContextExpression } from './expressions/context/ContextExpression';
  * of all names of invariants that have failed.
  */
 export class OclResult {
-    private result: any;
+    private result: boolean;
 
     constructor(private namesOfFailedInvs: Array<string>, private evaluatedContexts: Array<ContextExpression>) {
         this.result = namesOfFailedInvs.length === 0;
     }
 
-    getResult(): any {
+    /**
+     * @returns true if the OCL constraint did pass, false otherwise.
+     */
+    getResult(): boolean {
         return this.result;
     }
 
+    /**
+     * @returns An array of names of all failed invariants.
+     */
     getNamesOfFailedInvs(): Array<string> {
         return this.namesOfFailedInvs;
     }
 
+    /**
+     * @returns An array of contexts that have been executed during evaluation.
+     */
     getEvaluatedContexts(): Array<ContextExpression> {
         return this.evaluatedContexts;
     }

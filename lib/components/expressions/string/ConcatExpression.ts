@@ -4,8 +4,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
 /**
  * Returns a string that is concatenated using source and body
  *
- * @oclExpression concat(s : String) : String
- * @oclExample self.name->concat("string")
+ * @oclExpression String::concat (s : String) : String
+ * @oclExample self.name.concat("string")
  */
 export class ConcatExpression extends BodyBasedExpression {
     evaluate(visitor: OclExecutionContext): any {

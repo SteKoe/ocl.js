@@ -1,16 +1,21 @@
 {
   "name": "@stekoe/ocl.js",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0",
   "description": "Object Constraint Language parser written in JavaScript.",
   "main": "./dist/ocl.min.js",
   "scripts": {
     "build": "npm run clean:dist && npm run test && npm run build:dist",
     "build:dist": "npx webpack-command --mode=production --config webpack.config.js",
+    "build:examples:node.js": "cd examples/node.js && npm i && npm run build",
+    "build:examples:webpack": "cd examples/webpack && npm i && npm run build",
     "clean:dist": "npx rimraf -- dist",
     "clean": "npx rimraf -- node_modules dist",
+    "clean:docs": "npx rimraf -- doc-test/**/*.gen.md",
+    "generate:docs": "npm run clean:docs && node docs-generator/generateDocs.js",
     "generate:parser": "rm -rf ./lib/components/parser/parser.ts && ts-node -O {\\\"module\\\":\\\"commonjs\\\"} generator/oclParserGenerator.ts",
+    "prepare:release": "npm run build && npm run build:examples:node.js && npm run build:examples:node.js && npm run generate:docs",
     "test": "npm run generate:parser && npm run test:fast",
-    "test:debug": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts'",
+    "test:debug": "npm run generate:parser && cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} node $NODE_DEBUG_OPTION ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts'",
     "test:fast": "cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} npx mocha -r ts-node/register 'test/**/*.spec.ts'",
     "test:coverage": "npx rimraf -- coverage && cross-env TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} nyc ./node_modules/mocha/bin/_mocha -r ts-node/register 'test/**/*.spec.ts' && npx rimraf -- .nyc_output"
   },
@@ -39,22 +44,36 @@
   "homepage": "https://github.com/SteKoe/ocl.js#readme",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.0.1",
+    "@babel/preset-env": "^7.0.0",
     "@types/chai": "^4.1.3",
     "@types/mocha": "^5.2.1",
     "@types/node": "^10.3.2",
+    "babel-loader": "^8.0.2",
     "chai": "^4.1.2",
     "cross-env": "^5.1.6",
+    "glob": "^7.1.3",
+    "handlebars": "^4.0.12",
     "jison-gho": "^0.6.1-215",
+    "mkdirp": "^0.5.1",
     "mocha": "^5.2.0",
-    "nyc": "^12.0.2",
+    "nyc": "^13.0.1",
     "rimraf": "^2.6.2",
-    "ts-loader": "^4.4.0",
-    "ts-node": "^6.1.0",
-    "tslint": "^5.10.0",
+    "ts-lint": "^4.5.1",
+    "ts-loader": "^5.0.0",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.11.0",
     "tslint-loader": "^3.6.0",
     "tslint-no-unused-expression-chai": "^0.1.3",
-    "typescript": "^2.9.1",
-    "webpack": "^4.9.1",
-    "webpack-command": "^0.2.0"
+    "typedoc": "^0.12.0",
+    "typescript": "^3.0.3",
+    "webpack": "^4.18.0",
+    "webpack-command": "^0.4.1"
+  },
+  "dependencies": {},
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }

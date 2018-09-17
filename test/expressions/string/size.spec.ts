@@ -1,9 +1,9 @@
 import { expectOclRuleValidatesToTrue } from '../../matcher';
 
-describe('String->size', () => {
+describe('String.size', () => {
     it('should return the correct length of a given string', () => {
         const obj = {name: 'Stephan'};
-        const oclExpression = 'context Object inv: self.name->size() = 7';
+        const oclExpression = 'context Object inv: self.name.size() = 7';
         expectOclRuleValidatesToTrue(oclExpression, obj);
     });
 });

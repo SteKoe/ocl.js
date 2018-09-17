@@ -17,15 +17,24 @@ export class OclParser {
         String
     };
 
-    static parse(oclExpression: any, labels: Array<string> = []): Expressions.PackageDeclaration {
-        const packageDeclaration = parser.parse(oclExpression) as Expressions.PackageDeclaration;
+    static registeredEnums: object = {};
+
+    static parseQuery(oclExpression: any, registeredTypes?: object): Expressions.Expression {
+        parser.yy.registeredTypes = registeredTypes || {};
+        const packageDeclaration = parser.parse(oclExpression) as Expressions.Expression;
+
+        return packageDeclaration;
+    }
+
+    static parse(oclExpression: any, labels: Array<string> = [], registeredTypes?: object): Expressions.PackageDeclaration {
+        const packageDeclaration = OclParser.parseQuery(oclExpression, registeredTypes)as Expressions.PackageDeclaration;
         packageDeclaration.setExecutionLabels(labels);
 
         return packageDeclaration;
     }
 
     /* tslint:disable:no-console */
-    static _lex /* istanbul ignore next */(oclExpression: Expressions.Expression): void {
+    static _lex /* istanbul ignore next */(oclExpression: string): void {
         const lexer = parser.lexer;
         lexer.setInput(oclExpression);
 
