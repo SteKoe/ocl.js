@@ -2,10 +2,10 @@ import { SourceBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
- * Returns a string in upper case
+ * Returns *self* into upper case string.
  *
- * @oclExpression toUpperCase() : String
- * @oclExample self.name->toUpperCase()
+ * @oclExpression String:: toUpperCase () : String
+ * @oclExample self.name.toUpperCase()
  */
 export class ToUpperCaseExpression extends SourceBasedExpression {
     evaluate(visitor: OclExecutionContext): any {

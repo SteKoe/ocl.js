@@ -1,4 +1,4 @@
-import { expectOclRuleValidatesToTrue } from '../matcher';
+import { expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('Math', () => {
     it('should evaluate addition.', () => {
@@ -32,11 +32,6 @@ describe('Math', () => {
         expectOclRuleValidatesToTrue(oclExpression);
     });
 
-    it('should evaluate division using div.', () => {
-        const oclExpression = 'context Object inv: 10 div 5 = 2';
-        expectOclRuleValidatesToTrue(oclExpression);
-    });
-
     it('should evaluate multiply.', () => {
         const oclExpression = 'context Object inv: -2.5 * 2 = -5';
         expectOclRuleValidatesToTrue(oclExpression);
@@ -48,17 +43,17 @@ describe('Math', () => {
     });
 
     it('should evaluate abs.', () => {
-        const oclExpression = 'context Object inv: -2->abs() = 2';
+        const oclExpression = 'context Object inv: -2.abs() = 2';
         expectOclRuleValidatesToTrue(oclExpression);
     });
 
     it('should evaluate sqrt.', () => {
-        const oclExpression = 'context Object inv: 9->sqrt() = 3';
+        const oclExpression = 'context Object inv: 9.sqrt() = 3';
         expectOclRuleValidatesToTrue(oclExpression);
     });
 
     it('should evaluate sqrt with n.', () => {
-        const oclExpression = 'context Object inv: 729->sqrt(3) = 8.999999999999998';
+        const oclExpression = 'context Object inv: 729.sqrt(3) = 8.999999999999998';
         expectOclRuleValidatesToTrue(oclExpression);
     });
 });

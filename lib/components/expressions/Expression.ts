@@ -41,6 +41,18 @@ export abstract class BodyBasedExpression extends SourceBasedExpression {
     getBody(): Expression {
         return this.body;
     }
+
+    _visitBodyAndSource(visitor: OclExecutionContext): { source: any, body: any } {
+        this.getSource().variables = this.variables;
+        const body = this.getSource()
+            .evaluate(visitor);
+
+        this.getBody().variables = this.variables;
+        const source = this.getBody()
+            .evaluate(visitor);
+
+        return {source, body};
+    }
 }
 
 export abstract class IteratorExpression extends BodyBasedExpression {

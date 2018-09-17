@@ -2,10 +2,10 @@ import { LeftRightBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
- * Modulo
+ * Returns the number remainder of the division of self by *i*.
  *
- * @oclExpression Symbol: mod
- * @oclExample 4 mod 2
+ * @oclExpression Number::mod ( i : Number ) : Number
+ * @oclExample 4 mod 2 = 0
  */
 export class ModuloExpression extends LeftRightBasedExpression {
     evaluate(visitor: OclExecutionContext): any {

@@ -2,9 +2,10 @@ import { BodyBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
- * Sqrt
+ * Returns the square root of *self*.
  *
- * @oclExpression Symbol: sqrt
+ * @oclExpression Number::sqrt () : Number
+ * @oclExample 9.sqrt() = 3
  */
 export class SqrtExpression extends BodyBasedExpression {
     evaluate(visitor: OclExecutionContext): any {

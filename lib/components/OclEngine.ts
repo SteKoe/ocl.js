@@ -1,7 +1,8 @@
+import * as pkg from '../../package.json';
 import { OclParser } from './parser/OclParser';
 import { Utils } from './Utils';
 import { OclExecutionContext } from './OclExecutionContext';
-import { PackageDeclaration } from './expressions';
+import { Expression, PackageDeclaration } from './expressions';
 import { OclResult } from './OclResult';
 
 /**
@@ -11,11 +12,15 @@ import { OclResult } from './OclResult';
  */
 export class OclEngine {
 
+    static version = (pkg as any).version;
+
     static Utils = Utils;
+    static Parser = OclParser;
 
     private packageDeclarations: Array<PackageDeclaration> = [];
     private typeDeterminerFn: Function;
     private registeredTypes: object = OclParser.registeredTypes;
+    private registeredEnums: object = OclParser.registeredEnums;
 
     /**
      * Static create method.
@@ -28,6 +33,8 @@ export class OclEngine {
 
     /**
      * Set a TypeDeterminer function that receives an object and returns the type of the object.
+     *
+     * @param fn A callback function that is used to determine the type if the object that is passed into the callback function
      */
     setTypeDeterminer(fn: Function): void {
         if (typeof fn === 'function') {
@@ -35,9 +42,27 @@ export class OclEngine {
         }
     }
 
+    /**
+     * Register additional object types in the engine which than can be used for instanceof checking.
+     *
+     * The following build-in JavaScript types are already registered:
+     *  - Array
+     *  - Boolean
+     *  - Function
+     *  - Number
+     *  - Object
+     *  - String
+     *
+     * @param types A list of types to register
+     */
     registerTypes(types): void {
         this.registeredTypes = {...this.registeredTypes, ...types};
         OclParser.registeredTypes = this.registeredTypes;
+    }
+
+    registerEnum(name: string, values: object): void {
+        this.registeredEnums = {...this.registeredEnums, [name]: values};
+        OclParser.registeredEnums = this.registeredEnums;
     }
 
     /**
@@ -70,7 +95,7 @@ export class OclEngine {
      */
     addOclExpression(oclExpression, labels: Array<string> = []): OclEngine {
         try {
-            const parsedExpression = OclParser.parse(oclExpression, labels);
+            const parsedExpression = OclEngine.Parser.parse(oclExpression, labels, this.registeredTypes);
             this.packageDeclarations.push(parsedExpression);
         } catch (e) {
             e.oclExpression = oclExpression;
@@ -90,6 +115,7 @@ export class OclEngine {
     evaluate(obj: any, labels: Array<string> = []): OclResult {
         const visitor = new OclExecutionContext(obj, Array.isArray(labels) ? labels : [labels]);
         visitor.registerTypes(this.registeredTypes);
+        visitor.setRegisteredEnumerations(this.registeredEnums);
 
         this.packageDeclarations.forEach(e => e.evaluate(visitor));
 
@@ -99,5 +125,30 @@ export class OclEngine {
 
     _inferType(obj: any): string {
         return Utils.getClassName(obj);
+    }
+
+    /**
+     * Specify a OCL query that can be used to extract information from an object.
+     *
+     * @example oclEngine.createQuery('self.children.name') // Returns an array of the children's names
+     * @param oclExpression An OCL expression that is used to create a query of
+     * @returns Expression The AST of the parsed oclExpresion
+     */
+    createQuery(oclExpression: string): Expression {
+        return OclEngine.Parser.parseQuery(oclExpression, this.registeredTypes);
+    }
+
+    /**
+     * Execute a given OCL query on a given object.
+     *
+     * @param obj The object to query
+     * @param oclExpression The query to run on the given object
+     * @returns the result of the provided query.
+     */
+    evaluateQuery(obj: object, oclExpression: Expression): any {
+        const visitor = new OclExecutionContext(obj);
+        visitor.registerTypes(this.registeredTypes);
+
+        return oclExpression.evaluate(visitor);
     }
 }

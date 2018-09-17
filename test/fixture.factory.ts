@@ -18,15 +18,29 @@ export class Human {
 export class Person extends Human {
     age: any;
     name: string;
+    gender: string;
     children: Array<Person> = [];
     income: number;
     jobs: Array<Job> = [];
     parents: Array<Person> = [];
     fleet: Array<Car> = [];
+    private isAlive: boolean = true;
 
     constructor(age = 21) {
         super();
         this.age = age;
+    }
+
+    setAge(age: number): void {
+        this.age = age;
+    }
+
+    getAge(): number {
+        return this.age;
+    }
+
+    setDead(): void {
+        this.isAlive = false;
     }
 
     getChildren(): Array<Person> {
@@ -36,6 +50,10 @@ export class Person extends Human {
 
 export class Job {
     salary: number;
+
+    constructor(salary?: number) {
+        this.salary = salary;
+    }
 }
 
 export class MetaEntity {
