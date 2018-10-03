@@ -12,6 +12,16 @@ describe('Comments', () => {
         expect(() => OclParser.parse(oclExpression)).not.to.throw();
     });
 
+    it('should be allowed using -- for single line comments inside context', () => {
+        const oclExpression = `
+            context Person
+                -- This is a valid comment
+                inv: self.children->exists(c|c.age > 20)
+        `;
+
+        expect(() => OclParser.parse(oclExpression)).not.to.throw();
+    });
+
     it('should fail when using -- containing breaks', () => {
         const oclExpression = `
             -- This is a valid comment

@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://ocl.stekoe.de">
-    <img alt="OCL.js" src="./logo.png" width="250">
+    <img alt="OCL.js" src="https://raw.githubusercontent.com/stekoe/ocl.js/master/logo.png" width="250">
   </a>
 </p>
 
