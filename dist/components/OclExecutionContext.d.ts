@@ -1,6 +1,5 @@
 import * as Expr from './expressions';
 import { ContextExpression } from './expressions/context/ContextExpression';
-
 export declare class OclExecutionContext {
     private obj;
     private labelsToExecute;
@@ -10,7 +9,6 @@ export declare class OclExecutionContext {
     private registeredEnumerations;
     private targetTypeName;
     private evaluatedContexts;
-
     constructor(obj: any, labelsToExecute?: Array<string>);
     addFailedInvariant(inv: Expr.InvariantExpression): void;
     setObjectToEvaluate(obj: any): OclExecutionContext;
@@ -26,6 +24,5 @@ export declare class OclExecutionContext {
     getEvaluationResult(): boolean;
     setEvaluationResult(evaluationResult: boolean): void;
     addEvaluatedContext(context: ContextExpression): void;
-
     getEvaluatedContexts(): Array<ContextExpression>;
 }

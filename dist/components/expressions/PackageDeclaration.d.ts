@@ -7,9 +7,12 @@ import { Expression } from './Expression';
 export declare class PackageDeclaration extends Expression {
     private contexts;
     private labels;
+    private oclExpression;
     constructor(type: any, contexts: Array<ContextExpression>);
     accept(visitor: OclExecutionContext): boolean;
     getContexts(): Array<ContextExpression>;
     setExecutionLabels(labels: Array<string>): any;
+    setRawOclExpression(oclExpression: string): void;
+    getRawOclExpression(): string;
     evaluate(visitor: OclExecutionContext): any;
 }

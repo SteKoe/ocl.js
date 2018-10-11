@@ -9,10 +9,10 @@ export declare class OperationCallExpression extends LeftRightBasedExpression {
     evaluate(visitor: OclExecutionContext): boolean;
 }
 export declare enum Operator {
-    NOT_EQUAL = '<>',
-    LESS_EQUAL_THAN = '<=',
-    GREATER_EQUAL_THAN = '>=',
-    GREATER_THAN = '>',
-    LESS_THAN = '<',
-    EQUAL = '='
+    NOT_EQUAL = "<>",
+    LESS_EQUAL_THAN = "<=",
+    GREATER_EQUAL_THAN = ">=",
+    GREATER_THAN = ">",
+    LESS_THAN = "<",
+    EQUAL = "="
 }

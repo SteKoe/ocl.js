@@ -1,7 +1,7 @@
-import { ContextExpression } from './context/ContextExpression';
-import { OclExecutionContext } from '../OclExecutionContext';
-import { Utils } from '../Utils';
-import { Expression } from './Expression';
+import {ContextExpression} from './context/ContextExpression';
+import {OclExecutionContext} from '../OclExecutionContext';
+import {Utils} from '../Utils';
+import {Expression} from './Expression';
 
 /**
  * In order to group and organise OCL constraints, packages can be used.
@@ -9,6 +9,7 @@ import { Expression } from './Expression';
 export class PackageDeclaration extends Expression {
     private contexts: Array<ContextExpression>;
     private labels: Array<string>;
+    private oclExpression: string;
 
     constructor(type, contexts: Array<ContextExpression>) {
         super();
@@ -32,6 +33,14 @@ export class PackageDeclaration extends Expression {
 
     setExecutionLabels(labels: Array<string>): any {
         this.labels = labels;
+    }
+
+    setRawOclExpression(oclExpression: string): void {
+        this.oclExpression = oclExpression;
+    }
+
+    getRawOclExpression(): string {
+        return this.oclExpression;
     }
 
     evaluate(visitor: OclExecutionContext): any {

@@ -1,9 +1,9 @@
 import * as pkg from '../../package.json';
-import { OclParser } from './parser/OclParser';
-import { Utils } from './Utils';
-import { OclExecutionContext } from './OclExecutionContext';
-import { Expression, PackageDeclaration } from './expressions';
-import { OclResult } from './OclResult';
+import {OclParser} from './parser/OclParser';
+import {Utils} from './Utils';
+import {OclExecutionContext} from './OclExecutionContext';
+import {Expression, PackageDeclaration} from './expressions';
+import {OclResult} from './OclResult';
 
 /**
  * The OclEngine class is the main entry point to the OCL.js library.
@@ -101,6 +101,29 @@ export class OclEngine {
             e.oclExpression = oclExpression;
             throw e;
         }
+
+        return this;
+    }
+
+    /**
+     * Removes the given oclExpression if it has been registered to the OclEngine instance.
+     *
+     * @param oclExpression
+     */
+    removeOclExpression(oclExpression: string): OclEngine {
+        const parsedExpression = OclEngine.Parser.parse(oclExpression, [], this.registeredTypes);
+        this.packageDeclarations = this.packageDeclarations.filter(packageDeclaration => {
+            return Utils.hashCode(packageDeclaration.getRawOclExpression()) !== Utils.hashCode(oclExpression);
+        });
+
+        return this;
+    }
+
+    /**
+     * Clears all registered OclExpressions from the current OclEngine instance.
+     */
+    clearAllOclExpressions(): OclEngine {
+        this.packageDeclarations.length = 0;
 
         return this;
     }

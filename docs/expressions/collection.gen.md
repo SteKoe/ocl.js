@@ -1,213 +1,213 @@
 # Collection
 
-## AnyExpression
+    ## AnyExpression
+    
+    Returns the first element that validates the given expression.
 
-Returns the first element that validates the given expression.
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        any(expr : OclExpression) : T
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->any(i < 2)
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-any(expr : OclExpression) : T
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->any(i < 2)
-```
-{% endtab %}
-{% endtabs %}
+    ## AppendExpression
+    
+    Appends the given element to the given collection and returns the extended collection.
 
-## AppendExpression
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        append(elem : T) : Collection<T>
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->append("string")
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-Appends the given element to the given collection and returns the extended collection.
+    ## AsSetExpression
+    
+    Returns the given collection as set, containing unique entries.
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-append(elem : T) : Collection<T>
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->append("string")
-```
-{% endtab %}
-{% endtabs %}
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        asSet() : Collection
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->asSet()
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-## AsSetExpression
+    ## AtExpression
+    
+    Returns the element of the collection at index index.
 
-Returns the given collection as set, containing unique entries.
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        at(index : Number) : T
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->at(2)
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-asSet() : Collection
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->asSet()
-```
-{% endtab %}
-{% endtabs %}
-
-## AtExpression
-
-Returns the element of the collection at index index.
-
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-at(index : Number) : T
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->at(2)
-```
-{% endtab %}
-{% endtabs %}
-
-## CollectExpression
-> 
+    ## CollectExpression
+    > 
 > When we want to specify a collection that is derived from some other collection, but which contains different
 > objects from the original collection (i.e., it is not a sub-collection), we can use a collect operation.
 > The collect operation uses the same syntax as the select and reject.
 > 
     
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-collect(expr : OclExpression) : Collection
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.children->collect(age)
-```
-{% endtab %}
-{% endtabs %}
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        collect(expr : OclExpression) : Collection
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.children->collect(age)
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-## ExistsExpression
+    ## ExistsExpression
+    
+    Operation which checks whether a collection contains an element specified by expr.
 
-Operation which checks whether a collection contains an element specified by expr.
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        exists(expr : OclExpression) : Boolean
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->exists(i | i < 2)
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-exists(expr : OclExpression) : Boolean
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->exists(i | i < 2)
-```
-{% endtab %}
-{% endtabs %}
+    ## FirstExpression
+    
+    Returns the first element of the collection.
 
-## FirstExpression
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        collection->first() : T
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->first()
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-Returns the first element of the collection.
-
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-collection->first() : T
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->first()
-```
-{% endtab %}
-{% endtabs %}
-
-## ForAllExpression
-> 
+    ## ForAllExpression
+    > 
 > Many times a constraint is needed on all elements of a collection.
 > The forAll operation in OCL allows specifying a Boolean expression, which must hold for all objects in a collection.
 > 
+    
 
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        forAll(expr : oclExpression)
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-forAll(expr : oclExpression)
-```
-{% endtab %}
-{% endtabs %}
+    ## IsEmptyExpression
+    
+    Returns true if self is empty, false otherwise.
 
-## IsEmptyExpression
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        isEmpty() : Boolean
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.cars->isEmpty()
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-Returns true if self is empty, false otherwise.
+    ## LastExpression
+    
+    Returns the last element of the collection.
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-isEmpty() : Boolean
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.cars->isEmpty()
-```
-{% endtab %}
-{% endtabs %}
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        last() : T
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->last()
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-## LastExpression
+    ## NotEmptyExpression
+    
+    Returns true if self is not empty, false otherwise.
 
-Returns the last element of the collection.
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        notEmpty() : Boolean
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.cars->notEmpty()
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-last() : T
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->last()
-```
-{% endtab %}
-{% endtabs %}
+    ## OneExpression
+    
+    Returns true of there is exactly one element matching the given expression, false otherwise.
 
-## NotEmptyExpression
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        one(expr : oclExpression) : boolean
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->one(age < 18)
+        ```
+        {% endtab %}
+    {% endtabs %}
 
-Returns true if self is not empty, false otherwise.
-
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-notEmpty() : Boolean
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.cars->notEmpty()
-```
-{% endtab %}
-{% endtabs %}
-
-## OneExpression
-
-Returns true of there is exactly one element matching the given expression, false otherwise.
-
-{% tabs %}
-{% tab title="Definition" %}
-```ocl
-one(expr : oclExpression) : boolean
-```
-{% endtab %}
-{% tab title="Example" %}
-```ocl
-self.collection->one(age < 18)
-```
-{% endtab %}
-{% endtabs %}
-
-## RejectExpression
-> 
+    ## RejectExpression
+    > 
 > The reject operation specifies a subset of a collection.
 > A reject is an operation on a collection and is specified using the arrow-syntax.
 > This results in a collection that removes all the elements from collection for which the boolean-expression evaluates to true.

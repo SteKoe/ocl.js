@@ -174,5 +174,41 @@ describe('OclEngine', () => {
             expect(evaluationResult.getResult()).to.be.false;
             expect(evaluationResult.getNamesOfFailedInvs()).to.contain('linkNamesMustBeUnique');
         });
+
+        it('should allow to remove OclExpressions', () => {
+            oclEngine = OclEngine.create();
+
+            const oclConstraint = `
+                context Object inv:
+                    true = true
+                `
+            ;
+
+            oclEngine.addOclExpression('context Object inv: 1 = 1');
+            oclEngine.addOclExpression('context Object inv: 2 = 2');
+            oclEngine.addOclExpression(oclConstraint);
+            expect(oclEngine.packageDeclarations.length).to.equal(3);
+
+            oclEngine.removeOclExpression(oclConstraint);
+            expect(oclEngine.packageDeclarations.length).to.equal(2);
+        });
+
+        it('should allow to clear all OclExpressions', () => {
+            oclEngine = OclEngine.create();
+
+            const oclConstraint = `
+                context Object inv:
+                    true = true
+                `
+            ;
+
+            oclEngine.addOclExpression('context Object inv: 1 = 1');
+            oclEngine.addOclExpression('context Object inv: 2 = 2');
+            oclEngine.addOclExpression(oclConstraint);
+            expect(oclEngine.packageDeclarations.length).to.equal(3);
+
+            oclEngine.clearAllOclExpressions();
+            expect(oclEngine.packageDeclarations.length).to.equal(0);
+        });
     });
 });
