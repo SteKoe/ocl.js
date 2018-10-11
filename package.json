@@ -3,6 +3,7 @@
   "version": "1.1.0-SNAPSHOT",
   "description": "Object Constraint Language parser written in JavaScript.",
   "main": "./dist/ocl.min.js",
+  "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "npm run clean:dist && npm run test && npm run build:dist",
     "build:dist": "npx webpack-command --mode=production --config webpack.config.js",
