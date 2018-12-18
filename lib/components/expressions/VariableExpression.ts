@@ -22,7 +22,7 @@ export class VariableExpression extends SourceBasedExpression {
         const parts = source.split('.');
         if (parts[0] === 'self') {
             parts.shift();
-            obj = visitor.getObjectToEvaluate();
+            obj = (this.variables && this.variables['self']) || visitor.getObjectToEvaluate();
         } else if (this.variables === undefined) {
             const type = visitor.getRegisteredType(source);
             if (type) {
