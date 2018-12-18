@@ -155,6 +155,23 @@
         {% endtab %}
     {% endtabs %}
 
+    ## IsUniqueExpression
+    
+    Returns true if the given expr evaluated on the body returns only different values.
+
+    {% tabs %}
+        {% tab title="Definition" %}
+        ```ocl
+        isUnique(expr : oclExpression) : boolean
+        ```
+        {% endtab %}
+        {% tab title="Example" %}
+        ```ocl
+        self.collection->isUnique(self > 3)
+        ```
+        {% endtab %}
+    {% endtabs %}
+
     ## LastExpression
     
     Returns the last element of the collection.

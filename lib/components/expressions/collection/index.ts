@@ -7,6 +7,7 @@ export * from './ExistsExpression';
 export * from './FirstExpression';
 export * from './ForAllExpression';
 export * from './IsEmptyExpression';
+export * from './IsUniqueExpression';
 export * from './NotEmptyExpression';
 export * from './LastExpression';
 export * from './OneExpression';
