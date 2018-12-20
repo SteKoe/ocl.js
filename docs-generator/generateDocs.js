@@ -104,7 +104,7 @@ function writeGroup(group) {
     const groupInfoData = template({
         groupName: ucfirst(groupName),
         group
-    });
+    }).replace(/^\s{4,5}/gm, '');
 
     let indexFilePath = path.join(OUTPUT_DIR, 'expressions');
     mkdirp(indexFilePath, () => {
