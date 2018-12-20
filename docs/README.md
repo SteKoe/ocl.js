@@ -1,6 +1,5 @@
 # Table of Contents
 
-* [Read Me](../README.md)
 * [Introduction](introduction/README.md)
 * [Usage](usage.md)
     * [Customize type detection](usage/custom-type-detection.md)
@@ -17,5 +16,3 @@
     * [Literals](expressions/literal.gen.md)
     * [Math](expressions/math.gen.md)
     * [String](expressions/string.gen.md)
-* [Changelog](../CHANGELOG.md)
-* [License](../LICENSE.md)
