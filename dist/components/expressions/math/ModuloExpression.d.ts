@@ -1,4 +1,4 @@
-import { LeftRightBasedExpression } from '../Expression';
+import { LeftRightBasedExpression } from '../LeftRightBasedExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 /**
  * Returns the number remainder of the division of self by *i*.

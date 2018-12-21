@@ -1,4 +1,4 @@
-import * as Expr from './expressions';
+import { InvariantExpression } from './expressions/InvariantExpression';
 import { ContextExpression } from './expressions/context/ContextExpression';
 export declare class OclExecutionContext {
     private obj;
@@ -10,7 +10,7 @@ export declare class OclExecutionContext {
     private targetTypeName;
     private evaluatedContexts;
     constructor(obj: any, labelsToExecute?: Array<string>);
-    addFailedInvariant(inv: Expr.InvariantExpression): void;
+    addFailedInvariant(inv: InvariantExpression): void;
     setObjectToEvaluate(obj: any): OclExecutionContext;
     getObjectToEvaluate(): any;
     getRegisteredType(targetTypeName: string): any;
@@ -19,7 +19,7 @@ export declare class OclExecutionContext {
     registerTypes(types: any): void;
     setRegisteredEnumerations(enumerations: any): void;
     getRegisteredEnumeration(key: any): Array<any>;
-    getFailedInvariants(): Array<Expr.InvariantExpression>;
+    getFailedInvariants(): Array<InvariantExpression>;
     getLabelsToExecute(): Array<string>;
     getEvaluationResult(): boolean;
     setEvaluationResult(evaluationResult: boolean): void;

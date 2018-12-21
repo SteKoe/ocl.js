@@ -1,6 +1,5 @@
-import { LeftRightBasedExpression } from './Expression';
+import { LeftRightBasedExpression } from './LeftRightBasedExpression';
 import { OclExecutionContext } from '../OclExecutionContext';
-import * as Expr from './index';
 
 /**
  */
@@ -19,17 +18,17 @@ export class OperationCallExpression extends LeftRightBasedExpression {
     evaluate(visitor: OclExecutionContext): boolean {
         const {left, right} = this._visitLeftRightExpression(visitor);
 
-        if (this.getOperator() === Expr.Operator.NOT_EQUAL) {
+        if (this.getOperator() === Operator.NOT_EQUAL) {
             return left !== right;
-        } else if (this.getOperator() === Expr.Operator.LESS_EQUAL_THAN) {
+        } else if (this.getOperator() === Operator.LESS_EQUAL_THAN) {
             return left <= right;
-        } else if (this.getOperator() === Expr.Operator.GREATER_EQUAL_THAN) {
+        } else if (this.getOperator() === Operator.GREATER_EQUAL_THAN) {
             return left >= right;
-        } else if (this.getOperator() === Expr.Operator.GREATER_THAN) {
+        } else if (this.getOperator() === Operator.GREATER_THAN) {
             return left > right;
-        } else if (this.getOperator() === Expr.Operator.LESS_THAN) {
+        } else if (this.getOperator() === Operator.LESS_THAN) {
             return left < right;
-        } else if (this.getOperator() === Expr.Operator.EQUAL) {
+        } else if (this.getOperator() === Operator.EQUAL) {
             return left === right;
         }
     }

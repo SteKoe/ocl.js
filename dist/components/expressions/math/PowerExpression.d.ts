@@ -1,4 +1,4 @@
-import { LeftRightBasedExpression } from '../Expression';
+import { LeftRightBasedExpression } from '../LeftRightBasedExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 /**
  * Power

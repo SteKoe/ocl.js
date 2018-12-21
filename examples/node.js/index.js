@@ -1,4 +1,4 @@
-const OclEngine = require('@stekoe/ocl.js');
+const OclEngine = require('@stekoe/ocl.js').OclEngine;
 
 const oclEngine = OclEngine.create();
 oclEngine.addOclExpression(`context Object inv: true = true`);

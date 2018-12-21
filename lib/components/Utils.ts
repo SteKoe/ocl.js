@@ -1,10 +1,10 @@
 import {
     BodyBasedExpression,
     Expression,
-    LeftRightBasedExpression,
     SourceBasedExpression,
     VariableExpression
 } from './expressions';
+import { LeftRightBasedExpression } from './expressions/LeftRightBasedExpression';
 
 export class Utils {
     static typeDeterminerFn: Function;

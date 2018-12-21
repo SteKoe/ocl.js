@@ -1,1 +1,1 @@
-export * from './components/OclEngine';
+export {OclEngine} from './components/OclEngine';
