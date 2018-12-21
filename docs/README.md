@@ -1,21 +1,18 @@
-# Table of Contents
+<p align="center">
+  <a href="https://ocl.stekoe.de">
+    <img alt="OCL.js" src="https://raw.githubusercontent.com/stekoe/ocl.js/master/logo.png" width="250">
+  </a>
+</p>
 
-* [Read Me](../README.md)
-* [Introduction](introduction/README.md)
-* [Usage](usage.md)
-    * [Customize type detection](usage/custom-type-detection.md)
-    * [Register custom types](usage/register-custom-types.md)
-    * [Register enumerations](usage/register-enumerations.md)
-* [Examples](examples/README.md)
-    * [Person](examples/person.md)
-    * [Company](examples/company.md)
-* [Supported language features](expressions/README.md)
-    * [Collection](expressions/collection.gen.md)
-    * [Context](expressions/context.gen.md)
-    * [Expressions](expressions/expressions.gen.md)
-    * [Gate](expressions/gate.gen.md)
-    * [Literals](expressions/literal.gen.md)
-    * [Math](expressions/math.gen.md)
-    * [String](expressions/string.gen.md)
-* [Changelog](../CHANGELOG.md)
-* [License](../LICENSE.md)
+<p align="center">
+  <a href="https://travis-ci.org/SteKoe/ocl.js"><img alt="Travis Status" src="https://img.shields.io/travis/SteKoe/ocl.js/master.svg"></a>
+  <a href="https://david-dm.org/SteKoe/ocl.js#info=devDependencies"><img alt="devDependency Status" src="https://david-dm.org/SteKoe/ocl.js/dev-status.svg"></a>
+  <a href="https://github.com/SteKoe/ocl.js"><img alt="License: MIT" src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
+  <a href="https://www.npmjs.com/package/@stekoe/ocl.js"><img alt="npm (scoped)" src="https://img.shields.io/npm/v/@stekoe/ocl.js.svg"></a>
+</p>
+
+The Object Constraint Language (OCL) is a language for describing rules that apply to MOF conform modelling languages like UML.
+The OCL is a text based language that provides constraint and object query expressions that cannot be expressed by a meta modelling language.
+
+## Documentation
+To illustrate the usage of this library, an example web page has been set up [here](http://ocl.stekoe.de/).
