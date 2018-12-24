@@ -1,25 +1,15 @@
-# {{groupName}}
+## {{groupName}}
 
 {{#each group}}
-    ## {{title}}
-    {{#if content.citeOclSpecificaton}}{{{content.citeOclSpecificaton}}}{{/if}}
-    {{#if content.description}}{{content.description}}{{/if}}
+### {{title}}
+{{#if content.citeOclSpecificaton}}{{{content.citeOclSpecificaton}}}{{/if}}
 
-    {% tabs %}
-    {{#if content.oclExpression}}
-        {% tab title="Definition" %}
-        ```ocl
-        {{{content.oclExpression}}}
-        ```
-        {% endtab %}
-    {{/if}}
-    {{#if content.oclExample}}
-        {% tab title="Example" %}
-        ```ocl
-        {{{content.oclExample}}}
-        ```
-        {% endtab %}
-    {{/if}}
-    {% endtabs %}
+{{#if content.oclExample}}
+```
+{{{content.oclExample}}}
+```
+{{/if}}
 
+{{#if content.description}}{{content.description}}{{/if}}
+<div class="clearboth"></div>
 {{/each}}

@@ -71,7 +71,10 @@ function citeOclSpecificaton(obj) {
     if (obj.comment && Array.isArray(obj.comment.tags)) {
         let oclSpecification = obj.comment.tags.find(t => t.tag === 'oclspecification');
         if (oclSpecification && oclSpecification.text) {
-            return oclSpecification.text.split('\n').map(s => `> ${s}`).join('\n');
+            return oclSpecification.text.split('\n')
+                .filter(s => s.length !== 0)
+                .map(s => `> ${s}`)
+                .join('\n');
         }
     }
 }
@@ -94,7 +97,7 @@ function addOclExample(obj) {
     if (obj.comment && Array.isArray(obj.comment.tags)) {
         let oclExampleTag = obj.comment.tags.find(t => t.tag === 'oclexample');
         if (oclExampleTag && oclExampleTag.text) {
-            return oclExampleTag.text.replace(/\n*$/, '');
+            return oclExampleTag.text.replace(/\n*$/, '').split('\n').filter(s => s !== '').join('\n');
         }
     }
 }
@@ -108,7 +111,7 @@ function writeGroup(group) {
 
     let indexFilePath = path.join(OUTPUT_DIR, 'expressions');
     mkdirp(indexFilePath, () => {
-        fs.writeFileSync(path.join(indexFilePath, `${groupName}.gen.md`), groupInfoData);
+        fs.writeFileSync(path.join(indexFilePath, `_${groupName}.gen.md`), groupInfoData);
     });
 }
 
