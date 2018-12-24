@@ -2,12 +2,10 @@ import { SourceBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
- * =====    =====
- * A        NOT A
- * =====    =====
- * true     false
- * false    true
- * =====    =====
+ * | A     | NOT A |
+ * | ----- | ----- |
+ * | true  | false |
+ * | false | true  |
  *
  * @oclExample not false
  */

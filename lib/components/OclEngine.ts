@@ -72,8 +72,8 @@ export class OclEngine {
      * @returns the current OclEngine object for chaining
      * @throws ParserError
      */
-    addOclExpressions(oclExpressions): OclEngine {
-        oclExpressions.forEach(this.addOclExpression.bind(this));
+    addOclExpressions(oclExpressions: Array<string>, labels: Array<string> = []): OclEngine {
+        oclExpressions.forEach(oclExpression => this.addOclExpression(oclExpression, labels));
 
         return this;
     }
