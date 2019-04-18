@@ -13,7 +13,7 @@
     "clean": "npx rimraf -- node_modules dist",
     "clean:docs": "npx rimraf -- doc-test/**/*.gen.md",
     "generate:docs": "npm run clean:docs && node docs-generator/generateDocs.js",
-    "generate:parser": "rm -rf ./lib/components/parser/parser.ts && ts-node -O {\\\"module\\\":\\\"commonjs\\\"} generator/oclParserGenerator.ts",
+    "generate:parser": "npx rimraf -- ./lib/components/parser/parser.ts && ts-node -O {\\\"module\\\":\\\"commonjs\\\"} generator/oclParserGenerator.ts",
     "prepare:release": "npm run build && npm run build:examples:node.js && npm run build:examples:node.js && npm run generate:docs",
     "test": "npm run generate:parser && npm run test:fast",
     "test:fast": "npx ts-mocha 'test/**/*.spec.ts'",
