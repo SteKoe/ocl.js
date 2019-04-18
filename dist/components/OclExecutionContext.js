@@ -13,6 +13,13 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Utils_1 = require("./Utils");
 var OclParser_1 = require("./parser/OclParser");
+var a = {
+    s: /** @class */ (function () {
+        function P() {
+        }
+        return P;
+    }())
+};
 var OclExecutionContext = /** @class */ (function () {
     function OclExecutionContext(obj, labelsToExecute) {
         if (labelsToExecute === void 0) { labelsToExecute = []; }

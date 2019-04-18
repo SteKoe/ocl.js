@@ -1,7 +1,7 @@
 import { SourceBasedExpression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
 /**
- * Checks if *self* is not defined
+ * Checks if *self* is not defined or  null
  *
  * @oclExpression oclIsUndefined() : Boolean
  */

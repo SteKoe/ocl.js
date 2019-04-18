@@ -74,8 +74,10 @@ var OclEngine = /** @class */ (function () {
      * @returns the current OclEngine object for chaining
      * @throws ParserError
      */
-    OclEngine.prototype.addOclExpressions = function (oclExpressions) {
-        oclExpressions.forEach(this.addOclExpression.bind(this));
+    OclEngine.prototype.addOclExpressions = function (oclExpressions, labels) {
+        var _this = this;
+        if (labels === void 0) { labels = []; }
+        oclExpressions.forEach(function (oclExpression) { return _this.addOclExpression(oclExpression, labels); });
         return this;
     };
     /**

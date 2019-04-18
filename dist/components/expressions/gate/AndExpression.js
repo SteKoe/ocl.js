@@ -15,14 +15,12 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var LeftRightBasedExpression_1 = require("../LeftRightBasedExpression");
 /**
- * =====    =====   ===========
- * A        B       A and B
- * =====    =====   ===========
- * false    false   false
- * false    true    false
- * true     false   false
- * true     true    true
- * =====    =====   ===========
+ * | A     | B     | A and B |
+ * | ----- | ----- | ------- |
+ * | false | false | false   |
+ * | false | true  | false   |
+ * | true  | false | false   |
+ * | true  | true  | true    |
  *
  * @oclExample false and true
  */

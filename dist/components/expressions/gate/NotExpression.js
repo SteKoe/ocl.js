@@ -15,12 +15,10 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Expression_1 = require("../Expression");
 /**
- * =====    =====
- * A        NOT A
- * =====    =====
- * true     false
- * false    true
- * =====    =====
+ * | A     | NOT A |
+ * | ----- | ----- |
+ * | true  | false |
+ * | false | true  |
  *
  * @oclExample not false
  */

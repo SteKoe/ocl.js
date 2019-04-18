@@ -1,14 +1,12 @@
 import { LeftRightBasedExpression } from '../LeftRightBasedExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 /**
- * =====    =====   ===========
- * A        B       A or B
- * =====    =====   ===========
- * false    false   false
- * false    true    true
- * true     false   true
- * true     true    true
- * =====    =====   ===========
+ * | A     | B     | A or B |
+ * | ----- | ----- | ------ |
+ * | false | false | false  |
+ * | false | true  | true   |
+ * | true  | false | true   |
+ * | true  | true  | true   |
  *
  * @oclExample false or true
  */

@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var Expression_1 = require("./Expression");
 /**
- * Checks if *self* is not defined
+ * Checks if *self* is not defined or  null
  *
  * @oclExpression oclIsUndefined() : Boolean
  */
@@ -27,7 +27,7 @@ var OclIsUndefinedExpression = /** @class */ (function (_super) {
     OclIsUndefinedExpression.prototype.evaluate = function (visitor) {
         var result = this.getSource()
             .evaluate(visitor);
-        return result === undefined || typeof result === 'undefined';
+        return !Boolean(result) || typeof result === 'undefined';
     };
     return OclIsUndefinedExpression;
 }(Expression_1.SourceBasedExpression));
