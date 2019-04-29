@@ -8,11 +8,9 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.name.toLowerCase()
  */
 export class ToLowerCaseExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const source = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const source = this.getSource().evaluate(visitor, localVariables);
 
-        return String(source)
-            .toLowerCase();
+        return String(source).toLowerCase();
     }
 }

@@ -19,14 +19,12 @@ export abstract class LeftRightBasedExpression extends Expression {
         return this.right;
     }
 
-    _visitLeftRightExpression(visitor: OclExecutionContext): { left: any, right: any } {
-        this.getLeft().variables = this.variables;
+    _evaluateLeftRightExpression(visitor: OclExecutionContext, localVariables?: any): { left: any, right: any } {
         const left = this.getLeft()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
-        this.getRight().variables = this.variables;
         const right = this.getRight()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         return {left, right};
     }

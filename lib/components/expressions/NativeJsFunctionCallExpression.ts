@@ -19,12 +19,12 @@ export class NativeJsFunctionCallExpression extends SourceBasedExpression {
         return this.params;
     }
 
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const source = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         const params = this.getParams()
-            .map(param => param.evaluate(visitor));
+            .map(param => param.evaluate(visitor, localVariables));
 
         if (!source) {
             return false;

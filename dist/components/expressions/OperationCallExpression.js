@@ -27,7 +27,7 @@ var OperationCallExpression = /** @class */ (function (_super) {
         return this.operator;
     };
     OperationCallExpression.prototype.evaluate = function (visitor) {
-        var _a = this._visitLeftRightExpression(visitor), left = _a.left, right = _a.right;
+        var _a = this._evaluateLeftRightExpression(visitor), left = _a.left, right = _a.right;
         if (this.getOperator() === Operator.NOT_EQUAL) {
             return left !== right;
         }

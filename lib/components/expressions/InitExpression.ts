@@ -15,8 +15,7 @@ export class InitExpression extends Expression {
         return this.value;
     }
 
-    evaluate(visitor: OclExecutionContext): any {
-        return this.getValue()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        return this.getValue().evaluate(visitor, localVariables);
     }
 }

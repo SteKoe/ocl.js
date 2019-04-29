@@ -7,9 +7,9 @@ import { OclExecutionContext } from '../OclExecutionContext';
  * @oclExpression oclIsUndefined() : Boolean
  */
 export class OclIsUndefinedExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const result = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         return !Boolean(result) || typeof result === 'undefined';
     }

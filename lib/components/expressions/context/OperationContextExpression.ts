@@ -46,8 +46,7 @@ export class OperationContextExpression extends ContextExpression {
                 }, {result: undefined});
 
                 self.preExpressions.forEach(preExpression => {
-                    preExpression.variables = anies;
-                    const evaluationResult = preExpression.evaluate(oclExecutionContext);
+                    const evaluationResult = preExpression.evaluate(oclExecutionContext, anies);
                     if (!evaluationResult) {
                         throw new OclValidationError(`A precondition failed on type ${self.targetType}.`);
                     }
@@ -57,8 +56,7 @@ export class OperationContextExpression extends ContextExpression {
                 anies.result = result;
 
                 self.postExpressions.forEach(postExpression => {
-                    postExpression.variables = anies;
-                    const evaluationResult = postExpression.evaluate(oclExecutionContext);
+                    const evaluationResult = postExpression.evaluate(oclExecutionContext, anies);
                     if (!evaluationResult) {
                         throw new OclValidationError(`A postcondition failed on type ${self.targetType}.`);
                     }

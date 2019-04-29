@@ -26,7 +26,7 @@ var DivExpression = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     DivExpression.prototype.evaluate = function (visitor) {
-        var _a = this._visitBodyAndSource(visitor), source = _a.source, body = _a.body;
+        var _a = this._evaluateBodyAndSource(visitor), source = _a.source, body = _a.body;
         return Math.floor(body / source);
     };
     return DivExpression;

@@ -12,8 +12,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample false implies true
  */
 export class ImpliesExpression extends LeftRightBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const {left, right} = this._visitLeftRightExpression(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const {left, right} = this._evaluateLeftRightExpression(visitor, localVariables);
 
         if (left) {
             return right;

@@ -26,7 +26,7 @@ var PowerExpression = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     PowerExpression.prototype.evaluate = function (visitor) {
-        var _a = this._visitLeftRightExpression(visitor), left = _a.left, right = _a.right;
+        var _a = this._evaluateLeftRightExpression(visitor), left = _a.left, right = _a.right;
         return Math.pow(left, right);
     };
     return PowerExpression;

@@ -15,8 +15,8 @@ export class OperationCallExpression extends LeftRightBasedExpression {
         return this.operator;
     }
 
-    evaluate(visitor: OclExecutionContext): boolean {
-        const {left, right} = this._visitLeftRightExpression(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
+        const {left, right} = this._evaluateLeftRightExpression(visitor, localVariables);
 
         if (this.getOperator() === Operator.NOT_EQUAL) {
             return left !== right;

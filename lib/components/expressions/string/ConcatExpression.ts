@@ -8,13 +8,10 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.name.concat("string")
  */
 export class ConcatExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const source = this.getSource()
-            .evaluate(visitor);
-        const body = this.getBody()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const source = this.getSource().evaluate(visitor, localVariables);
+        const body = this.getBody().evaluate(visitor, localVariables);
 
-        return String(source)
-            .concat(String(body));
+        return String(source).concat(String(body));
     }
 }

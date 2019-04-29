@@ -9,13 +9,12 @@ import { SelectExpression } from './SelectExpression';
  * @oclExample self.collection->one(age < 18)
  */
 export class OneExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext): boolean {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
         const selectExpression = new SelectExpression(this.getSource());
         selectExpression.setBody(this.getBody());
         selectExpression.setIterators(this.getIterators());
-        selectExpression.variables = this.variables;
 
-        const result = selectExpression.evaluate(visitor);
+        const result = selectExpression.evaluate(visitor, localVariables);
 
         return result.length === 1;
     }

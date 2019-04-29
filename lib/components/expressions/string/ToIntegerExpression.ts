@@ -8,9 +8,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample "3.414".toInteger()
  */
 export class ToIntegerExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const source = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const source = this.getSource().evaluate(visitor, localVariables);
 
         return parseInt(source, 10);
     }

@@ -26,7 +26,7 @@ var DivideExpression = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     DivideExpression.prototype.evaluate = function (visitor) {
-        var _a = this._visitLeftRightExpression(visitor), left = _a.left, right = _a.right;
+        var _a = this._evaluateLeftRightExpression(visitor), left = _a.left, right = _a.right;
         return left / right;
     };
     return DivideExpression;

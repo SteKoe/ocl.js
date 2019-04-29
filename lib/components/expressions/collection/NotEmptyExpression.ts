@@ -8,9 +8,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.cars->notEmpty()
  */
 export class NotEmptyExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const source = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const source = this.getSource().evaluate(visitor, localVariables);
 
         return Array.isArray(source) ? source.length !== 0 : false;
     }

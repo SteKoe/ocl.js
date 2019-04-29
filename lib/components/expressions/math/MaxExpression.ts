@@ -8,13 +8,9 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample 6.max(3) = 6
  */
 export class MaxExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const body = this.getBody()
-            .evaluate(visitor);
-
-        this.getSource().variables = this.variables;
-        const left = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const body = this.getBody().evaluate(visitor);
+        const left = this.getSource().evaluate(visitor, localVariables);
 
         return Math.max(left, body);
     }

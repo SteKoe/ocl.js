@@ -8,8 +8,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample 3 div 2 = 1
  */
 export class DivExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const {source, body} = this._visitBodyAndSource(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const {source, body} = this._evaluateBodyAndSource(visitor, localVariables);
 
         return Math.floor(body / source);
     }

@@ -29,8 +29,8 @@ export class InvariantExpression extends Expression {
         return this.definition;
     }
 
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         return this.getDefinition()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
     }
 }

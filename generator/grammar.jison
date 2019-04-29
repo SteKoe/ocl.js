@@ -16,6 +16,7 @@ SN_SECEDQ            "\""
 "context"\b                         return 'context'
 "inv"\b                             return 'inv'
 "init"\b                            return 'init'
+"in"\b                              return 'in'
 "derive"\b                          return 'derive'
 "def"\b                             return 'def'
 "let"\b                             return 'let'
@@ -187,6 +188,8 @@ oclExpression
         { $$ = new yy.Expression.NotExpression($2); }
     | '(' oclExpression ')'
         { $$ = $2; }
+    | 'let' variableDeclarationList 'in' oclExpression
+        { $$ = new yy.Expression.LetExpression($2, $4); }
     | oclExpression '.' simpleNameExpression '(' oclExpressionListOptional ')'
         { $$ = functionCallExpression(yy, $3, $1, $5); }
     | oclExpression '->' simpleNameExpression
@@ -269,6 +272,8 @@ type
 variableDeclaration
     : simpleNameExpression typeOptional
         { $$ = $1; }
+    | simpleNameExpression typeOptional '=' oclExpression
+        { $$ = new yy.Expression.VariableDeclarationExpression($1, $2, $4); }
     ;
 
 oclExpressionListOptional

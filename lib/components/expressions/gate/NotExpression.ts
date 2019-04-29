@@ -10,9 +10,9 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample not false
  */
 export class NotExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const source = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         return !source;
     }

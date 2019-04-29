@@ -1,6 +1,6 @@
-import { IteratorExpression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { Utils } from '../../Utils';
+import {IteratorExpression} from '../Expression';
+import {OclExecutionContext} from '../../OclExecutionContext';
+import {Utils} from '../../Utils';
 
 /**
  * @oclSpecification
@@ -14,22 +14,22 @@ import { Utils } from '../../Utils';
  * @oclExample self.customer->reject(underage)
  */
 export class RejectExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const collection = this.getSource()
             .evaluate(visitor);
 
         if (collection instanceof Array) {
             return collection.filter(c => {
-                this.getBody().variables = {};
+                const variables = {};
                 if (this.getIterators()) {
-                    this.getBody().variables[this.getIterators()[0]] = c;
+                    variables[this.getIterators()[0]] = c;
                 } else {
                     const variableName = Utils.getVariableName(this);
-                    this.getBody().variables[variableName.getVariable()] = c;
+                    variables[variableName.getVariable()] = c;
                 }
 
                 const visitResult = this.getBody()
-                    .evaluate(visitor);
+                    .evaluate(visitor, {...localVariables, ...variables});
 
                 return !visitResult;
             });

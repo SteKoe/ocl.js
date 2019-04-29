@@ -8,11 +8,9 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.name.indexOf("string")
  */
 export class IndexOfExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const source = this.getSource()
-            .evaluate(visitor);
-        const indexOfString = this.getBody()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const source = this.getSource().evaluate(visitor, localVariables);
+        const indexOfString = this.getBody().evaluate(visitor, localVariables);
 
         return indexOfString.length === 0 ? 0 : source.indexOf(indexOfString) + 1;
     }

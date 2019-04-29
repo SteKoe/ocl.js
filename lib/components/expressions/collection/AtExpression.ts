@@ -8,11 +8,9 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->at(2)
  */
 export class AtExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const source = this.getSource()
-            .evaluate(visitor);
-        const index = this.getBody()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const source = this.getSource().evaluate(visitor, localVariables);
+        const index = this.getBody().evaluate(visitor, localVariables);
 
         if (source instanceof Array && Number.isInteger(index) && index >= 1 && index < source.length) {
             return source[index - 1];

@@ -8,8 +8,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample 4 mod 2 = 0
  */
 export class ModuloExpression extends LeftRightBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const {left, right} = this._visitLeftRightExpression(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const {left, right} = this._evaluateLeftRightExpression(visitor, localVariables);
 
         return left % right;
     }
