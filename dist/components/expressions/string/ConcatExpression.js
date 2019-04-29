@@ -25,13 +25,10 @@ var ConcatExpression = /** @class */ (function (_super) {
     function ConcatExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ConcatExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
-        var body = this.getBody()
-            .evaluate(visitor);
-        return String(source)
-            .concat(String(body));
+    ConcatExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
+        var body = this.getBody().evaluate(visitor, localVariables);
+        return String(source).concat(String(body));
     };
     return ConcatExpression;
 }(Expression_1.BodyBasedExpression));

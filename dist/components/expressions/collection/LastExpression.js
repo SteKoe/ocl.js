@@ -25,9 +25,8 @@ var LastExpression = /** @class */ (function (_super) {
     function LastExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    LastExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    LastExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         if (source instanceof Array) {
             return source[source.length - 1];
         }

@@ -25,9 +25,8 @@ var ToRealExpression = /** @class */ (function (_super) {
     function ToRealExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ToRealExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    ToRealExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         return Number.parseFloat(source);
     };
     return ToRealExpression;

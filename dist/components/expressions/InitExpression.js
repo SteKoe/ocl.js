@@ -26,9 +26,8 @@ var InitExpression = /** @class */ (function (_super) {
     InitExpression.prototype.getValue = function () {
         return this.value;
     };
-    InitExpression.prototype.evaluate = function (visitor) {
-        return this.getValue()
-            .evaluate(visitor);
+    InitExpression.prototype.evaluate = function (visitor, localVariables) {
+        return this.getValue().evaluate(visitor, localVariables);
     };
     return InitExpression;
 }(Expression_1.Expression));

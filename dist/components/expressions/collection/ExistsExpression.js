@@ -12,6 +12,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var Expression_1 = require("../Expression");
 var Utils_1 = require("../../Utils");
@@ -26,22 +37,21 @@ var ExistsExpression = /** @class */ (function (_super) {
     function ExistsExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ExistsExpression.prototype.evaluate = function (visitor) {
+    ExistsExpression.prototype.evaluate = function (visitor, localVariables) {
         var _this = this;
         var collection = this.getSource()
             .evaluate(visitor);
         if (collection instanceof Array) {
             return collection.some(function (c) {
-                _this.getBody().variables = {};
+                var variables = {};
                 if (_this.getIterators()) {
-                    _this.getBody().variables[_this.getIterators()[0]] = c;
+                    variables[_this.getIterators()[0]] = c;
                 }
                 else {
                     var variableName = Utils_1.Utils.getVariableName(_this);
-                    _this.getBody().variables[variableName.getVariable()] = c[variableName.getVariable()];
+                    variables[variableName.getVariable()] = c[variableName.getVariable()];
                 }
-                var visitResult = _this.getBody()
-                    .evaluate(visitor);
+                var visitResult = _this.getBody().evaluate(visitor, __assign({}, localVariables, variables));
                 return visitResult === true;
             });
         }

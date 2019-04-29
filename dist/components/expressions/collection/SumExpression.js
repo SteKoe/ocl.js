@@ -25,9 +25,8 @@ var SumExpression = /** @class */ (function (_super) {
     function SumExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    SumExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    SumExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         if (source instanceof Array && source instanceof Array) {
             return source.reduce(function (prev, cur) { return prev + cur; }, 0);
         }

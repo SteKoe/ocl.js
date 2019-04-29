@@ -25,11 +25,9 @@ var ToLowerCaseExpression = /** @class */ (function (_super) {
     function ToLowerCaseExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ToLowerCaseExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
-        return String(source)
-            .toLowerCase();
+    ToLowerCaseExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
+        return String(source).toLowerCase();
     };
     return ToLowerCaseExpression;
 }(Expression_1.SourceBasedExpression));

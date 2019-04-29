@@ -7,5 +7,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->first()
  */
 export declare class FirstExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

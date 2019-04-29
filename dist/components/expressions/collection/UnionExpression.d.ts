@@ -7,5 +7,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->union(self.anotherCollection)
  */
 export declare class UnionExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

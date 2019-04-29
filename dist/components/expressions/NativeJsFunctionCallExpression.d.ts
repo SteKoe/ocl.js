@@ -6,5 +6,5 @@ export declare class NativeJsFunctionCallExpression extends SourceBasedExpressio
     constructor(source: any, fn: any, params: any);
     getFn(): any;
     getParams(): Array<Expression>;
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

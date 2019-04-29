@@ -25,12 +25,11 @@ var UnionExpression = /** @class */ (function (_super) {
     function UnionExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    UnionExpression.prototype.evaluate = function (visitor) {
+    UnionExpression.prototype.evaluate = function (visitor, localVariables) {
         var source = this.getSource()
-            .evaluate(visitor);
-        this.getBody().variables = this.variables;
+            .evaluate(visitor, localVariables);
         var body = this.getBody()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
         if (source instanceof Array && body instanceof Array) {
             return source.concat(body);
         }

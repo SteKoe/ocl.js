@@ -25,11 +25,11 @@ var AppendExpression = /** @class */ (function (_super) {
     function AppendExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    AppendExpression.prototype.evaluate = function (visitor) {
+    AppendExpression.prototype.evaluate = function (visitor, localVariables) {
         var source = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
         var body = this.getBody() ? this.getBody()
-            .evaluate(visitor) : undefined;
+            .evaluate(visitor, localVariables) : undefined;
         if (Array.isArray(source) && !!body) {
             source.push(body);
         }

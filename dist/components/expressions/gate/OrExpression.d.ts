@@ -11,5 +11,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample false or true
  */
 export declare class OrExpression extends LeftRightBasedExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

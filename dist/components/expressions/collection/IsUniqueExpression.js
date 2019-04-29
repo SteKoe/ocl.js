@@ -12,6 +12,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var Expression_1 = require("../Expression");
 var Utils_1 = require("../../Utils");
@@ -26,22 +37,23 @@ var IsUniqueExpression = /** @class */ (function (_super) {
     function IsUniqueExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    IsUniqueExpression.prototype.evaluate = function (visitor) {
+    IsUniqueExpression.prototype.evaluate = function (visitor, localVariables) {
         var _this = this;
         var collection = this.getSource()
             .evaluate(visitor);
+        var body = this.getBody();
+        var iterators = this.getIterators();
         if (collection instanceof Array) {
             var result = collection.map(function (c) {
-                var body = _this.getBody();
-                body.variables = {};
-                if (_this.getIterators()) {
-                    body.variables[_this.getIterators()[0]] = c;
+                var variables = {};
+                if (iterators) {
+                    variables[iterators[0]] = c;
                 }
                 else {
                     var variableName = Utils_1.Utils.getVariableName(_this);
-                    body.variables[variableName.getVariable()] = c;
+                    variables[variableName.getVariable()] = c;
                 }
-                return body.evaluate(visitor);
+                return body.evaluate(visitor, __assign({}, localVariables, variables));
             });
             return result.length === new Set(result).size;
         }

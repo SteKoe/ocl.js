@@ -27,11 +27,8 @@ var PreExpression = /** @class */ (function (_super) {
     PreExpression.prototype.getValue = function () {
         return this.value;
     };
-    PreExpression.prototype.evaluate = function (visitor) {
-        var value = this.getValue();
-        value.variables = this.variables;
-        return value
-            .evaluate(visitor);
+    PreExpression.prototype.evaluate = function (visitor, localVariables) {
+        return this.getValue().evaluate(visitor, localVariables);
     };
     return PreExpression;
 }(Expression_1.Expression));

@@ -7,5 +7,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.name.indexOf("string")
  */
 export declare class IndexOfExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

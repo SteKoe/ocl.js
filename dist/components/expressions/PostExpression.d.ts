@@ -7,5 +7,5 @@ export declare class PostExpression extends Expression {
     private value;
     constructor(value: any);
     getValue(): Expression;
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

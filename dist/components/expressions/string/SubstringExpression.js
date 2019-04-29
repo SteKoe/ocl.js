@@ -27,9 +27,8 @@ var SubstringExpression = /** @class */ (function (_super) {
     function SubstringExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    SubstringExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    SubstringExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         if (!this.getBody()) {
             return source;
         }
@@ -42,8 +41,8 @@ var SubstringExpression = /** @class */ (function (_super) {
         else {
             start = this.getBody();
         }
-        var startIndex = start.evaluate(visitor);
-        var endIndex = end ? end.evaluate(visitor) : source.length;
+        var startIndex = start.evaluate(visitor, localVariables);
+        var endIndex = end ? end.evaluate(visitor, localVariables) : source.length;
         return source.substring(startIndex, endIndex);
     };
     return SubstringExpression;

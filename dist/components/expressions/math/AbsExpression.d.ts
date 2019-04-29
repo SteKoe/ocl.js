@@ -7,5 +7,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample -2.abs() = 2
  */
 export declare class AbsExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

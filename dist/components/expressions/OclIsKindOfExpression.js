@@ -24,11 +24,9 @@ var OclIsKindOfExpression = /** @class */ (function (_super) {
     function OclIsKindOfExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    OclIsKindOfExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
-        var body = this.getBody() ? this.getBody()
-            .evaluate(visitor) : undefined;
+    OclIsKindOfExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
+        var body = this.getBody() ? this.getBody().evaluate(visitor, localVariables) : undefined;
         if (!body) {
             return false;
         }

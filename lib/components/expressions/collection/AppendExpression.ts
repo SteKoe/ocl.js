@@ -1,5 +1,5 @@
-import {BodyBasedExpression} from '../Expression';
-import {OclExecutionContext} from '../../OclExecutionContext';
+import { BodyBasedExpression } from '../Expression';
+import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
  * Appends the given element to the given collection and returns the extended collection.

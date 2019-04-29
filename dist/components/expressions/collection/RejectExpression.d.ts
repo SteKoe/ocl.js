@@ -12,5 +12,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.customer->reject(underage)
  */
 export declare class RejectExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

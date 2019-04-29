@@ -27,15 +27,16 @@ var VariableExpression = /** @class */ (function (_super) {
     VariableExpression.prototype.getVariable = function () {
         return this.variable;
     };
-    VariableExpression.prototype.evaluate = function (visitor) {
+    VariableExpression.prototype.evaluate = function (visitor, localVariables) {
         var obj;
+        var _variables = localVariables;
         var source = this.getVariable();
         var parts = source.split('.');
         if (parts[0] === 'self') {
             parts.shift();
-            obj = (this.variables && this.variables['self']) || visitor.getObjectToEvaluate();
+            obj = (_variables && _variables['self']) || visitor.getObjectToEvaluate();
         }
-        else if (this.variables === undefined) {
+        else if (_variables === undefined) {
             var type = visitor.getRegisteredType(source);
             if (type) {
                 return type;
@@ -45,7 +46,7 @@ var VariableExpression = /** @class */ (function (_super) {
             }
         }
         else {
-            obj = this.variables;
+            obj = _variables;
         }
         return visitor.getRegisteredType(obj) || _resolvePath(obj, parts.join('.'));
         function _resolvePath(object, reference) {
@@ -54,6 +55,7 @@ var VariableExpression = /** @class */ (function (_super) {
             function dot_deref(o, ref) {
                 if (!o)
                     return;
+                o = isIterable(o) ? Array.from(o) : o;
                 return !ref ? o : ref.split('[')
                     .reduce(arr_deref, o);
             }
@@ -83,6 +85,12 @@ var VariableExpression = /** @class */ (function (_super) {
                     }
                 }
             }
+        }
+        function isIterable(iterableObject) {
+            if (!iterableObject) {
+                return false;
+            }
+            return iterableObject instanceof Array || iterableObject instanceof Set;
         }
     };
     return VariableExpression;

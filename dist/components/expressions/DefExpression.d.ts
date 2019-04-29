@@ -19,5 +19,5 @@ export declare class DefExpression extends Expression {
     constructor(key: any, value: any);
     getKey(): string;
     getValue(): Expression;
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

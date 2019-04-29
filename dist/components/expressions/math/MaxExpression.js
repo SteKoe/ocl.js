@@ -25,12 +25,9 @@ var MaxExpression = /** @class */ (function (_super) {
     function MaxExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    MaxExpression.prototype.evaluate = function (visitor) {
-        var body = this.getBody()
-            .evaluate(visitor);
-        this.getSource().variables = this.variables;
-        var left = this.getSource()
-            .evaluate(visitor);
+    MaxExpression.prototype.evaluate = function (visitor, localVariables) {
+        var body = this.getBody().evaluate(visitor);
+        var left = this.getSource().evaluate(visitor, localVariables);
         return Math.max(left, body);
     };
     return MaxExpression;

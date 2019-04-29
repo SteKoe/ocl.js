@@ -25,9 +25,8 @@ var NotEmptyExpression = /** @class */ (function (_super) {
     function NotEmptyExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    NotEmptyExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    NotEmptyExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         return Array.isArray(source) ? source.length !== 0 : false;
     };
     return NotEmptyExpression;

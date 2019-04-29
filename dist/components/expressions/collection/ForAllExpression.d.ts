@@ -8,5 +8,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExpression forAll(expr : oclExpression)
  */
 export declare class ForAllExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

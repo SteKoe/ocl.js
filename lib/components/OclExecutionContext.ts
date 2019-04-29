@@ -5,7 +5,7 @@ import { OclParser } from './parser/OclParser';
 
 const a = {
     s: class P {}
-}
+};
 
 export class OclExecutionContext {
     private evaluationResult: any = undefined;

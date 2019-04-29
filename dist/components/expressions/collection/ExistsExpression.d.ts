@@ -7,5 +7,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->exists(i | i < 2)
  */
 export declare class ExistsExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

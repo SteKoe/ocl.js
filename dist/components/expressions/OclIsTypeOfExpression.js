@@ -25,12 +25,10 @@ var OclIsTypeOfExpression = /** @class */ (function (_super) {
     function OclIsTypeOfExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    OclIsTypeOfExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    OclIsTypeOfExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         source = Utils_1.Utils.getClassName(source);
-        var body = this.getBody()
-            .evaluate(visitor);
+        var body = this.getBody().evaluate(visitor, localVariables);
         if (typeof body !== 'string') {
             body = Utils_1.Utils.getClassName(body);
         }

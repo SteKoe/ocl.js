@@ -6,5 +6,5 @@ import { OclExecutionContext } from '../OclExecutionContext';
  * @oclExpression oclIsUndefined() : Boolean
  */
 export declare class OclIsUndefinedExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

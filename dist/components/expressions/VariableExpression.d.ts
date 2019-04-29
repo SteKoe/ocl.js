@@ -7,5 +7,5 @@ export declare class VariableExpression extends SourceBasedExpression {
     private variable;
     constructor(source: any);
     getVariable(): string;
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

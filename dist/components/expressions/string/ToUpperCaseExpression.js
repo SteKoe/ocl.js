@@ -25,11 +25,9 @@ var ToUpperCaseExpression = /** @class */ (function (_super) {
     function ToUpperCaseExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ToUpperCaseExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
-        return String(source)
-            .toUpperCase();
+    ToUpperCaseExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
+        return String(source).toUpperCase();
     };
     return ToUpperCaseExpression;
 }(Expression_1.SourceBasedExpression));

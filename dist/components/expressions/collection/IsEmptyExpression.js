@@ -25,9 +25,9 @@ var IsEmptyExpression = /** @class */ (function (_super) {
     function IsEmptyExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    IsEmptyExpression.prototype.evaluate = function (visitor) {
+    IsEmptyExpression.prototype.evaluate = function (visitor, localVariables) {
         var source = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
         return Array.isArray(source) ? source.length === 0 : true;
     };
     return IsEmptyExpression;

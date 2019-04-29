@@ -25,11 +25,9 @@ var IndexOfExpression = /** @class */ (function (_super) {
     function IndexOfExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    IndexOfExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
-        var indexOfString = this.getBody()
-            .evaluate(visitor);
+    IndexOfExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
+        var indexOfString = this.getBody().evaluate(visitor, localVariables);
         return indexOfString.length === 0 ? 0 : source.indexOf(indexOfString) + 1;
     };
     return IndexOfExpression;

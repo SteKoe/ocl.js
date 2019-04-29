@@ -25,12 +25,9 @@ var SqrtExpression = /** @class */ (function (_super) {
     function SqrtExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    SqrtExpression.prototype.evaluate = function (visitor) {
-        var sqrt = this.getBody() ? this.getBody()
-            .evaluate(visitor) : 2;
-        this.getSource().variables = this.variables;
-        var left = this.getSource()
-            .evaluate(visitor);
+    SqrtExpression.prototype.evaluate = function (visitor, localVariables) {
+        var sqrt = this.getBody() ? this.getBody().evaluate(visitor) : 2;
+        var left = this.getSource().evaluate(visitor, localVariables);
         return Math.pow(left, 1 / sqrt);
     };
     return SqrtExpression;

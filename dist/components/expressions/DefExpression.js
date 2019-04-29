@@ -41,9 +41,9 @@ var DefExpression = /** @class */ (function (_super) {
     DefExpression.prototype.getValue = function () {
         return this.value;
     };
-    DefExpression.prototype.evaluate = function (visitor) {
+    DefExpression.prototype.evaluate = function (visitor, localVariables) {
         visitor.getObjectToEvaluate()[this.getKey()] = this.getValue()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
     };
     return DefExpression;
 }(Expression_1.Expression));

@@ -29,8 +29,8 @@ var ImpliesExpression = /** @class */ (function (_super) {
     function ImpliesExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ImpliesExpression.prototype.evaluate = function (visitor) {
-        var _a = this._evaluateLeftRightExpression(visitor), left = _a.left, right = _a.right;
+    ImpliesExpression.prototype.evaluate = function (visitor, localVariables) {
+        var _a = this._evaluateLeftRightExpression(visitor, localVariables), left = _a.left, right = _a.right;
         if (left) {
             return right;
         }

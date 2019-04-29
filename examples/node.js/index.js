@@ -10,7 +10,7 @@ if (oclResult.getResult() === false) {
 } else {
     console.log([
         `The following result was returned:`,
-        `    Actual result:             ${oclResult.getResult()}`,
-        `    Evaluated contexts count:  ${oclResult.getEvaluatedContexts().length}`
+        `    Actual result:             ${oclResult.getResult()} should be true`,
+        `    Evaluated contexts count:  ${oclResult.getEvaluatedContexts().length} should be 1`
     ].join('\n'))
 }

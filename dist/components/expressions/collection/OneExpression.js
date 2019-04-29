@@ -26,12 +26,11 @@ var OneExpression = /** @class */ (function (_super) {
     function OneExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    OneExpression.prototype.evaluate = function (visitor) {
+    OneExpression.prototype.evaluate = function (visitor, localVariables) {
         var selectExpression = new SelectExpression_1.SelectExpression(this.getSource());
         selectExpression.setBody(this.getBody());
         selectExpression.setIterators(this.getIterators());
-        selectExpression.variables = this.variables;
-        var result = selectExpression.evaluate(visitor);
+        var result = selectExpression.evaluate(visitor, localVariables);
         return result.length === 1;
     };
     return OneExpression;

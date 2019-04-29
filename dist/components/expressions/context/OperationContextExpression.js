@@ -53,8 +53,7 @@ var OperationContextExpression = /** @class */ (function (_super) {
                     return prev;
                 }, { result: undefined });
                 self_1.preExpressions.forEach(function (preExpression) {
-                    preExpression.variables = anies;
-                    var evaluationResult = preExpression.evaluate(oclExecutionContext);
+                    var evaluationResult = preExpression.evaluate(oclExecutionContext, anies);
                     if (!evaluationResult) {
                         throw new OclValidationError_1.OclValidationError("A precondition failed on type " + self_1.targetType + ".");
                     }
@@ -62,8 +61,7 @@ var OperationContextExpression = /** @class */ (function (_super) {
                 var result = originalFn_1.call.apply(originalFn_1, [this].concat(args));
                 anies.result = result;
                 self_1.postExpressions.forEach(function (postExpression) {
-                    postExpression.variables = anies;
-                    var evaluationResult = postExpression.evaluate(oclExecutionContext);
+                    var evaluationResult = postExpression.evaluate(oclExecutionContext, anies);
                     if (!evaluationResult) {
                         throw new OclValidationError_1.OclValidationError("A postcondition failed on type " + self_1.targetType + ".");
                     }

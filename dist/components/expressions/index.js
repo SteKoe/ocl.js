@@ -16,6 +16,7 @@ __export(require("./IfExpression"));
 __export(require("./InitExpression"));
 __export(require("./InvariantExpression"));
 __export(require("./DefExpression"));
+__export(require("./LetExpression"));
 __export(require("./NativeJsFunctionCallExpression"));
 __export(require("./OclIsKindOfExpression"));
 __export(require("./OclIsTypeOfExpression"));
@@ -24,5 +25,6 @@ __export(require("./OperationCallExpression"));
 __export(require("./PackageDeclaration"));
 __export(require("./PreExpression"));
 __export(require("./PostExpression"));
+__export(require("./VariableDeclarationExpression"));
 __export(require("./VariableExpression"));
 //# sourceMappingURL=index.js.map

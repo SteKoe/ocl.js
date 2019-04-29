@@ -29,8 +29,8 @@ var OrExpression = /** @class */ (function (_super) {
     function OrExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    OrExpression.prototype.evaluate = function (visitor) {
-        var _a = this._evaluateLeftRightExpression(visitor), left = _a.left, right = _a.right;
+    OrExpression.prototype.evaluate = function (visitor, localVariables) {
+        var _a = this._evaluateLeftRightExpression(visitor, localVariables), left = _a.left, right = _a.right;
         return left || right;
     };
     return OrExpression;

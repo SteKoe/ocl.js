@@ -24,9 +24,9 @@ var OclIsUndefinedExpression = /** @class */ (function (_super) {
     function OclIsUndefinedExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    OclIsUndefinedExpression.prototype.evaluate = function (visitor) {
+    OclIsUndefinedExpression.prototype.evaluate = function (visitor, localVariables) {
         var result = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
         return !Boolean(result) || typeof result === 'undefined';
     };
     return OclIsUndefinedExpression;

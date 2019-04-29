@@ -1,4 +1,4 @@
-import OclEngine from "@stekoe/ocl.js";
+import { OclEngine } from "@stekoe/ocl.js";
 import Person from "../class/person";
 import Example from "../class/example";
 import Car from "../class/car";

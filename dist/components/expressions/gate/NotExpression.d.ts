@@ -9,5 +9,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample not false
  */
 export declare class NotExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

@@ -26,8 +26,8 @@ var OperationCallExpression = /** @class */ (function (_super) {
     OperationCallExpression.prototype.getOperator = function () {
         return this.operator;
     };
-    OperationCallExpression.prototype.evaluate = function (visitor) {
-        var _a = this._evaluateLeftRightExpression(visitor), left = _a.left, right = _a.right;
+    OperationCallExpression.prototype.evaluate = function (visitor, localVariables) {
+        var _a = this._evaluateLeftRightExpression(visitor, localVariables), left = _a.left, right = _a.right;
         if (this.getOperator() === Operator.NOT_EQUAL) {
             return left !== right;
         }

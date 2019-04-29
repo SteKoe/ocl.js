@@ -29,8 +29,8 @@ var XorExpression = /** @class */ (function (_super) {
     function XorExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    XorExpression.prototype.evaluate = function (visitor) {
-        var _a = this._evaluateLeftRightExpression(visitor), left = _a.left, right = _a.right;
+    XorExpression.prototype.evaluate = function (visitor, localVariables) {
+        var _a = this._evaluateLeftRightExpression(visitor, localVariables), left = _a.left, right = _a.right;
         return (left || right) && !(left && right);
     };
     return XorExpression;

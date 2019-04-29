@@ -25,9 +25,8 @@ var SizeExpression = /** @class */ (function (_super) {
     function SizeExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    SizeExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    SizeExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         if (source && (source instanceof Array || typeof source === 'string')) {
             return source.length;
         }

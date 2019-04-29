@@ -25,10 +25,8 @@ var AbsExpression = /** @class */ (function (_super) {
     function AbsExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    AbsExpression.prototype.evaluate = function (visitor) {
-        this.getSource().variables = this.variables;
-        var left = this.getSource()
-            .evaluate(visitor);
+    AbsExpression.prototype.evaluate = function (visitor, localVariables) {
+        var left = this.getSource().evaluate(visitor, localVariables);
         return Math.abs(left);
     };
     return AbsExpression;

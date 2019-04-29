@@ -25,9 +25,8 @@ var ToIntegerExpression = /** @class */ (function (_super) {
     function ToIntegerExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ToIntegerExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    ToIntegerExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         return parseInt(source, 10);
     };
     return ToIntegerExpression;

@@ -25,12 +25,9 @@ var MinExpression = /** @class */ (function (_super) {
     function MinExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    MinExpression.prototype.evaluate = function (visitor) {
-        var body = this.getBody()
-            .evaluate(visitor);
-        this.getSource().variables = this.variables;
-        var left = this.getSource()
-            .evaluate(visitor);
+    MinExpression.prototype.evaluate = function (visitor, localVariables) {
+        var body = this.getBody().evaluate(visitor);
+        var left = this.getSource().evaluate(visitor, localVariables);
         return Math.min(left, body);
     };
     return MinExpression;

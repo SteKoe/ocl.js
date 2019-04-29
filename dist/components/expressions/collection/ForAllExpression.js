@@ -12,6 +12,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var Expression_1 = require("../Expression");
 /**
@@ -26,39 +37,34 @@ var ForAllExpression = /** @class */ (function (_super) {
     function ForAllExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ForAllExpression.prototype.evaluate = function (visitor) {
+    ForAllExpression.prototype.evaluate = function (visitor, localVariables) {
         var _this = this;
         var collection = this.getSource()
             .evaluate(visitor);
         if (collection instanceof Array) {
             var iterators = this.getIterators();
             var body_1 = this.getBody();
-            body_1.variables = {};
             if (!iterators || iterators.length === 0) {
                 return false;
             }
             else if (iterators.length === 1) {
                 return !collection.some(function (c) {
-                    body_1.variables[_this.getIterators()[0]] = c;
-                    var result = body_1.evaluate(visitor) === false;
-                    body_1.variables[_this.getIterators()[0]] = undefined;
-                    return result;
+                    var _a;
+                    return body_1.evaluate(visitor, (_a = {}, _a[_this.getIterators()[0]] = c, _a)) === false;
                 });
             }
             else if (iterators.length === 2) {
                 var sourceLength = collection.length;
                 for (var i = 0; i < sourceLength; i++) {
-                    body_1.variables[iterators[0]] = collection[i];
+                    var variables = {};
+                    variables[iterators[0]] = collection[i];
                     for (var j = i + 1; j < sourceLength; j++) {
-                        body_1.variables[iterators[1]] = collection[j];
-                        var items = body_1.evaluate(visitor);
-                        body_1.variables[iterators[1]] = undefined;
+                        variables[iterators[1]] = collection[j];
+                        var items = body_1.evaluate(visitor, __assign({}, localVariables, variables));
                         if (items === false) {
-                            body_1.variables[iterators[0]] = undefined;
                             return false;
                         }
                     }
-                    body_1.variables[iterators[0]] = undefined;
                 }
                 return true;
             }

@@ -16,5 +16,5 @@ export declare class InvariantExpression extends Expression {
     constructor(oclExpression: any, name: any);
     getName(): string;
     getDefinition(): any;
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

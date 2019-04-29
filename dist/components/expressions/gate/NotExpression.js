@@ -27,9 +27,8 @@ var NotExpression = /** @class */ (function (_super) {
     function NotExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    NotExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    NotExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         return !source;
     };
     return NotExpression;

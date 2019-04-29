@@ -20,7 +20,7 @@ var Expression = /** @class */ (function () {
     Expression.prototype.accept = function (obj) {
         return true;
     };
-    Expression.prototype.evaluate = function (visitor) {
+    Expression.prototype.evaluate = function (visitor, localVariables) {
         throw new Error("Visitor for '" + this.type + "' not yet implemented!");
     };
     return Expression;
@@ -50,13 +50,11 @@ var BodyBasedExpression = /** @class */ (function (_super) {
     BodyBasedExpression.prototype.getBody = function () {
         return this.body;
     };
-    BodyBasedExpression.prototype._visitBodyAndSource = function (visitor) {
-        this.getSource().variables = this.variables;
+    BodyBasedExpression.prototype._evaluateBodyAndSource = function (visitor, localVariables) {
         var body = this.getSource()
-            .evaluate(visitor);
-        this.getBody().variables = this.variables;
+            .evaluate(visitor, localVariables);
         var source = this.getBody()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
         return { source: source, body: body };
     };
     return BodyBasedExpression;

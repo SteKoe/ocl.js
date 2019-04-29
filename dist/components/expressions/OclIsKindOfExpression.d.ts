@@ -6,5 +6,5 @@ import { OclExecutionContext } from '../OclExecutionContext';
  * @oclExpression oclIsKindOf(type : T) : Boolean
  */
 export declare class OclIsKindOfExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

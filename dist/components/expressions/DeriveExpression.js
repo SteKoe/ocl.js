@@ -33,9 +33,9 @@ var DeriveExpression = /** @class */ (function (_super) {
     DeriveExpression.prototype.getValue = function () {
         return this.value;
     };
-    DeriveExpression.prototype.evaluate = function (visitor) {
+    DeriveExpression.prototype.evaluate = function (visitor, localVariables) {
         return this.getValue()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
     };
     return DeriveExpression;
 }(Expression_1.Expression));

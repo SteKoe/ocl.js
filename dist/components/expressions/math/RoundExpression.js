@@ -25,9 +25,8 @@ var RoundExpression = /** @class */ (function (_super) {
     function RoundExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    RoundExpression.prototype.evaluate = function (visitor) {
-        var result = this.getSource()
-            .evaluate(visitor);
+    RoundExpression.prototype.evaluate = function (visitor, localVariables) {
+        var result = this.getSource().evaluate(visitor, localVariables);
         return Math.round(result);
     };
     return RoundExpression;

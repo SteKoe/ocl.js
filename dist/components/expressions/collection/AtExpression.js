@@ -25,11 +25,9 @@ var AtExpression = /** @class */ (function (_super) {
     function AtExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    AtExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
-        var index = this.getBody()
-            .evaluate(visitor);
+    AtExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
+        var index = this.getBody().evaluate(visitor, localVariables);
         if (source instanceof Array && Number.isInteger(index) && index >= 1 && index < source.length) {
             return source[index - 1];
         }

@@ -12,5 +12,5 @@ export declare class IfExpression extends Expression {
     getCondition(): Expression;
     getThenExpression(): Expression;
     getElseExpression(): Expression;
-    evaluate(visitor: OclExecutionContext): boolean;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean;
 }

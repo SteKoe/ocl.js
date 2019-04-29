@@ -6,7 +6,7 @@ export declare class OperationCallExpression extends LeftRightBasedExpression {
     private operator;
     constructor(operator: any, left: any, right: any);
     getOperator(): Operator;
-    evaluate(visitor: OclExecutionContext): boolean;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean;
 }
 export declare enum Operator {
     NOT_EQUAL = "<>",

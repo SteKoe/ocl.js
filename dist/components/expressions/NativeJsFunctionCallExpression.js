@@ -28,11 +28,11 @@ var NativeJsFunctionCallExpression = /** @class */ (function (_super) {
     NativeJsFunctionCallExpression.prototype.getParams = function () {
         return this.params;
     };
-    NativeJsFunctionCallExpression.prototype.evaluate = function (visitor) {
+    NativeJsFunctionCallExpression.prototype.evaluate = function (visitor, localVariables) {
         var source = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
         var params = this.getParams()
-            .map(function (param) { return param.evaluate(visitor); });
+            .map(function (param) { return param.evaluate(visitor, localVariables); });
         if (!source) {
             return false;
         }

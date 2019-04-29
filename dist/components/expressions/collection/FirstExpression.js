@@ -25,9 +25,8 @@ var FirstExpression = /** @class */ (function (_super) {
     function FirstExpression() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    FirstExpression.prototype.evaluate = function (visitor) {
-        var source = this.getSource()
-            .evaluate(visitor);
+    FirstExpression.prototype.evaluate = function (visitor, localVariables) {
+        var source = this.getSource().evaluate(visitor, localVariables);
         if (source instanceof Array) {
             return source[0];
         }

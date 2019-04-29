@@ -36,11 +36,10 @@ var IfExpression = /** @class */ (function (_super) {
     IfExpression.prototype.getElseExpression = function () {
         return this._else;
     };
-    IfExpression.prototype.evaluate = function (visitor) {
-        return this.getCondition()
-            .evaluate(visitor) ? this.getThenExpression()
-            .evaluate(visitor) : this.getElseExpression()
-            .evaluate(visitor);
+    IfExpression.prototype.evaluate = function (visitor, localVariables) {
+        return this.getCondition().evaluate(visitor, localVariables)
+            ? this.getThenExpression().evaluate(visitor, localVariables)
+            : this.getElseExpression().evaluate(visitor, localVariables);
     };
     return IfExpression;
 }(Expression_1.Expression));

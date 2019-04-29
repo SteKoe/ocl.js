@@ -11,8 +11,7 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  */
 export class NotExpression extends SourceBasedExpression {
     evaluate(visitor: OclExecutionContext, localVariables?: any): any {
-        const source = this.getSource()
-            .evaluate(visitor, localVariables);
+        const source = this.getSource().evaluate(visitor, localVariables);
 
         return !source;
     }

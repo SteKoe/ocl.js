@@ -28,13 +28,11 @@ var LeftRightBasedExpression = /** @class */ (function (_super) {
     LeftRightBasedExpression.prototype.getRight = function () {
         return this.right;
     };
-    LeftRightBasedExpression.prototype._visitLeftRightExpression = function (visitor) {
-        this.getLeft().variables = this.variables;
+    LeftRightBasedExpression.prototype._evaluateLeftRightExpression = function (visitor, localVariables) {
         var left = this.getLeft()
-            .evaluate(visitor);
-        this.getRight().variables = this.variables;
+            .evaluate(visitor, localVariables);
         var right = this.getRight()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
         return { left: left, right: right };
     };
     return LeftRightBasedExpression;

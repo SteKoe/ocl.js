@@ -9,5 +9,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.name.substring(0,2)
  */
 export declare class SubstringExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): string;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): string;
 }

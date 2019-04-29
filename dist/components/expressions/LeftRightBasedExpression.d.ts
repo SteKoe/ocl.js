@@ -6,7 +6,7 @@ export declare abstract class LeftRightBasedExpression extends Expression {
     constructor(left: any, right: any);
     getLeft(): Expression;
     getRight(): Expression;
-    _visitLeftRightExpression(visitor: OclExecutionContext): {
+    _evaluateLeftRightExpression(visitor: OclExecutionContext, localVariables?: any): {
         left: any;
         right: any;
     };

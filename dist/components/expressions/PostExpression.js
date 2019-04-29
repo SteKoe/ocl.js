@@ -27,11 +27,8 @@ var PostExpression = /** @class */ (function (_super) {
     PostExpression.prototype.getValue = function () {
         return this.value;
     };
-    PostExpression.prototype.evaluate = function (visitor) {
-        var value = this.getValue();
-        value.variables = this.variables;
-        return value
-            .evaluate(visitor);
+    PostExpression.prototype.evaluate = function (visitor, localVariables) {
+        return this.getValue().evaluate(visitor, localVariables);
     };
     return PostExpression;
 }(Expression_1.Expression));

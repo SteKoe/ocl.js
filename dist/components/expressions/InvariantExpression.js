@@ -38,9 +38,9 @@ var InvariantExpression = /** @class */ (function (_super) {
     InvariantExpression.prototype.getDefinition = function () {
         return this.definition;
     };
-    InvariantExpression.prototype.evaluate = function (visitor) {
+    InvariantExpression.prototype.evaluate = function (visitor, localVariables) {
         return this.getDefinition()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
     };
     return InvariantExpression;
 }(Expression_1.Expression));
