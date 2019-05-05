@@ -356,7 +356,7 @@ simpleNameExpression
 /* start of helper functions */
 
 function functionCallExpression(yy, fn, source, params) {
-    var expressionTypeName = `${yy.Utils.ucfirst(fn)}Expression`;
+    var expressionTypeName = yy.Utils.ucfirst(fn) + 'Expression';
     var ExpressionType = yy.Expression[expressionTypeName];
     var typeExists = typeof ExpressionType === 'function';
 
