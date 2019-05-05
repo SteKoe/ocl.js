@@ -2,7 +2,11 @@ import { FixtureFactory } from '../../fixture.factory';
 import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('Collection->forAll', () => {
-    const mother = FixtureFactory.createPerson('Hilde', 50);
+    let mother;
+
+    beforeEach(() => {
+        mother = FixtureFactory.createPerson('Hilde', 50);
+    });
 
     it('should evaluate forAll(c|...): negative', () => {
         mother.children = [
@@ -62,6 +66,19 @@ describe('Collection->forAll', () => {
         ];
 
         const oclExpression = 'context Person inv: self.children->forAll(age < 10)';
+        expectOclRuleValidatesToFalse(oclExpression, mother);
+    });
+
+    it('should properly handle self in expression', () => {
+        mother.children = [
+            FixtureFactory.createPerson('A', 1),
+            mother
+        ];
+
+        let oclExpression = 'context Person inv: self.children->forAll(c | c <> self)';
+        expectOclRuleValidatesToFalse(oclExpression, mother);
+
+        oclExpression = 'context Person inv: self.children->forAll(c | self <> c)';
         expectOclRuleValidatesToFalse(oclExpression, mother);
     });
 });

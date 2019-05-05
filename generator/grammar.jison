@@ -355,13 +355,13 @@ simpleNameExpression
 %%
 /* start of helper functions */
 
-function functionCallExpression(yy, fn, source, params = undefined) {
-    let expressionTypeName = `${yy.Utils.ucfirst(fn)}Expression`;
-    let ExpressionType = yy.Expression[expressionTypeName];
-    let typeExists = typeof ExpressionType === 'function';
+function functionCallExpression(yy, fn, source, params) {
+    var expressionTypeName = `${yy.Utils.ucfirst(fn)}Expression`;
+    var ExpressionType = yy.Expression[expressionTypeName];
+    var typeExists = typeof ExpressionType === 'function';
 
     if (typeExists) {
-        const expr = new ExpressionType(source);
+        var expr = new ExpressionType(source);
         if (expr instanceof yy.Expression.SubstringExpression && !!params) {
             expr.setBody(params);
          } else if (expr instanceof yy.Expression.BodyBasedExpression && !!params) {

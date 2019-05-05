@@ -25,6 +25,20 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Expression_1 = require("./Expression");
+/**
+ * @oclSpecification
+ * Sometimes a sub-expression is used more than once in a constraint.
+ * The let expression allows one to define a variable that can be used in the constraint.
+ *
+ * @oclExample
+ * context Person inv:
+ *      let income : Integer = self.job.salary->sum() in
+ *      if isUnemployed then
+ *          income < 100
+ *      else
+ *          income >= 100
+ *      endif
+ */
 var LetExpression = /** @class */ (function (_super) {
     __extends(LetExpression, _super);
     function LetExpression(variableDeclarationExpressions, inContextDef) {
