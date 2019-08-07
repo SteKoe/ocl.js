@@ -1,4 +1,5 @@
 import * as pkg from '../../package.json';
+
 import { OclParser } from './parser/OclParser';
 import { Utils } from './Utils';
 import { OclExecutionContext } from './OclExecutionContext';

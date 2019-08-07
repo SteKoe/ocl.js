@@ -1,5 +1,6 @@
-import { LeftRightBasedExpression } from './LeftRightBasedExpression';
 import { OclExecutionContext } from '../OclExecutionContext';
+
+import { LeftRightBasedExpression } from './LeftRightBasedExpression';
 
 /**
  */

@@ -1,5 +1,5 @@
-import { Expression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+import { Expression } from './Expression';
 /**
  * @oclSpecification
  * The Let expression allows a variable to be used in one OCL expression.

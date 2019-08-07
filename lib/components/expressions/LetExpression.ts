@@ -1,5 +1,6 @@
-import { Expression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+
+import { Expression } from './Expression';
 import { VariableDeclarationExpression } from './VariableDeclarationExpression';
 
 /**

@@ -1,4 +1,5 @@
 import { OclExecutionContext } from '../OclExecutionContext';
+
 import { Expression } from './Expression';
 
 /**

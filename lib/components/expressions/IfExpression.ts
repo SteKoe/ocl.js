@@ -1,5 +1,6 @@
-import { Expression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+
+import { Expression } from './Expression';
 
 /**
  * The IfExpression allows to execute a statement if the given condition is truthy.

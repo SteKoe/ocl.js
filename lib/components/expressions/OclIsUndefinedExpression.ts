@@ -1,5 +1,6 @@
-import { SourceBasedExpression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+
+import { SourceBasedExpression } from './Expression';
 
 /**
  * Checks if *self* is not defined or  null

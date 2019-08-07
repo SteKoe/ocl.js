@@ -1,8 +1,9 @@
-import { ContextExpression } from './ContextExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 import { OclValidationError } from '../../OclValidationError';
 import { PreExpression } from '../PreExpression';
 import { PostExpression } from '../PostExpression';
+
+import { ContextExpression } from './ContextExpression';
 
 /**
  * The Operation Context Expression allows to define pre and or post conditions of functions.

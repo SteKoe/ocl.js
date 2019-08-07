@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -13,10 +13,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var ContextExpression_1 = require("./ContextExpression");
 var InitExpression_1 = require("../InitExpression");
 var DeriveExpression_1 = require("../DeriveExpression");
 var Utils_1 = require("../../Utils");
+var ContextExpression_1 = require("./ContextExpression");
 /**
  * A PropertyContextDefinition allows to initialize or derive a value for the targeted property.
  *

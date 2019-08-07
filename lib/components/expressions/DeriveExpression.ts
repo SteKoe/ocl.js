@@ -1,5 +1,6 @@
-import { Expression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+
+import { Expression } from './Expression';
 
 /**
  * A derived value expression is an expression that may be linked to a property.

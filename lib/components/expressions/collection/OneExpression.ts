@@ -1,5 +1,6 @@
 import { IteratorExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
+
 import { SelectExpression } from './SelectExpression';
 
 /**

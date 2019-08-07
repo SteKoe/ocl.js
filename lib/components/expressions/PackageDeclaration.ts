@@ -1,6 +1,7 @@
-import { ContextExpression } from './context/ContextExpression';
 import { OclExecutionContext } from '../OclExecutionContext';
 import { Utils } from '../Utils';
+
+import { ContextExpression } from './context/ContextExpression';
 import { Expression } from './Expression';
 
 /**

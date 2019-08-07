@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -13,11 +13,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var ContextExpression_1 = require("./ContextExpression");
 var OclExecutionContext_1 = require("../../OclExecutionContext");
 var OclValidationError_1 = require("../../OclValidationError");
 var PreExpression_1 = require("../PreExpression");
 var PostExpression_1 = require("../PostExpression");
+var ContextExpression_1 = require("./ContextExpression");
 /**
  * The Operation Context Expression allows to define pre and or post conditions of functions.
  *
