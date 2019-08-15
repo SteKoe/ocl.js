@@ -6,33 +6,18 @@ pipeline {
     }
 
     stages {
-        stage('install dependencies') {
+        stage('Initialize build steps') {
             steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('test') {
-            steps {
-                sh 'npm run test'
-            }
-        }
-
-        stage('analyze'){
-            steps {
-                sh 'npm run lint'
-            }
-        }
-        
-        stage('build distribution') {
-            steps {
-                sh 'npm run build:dist'
-            }
-        }
-
-        stage('finalize') {
-            steps {
-                chuckNorris()
+                script {
+                    ['lts/*', 'node', '8'].each {
+                        stage("run tests with ${it}") {
+                            nvm(it) {
+                               sh 'npm ci'
+                               sh 'npm run test'
+                            }
+                        }
+                    }
+                } 
             }
         }
     }
