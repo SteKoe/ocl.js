@@ -10,6 +10,7 @@
   },
   "exclude": [
     "generator",
+    "examples",
     "test",
     "node_modules",
     "dist"
