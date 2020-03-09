@@ -8,7 +8,7 @@ if (process.env.RUN_SLOW_TESTS) {
         describe('real world', () => {
             it('parses calendar.ocl', () => {
                 expect(() => OclParser.parse(readOclFile('calendar.ocl'))).to.not.throw();
-            });
+            }).timeout(5000);
 
             it('parses company.ocl', () => {
                 expect(() => OclParser.parse(readOclFile('company.ocl'))).to.not.throw();

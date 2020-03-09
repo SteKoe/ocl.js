@@ -49,7 +49,7 @@ export declare class OclEngine {
      * @returns the current OclEngine object for chaining
      * @throws ParserError
      */
-    addOclExpressions(oclExpressions: any): OclEngine;
+    addOclExpressions(oclExpressions: Array<string>, labels?: Array<string>): OclEngine;
     /**
      * Register a new OCL expression.
      *

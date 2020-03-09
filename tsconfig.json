@@ -1,28 +1,18 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "outDir": "./dist/",
     "target": "es5",
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
-    "sourceMap": true,
-    "typeRoots": [
-      "node_modules/@types",
-      "types"
-    ],
-    "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "es6",
-      "es5"
-    ]
+    "lib": ["es2017", "es7", "es6", "dom"],
+    "declaration": true,
+    "outDir": "dist",
+    "sourceMap": true
   },
-  "include": [
-    "types/jison-gho/index.d.ts"
-  ],
   "exclude": [
-    "./lib/components/parser/Parser.ts",
-    "./test/**/*.spec.ts"
-  ],
-  "compileOnSave": false
+    "generator",
+    "examples",
+    "test",
+    "node_modules",
+    "dist"
+  ]
 }

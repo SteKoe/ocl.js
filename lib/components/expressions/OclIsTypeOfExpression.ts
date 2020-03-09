@@ -1,6 +1,7 @@
-import { BodyBasedExpression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
 import { Utils } from '../Utils';
+
+import { BodyBasedExpression } from './Expression';
 
 /**
  * Checks if *self* is an instance of exact the class identified by the name
@@ -8,13 +9,11 @@ import { Utils } from '../Utils';
  * @oclExpression oclIsTypeOf(s : String) : Boolean
  */
 export class OclIsTypeOfExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        let source = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        let source = this.getSource().evaluate(visitor, localVariables);
         source = Utils.getClassName(source);
 
-        let body = this.getBody()
-            .evaluate(visitor);
+        let body = this.getBody().evaluate(visitor, localVariables);
 
         if (typeof body !== 'string') {
             body = Utils.getClassName(body);

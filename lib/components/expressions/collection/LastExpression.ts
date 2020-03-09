@@ -8,9 +8,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->last()
  */
 export class LastExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const source = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const source = this.getSource().evaluate(visitor, localVariables);
 
         if (source instanceof Array) {
             return source[source.length - 1];

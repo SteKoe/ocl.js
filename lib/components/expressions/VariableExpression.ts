@@ -1,5 +1,6 @@
-import { SourceBasedExpression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+
+import { SourceBasedExpression } from './Expression';
 
 /**
  * Resolve variables. Simple values are returned as is (e.g. self.age: number), collections are aggregated.
@@ -16,14 +17,16 @@ export class VariableExpression extends SourceBasedExpression {
         return this.variable;
     }
 
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         let obj;
+        const _variables = localVariables;
         const source = this.getVariable();
         const parts = source.split('.');
+
         if (parts[0] === 'self') {
             parts.shift();
-            obj = (this.variables && this.variables['self']) || visitor.getObjectToEvaluate();
-        } else if (this.variables === undefined) {
+            obj = (_variables && _variables['self']) || visitor.getObjectToEvaluate();
+        } else if (_variables === undefined) {
             const type = visitor.getRegisteredType(source);
             if (type) {
                 return type;
@@ -31,7 +34,7 @@ export class VariableExpression extends SourceBasedExpression {
                 obj = visitor.getObjectToEvaluate();
             }
         } else {
-            obj = this.variables;
+            obj = _variables;
         }
 
         return visitor.getRegisteredType(obj) || _resolvePath(obj, parts.join('.'));
@@ -42,6 +45,8 @@ export class VariableExpression extends SourceBasedExpression {
 
             function dot_deref(o, ref): any {
                 if (!o) return;
+
+                o = isIterable(o) ? Array.from(o) : o;
 
                 return !ref ? o : ref.split('[')
                     .reduce(arr_deref, o);
@@ -72,6 +77,14 @@ export class VariableExpression extends SourceBasedExpression {
                     }
                 }
             }
+        }
+
+        function isIterable(iterableObject: any): boolean {
+            if (!iterableObject) {
+                return false;
+            }
+
+            return iterableObject instanceof Array || iterableObject instanceof Set;
         }
     }
 }

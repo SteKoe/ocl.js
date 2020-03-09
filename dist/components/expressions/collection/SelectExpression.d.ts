@@ -12,5 +12,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->select(item | item.name = "random")
  */
 export declare class SelectExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables: any): any;
 }

@@ -1,7 +1,6 @@
 test
 examples
 docs-generator
-generator
 coverage
 .DS_Store
 *.log

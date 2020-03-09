@@ -12,22 +12,20 @@ import { Utils } from '../../Utils';
  * @oclExample self.children->collect(age)
  */
 export class CollectExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const collection = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const collection = this.getSource().evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
             return collection.map(c => {
-                this.getBody().variables = {};
+                const variables = {};
                 if (this.getIterators()) {
-                    this.getBody().variables[this.getIterators()[0]] = c;
+                    variables[this.getIterators()[0]] = c;
                 } else {
                     const variableName = Utils.getVariableName(this);
-                    this.getBody().variables[variableName.getSource().evaluate(visitor)] = c;
+                    variables[variableName.getSource().evaluate(visitor)] = c;
                 }
 
-                return this.getBody()
-                    .evaluate(visitor);
+                return this.getBody().evaluate(visitor, {...localVariables, ...variables});
             });
         } else {
             return collection;

@@ -8,9 +8,9 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->asSet()
  */
 export class AsSetExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const source = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         if (source instanceof Array) {
             return Array.from(new Set(source));

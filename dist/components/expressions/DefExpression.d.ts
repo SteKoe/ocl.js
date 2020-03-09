@@ -1,5 +1,5 @@
-import { Expression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+import { Expression } from './Expression';
 /**
  * @oclSpecification
  * The Let expression allows a variable to be used in one OCL expression.
@@ -19,5 +19,5 @@ export declare class DefExpression extends Expression {
     constructor(key: any, value: any);
     getKey(): string;
     getValue(): Expression;
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

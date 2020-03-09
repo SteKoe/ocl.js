@@ -7,5 +7,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->one(age < 18)
  */
 export declare class OneExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext): boolean;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean;
 }

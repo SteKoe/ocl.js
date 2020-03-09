@@ -10,9 +10,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.name.substring(0,2)
  */
 export class SubstringExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): string {
-        const source = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): string {
+        const source = this.getSource().evaluate(visitor, localVariables);
 
         if (!this.getBody()) {
             return source;
@@ -27,8 +26,8 @@ export class SubstringExpression extends BodyBasedExpression {
             start = this.getBody();
         }
 
-        const startIndex = start.evaluate(visitor);
-        const endIndex = end ? end.evaluate(visitor) : source.length;
+        const startIndex = start.evaluate(visitor, localVariables);
+        const endIndex = end ? end.evaluate(visitor, localVariables) : source.length;
 
         return source.substring(startIndex, endIndex);
     }

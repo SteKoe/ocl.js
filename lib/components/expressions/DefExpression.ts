@@ -1,5 +1,6 @@
-import { Expression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+
+import { Expression } from './Expression';
 
 /**
  * @oclSpecification
@@ -32,8 +33,8 @@ export class DefExpression extends Expression {
         return this.value;
     }
 
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         visitor.getObjectToEvaluate()[this.getKey()] = this.getValue()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
     }
 }

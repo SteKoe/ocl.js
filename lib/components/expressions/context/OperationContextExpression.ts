@@ -1,8 +1,9 @@
-import { ContextExpression } from './ContextExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 import { OclValidationError } from '../../OclValidationError';
 import { PreExpression } from '../PreExpression';
 import { PostExpression } from '../PostExpression';
+
+import { ContextExpression } from './ContextExpression';
 
 /**
  * The Operation Context Expression allows to define pre and or post conditions of functions.
@@ -46,8 +47,7 @@ export class OperationContextExpression extends ContextExpression {
                 }, {result: undefined});
 
                 self.preExpressions.forEach(preExpression => {
-                    preExpression.variables = anies;
-                    const evaluationResult = preExpression.evaluate(oclExecutionContext);
+                    const evaluationResult = preExpression.evaluate(oclExecutionContext, anies);
                     if (!evaluationResult) {
                         throw new OclValidationError(`A precondition failed on type ${self.targetType}.`);
                     }
@@ -57,8 +57,7 @@ export class OperationContextExpression extends ContextExpression {
                 anies.result = result;
 
                 self.postExpressions.forEach(postExpression => {
-                    postExpression.variables = anies;
-                    const evaluationResult = postExpression.evaluate(oclExecutionContext);
+                    const evaluationResult = postExpression.evaluate(oclExecutionContext, anies);
                     if (!evaluationResult) {
                         throw new OclValidationError(`A postcondition failed on type ${self.targetType}.`);
                     }

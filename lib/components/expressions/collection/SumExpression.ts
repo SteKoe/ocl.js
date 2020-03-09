@@ -8,9 +8,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.jobs.salary->sum()
  */
 export class SumExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const source = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const source = this.getSource().evaluate(visitor, localVariables);
 
         if (source instanceof Array && source instanceof Array) {
             return source.reduce((prev, cur) => prev + cur, 0);

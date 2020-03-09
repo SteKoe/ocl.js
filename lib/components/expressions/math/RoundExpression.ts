@@ -8,9 +8,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExpression 2.5.round() = 3
  */
 export class RoundExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        const result = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const result = this.getSource().evaluate(visitor, localVariables);
 
         return Math.round(result);
     }

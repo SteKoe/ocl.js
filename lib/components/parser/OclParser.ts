@@ -26,7 +26,7 @@ export class OclParser {
     }
 
     static parse(oclExpression: any, labels: Array<string> = [], registeredTypes?: object): Expressions.PackageDeclaration {
-        const packageDeclaration = OclParser.parseQuery(oclExpression, registeredTypes)as Expressions.PackageDeclaration;
+        const packageDeclaration = OclParser.parseQuery(oclExpression, registeredTypes) as Expressions.PackageDeclaration;
         packageDeclaration.setExecutionLabels(labels);
         packageDeclaration.setRawOclExpression(oclExpression);
 

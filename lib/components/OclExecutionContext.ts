@@ -1,11 +1,15 @@
 import { Utils } from './Utils';
-import * as Expr from './expressions';
-import { OclParser } from './parser/OclParser';
+import { InvariantExpression } from './expressions/InvariantExpression';
 import { ContextExpression } from './expressions/context/ContextExpression';
+import { OclParser } from './parser/OclParser';
+
+const a = {
+    s: class P {}
+};
 
 export class OclExecutionContext {
     private evaluationResult: any = undefined;
-    private failedInvariants: Array<Expr.InvariantExpression> = [];
+    private failedInvariants: Array<InvariantExpression> = [];
     private registeredTypes: any;
     private registeredEnumerations: any;
     private targetTypeName: string;
@@ -16,7 +20,7 @@ export class OclExecutionContext {
         this.registeredTypes = OclParser.registeredTypes;
     }
 
-    addFailedInvariant(inv: Expr.InvariantExpression): void {
+    addFailedInvariant(inv: InvariantExpression): void {
         this.failedInvariants.push(inv);
     }
 
@@ -54,7 +58,7 @@ export class OclExecutionContext {
         return this.registeredEnumerations[key] || [];
     }
 
-    getFailedInvariants(): Array<Expr.InvariantExpression> {
+    getFailedInvariants(): Array<InvariantExpression> {
         return this.failedInvariants;
     }
 

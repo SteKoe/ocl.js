@@ -1,5 +1,5 @@
-import { Expression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+import { Expression } from './Expression';
 /**
  * @oclSpecification
  * The OCL expression can be part of an Invariant which is a Constraint stereotyped as an «invariant».
@@ -16,5 +16,5 @@ export declare class InvariantExpression extends Expression {
     constructor(oclExpression: any, name: any);
     getName(): string;
     getDefinition(): any;
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

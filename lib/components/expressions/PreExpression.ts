@@ -1,5 +1,6 @@
-import { Expression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+
+import { Expression } from './Expression';
 
 /**
  * A condition that has to be fulfilled before executing the operation addressed by the parent OperationCallExpression.
@@ -16,11 +17,7 @@ export class PreExpression extends Expression {
         return this.value;
     }
 
-    evaluate(visitor: OclExecutionContext): any {
-        const value = this.getValue();
-        value.variables = this.variables;
-
-        return value
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        return this.getValue().evaluate(visitor, localVariables);
     }
 }

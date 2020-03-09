@@ -8,10 +8,8 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample -2.abs() = 2
  */
 export class AbsExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
-        this.getSource().variables = this.variables;
-        const left = this.getSource()
-            .evaluate(visitor);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+        const left = this.getSource().evaluate(visitor, localVariables);
 
         return Math.abs(left);
     }

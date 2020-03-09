@@ -1,8 +1,6 @@
 import { OclExecutionContext } from '../OclExecutionContext';
 
 export abstract class Expression {
-    variables: any;
-
     private type: string;
 
     constructor() {
@@ -13,7 +11,7 @@ export abstract class Expression {
         return true;
     }
 
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         throw new Error(`Visitor for '${this.type}' not yet implemented!`);
     }
 }
@@ -42,14 +40,12 @@ export abstract class BodyBasedExpression extends SourceBasedExpression {
         return this.body;
     }
 
-    _visitBodyAndSource(visitor: OclExecutionContext): { source: any, body: any } {
-        this.getSource().variables = this.variables;
+    _evaluateBodyAndSource(visitor: OclExecutionContext, localVariables?: any): { source: any, body: any } {
         const body = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
-        this.getBody().variables = this.variables;
         const source = this.getBody()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         return {source, body};
     }
@@ -64,36 +60,5 @@ export abstract class IteratorExpression extends BodyBasedExpression {
 
     getIterators(): Array<any> {
         return this.iterators;
-    }
-}
-
-export abstract class LeftRightBasedExpression extends Expression {
-    private left: any;
-    private right: any;
-
-    constructor(left, right) {
-        super();
-        this.left = left;
-        this.right = right;
-    }
-
-    getLeft(): Expression {
-        return this.left;
-    }
-
-    getRight(): Expression {
-        return this.right;
-    }
-
-    _visitLeftRightExpression(visitor: OclExecutionContext): { left: any, right: any } {
-        this.getLeft().variables = this.variables;
-        const left = this.getLeft()
-            .evaluate(visitor);
-
-        this.getRight().variables = this.variables;
-        const right = this.getRight()
-            .evaluate(visitor);
-
-        return {left, right};
     }
 }

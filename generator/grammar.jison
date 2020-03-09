@@ -16,6 +16,7 @@ SN_SECEDQ            "\""
 "context"\b                         return 'context'
 "inv"\b                             return 'inv'
 "init"\b                            return 'init'
+"in"\b                              return 'in'
 "derive"\b                          return 'derive'
 "def"\b                             return 'def'
 "let"\b                             return 'let'
@@ -187,6 +188,8 @@ oclExpression
         { $$ = new yy.Expression.NotExpression($2); }
     | '(' oclExpression ')'
         { $$ = $2; }
+    | 'let' variableDeclarationList 'in' oclExpression
+        { $$ = new yy.Expression.LetExpression($2, $4); }
     | oclExpression '.' simpleNameExpression '(' oclExpressionListOptional ')'
         { $$ = functionCallExpression(yy, $3, $1, $5); }
     | oclExpression '->' simpleNameExpression
@@ -269,6 +272,8 @@ type
 variableDeclaration
     : simpleNameExpression typeOptional
         { $$ = $1; }
+    | simpleNameExpression typeOptional '=' oclExpression
+        { $$ = new yy.Expression.VariableDeclarationExpression($1, $2, $4); }
     ;
 
 oclExpressionListOptional
@@ -350,13 +355,13 @@ simpleNameExpression
 %%
 /* start of helper functions */
 
-function functionCallExpression(yy, fn, source, params = undefined) {
-    let expressionTypeName = `${yy.Utils.ucfirst(fn)}Expression`;
-    let ExpressionType = yy.Expression[expressionTypeName];
-    let typeExists = typeof ExpressionType === 'function';
+function functionCallExpression(yy, fn, source, params) {
+    var expressionTypeName = yy.Utils.ucfirst(fn) + 'Expression';
+    var ExpressionType = yy.Expression[expressionTypeName];
+    var typeExists = typeof ExpressionType === 'function';
 
     if (typeExists) {
-        const expr = new ExpressionType(source);
+        var expr = new ExpressionType(source);
         if (expr instanceof yy.Expression.SubstringExpression && !!params) {
             expr.setBody(params);
          } else if (expr instanceof yy.Expression.BodyBasedExpression && !!params) {

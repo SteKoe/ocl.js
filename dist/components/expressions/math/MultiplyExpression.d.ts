@@ -1,4 +1,4 @@
-import { LeftRightBasedExpression } from '../Expression';
+import { LeftRightBasedExpression } from '../LeftRightBasedExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 /**
  * Multiply
@@ -7,5 +7,5 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample 1 * 2
  */
 export declare class MultiplyExpression extends LeftRightBasedExpression {
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

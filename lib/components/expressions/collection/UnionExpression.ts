@@ -8,13 +8,12 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->union(self.anotherCollection)
  */
 export class UnionExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const source = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
-        this.getBody().variables = this.variables;
         const body = this.getBody()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         if (source instanceof Array && body instanceof Array) {
             return source.concat(body);

@@ -1,4 +1,4 @@
-import { LeftRightBasedExpression } from '../Expression';
+import { LeftRightBasedExpression } from '../LeftRightBasedExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 
 /**
@@ -9,7 +9,7 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  */
 export class SubstractionExpression extends LeftRightBasedExpression {
     evaluate(visitor: OclExecutionContext): any {
-        const {left, right} = this._visitLeftRightExpression(visitor);
+        const {left, right} = this._evaluateLeftRightExpression(visitor);
 
         return left - right;
     }

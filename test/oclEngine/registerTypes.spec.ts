@@ -21,9 +21,4 @@ describe('OclEngine', () => {
         const result = oclResult.getResult();
         expect(result).to.be.true;
     });
-
-    it('asdfg', () => {
-        const expression = oclEngine.createQuery('self->oclIsTypeOf(String)');
-        console.log(expression);
-    });
 });

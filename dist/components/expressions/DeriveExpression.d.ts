@@ -1,5 +1,5 @@
-import { Expression } from './Expression';
 import { OclExecutionContext } from '../OclExecutionContext';
+import { Expression } from './Expression';
 /**
  * A derived value expression is an expression that may be linked to a property.
  *
@@ -13,5 +13,5 @@ export declare class DeriveExpression extends Expression {
     private value;
     constructor(value: any);
     getValue(): Expression;
-    evaluate(visitor: OclExecutionContext): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }

@@ -8,12 +8,12 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample self.collection->append("string")
  */
 export class AppendExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const source = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         const body = this.getBody() ? this.getBody()
-            .evaluate(visitor) : undefined;
+            .evaluate(visitor, localVariables) : undefined;
 
         if (Array.isArray(source) && !!body) {
             source.push(body);

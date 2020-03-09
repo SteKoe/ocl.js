@@ -1,5 +1,5 @@
-import { ContextExpression } from './context/ContextExpression';
 import { OclExecutionContext } from '../OclExecutionContext';
+import { ContextExpression } from './context/ContextExpression';
 import { Expression } from './Expression';
 /**
  * In order to group and organise OCL constraints, packages can be used.
