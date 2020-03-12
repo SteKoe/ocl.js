@@ -1,4 +1,5 @@
 import { ContextExpression } from './expressions/context/ContextExpression';
+import { InvariantExpression } from './expressions';
 
 /**
  * This class is a data class that is returned by OclEngine.evaluate method.
@@ -8,9 +9,11 @@ import { ContextExpression } from './expressions/context/ContextExpression';
  */
 export class OclResult {
     private result: boolean;
+    private failedInvariantNames: Array<string>;
 
-    constructor(private namesOfFailedInvs: Array<string>, private evaluatedContexts: Array<ContextExpression>) {
-        this.result = namesOfFailedInvs.length === 0;
+    constructor(private failedInvariants: Array<InvariantExpression>, private evaluatedContexts: Array<ContextExpression>) {
+        this.result = failedInvariants.length === 0;
+        this.failedInvariantNames = this.failedInvariants.map(i => i.getName());
     }
 
     /**
@@ -21,10 +24,17 @@ export class OclResult {
     }
 
     /**
+     * @returns An array of all failed #{InvariantExpression}s
+     */
+    getFailedInvs(): Array<InvariantExpression> {
+        return this.failedInvariants;
+    }
+
+    /**
      * @returns An array of names of all failed invariants.
      */
     getNamesOfFailedInvs(): Array<string> {
-        return this.namesOfFailedInvs;
+        return this.failedInvariantNames;
     }
 
     /**
