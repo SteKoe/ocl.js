@@ -1,10 +1,11 @@
 import { Utils } from './Utils';
-import { InvariantExpression } from './expressions/InvariantExpression';
+import { InvariantExpression } from './expressions';
 import { ContextExpression } from './expressions/context/ContextExpression';
 import { OclParser } from './parser/OclParser';
 
 const a = {
-    s: class P {}
+    s: class P {
+    }
 };
 
 export class OclExecutionContext {
