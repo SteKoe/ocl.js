@@ -71,6 +71,8 @@ export class OclEngine {
      *
      * @param oclExpressions The OCL expressions as string list. It will be parsed and added to the list of existing OCL expressions.
      * @returns the current OclEngine object for chaining
+     * @param labels Add one or multiple lables to an OCL expression. Labels can be used to address particular expressions
+     *               for evaluation.
      * @throws ParserError
      */
     addOclExpressions(oclExpressions: Array<string>, labels: Array<string> = []): OclEngine {
@@ -91,6 +93,8 @@ export class OclEngine {
      * when running OclEngine.evaluate.
      *
      * @param oclExpression The OCL expression as string. It will be parsed and added to the list of existing OCL expressions.
+     * @param labels Add one or multiple lables to an OCL expression. Labels can be used to address particular expressions
+     *               for evaluation.
      * @returns the current OclEngine object for chaining
      * @throws ParserError
      */
@@ -143,8 +147,7 @@ export class OclEngine {
 
         this.packageDeclarations.forEach(e => e.evaluate(visitor));
 
-        return new OclResult(visitor.getFailedInvariants()
-            .map(inv => inv.getName()), visitor.getEvaluatedContexts());
+        return new OclResult(visitor.getFailedInvariants(), visitor.getEvaluatedContexts());
     }
 
     _inferType(obj: any): string {
