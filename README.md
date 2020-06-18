@@ -1,11 +1,11 @@
 <p align="center">
   <a href="https://ocl.stekoe.de">
-    <img alt="OCL.js" src="https://raw.githubusercontent.com/stekoe/ocl.js/master/logo.png" width="250">
+    <img alt="OCL.js" src="https://raw.githubusercontent.com/stekoe/ocl.js/main/logo.png" width="250">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.org/SteKoe/ocl.js"><img alt="Travis Status" src="https://img.shields.io/travis/SteKoe/ocl.js/master.svg"></a>
+  <a href="https://travis-ci.org/SteKoe/ocl.js"><img alt="Travis Status" src="https://img.shields.io/travis/SteKoe/ocl.js/main.svg"></a>
   <a href="https://david-dm.org/SteKoe/ocl.js#info=devDependencies"><img alt="devDependency Status" src="https://david-dm.org/SteKoe/ocl.js/dev-status.svg"></a>
   <a href="https://github.com/SteKoe/ocl.js"><img alt="License: MIT" src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
   <a href="https://www.npmjs.com/package/@stekoe/ocl.js"><img alt="npm (scoped)" src="https://img.shields.io/npm/v/@stekoe/ocl.js.svg"></a>
