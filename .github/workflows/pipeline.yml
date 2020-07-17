@@ -1,0 +1,39 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Run tests
+        run: npm ci && npm test
+
+  tag:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Run build
+        run: npm ci && npm build
+      - name: Create a Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: "v${PACKAGE_VERSION}"
+          release_name: Release v${PACKAGE_VERSION}"
+        env:
+          PACKAGE_VERSION: $(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')
