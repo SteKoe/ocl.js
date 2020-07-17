@@ -36,6 +36,8 @@ jobs:
           echo "::set-env name=PACKAGE_VERSION::$(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')"
       - name: Create a Release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: "v${env.PACKAGE_VERSION}"
           release_name: Release v${env.PACKAGE_VERSION}"
