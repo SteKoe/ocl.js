@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,6 +20,7 @@ jobs:
 
   tag:
     needs: build
+    name: Release on GH
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,14 +32,17 @@ jobs:
       - name: Run build
         run: |
           npm ci
-          npm build
+          npm run build
+          npm run build:examples
+        env:
+          RUN_SLOW_TESTS: true
       - name: Extract version
         run: |
           echo "::set-env name=PACKAGE_VERSION::$(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')"
-      - name: Create a Release
+      - name: Create a GH release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ env.PACKAGE_VERSION }}
-          release_name: v${env.PACKAGE_VERSION}"
+          release_name: v${{ env.PACKAGE_VERSION }}
