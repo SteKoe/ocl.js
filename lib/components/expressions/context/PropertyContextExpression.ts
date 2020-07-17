@@ -12,9 +12,9 @@ import { ContextExpression } from './ContextExpression';
  * @oclExpression context Person::age (init|derive)
  */
 export class PropertyContextExpression extends ContextExpression {
-    private derived: any;
-    private inits: any;
-    private propertyName: any;
+    private readonly derived: any;
+    private readonly inits: any;
+    private readonly propertyName: any;
 
     constructor(targetType, rules) {
         super();

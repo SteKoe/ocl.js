@@ -13,8 +13,8 @@ import { Expression } from './Expression';
  *     self.age > 0
  */
 export class InvariantExpression extends Expression {
-    private name: string;
-    private definition: Expression;
+    private readonly name: string;
+    private readonly definition: Expression;
 
     constructor(oclExpression, name) {
         super();
@@ -30,8 +30,9 @@ export class InvariantExpression extends Expression {
         return this.definition;
     }
 
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
-        return this.getDefinition()
-            .evaluate(visitor, localVariables);
+    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
+        const evaluationResult = this.getDefinition().evaluate(visitor, localVariables);
+
+        return evaluationResult === true;
     }
 }

@@ -7,7 +7,7 @@ import { ContextExpression } from './expressions/context/ContextExpression';
  * of all names of invariants that have failed.
  */
 export class OclResult {
-    private result: boolean;
+    private readonly result: boolean;
 
     constructor(private namesOfFailedInvs: Array<string>, private evaluatedContexts: Array<ContextExpression>) {
         this.result = namesOfFailedInvs.length === 0;

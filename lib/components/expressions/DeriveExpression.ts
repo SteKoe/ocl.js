@@ -12,7 +12,7 @@ import { Expression } from './Expression';
  *     endif
  */
 export class DeriveExpression extends Expression {
-    private value: any;
+    private readonly value: any;
 
     constructor(value) {
         super();

@@ -54,7 +54,7 @@ var AnyExpression = /** @class */ (function (_super) {
                 return _this.getBody().evaluate(visitor, __assign({}, localVariables, variables));
             });
         }
-        return;
+
     };
     return AnyExpression;
 }(Expression_1.IteratorExpression));

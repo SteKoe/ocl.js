@@ -6,7 +6,7 @@ import { Expression } from './Expression';
  * A condition that has to be fulfilled before executing the operation addressed by the parent OperationCallExpression.
  */
 export class PreExpression extends Expression {
-    private value: any;
+    private readonly value: any;
 
     constructor(value) {
         super();

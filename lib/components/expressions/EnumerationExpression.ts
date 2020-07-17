@@ -6,8 +6,8 @@ import { Expression } from './Expression';
  * Resolves enumeration values.
  */
 export class EnumerationExpression extends Expression {
-    private enumeration: string;
-    private field: string;
+    private readonly enumeration: string;
+    private readonly field: string;
 
     constructor(source) {
         super();

@@ -3,8 +3,8 @@ import { OclExecutionContext } from '../OclExecutionContext';
 import { Expression } from './Expression';
 
 export abstract class LeftRightBasedExpression extends Expression {
-    private left: any;
-    private right: any;
+    private readonly left: any;
+    private readonly right: any;
 
     constructor(left, right) {
         super();

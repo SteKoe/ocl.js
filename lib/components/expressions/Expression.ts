@@ -1,7 +1,7 @@
 import { OclExecutionContext } from '../OclExecutionContext';
 
 export abstract class Expression {
-    private type: string;
+    private readonly type: string;
 
     constructor() {
         this.type = this.constructor.name;
@@ -17,7 +17,7 @@ export abstract class Expression {
 }
 
 export abstract class SourceBasedExpression extends Expression {
-    protected source: any;
+    private readonly source: any;
 
     constructor(source) {
         super();

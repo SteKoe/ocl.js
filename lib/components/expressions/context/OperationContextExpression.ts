@@ -14,7 +14,7 @@ import { ContextExpression } from './ContextExpression';
  *         pre: age > 0
  */
 export class OperationContextExpression extends ContextExpression {
-    private fnName: any;
+    private readonly fnName: any;
     private returnType: any;
     private preExpressions: Array<PreExpression>;
     private postExpressions: Array<PostExpression>;
