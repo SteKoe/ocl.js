@@ -16,7 +16,9 @@ jobs:
         with:
           node-version: 12
       - name: Run tests
-        run: npm ci && npm test
+        run: |
+          npm ci
+          npm test
 
   tag:
     needs: build
@@ -29,11 +31,14 @@ jobs:
         with:
           node-version: 12
       - name: Run build
-        run: npm ci && npm build
+        run: |
+          npm ci
+          npm build
+      - name: Extract version
+        run: |
+          echo "::set-env name=PACKAGE_VERSION::$(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')"
       - name: Create a Release
         uses: actions/create-release@v1
         with:
-          tag_name: "v${PACKAGE_VERSION}"
-          release_name: Release v${PACKAGE_VERSION}"
-        env:
-          PACKAGE_VERSION: $(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')
+          tag_name: "v${env.PACKAGE_VERSION}"
+          release_name: Release v${env.PACKAGE_VERSION}"
