@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OclExecutionContext = void 0;
 var Utils_1 = require("./Utils");
 var OclParser_1 = require("./parser/OclParser");
 var a = {
@@ -51,10 +52,10 @@ var OclExecutionContext = /** @class */ (function () {
         return this.targetTypeName;
     };
     OclExecutionContext.prototype.registerTypes = function (types) {
-        this.registeredTypes = __assign({}, this.registeredTypes, types);
+        this.registeredTypes = __assign(__assign({}, this.registeredTypes), types);
     };
     OclExecutionContext.prototype.setRegisteredEnumerations = function (enumerations) {
-        this.registeredEnumerations = __assign({}, this.registeredEnumerations, enumerations);
+        this.registeredEnumerations = __assign(__assign({}, this.registeredEnumerations), enumerations);
     };
     OclExecutionContext.prototype.getRegisteredEnumeration = function (key) {
         return this.registeredEnumerations[key] || [];

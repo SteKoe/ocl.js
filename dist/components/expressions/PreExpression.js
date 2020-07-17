@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.PreExpression = void 0;
 var Expression_1 = require("./Expression");
 /**
  * A condition that has to be fulfilled before executing the operation addressed by the parent OperationCallExpression.

@@ -24,6 +24,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SelectExpression = void 0;
 var Expression_1 = require("../Expression");
 var Utils_1 = require("../../Utils");
 /**
@@ -57,7 +58,7 @@ var SelectExpression = /** @class */ (function (_super) {
                     variables[variableName.getVariable()] = c;
                 }
                 return _this.getBody()
-                    .evaluate(visitor, __assign({}, localVariables, variables));
+                    .evaluate(visitor, __assign(__assign({}, localVariables), variables));
             });
         }
         else {

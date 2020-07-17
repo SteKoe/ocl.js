@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.VariableDeclarationExpression = void 0;
 var Expression_1 = require("./Expression");
 /**
  * Resolve variables. Simple values are returned as is (e.g. self.age: number), collections are aggregated.

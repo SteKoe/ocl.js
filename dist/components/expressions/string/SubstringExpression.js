@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SubstringExpression = void 0;
 var Expression_1 = require("../Expression");
 /**
  * Returns a string containing all characters from self starting from index *start* up to index *end* included.

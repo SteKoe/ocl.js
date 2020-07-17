@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OclIsTypeOfExpression = void 0;
 var Utils_1 = require("../Utils");
 var Expression_1 = require("./Expression");
 /**

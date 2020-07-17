@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.IndexOfExpression = void 0;
 var Expression_1 = require("../Expression");
 /**
  * Returns the index of the given string in self or 0 if it is not condained.

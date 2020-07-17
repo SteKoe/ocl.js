@@ -4,8 +4,8 @@ import { Expression } from './Expression';
  * Resolves enumeration values.
  */
 export declare class EnumerationExpression extends Expression {
-    private enumeration;
-    private field;
+    private readonly enumeration;
+    private readonly field;
     constructor(source: any);
     evaluate(visitor: OclExecutionContext): any;
 }

@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DeriveExpression = void 0;
 var Expression_1 = require("./Expression");
 /**
  * A derived value expression is an expression that may be linked to a property.

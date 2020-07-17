@@ -24,6 +24,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ForAllExpression = void 0;
 var Expression_1 = require("../Expression");
 /**
  * @oclSpecification
@@ -60,7 +61,7 @@ var ForAllExpression = /** @class */ (function (_super) {
                     variables[iterators[0]] = collection[i];
                     for (var j = i + 1; j < sourceLength; j++) {
                         variables[iterators[1]] = collection[j];
-                        var items = body_1.evaluate(visitor, __assign({}, localVariables, variables));
+                        var items = body_1.evaluate(visitor, __assign(__assign({}, localVariables), variables));
                         if (items === false) {
                             return false;
                         }

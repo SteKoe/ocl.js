@@ -11,10 +11,10 @@ import { Expression } from './Expression';
  *     self.age > 0
  */
 export declare class InvariantExpression extends Expression {
-    private name;
-    private definition;
+    private readonly name;
+    private readonly definition;
     constructor(oclExpression: any, name: any);
     getName(): string;
     getDefinition(): any;
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any;
+    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean;
 }

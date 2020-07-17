@@ -3,10 +3,10 @@ import { LeftRightBasedExpression } from './LeftRightBasedExpression';
 /**
  */
 export declare class OperationCallExpression extends LeftRightBasedExpression {
-    private operator;
-    constructor(operator: any, left: any, right: any);
-    getOperator(): Operator;
+    private readonly operator;
+    constructor(operator: Operator, left: any, right: any);
     evaluate(visitor: OclExecutionContext, localVariables?: any): boolean;
+    private isOperator;
 }
 export declare enum Operator {
     NOT_EQUAL = "<>",

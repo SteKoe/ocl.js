@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OclEngine = void 0;
 var pkg = require("../../package.json");
 var OclParser_1 = require("./parser/OclParser");
 var Utils_1 = require("./Utils");
@@ -59,12 +60,12 @@ var OclEngine = /** @class */ (function () {
      * @param types A list of types to register
      */
     OclEngine.prototype.registerTypes = function (types) {
-        this.registeredTypes = __assign({}, this.registeredTypes, types);
+        this.registeredTypes = __assign(__assign({}, this.registeredTypes), types);
         OclParser_1.OclParser.registeredTypes = this.registeredTypes;
     };
     OclEngine.prototype.registerEnum = function (name, values) {
         var _a;
-        this.registeredEnums = __assign({}, this.registeredEnums, (_a = {}, _a[name] = values, _a));
+        this.registeredEnums = __assign(__assign({}, this.registeredEnums), (_a = {}, _a[name] = values, _a));
         OclParser_1.OclParser.registeredEnums = this.registeredEnums;
     };
     /**

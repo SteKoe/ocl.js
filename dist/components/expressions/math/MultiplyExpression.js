@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MultiplyExpression = void 0;
 var LeftRightBasedExpression_1 = require("../LeftRightBasedExpression");
 /**
  * Multiply

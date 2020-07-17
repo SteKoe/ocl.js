@@ -10,7 +10,7 @@ import { Expression } from './Expression';
  *     endif
  */
 export declare class DeriveExpression extends Expression {
-    private value;
+    private readonly value;
     constructor(value: any);
     getValue(): Expression;
     evaluate(visitor: OclExecutionContext, localVariables?: any): any;

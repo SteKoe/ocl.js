@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SumExpression = void 0;
 var Expression_1 = require("../Expression");
 /**
  * Returns the sum of all elements contained in self if they support the '+' operation.

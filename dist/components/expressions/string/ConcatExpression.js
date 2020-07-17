@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConcatExpression = void 0;
 var Expression_1 = require("../Expression");
 /**
  * Returns a string that is concatenated using source and body

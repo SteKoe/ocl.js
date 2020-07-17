@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Operator = exports.OperationCallExpression = void 0;
 var LeftRightBasedExpression_1 = require("./LeftRightBasedExpression");
 /**
  */
@@ -23,29 +24,20 @@ var OperationCallExpression = /** @class */ (function (_super) {
         _this.operator = operator;
         return _this;
     }
-    OperationCallExpression.prototype.getOperator = function () {
-        return this.operator;
-    };
     OperationCallExpression.prototype.evaluate = function (visitor, localVariables) {
         var _a = this._evaluateLeftRightExpression(visitor, localVariables), left = _a.left, right = _a.right;
-        if (this.getOperator() === Operator.NOT_EQUAL) {
-            return left !== right;
+        // tslint:disable-next-line:switch-default
+        switch (this.operator) {
+            case Operator.NOT_EQUAL: return left !== right;
+            case Operator.EQUAL: return left === right;
+            case Operator.LESS_EQUAL_THAN: return left <= right;
+            case Operator.GREATER_EQUAL_THAN: return left >= right;
+            case Operator.GREATER_THAN: return left > right;
+            case Operator.LESS_THAN: return left < right;
         }
-        else if (this.getOperator() === Operator.LESS_EQUAL_THAN) {
-            return left <= right;
-        }
-        else if (this.getOperator() === Operator.GREATER_EQUAL_THAN) {
-            return left >= right;
-        }
-        else if (this.getOperator() === Operator.GREATER_THAN) {
-            return left > right;
-        }
-        else if (this.getOperator() === Operator.LESS_THAN) {
-            return left < right;
-        }
-        else if (this.getOperator() === Operator.EQUAL) {
-            return left === right;
-        }
+    };
+    OperationCallExpression.prototype.isOperator = function (operator) {
+        return this.operator === operator;
     };
     return OperationCallExpression;
 }(LeftRightBasedExpression_1.LeftRightBasedExpression));

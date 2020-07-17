@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DivExpression = void 0;
 var Expression_1 = require("../Expression");
 /**
  * Returns the integer quotient of the division of self by *i*.

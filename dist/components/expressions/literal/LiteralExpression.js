@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LiteralExpression = void 0;
 var Expression_1 = require("../Expression");
 var LiteralExpression = /** @class */ (function (_super) {
     __extends(LiteralExpression, _super);

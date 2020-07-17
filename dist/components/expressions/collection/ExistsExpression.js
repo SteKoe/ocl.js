@@ -24,6 +24,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ExistsExpression = void 0;
 var Expression_1 = require("../Expression");
 var Utils_1 = require("../../Utils");
 /**
@@ -51,7 +52,7 @@ var ExistsExpression = /** @class */ (function (_super) {
                     var variableName = Utils_1.Utils.getVariableName(_this);
                     variables[variableName.getVariable()] = c[variableName.getVariable()];
                 }
-                var visitResult = _this.getBody().evaluate(visitor, __assign({}, localVariables, variables));
+                var visitResult = _this.getBody().evaluate(visitor, __assign(__assign({}, localVariables), variables));
                 return visitResult === true;
             });
         }

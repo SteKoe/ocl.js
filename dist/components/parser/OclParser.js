@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OclParser = void 0;
 var Expressions = require("../expressions");
 var Utils_1 = require("../Utils");
 var parser = require("../../../generator/Parser");

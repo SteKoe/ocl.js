@@ -1,30 +1,37 @@
 "use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(require("./collection"));
-__export(require("./context"));
-__export(require("./gate"));
-__export(require("./literal"));
-__export(require("./math"));
-__export(require("./string"));
-__export(require("./DeriveExpression"));
-__export(require("./EnumerationExpression"));
-__export(require("./Expression"));
-__export(require("./IfExpression"));
-__export(require("./InitExpression"));
-__export(require("./InvariantExpression"));
-__export(require("./DefExpression"));
-__export(require("./LetExpression"));
-__export(require("./NativeJsFunctionCallExpression"));
-__export(require("./OclIsKindOfExpression"));
-__export(require("./OclIsTypeOfExpression"));
-__export(require("./OclIsUndefinedExpression"));
-__export(require("./OperationCallExpression"));
-__export(require("./PackageDeclaration"));
-__export(require("./PreExpression"));
-__export(require("./PostExpression"));
-__export(require("./VariableDeclarationExpression"));
-__export(require("./VariableExpression"));
+__exportStar(require("./collection"), exports);
+__exportStar(require("./context"), exports);
+__exportStar(require("./gate"), exports);
+__exportStar(require("./literal"), exports);
+__exportStar(require("./math"), exports);
+__exportStar(require("./string"), exports);
+__exportStar(require("./DeriveExpression"), exports);
+__exportStar(require("./EnumerationExpression"), exports);
+__exportStar(require("./Expression"), exports);
+__exportStar(require("./IfExpression"), exports);
+__exportStar(require("./InitExpression"), exports);
+__exportStar(require("./InvariantExpression"), exports);
+__exportStar(require("./DefExpression"), exports);
+__exportStar(require("./LetExpression"), exports);
+__exportStar(require("./NativeJsFunctionCallExpression"), exports);
+__exportStar(require("./OclIsKindOfExpression"), exports);
+__exportStar(require("./OclIsTypeOfExpression"), exports);
+__exportStar(require("./OclIsUndefinedExpression"), exports);
+__exportStar(require("./OperationCallExpression"), exports);
+__exportStar(require("./PackageDeclaration"), exports);
+__exportStar(require("./PreExpression"), exports);
+__exportStar(require("./PostExpression"), exports);
+__exportStar(require("./VariableDeclarationExpression"), exports);
+__exportStar(require("./VariableExpression"), exports);
 //# sourceMappingURL=index.js.map

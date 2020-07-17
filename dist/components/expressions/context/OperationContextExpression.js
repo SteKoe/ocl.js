@@ -12,7 +12,15 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OperationContextExpression = void 0;
 var OclExecutionContext_1 = require("../../OclExecutionContext");
 var OclValidationError_1 = require("../../OclValidationError");
 var PreExpression_1 = require("../PreExpression");
@@ -58,7 +66,7 @@ var OperationContextExpression = /** @class */ (function (_super) {
                         throw new OclValidationError_1.OclValidationError("A precondition failed on type " + self_1.targetType + ".");
                     }
                 });
-                var result = originalFn_1.call.apply(originalFn_1, [this].concat(args));
+                var result = originalFn_1.call.apply(originalFn_1, __spreadArrays([this], args));
                 anies.result = result;
                 self_1.postExpressions.forEach(function (postExpression) {
                     var evaluationResult = postExpression.evaluate(oclExecutionContext, anies);

@@ -24,6 +24,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LetExpression = void 0;
 var Expression_1 = require("./Expression");
 /**
  * @oclSpecification
@@ -51,7 +52,7 @@ var LetExpression = /** @class */ (function (_super) {
         var _a;
         var variableExpression = this.variableDeclarationExpressions[0];
         var variables = (_a = {}, _a[variableExpression.getVariableName()] = variableExpression.evaluate(visitor), _a);
-        return this.inContextDef.evaluate(visitor, __assign({}, localVariables, variables));
+        return this.inContextDef.evaluate(visitor, __assign(__assign({}, localVariables), variables));
     };
     return LetExpression;
 }(Expression_1.Expression));

@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ModuloExpression = void 0;
 var LeftRightBasedExpression_1 = require("../LeftRightBasedExpression");
 /**
  * Returns the number remainder of the division of self by *i*.

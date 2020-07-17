@@ -1,12 +1,12 @@
 import { OclExecutionContext } from '../OclExecutionContext';
 export declare abstract class Expression {
-    private type;
+    private readonly type;
     constructor();
     accept(obj: OclExecutionContext): boolean;
     evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }
 export declare abstract class SourceBasedExpression extends Expression {
-    protected source: any;
+    private readonly source;
     constructor(source: any);
     getSource(): Expression;
 }

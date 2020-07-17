@@ -5,10 +5,10 @@ import { Expression } from './Expression';
  * Otherwise the else part is taken.
  */
 export declare class IfExpression extends Expression {
-    private condition;
-    private _then;
-    private _else;
-    constructor(condition: any, _then: any, _else: any);
+    private readonly condition;
+    private readonly thenExpression;
+    private readonly elseExpression;
+    constructor(condition: Expression, _then: Expression, _else: Expression);
     getCondition(): Expression;
     getThenExpression(): Expression;
     getElseExpression(): Expression;

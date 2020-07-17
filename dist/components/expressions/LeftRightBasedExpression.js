@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LeftRightBasedExpression = void 0;
 var Expression_1 = require("./Expression");
 var LeftRightBasedExpression = /** @class */ (function (_super) {
     __extends(LeftRightBasedExpression, _super);

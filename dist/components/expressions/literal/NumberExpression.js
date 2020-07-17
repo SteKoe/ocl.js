@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NumberExpression = void 0;
 var LiteralExpression_1 = require("./LiteralExpression");
 /**
  */
@@ -27,7 +28,7 @@ var NumberExpression = /** @class */ (function (_super) {
             return +val;
         }
         else {
-            throw new SyntaxError("NumberExpression: '" + value + "' is not a Number!");
+            throw new SyntaxError("NumberExpression: '" + value + "' could not be parsed as Number!");
         }
     };
     return NumberExpression;

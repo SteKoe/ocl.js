@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsEmptyExpression = void 0;
 var Expression_1 = require("../Expression");
 /**
  * Returns true if self is empty, false otherwise.

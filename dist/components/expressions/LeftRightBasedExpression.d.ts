@@ -1,8 +1,8 @@
 import { OclExecutionContext } from '../OclExecutionContext';
 import { Expression } from './Expression';
 export declare abstract class LeftRightBasedExpression extends Expression {
-    private left;
-    private right;
+    private readonly left;
+    private readonly right;
     constructor(left: any, right: any);
     getLeft(): Expression;
     getRight(): Expression;

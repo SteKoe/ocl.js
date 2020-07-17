@@ -8,7 +8,7 @@ import { ContextExpression } from './ContextExpression';
  *         pre: age > 0
  */
 export declare class OperationContextExpression extends ContextExpression {
-    private fnName;
+    private readonly fnName;
     private returnType;
     private preExpressions;
     private postExpressions;

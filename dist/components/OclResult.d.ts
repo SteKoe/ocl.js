@@ -8,7 +8,7 @@ import { ContextExpression } from './expressions/context/ContextExpression';
 export declare class OclResult {
     private namesOfFailedInvs;
     private evaluatedContexts;
-    private result;
+    private readonly result;
     constructor(namesOfFailedInvs: Array<string>, evaluatedContexts: Array<ContextExpression>);
     /**
      * @returns true if the OCL constraint did pass, false otherwise.

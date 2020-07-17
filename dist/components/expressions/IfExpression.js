@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.IfExpression = void 0;
 var Expression_1 = require("./Expression");
 /**
  * The IfExpression allows to execute a statement if the given condition is truthy.
@@ -23,18 +24,18 @@ var IfExpression = /** @class */ (function (_super) {
     function IfExpression(condition, _then, _else) {
         var _this = _super.call(this) || this;
         _this.condition = condition;
-        _this._then = _then;
-        _this._else = _else;
+        _this.thenExpression = _then;
+        _this.elseExpression = _else;
         return _this;
     }
     IfExpression.prototype.getCondition = function () {
         return this.condition;
     };
     IfExpression.prototype.getThenExpression = function () {
-        return this._then;
+        return this.thenExpression;
     };
     IfExpression.prototype.getElseExpression = function () {
-        return this._else;
+        return this.elseExpression;
     };
     IfExpression.prototype.evaluate = function (visitor, localVariables) {
         return this.getCondition().evaluate(visitor, localVariables)

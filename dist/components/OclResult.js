@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OclResult = void 0;
 /**
  * This class is a data class that is returned by OclEngine.evaluate method.
  *

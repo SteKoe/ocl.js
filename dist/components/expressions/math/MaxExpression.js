@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MaxExpression = void 0;
 var Expression_1 = require("../Expression");
 /**
  * Returns the greatest number of self and *i*.

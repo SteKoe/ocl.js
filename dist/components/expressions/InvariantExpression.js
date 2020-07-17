@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.InvariantExpression = void 0;
 var Expression_1 = require("./Expression");
 /**
  * @oclSpecification
@@ -39,8 +40,8 @@ var InvariantExpression = /** @class */ (function (_super) {
         return this.definition;
     };
     InvariantExpression.prototype.evaluate = function (visitor, localVariables) {
-        return this.getDefinition()
-            .evaluate(visitor, localVariables);
+        var evaluationResult = this.getDefinition().evaluate(visitor, localVariables);
+        return evaluationResult === true;
     };
     return InvariantExpression;
 }(Expression_1.Expression));

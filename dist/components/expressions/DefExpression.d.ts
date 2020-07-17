@@ -14,8 +14,8 @@ import { Expression } from './Expression';
  *     income : Integer = self.job.salary->sum()
  */
 export declare class DefExpression extends Expression {
-    private key;
-    private value;
+    private readonly key;
+    private readonly value;
     constructor(key: any, value: any);
     getKey(): string;
     getValue(): Expression;

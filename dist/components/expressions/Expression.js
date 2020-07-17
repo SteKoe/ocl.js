@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.IteratorExpression = exports.BodyBasedExpression = exports.SourceBasedExpression = exports.Expression = void 0;
 var Expression = /** @class */ (function () {
     function Expression() {
         this.type = this.constructor.name;

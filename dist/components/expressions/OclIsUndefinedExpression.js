@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.OclIsUndefinedExpression = void 0;
 var Expression_1 = require("./Expression");
 /**
  * Checks if *self* is not defined or  null

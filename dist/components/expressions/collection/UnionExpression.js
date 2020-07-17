@@ -13,6 +13,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UnionExpression = void 0;
 var Expression_1 = require("../Expression");
 /**
  * Returns a collection containing all elements of self and all elements of the passed in collection.
