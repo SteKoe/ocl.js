@@ -3,8 +3,8 @@ import { OclExecutionContext } from '../OclExecutionContext';
 import { Expression, SourceBasedExpression } from './Expression';
 
 export class NativeJsFunctionCallExpression extends SourceBasedExpression {
-    private fn: any;
-    private params: Array<Expression>;
+    private readonly fn: any;
+    private readonly params: Array<Expression>;
 
     constructor(source, fn, params) {
         super(source);

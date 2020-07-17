@@ -6,7 +6,7 @@ import { Expression } from './Expression';
  * A condition that has to be fulfilled after the operation addressed by the parent OperationCallExpression has been executed.
  */
 export class PostExpression extends Expression {
-    private value: any;
+    private readonly value: any;
 
     constructor(value) {
         super();

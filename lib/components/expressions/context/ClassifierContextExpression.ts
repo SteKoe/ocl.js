@@ -10,8 +10,8 @@ import { ContextExpression } from './ContextExpression';
  * @oclExpression context <Type> (inv|def)
  */
 export class ClassifierContextExpression extends ContextExpression {
-    private invs: Array<InvariantExpression>;
-    private defs: Array<DefExpression>;
+    private readonly invs: Array<InvariantExpression>;
+    private readonly defs: Array<DefExpression>;
 
     constructor(targetType, rules: Array<any>) {
         super();

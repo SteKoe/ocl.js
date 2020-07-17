@@ -2,7 +2,7 @@ import { Expression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
 
 export abstract class LiteralExpression<T> extends Expression {
-    private value: T;
+    private readonly value: T;
 
     constructor(value) {
         super();
@@ -13,7 +13,7 @@ export abstract class LiteralExpression<T> extends Expression {
         return this.value;
     }
 
-    abstract parseValue(value): T;
+    protected abstract parseValue(value): T;
 
     evaluate(visitor: OclExecutionContext): T {
         return this.getValue();

@@ -11,8 +11,7 @@ SN_SECEDQ            "\""
 
 \s+                                 /* skip whitespace */
 \-\-[^\n]*                          /* skip comment */
-\-?[0-9][0-9_]*\.[0-9_]+            return 'real'
-\-?[0-9][0-9_]*                     return 'integer'
+\-?[0-9][0-9_]*(\.[0-9_]+)?         return 'number'
 "context"\b                         return 'context'
 "inv"\b                             return 'inv'
 "init"\b                            return 'init'
@@ -59,8 +58,8 @@ SN_SECEDQ            "\""
 "pre"                               return 'pre'
 
 'nil'                               return 'nil'
-["][^\"]*["]          	            return 'string'
-['][^\']*[']          	            return 'string'
+["][^\"]*["]                        return 'string'
+['][^\']*[']                        return 'string'
 "'"([^']|{BSL})*"'"                 return 'string'
 "\""([^"]|{BSL})*"\""               return 'string'
 
@@ -69,7 +68,7 @@ SN_SECEDQ            "\""
 [a-zA-Z_][a-zA-Z0-9_]*              return 'simpleName'
 
 
-<<EOF>>               	            return 'EOF'
+<<EOF>>                             return 'EOF'
 /lex
 
 /* operator associations and precedence */
@@ -108,28 +107,28 @@ contextDeclList
     ;
 
 contextDeclaration
-	: classifierContextDecl
-	    { $$ = $1; }
-	| propertyContextDecl
-	    { $$ = $1; }
+    : classifierContextDecl
+        { $$ = $1; }
+    | propertyContextDecl
+        { $$ = $1; }
     | operationContextDecl
         { $$ = $1; }
-	;
+    ;
 
 classifierContextDecl
-	: 'context' pathName invOrDefList
-	    { $$ = new yy.Expression.ClassifierContextExpression($2, $3); }
-	;
+    : 'context' pathName invOrDefList
+        { $$ = new yy.Expression.ClassifierContextExpression($2, $3); }
+    ;
 
 propertyContextDecl
-	: 'context' pathName ':' type initOrDerValueList
-	    { $$ = new yy.Expression.PropertyContextExpression($2, $5); }
-	;
+    : 'context' pathName ':' type initOrDerValueList
+        { $$ = new yy.Expression.PropertyContextExpression($2, $5); }
+    ;
 
 operationContextDecl
-	: 'context' operation prePostOrBodyDeclList
-	    { $$ = new yy.Expression.OperationContextExpression($2, $3, yy.registeredTypes); }
-	;
+    : 'context' operation prePostOrBodyDeclList
+        { $$ = new yy.Expression.OperationContextExpression($2, $3, yy.registeredTypes); }
+    ;
 
 prePostOrBodyDeclList
     : prePostOrBodyDeclList prePostOrBodyDecl
@@ -139,12 +138,12 @@ prePostOrBodyDeclList
     ;
 
 prePostOrBodyDecl
-	: 'pre' simpleNameOptional ':' oclExpression
-	    { $$ = new yy.Expression.PreExpression($4);}
-	| 'post' simpleNameOptional ':' oclExpression
-	    { $$ = new yy.Expression.PostExpression($4);}
-	| 'body' simpleNameOptional ':' oclExpression
-	;
+    : 'pre' simpleNameOptional ':' oclExpression
+        { $$ = new yy.Expression.PreExpression($4);}
+    | 'post' simpleNameOptional ':' oclExpression
+        { $$ = new yy.Expression.PostExpression($4);}
+    | 'body' simpleNameOptional ':' oclExpression
+    ;
 
 operation
     : pathName '(' variableDeclarationListOptional ')' typeOptional
@@ -173,17 +172,17 @@ invOrDefList
     ;
 
 invOrDef
-	: 'inv' simpleNameOptional ':' oclExpression
-	    { $$ = new yy.Expression.InvariantExpression($4, $2); }
+    : 'inv' simpleNameOptional ':' oclExpression
+        { $$ = new yy.Expression.InvariantExpression($4, $2); }
     | 'def' simpleNameOptional ':' defExpression
         { $$ = new yy.Expression.DefExpression($2, $4); }
-	;
+    ;
 
 oclExpression
-	: literalExp
-	    { $$ = $1; }
-	| pathName preOptional
-	    { $$ = ($1.indexOf('::') === -1) ? new yy.Expression.VariableExpression($1) : new yy.Expression.EnumerationExpression($1); }
+    : literalExp
+        { $$ = $1; }
+    | pathName preOptional
+        { $$ = ($1.indexOf('::') === -1) ? new yy.Expression.VariableExpression($1) : new yy.Expression.EnumerationExpression($1); }
     | 'not' oclExpression
         { $$ = new yy.Expression.NotExpression($2); }
     | '(' oclExpression ')'
@@ -211,23 +210,23 @@ oclExpression
     | '-' oclExpression %prec UMINUS
         { $$ = new yy.Expression.MultiplyExpression(new yy.Expression.NumberExpression(-1), $2); }
     | oclExpression '<' oclExpression
-        { $$ = new yy.Expression.OperationCallExpression('<', $1, $3); }
+        { $$ = new yy.Expression.OperationCallExpression($2, $1, $3); }
     | oclExpression '<=' oclExpression
-        { $$ = new yy.Expression.OperationCallExpression('<=', $1, $3); }
-	| oclExpression '=' oclExpression
-	    { $$ = new yy.Expression.OperationCallExpression('=', $1, $3); }
-	| oclExpression '>=' oclExpression
-	    { $$ = new yy.Expression.OperationCallExpression('>=', $1, $3); }
-	| oclExpression '>' oclExpression
-	    { $$ = new yy.Expression.OperationCallExpression('>', $1, $3); }
-	| oclExpression '<>' oclExpression
-	    { $$ = new yy.Expression.OperationCallExpression('<>', $1, $3); }
+        { $$ = new yy.Expression.OperationCallExpression($2, $1, $3); }
+    | oclExpression '=' oclExpression
+        { $$ = new yy.Expression.OperationCallExpression($2, $1, $3); }
+    | oclExpression '>=' oclExpression
+        { $$ = new yy.Expression.OperationCallExpression($2, $1, $3); }
+    | oclExpression '>' oclExpression
+        { $$ = new yy.Expression.OperationCallExpression($2, $1, $3); }
+    | oclExpression '<>' oclExpression
+        { $$ = new yy.Expression.OperationCallExpression($2, $1, $3); }
     | oclExpression 'and' oclExpression
-	    { $$ = new yy.Expression.AndExpression($1, $3); }
+        { $$ = new yy.Expression.AndExpression($1, $3); }
     | oclExpression 'or' oclExpression
-	    { $$ = new yy.Expression.OrExpression($1, $3); }
+        { $$ = new yy.Expression.OrExpression($1, $3); }
     | oclExpression 'xor' oclExpression
-	    { $$ = new yy.Expression.XorExpression($1, $3); }
+        { $$ = new yy.Expression.XorExpression($1, $3); }
     | 'if' oclExpression 'then' oclExpression 'else' oclExpression 'endif'
         { $$ = new yy.Expression.IfExpression($2, $4, $6); }
     | oclExpression '(' variableDeclarationList '|' oclExpression ')'
@@ -240,7 +239,7 @@ oclExpression
         {  }
     | oclExpression 'implies' oclExpression
         { $$ = new yy.Expression.ImpliesExpression($1, $3); }
-	;
+    ;
 
 oclExpressionList
     : oclExpressionList ',' oclExpression
@@ -254,7 +253,7 @@ defExpression
         { $$ = new yy.Expression.DefExpression($1, $4); }
     | simpleNameExpression '(' simpleNameExpression typeOptional ')' typeOptional '=' oclExpression
         { $$ = new yy.Expression.DefExpression($1, $8); }
-	;
+    ;
 
 typeOptional
     : ':' type
@@ -263,11 +262,11 @@ typeOptional
     ;
 
 type
-	: pathName
-	    { $$ = $1; }
-	| pathName '(' simpleNameExpression ')'
-	    { $$ = $1; }
-	;
+    : pathName
+        { $$ = $1; }
+    | pathName '(' simpleNameExpression ')'
+        { $$ = $1; }
+    ;
 
 variableDeclaration
     : simpleNameExpression typeOptional
@@ -290,11 +289,11 @@ variableDeclarationListOptional
     ;
 
 variableDeclarationList
-	:  variableDeclarationList ',' variableDeclaration
-	    { $$ = [].concat($1).concat($3); }
-	| variableDeclaration
-	    { $$ = [$1]; }
-	;
+    :  variableDeclarationList ',' variableDeclaration
+        { $$ = [].concat($1).concat($3); }
+    | variableDeclaration
+        { $$ = [$1]; }
+    ;
 
 preOptional
     : '@' 'pre'
@@ -303,44 +302,42 @@ preOptional
     ;
 
 literalExp
-	: primitiveLiteralExp
-	    { $$ = $1; }
-	;
+    : primitiveLiteralExp
+        { $$ = $1; }
+    ;
 
 literalExpList
     : literalExpList ',' literalExp
-	    { $$ = [].concat($1).concat($3); }
-	| literalExp
-	    { $$ = [$1]; }
-	;
+        { $$ = [].concat($1).concat($3); }
+    | literalExp
+        { $$ = [$1]; }
+    ;
 
 simpleNameOptional
-	: simpleNameExpression
-	    { $$ = $1; }
-	|
-	;
+    : simpleNameExpression
+        { $$ = $1; }
+    |
+    ;
 
 primitiveLiteralExp
-	: integer
-	    { $$ = new yy.Expression.NumberExpression($1); }
-	| real
-	    { $$ = new yy.Expression.NumberExpression($1); }
-	| string
-	    { $$ = new yy.Expression.StringExpression($1); }
-	| 'true'
-	    { $$ = new yy.Expression.BooleanExpression(true); }
-	| 'false'
-	    { $$ = new yy.Expression.BooleanExpression(false); }
+    : number
+        { $$ = new yy.Expression.NumberExpression($1); }
+    | string
+        { $$ = new yy.Expression.StringExpression($1); }
+    | 'true'
+        { $$ = new yy.Expression.BooleanExpression(true); }
+    | 'false'
+        { $$ = new yy.Expression.BooleanExpression(false); }
     | 'nil'
         { $$ = new yy.Expression.NilExpression(); }
-	;
+    ;
 
 pathName
-	: simpleNameExpression
-	    { $$ = $1; }
-	| pathName '::' simpleNameExpression
-	    { $$ = $1 + '::' + $3; }
-	;
+    : simpleNameExpression
+        { $$ = $1; }
+    | pathName '::' simpleNameExpression
+        { $$ = $1 + '::' + $3; }
+    ;
 
 
 simpleNameExpression

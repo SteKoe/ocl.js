@@ -8,7 +8,7 @@ export class NumberExpression extends LiteralExpression<number> {
         if (!isNaN(+val)) {
             return +val;
         } else {
-            throw new SyntaxError(`NumberExpression: '${value}' is not a Number!`);
+            throw new SyntaxError(`NumberExpression: '${value}' could not be parsed as Number!`);
         }
     }
 }

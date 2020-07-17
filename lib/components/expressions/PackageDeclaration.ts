@@ -8,7 +8,7 @@ import { Expression } from './Expression';
  * In order to group and organise OCL constraints, packages can be used.
  */
 export class PackageDeclaration extends Expression {
-    private contexts: Array<ContextExpression>;
+    private readonly contexts: Array<ContextExpression>;
     private labels: Array<string>;
     private oclExpression: string;
 

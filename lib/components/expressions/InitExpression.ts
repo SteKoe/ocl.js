@@ -5,7 +5,7 @@ import { Expression } from './Expression';
 /**
  */
 export class InitExpression extends Expression {
-    private value: any;
+    private readonly value: any;
 
     constructor(value) {
         super();

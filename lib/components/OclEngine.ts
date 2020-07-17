@@ -147,7 +147,8 @@ export class OclEngine {
 
         this.packageDeclarations.forEach(e => e.evaluate(visitor));
 
-        return new OclResult(visitor.getFailedInvariants(), visitor.getEvaluatedContexts());
+        return new OclResult(visitor.getFailedInvariants()
+            .map(inv => inv.getName()), visitor.getEvaluatedContexts());
     }
 
     _inferType(obj: any): string {

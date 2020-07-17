@@ -5,33 +5,29 @@ import { LeftRightBasedExpression } from './LeftRightBasedExpression';
 /**
  */
 export class OperationCallExpression extends LeftRightBasedExpression {
-    private operator: Operator;
+    private readonly operator: Operator;
 
-    constructor(operator, left, right) {
+    constructor(operator: Operator, left: any, right: any) {
         super(left, right);
         this.operator = operator;
-    }
-
-    getOperator(): Operator {
-        return this.operator;
     }
 
     evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
         const {left, right} = this._evaluateLeftRightExpression(visitor, localVariables);
 
-        if (this.getOperator() === Operator.NOT_EQUAL) {
-            return left !== right;
-        } else if (this.getOperator() === Operator.LESS_EQUAL_THAN) {
-            return left <= right;
-        } else if (this.getOperator() === Operator.GREATER_EQUAL_THAN) {
-            return left >= right;
-        } else if (this.getOperator() === Operator.GREATER_THAN) {
-            return left > right;
-        } else if (this.getOperator() === Operator.LESS_THAN) {
-            return left < right;
-        } else if (this.getOperator() === Operator.EQUAL) {
-            return left === right;
+        // tslint:disable-next-line:switch-default
+        switch (this.operator) {
+            case Operator.NOT_EQUAL: return  left !== right;
+            case Operator.EQUAL: return  left === right;
+            case Operator.LESS_EQUAL_THAN: return  left <= right;
+            case Operator.GREATER_EQUAL_THAN: return  left >= right;
+            case Operator.GREATER_THAN: return  left > right;
+            case Operator.LESS_THAN: return  left < right;
         }
+    }
+
+    private isOperator(operator: Operator): boolean {
+        return this.operator === operator;
     }
 }
 

@@ -7,15 +7,15 @@ import { Expression } from './Expression';
  * Otherwise the else part is taken.
  */
 export class IfExpression extends Expression {
-    private condition: any;
-    private _then: any;
-    private _else: any;
+    private readonly condition: any;
+    private readonly thenExpression: any;
+    private readonly elseExpression: any;
 
-    constructor(condition, _then, _else) {
+    constructor(condition: Expression, _then: Expression, _else: Expression) {
         super();
         this.condition = condition;
-        this._then = _then;
-        this._else = _else;
+        this.thenExpression = _then;
+        this.elseExpression = _else;
     }
 
     getCondition(): Expression {
@@ -23,11 +23,11 @@ export class IfExpression extends Expression {
     }
 
     getThenExpression(): Expression {
-        return this._then;
+        return this.thenExpression;
     }
 
     getElseExpression(): Expression {
-        return this._else;
+        return this.elseExpression;
     }
 
     evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
