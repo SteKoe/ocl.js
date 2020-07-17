@@ -15,12 +15,14 @@ jobs:
           node-version: 12
       - name: Run tests
         run: |
-          npm ci
-          npm test
+          npm install
+          npm run build
+        env:
+          RUN_SLOW_TESTS: true
 
   tag:
     needs: build
-    name: Release on GH
+    name: Create release on GH
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,13 +35,12 @@ jobs:
         run: |
           npm ci
           npm run build
-          npm run build:examples
         env:
           RUN_SLOW_TESTS: true
       - name: Extract version
         run: |
           echo "::set-env name=PACKAGE_VERSION::$(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')"
-      - name: Create a GH release
+      - name: Tag and release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

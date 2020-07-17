@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "build": "npm run clean && npm run test && npm run lint && npx tsc",
+    "build": "npm run clean && npm run test && npm run lint && npx tsc && npm run build:examples",
     "build:examples": "npm run build:examples:node.js && npm run build:examples:typescript && npm run build:examples:webpack",
     "build:examples:node.js": "cd examples/node.js && npm i && npm run build",
     "build:examples:typescript": "cd examples/ts && npm i && npm run build",
@@ -17,7 +17,6 @@
     "generate:docs": "npm run clean:docs && node docs-generator/generateDocs.js",
     "generate:parser": "npx rimraf -- ./lib/components/parser/parser.ts && ts-node -O {\\\"module\\\":\\\"commonjs\\\"} generator/oclParserGenerator.ts",
     "lint": "tslint --project tsconfig.json --fix",
-    "prepare:release": "npx cross-env RUN_SLOW_TESTS=true npm run build && npm run build:examples",
     "test": "npm run generate:parser && npm run test:fast",
     "test:fast": "npx ts-mocha 'test/**/*.spec.ts'",
     "test:coverage": "npx rimraf -- coverage && nyc ts-mocha 'test/**/*.spec.ts' && npx rimraf -- .nyc_output"
