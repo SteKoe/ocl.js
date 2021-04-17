@@ -17,7 +17,7 @@ export abstract class Expression {
 }
 
 export abstract class SourceBasedExpression extends Expression {
-    private readonly source: any;
+    public source: any;
 
     constructor(source) {
         super();

@@ -6,7 +6,7 @@ import { SourceBasedExpression } from './Expression';
  * Resolve variables. Simple values are returned as is (e.g. self.age: number), collections are aggregated.
  */
 export class VariableExpression extends SourceBasedExpression {
-    private readonly variable: string;
+    public variable: string;
 
     constructor(source) {
         super(source);
