@@ -71,5 +71,8 @@
       "@babel/preset-env"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "fs": "*",
+    "path": "^0.12.7"
+  }
 }

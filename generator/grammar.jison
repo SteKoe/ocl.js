@@ -39,6 +39,7 @@ SN_SECEDQ            "\""
 ")"                                 return ')'
 "|"                                 return '|'
 "->"                                return '->'
+"<-"                                return '<-'
 "<="                                return '<='
 ">="                                return '>='
 "<>"                                return '<>'
@@ -195,6 +196,8 @@ oclExpression
         { $$ = functionCallExpression(yy, $3, $1); }
     | oclExpression '.' simpleNameExpression preOptional
         { $$ = ($1 instanceof yy.Expression.VariableExpression) ? new yy.Expression.VariableExpression([$1.source, $3].join('.')) : $1; }
+    | oclExpression '<-' oclExpression
+        { $$ = new yy.Expression.AssignementExpression($1, $3); }
     | oclExpression '+' oclExpression
         { $$ = new yy.Expression.AdditionExpression($1, $3); }
     | oclExpression '^' oclExpression
