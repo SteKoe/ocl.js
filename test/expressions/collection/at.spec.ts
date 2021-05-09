@@ -11,7 +11,7 @@ describe('Collection->at', () => {
     it('should return nothing ', () => {
         const obj = {seq: [1, 2, 3]};
         const oclExpression = 'context Object inv: self.seq->at(0) = 1';
-        const oclRule = OclParser.parse(oclExpression);
+        OclParser.parse(oclExpression);
         expectOclRuleValidatesToFalse(oclExpression, obj);
     });
 });

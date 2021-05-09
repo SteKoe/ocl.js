@@ -7,13 +7,11 @@ export abstract class Expression {
         this.type = this.constructor.name;
     }
 
-    accept(obj: OclExecutionContext): boolean {
+    accept(obj?: OclExecutionContext): boolean {
         return true;
     }
 
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
-        throw new Error(`Visitor for '${this.type}' not yet implemented!`);
-    }
+    abstract evaluate(visitor: OclExecutionContext, localVariables?: any): any;
 }
 
 export abstract class SourceBasedExpression extends Expression {

@@ -19,9 +19,9 @@ export class OclEngine {
     static Parser = OclParser;
 
     private packageDeclarations: Array<PackageDeclaration> = [];
-    private typeDeterminerFn: Function;
-    private registeredTypes: object = OclParser.registeredTypes;
-    private registeredEnums: object = OclParser.registeredEnums;
+    private typeDeterminerFn: (obj: any) => string;
+    private registeredTypes: any = OclParser.registeredTypes;
+    private registeredEnums: any = OclParser.registeredEnums;
 
     /**
      * Static create method.
@@ -37,7 +37,7 @@ export class OclEngine {
      *
      * @param fn A callback function that is used to determine the type if the object that is passed into the callback function
      */
-    setTypeDeterminer(fn: Function): void {
+    setTypeDeterminer(fn: (obj: any) => string): void {
         if (typeof fn === 'function') {
             OclEngine.Utils.typeDeterminerFn = fn;
         }
@@ -61,7 +61,7 @@ export class OclEngine {
         OclParser.registeredTypes = this.registeredTypes;
     }
 
-    registerEnum(name: string, values: object): void {
+    registerEnum(name: string, values: any): void {
         this.registeredEnums = {...this.registeredEnums, [name]: values};
         OclParser.registeredEnums = this.registeredEnums;
     }
@@ -116,7 +116,6 @@ export class OclEngine {
      * @param oclExpression
      */
     removeOclExpression(oclExpression: string): OclEngine {
-        const parsedExpression = OclEngine.Parser.parse(oclExpression, [], this.registeredTypes);
         this.packageDeclarations = this.packageDeclarations.filter(packageDeclaration => {
             return Utils.hashCode(packageDeclaration.getRawOclExpression()) !== Utils.hashCode(oclExpression);
         });
@@ -173,7 +172,7 @@ export class OclEngine {
      * @param oclExpression The query to run on the given object
      * @returns the result of the provided query.
      */
-    evaluateQuery(obj: object, oclExpression: Expression): any {
+    evaluateQuery(obj: any, oclExpression: Expression): any {
         const visitor = new OclExecutionContext(obj);
         visitor.registerTypes(this.registeredTypes);
 

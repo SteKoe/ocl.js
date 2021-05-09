@@ -1,5 +1,4 @@
 import { Expression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
 
 export abstract class LiteralExpression<T> extends Expression {
     private readonly value: T;
@@ -15,7 +14,7 @@ export abstract class LiteralExpression<T> extends Expression {
 
     protected abstract parseValue(value): T;
 
-    evaluate(visitor: OclExecutionContext): T {
+    evaluate(): T {
         return this.getValue();
     }
 }

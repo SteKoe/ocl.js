@@ -24,7 +24,7 @@ export class Person extends Human {
     jobs: Array<Job> = [];
     parents: Array<Person> = [];
     fleet: Array<Car> = [];
-    private isAlive: boolean = true;
+    private isAlive = true;
 
     constructor(age = 21) {
         super();
@@ -84,8 +84,8 @@ export class Company {
 }
 
 export class AstSequenceFlow {
-    source: object;
-    target: object;
+    source: any;
+    target: any;
 }
 
 export class Car {

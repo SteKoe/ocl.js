@@ -15,7 +15,7 @@ describe('OclEngine', () => {
         `;
         oclEngine.addOclExpression(oclExpression);
 
-        const ast = OclParser.parse(oclExpression);
+        OclParser.parse(oclExpression);
 
         const oclResult = oclEngine.evaluate(new Person());
         const result = oclResult.getResult();

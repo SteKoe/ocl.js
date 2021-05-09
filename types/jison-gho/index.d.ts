@@ -8,6 +8,6 @@ declare module 'jison-gho' {
 
         parse(input): any;
 
-        generate(generatorOptions?: object): string;
+        generate(generatorOptions?: any): string;
     }
 }

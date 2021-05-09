@@ -7,9 +7,9 @@ import {
 import { LeftRightBasedExpression } from './expressions/LeftRightBasedExpression';
 
 export class Utils {
-    static typeDeterminerFn: Function;
+    static typeDeterminerFn: (obj: any) => string;
 
-    static getClassName(obj): string {
+    static getClassName(obj: any): string {
         if (typeof Utils.typeDeterminerFn === 'function') {
             return Utils.typeDeterminerFn(obj);
         }

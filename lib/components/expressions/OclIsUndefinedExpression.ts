@@ -12,6 +12,6 @@ export class OclIsUndefinedExpression extends SourceBasedExpression {
         const result = this.getSource()
             .evaluate(visitor, localVariables);
 
-        return !Boolean(result) || typeof result === 'undefined';
+        return !result || typeof result === 'undefined';
     }
 }

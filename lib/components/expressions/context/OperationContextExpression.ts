@@ -33,6 +33,7 @@ export class OperationContextExpression extends ContextExpression {
 
         const actualType = registeredTypes[this.targetType];
         if (actualType && typeof actualType.prototype[this.fnName] === 'function') {
+            // eslint-disable-next-line @typescript-eslint/no-this-alias
             const self = this;
             const originalFn = actualType.prototype[this.fnName];
 

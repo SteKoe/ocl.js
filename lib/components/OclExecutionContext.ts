@@ -3,10 +3,6 @@ import { InvariantExpression } from './expressions/InvariantExpression';
 import { ContextExpression } from './expressions/context/ContextExpression';
 import { OclParser } from './parser/OclParser';
 
-const a = {
-    s: class P {}
-};
-
 export class OclExecutionContext {
     private evaluationResult: any = undefined;
     private failedInvariants: Array<InvariantExpression> = [];
