@@ -173,10 +173,10 @@ export class OclEngine {
      * @param oclExpression The query to run on the given object
      * @returns the result of the provided query.
      */
-    evaluateQuery(obj: object, oclExpression: Expression): any {
+    evaluateQuery(obj: object, oclExpression: Expression, localVariables?: any): any {
         const visitor = new OclExecutionContext(obj);
         visitor.registerTypes(this.registeredTypes);
 
-        return oclExpression.evaluate(visitor);
+        return oclExpression.evaluate(visitor, localVariables);
     }
 }

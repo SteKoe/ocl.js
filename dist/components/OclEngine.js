@@ -167,10 +167,10 @@ var OclEngine = /** @class */ (function () {
      * @param oclExpression The query to run on the given object
      * @returns the result of the provided query.
      */
-    OclEngine.prototype.evaluateQuery = function (obj, oclExpression) {
+    OclEngine.prototype.evaluateQuery = function (obj, oclExpression, localVariables) {
         var visitor = new OclExecutionContext_1.OclExecutionContext(obj);
         visitor.registerTypes(this.registeredTypes);
-        return oclExpression.evaluate(visitor);
+        return oclExpression.evaluate(visitor, localVariables);
     };
     OclEngine.version = pkg.version;
     OclEngine.Utils = Utils_1.Utils;
