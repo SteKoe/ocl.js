@@ -11,8 +11,5 @@
   "license": "ISC",
   "devDependencies": {
     "typescript": "^3.7.4"
-  },
-  "dependencies": {
-    "@stekoe/ocl.js": "^1.2.0"
   }
 }
