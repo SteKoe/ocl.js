@@ -54,7 +54,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.1",
     "@typescript-eslint/parser": "^4.22.1",
     "chai": "^4.3.4",
-    "eslint": "^7.26.0",
+    "eslint": "^8.4.0",
     "glob": "^7.1.7",
     "jison-gho": "^0.6.1-216",
     "minimist": ">=1.2.5",
