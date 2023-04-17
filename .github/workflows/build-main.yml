@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci --verbose
+      - run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - run: npm run lint
