@@ -7,7 +7,7 @@ export abstract class Expression {
         this.type = this.constructor.name;
     }
 
-    accept(obj?: OclExecutionContext): boolean {
+    accept(): boolean {
         return true;
     }
 
