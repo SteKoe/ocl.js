@@ -1,2 +1,0 @@
-context Person
-    inv: self.fleet->forAll(c|c.color = "red")

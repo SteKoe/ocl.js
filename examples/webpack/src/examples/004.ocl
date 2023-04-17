@@ -1,2 +1,0 @@
-context Person
-    inv: self.age < 18 implies self.fleet->isEmpty

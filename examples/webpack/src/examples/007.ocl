@@ -1,4 +1,0 @@
-context Person
-    inv hasRedCar: self.fleet->exists(c|c.color = "red")
-    inv hasGreenCar: self.fleet->exists(c|c.color = "green")
-    inv hasBlueCar: self.fleet->exists(c|c.color = "blue")

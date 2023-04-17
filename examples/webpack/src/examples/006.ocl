@@ -1,3 +1,0 @@
-context Person
-    def: redCars = self.fleet->select(c|c.color="red")
-    inv: self.redCars->size > 0

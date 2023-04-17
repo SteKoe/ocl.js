@@ -1,2 +1,0 @@
-context Car
-    inv: self.owner.age >= 18
