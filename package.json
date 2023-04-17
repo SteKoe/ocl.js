@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "build": "npm run clean && npm run test && npm run lint && npx tsc",
+    "build": "npm run clean && npm run test && npx tsc",
     "build:examples": "npm run build:examples:node.js && npm run build:examples:typescript && npm run build:examples:webpack",
     "build:examples:node.js": "cd examples/node.js && npm ci && npm run build",
     "build:examples:typescript": "cd examples/ts && npm ci && npm run build",

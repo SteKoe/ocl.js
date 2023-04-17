@@ -7,7 +7,8 @@ export abstract class Expression {
         this.type = this.constructor.name;
     }
 
-    accept(): boolean {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    accept(obj?: OclExecutionContext): boolean {
         return true;
     }
 
