@@ -1,6 +1,0 @@
-env:
-- RUN_SLOW_TESTS="true"
-language: node_js
-node_js:
-- "node"
-- "lts/*"
