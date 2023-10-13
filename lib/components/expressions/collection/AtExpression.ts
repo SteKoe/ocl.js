@@ -12,7 +12,7 @@ export class AtExpression extends BodyBasedExpression {
         const source = this.getSource().evaluate(visitor, localVariables);
         const index = this.getBody().evaluate(visitor, localVariables);
 
-        if (source instanceof Array && Number.isInteger(index) && index >= 1 && index < source.length) {
+        if (source instanceof Array && Number.isInteger(index) && index >= 1 && index <= source.length) {
             return source[index - 1];
         }
     }
