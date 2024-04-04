@@ -65,10 +65,5 @@
     "ts-mocha": "^10.0.0",
     "tslint-loader": "^3.6.0",
     "typescript": "^5.0.4"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
   }
 }
