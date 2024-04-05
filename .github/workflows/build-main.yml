@@ -1,6 +1,7 @@
 name: build
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
@@ -29,3 +30,4 @@ jobs:
       - run: npm run lint
       - run: npm run test
       - run: npm run build
+      - run: npx semantic-release

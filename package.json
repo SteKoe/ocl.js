@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SteKoe/ocl.js"
+    "url": "git@github.com:SteKoe/ocl.js.git"
   },
   "author": "Stephan Köninger <ocl.js@stekoe.de>",
   "homepage": "https://github.com/SteKoe/ocl.js#readme",
@@ -61,6 +61,7 @@
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
     "rimraf": "^5.0.0",
+    "semantic-release": "^23.0.7",
     "ts-lint": "^4.5.1",
     "ts-mocha": "^10.0.0",
     "tslint-loader": "^3.6.0",
