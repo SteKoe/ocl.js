@@ -64,6 +64,6 @@
     "ts-lint": "^4.5.1",
     "ts-mocha": "^10.0.0",
     "tslint-loader": "^3.6.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.5.3"
   }
 }
