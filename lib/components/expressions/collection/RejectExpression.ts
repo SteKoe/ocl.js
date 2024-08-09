@@ -16,7 +16,7 @@ import { Utils } from '../../Utils';
 export class RejectExpression extends IteratorExpression {
     evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const collection = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
             return collection.filter(c => {
