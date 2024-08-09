@@ -117,9 +117,10 @@ export class Writer {
 }
 
 export class Book {
-    title: any;
+    title: string;
+    awards: string[];
 
-    constructor(title) {
+    constructor(title: string) {
         this.title = title;
     }
 }
