@@ -90,9 +90,8 @@ describe('Collection->forAll', () => {
         new Book('Cookbook for Cookies', 20),
         new Book('Cookbook for Vegetables', 25),
       ];
-      library.writers[0].books[3].awards = ['Spiegel Bestseller'];
-      library.writers[1].books[1].awards = ['Best New Author', 'Spiegel Bestseller'];
-      library.writers[2].books[2].awards = ['Pulitzer Prize', 'Spiegel Bestseller'];
+      library.writers[1].books[1].awards.push('Best Newcomer');
+      library.writers[2].books[2].awards.push('Pulitzer Prize');
     });
 
     it('should handle nested collection expressions with variables correctly', () => {
@@ -141,11 +140,11 @@ describe('Collection->forAll', () => {
 
     it('should handle double nested collection expressions correctly', () => {
       let oclExpression =
-        'context Library inv: self.writers->forAll(w | w.books->exists(b | b.awards->exists(a | a = "Spiegel Bestseller")))';
+        'context Library inv: self.writers->forAll(w | w.books->forAll(b | b.awards->exists(a | a = "Spiegel Bestseller")))';
       expectOclRuleValidatesToTrue(oclExpression, library);
 
       oclExpression =
-        'context Library inv: self.writers->forAll(w | w.books->exists(b | b.awards->exists(a | a = "Pulitzer Prize")))';
+        'context Library inv: self.writers->forAll(w | w.books->forAll(b | b.awards->exists(a | a = "Pulitzer Prize")))';
       expectOclRuleValidatesToFalse(oclExpression, library);
     });
   });

@@ -126,5 +126,7 @@ export class Book {
     constructor(title: string, price: number) {
         this.title = title;
         this.price = price;
+
+        this.awards = ["Spiegel Bestseller"]
     }
 }
