@@ -77,18 +77,18 @@ describe('Collection->forAll', () => {
       library = new Library();
       library.writers = [new Writer('Joe'), new Writer('Alice'), new Writer('Ben')];
       library.writers[0].books = [
-        new Book('A tale'),
-        new Book('A tale'),
-        new Book('Biography'),
-        new Book('Some light thriller'),
+        new Book('A great tale', 9.99),
+        new Book('An awesome tale', 9.99),
+        new Book('Biography', 15.99),
+        new Book('Some light thriller', 10),
       ];
-      library.writers[1].books = [new Book('Biography'), new Book('A tale')];
+      library.writers[1].books = [new Book('Biography', 5.99), new Book('A tale', 19.99)];
       library.writers[2].books = [
-        new Book('Biography'),
-        new Book('A tale'),
-        new Book('Cookbook for Cakes'),
-        new Book('Cookbook for Cookies'),
-        new Book('Cookbook for Vegetables'),
+        new Book('Biography', 15),
+        new Book('A tale', 10),
+        new Book('Cookbook for Cakes', 20),
+        new Book('Cookbook for Cookies', 20),
+        new Book('Cookbook for Vegetables', 25),
       ];
       library.writers[0].books[3].awards = ['Spiegel Bestseller'];
       library.writers[1].books[1].awards = ['Best New Author', 'Spiegel Bestseller'];
@@ -98,23 +98,45 @@ describe('Collection->forAll', () => {
     it('should handle nested collection expressions with variables correctly', () => {
       let oclExpression = 'context Library inv: self.writers->forAll(w | w.books->exists(b | b.title = "Biography"))';
       expectOclRuleValidatesToTrue(oclExpression, library);
+      oclExpression = 'context Library inv: self.writers->forAll(w | w.books->exists(b | b.title = "Good book"))';
+      expectOclRuleValidatesToFalse(oclExpression, library);
 
       oclExpression = 'context Library inv: self.writers->forAll(w | w.books->one(b | b.title = "Biography"))';
       expectOclRuleValidatesToTrue(oclExpression, library);
-
       oclExpression = 'context Library inv: self.writers->forAll(w | w.books->one(b | b.title = "A tale"))';
+      expectOclRuleValidatesToFalse(oclExpression, library);
+
+      oclExpression = 'context Library inv: self.writers->forAll(w | w.events->isEmpty())';
+      expectOclRuleValidatesToTrue(oclExpression, library);
+      oclExpression = 'context Library inv: self.writers->forAll(w | w.books->isEmpty())';
+      expectOclRuleValidatesToFalse(oclExpression, library);
+
+      oclExpression = 'context Library inv: self.writers->forAll(w | w.books->notEmpty())';
+      expectOclRuleValidatesToTrue(oclExpression, library);
+      oclExpression = 'context Library inv: self.writers->forAll(w | w.events->notEmpty())';
+      expectOclRuleValidatesToFalse(oclExpression, library);
+
+      oclExpression = 'context Library inv: self.writers->forAll(w | w.books->isUnique(b | b.title))';
+      expectOclRuleValidatesToTrue(oclExpression, library);
+      oclExpression = 'context Library inv: self.writers->forAll(w | w.books->isUnique(b | b.price))';
       expectOclRuleValidatesToFalse(oclExpression, library);
     });
 
     it('should handle nested collection expressions without variables correctly', () => {
-      let oclExpression = 'context Library inv: self.writers->forAll(w | w.books->exists(title = "Biography"))';
-      expectOclRuleValidatesToTrue(oclExpression, library);
-
-      oclExpression = 'context Library inv: self.writers->forAll(w | w.books->one(title = "Biography"))';
-      expectOclRuleValidatesToTrue(oclExpression, library);
-
-      oclExpression = 'context Library inv: self.writers->forAll(w | w.books->one(title = "A tale"))';
-      expectOclRuleValidatesToFalse(oclExpression, library);
+        let oclExpression = 'context Library inv: self.writers->forAll(w | w.books->exists(title = "Biography"))';
+        expectOclRuleValidatesToTrue(oclExpression, library);
+        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->exists(title = "Good book"))';
+        expectOclRuleValidatesToFalse(oclExpression, library);
+  
+        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->one(title = "Biography"))';
+        expectOclRuleValidatesToTrue(oclExpression, library);
+        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->one(title = "A tale"))';
+        expectOclRuleValidatesToFalse(oclExpression, library);
+  
+        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->isUnique(title))';
+        expectOclRuleValidatesToTrue(oclExpression, library);
+        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->isUnique(price))';
+        expectOclRuleValidatesToFalse(oclExpression, library);
     });
 
     it('should handle double nested collection expressions correctly', () => {

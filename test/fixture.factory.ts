@@ -109,18 +109,22 @@ export class Library {
 export class Writer {
     name: any;
     books: Array<Book>;
+    events: Array<any>;
 
     constructor(name) {
         this.name = name;
         this.books = [];
+        this.events = [];
     }
 }
 
 export class Book {
     title: string;
+    price: number;
     awards: string[];
 
-    constructor(title: string) {
+    constructor(title: string, price: number) {
         this.title = title;
+        this.price = price;
     }
 }
