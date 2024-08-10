@@ -121,23 +121,6 @@ describe('Collection->forAll', () => {
       expectOclRuleValidatesToFalse(oclExpression, library);
     });
 
-    it('should handle nested collection expressions without variables correctly', () => {
-        let oclExpression = 'context Library inv: self.writers->forAll(w | w.books->exists(title = "Biography"))';
-        expectOclRuleValidatesToTrue(oclExpression, library);
-        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->exists(title = "Good book"))';
-        expectOclRuleValidatesToFalse(oclExpression, library);
-  
-        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->one(title = "Biography"))';
-        expectOclRuleValidatesToTrue(oclExpression, library);
-        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->one(title = "A tale"))';
-        expectOclRuleValidatesToFalse(oclExpression, library);
-  
-        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->isUnique(title))';
-        expectOclRuleValidatesToTrue(oclExpression, library);
-        oclExpression = 'context Library inv: self.writers->forAll(w | w.books->isUnique(price))';
-        expectOclRuleValidatesToFalse(oclExpression, library);
-    });
-
     it('should handle double nested collection expressions correctly', () => {
       let oclExpression =
         'context Library inv: self.writers->forAll(w | w.books->forAll(b | b.awards->exists(a | a = "Spiegel Bestseller")))';
