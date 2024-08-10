@@ -52,7 +52,7 @@
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "chai": "^4.3.4",
-    "glob": "^10.4.3",
+    "glob": "^11.0.0",
     "jison-gho": "^0.6.1-216",
     "minimist": ">=1.2.5",
     "mkdirp": "^3.0.0",
