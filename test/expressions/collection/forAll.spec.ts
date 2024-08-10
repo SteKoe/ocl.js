@@ -18,10 +18,10 @@ describe('Collection->forAll', () => {
     });
 
     it('should evaluate forAll(c|...): positive', () => {
-      mother.children = [
-          FixtureFactory.createPerson('A', 10),
-          FixtureFactory.createPerson('B', 40)
-      ];
+        mother.children = [
+            FixtureFactory.createPerson('A', 10),
+            FixtureFactory.createPerson('B', 40)
+        ];
 
         const oclExpression = 'context Person inv: self.children->forAll(c|c.age < self.age)';
         expectOclRuleValidatesToTrue(oclExpression, mother);
@@ -68,7 +68,7 @@ describe('Collection->forAll', () => {
 
     it('should properly handle self in expression', () => {
         mother.children = [
-            FixtureFactory.createPerson('A', 1), 
+            FixtureFactory.createPerson('A', 1),
             mother
         ];
 
