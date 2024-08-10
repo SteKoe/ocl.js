@@ -5,7 +5,7 @@ describe('Collection->select ', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);
 
     it('should parse select', () => {
-        const oclExpression = 'context Object inv: self.a->select(a | a < 2)->size = 1';
+        const oclExpression = 'context Object inv: self.a->select(b | b < 2)->size = 1';
         expectOclRuleValidatesToTrue(oclExpression, {a: [1, 4]});
     });
 

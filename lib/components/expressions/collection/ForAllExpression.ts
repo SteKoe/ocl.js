@@ -18,7 +18,9 @@ export class ForAllExpression extends IteratorExpression {
             const body = this.getBody();
 
             if (!iterators || iterators.length === 0) {
-                return false;
+                return !collection.some(c => {
+                    return body.evaluate(visitor, {['self']: c}) === false;
+                });
             } else if (iterators.length === 1) {
                 return !collection.some(c => {
                     return body.evaluate(visitor, {[this.getIterators()[0]]: c}) === false;

@@ -62,10 +62,13 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('B', 2),
             FixtureFactory.createPerson('C', 4),
             FixtureFactory.createPerson('D', 8),
-            FixtureFactory.createPerson('E', 10)
+            FixtureFactory.createPerson('E', 10),
         ];
 
-        const oclExpression = 'context Person inv: self.children->forAll(age < 10)';
+        let oclExpression = 'context Person inv: self.children->forAll(age <= 10)';
+        expectOclRuleValidatesToTrue(oclExpression, mother);
+
+        oclExpression = 'context Person inv: self.children->forAll(age < 10)';
         expectOclRuleValidatesToFalse(oclExpression, mother);
     });
 

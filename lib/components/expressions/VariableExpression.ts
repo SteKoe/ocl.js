@@ -1,6 +1,6 @@
-import { OclExecutionContext } from '../OclExecutionContext';
+import {OclExecutionContext} from '../OclExecutionContext';
 
-import { SourceBasedExpression } from './Expression';
+import {SourceBasedExpression} from './Expression';
 
 /**
  * Resolve variables. Simple values are returned as is (e.g. self.age: number), collections are aggregated.
@@ -19,20 +19,31 @@ export class VariableExpression extends SourceBasedExpression {
 
     evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         let obj;
-        const _variables = localVariables;
+        
+        const objectToEvaluate = visitor.getObjectToEvaluate();
+        let _variables = {
+            ...localVariables,
+        };
+        
         const source = this.getVariable();
-        const parts = source.split('.');
+        let parts = source.split('.');
 
+        const type = visitor.getRegisteredType(source);
+        if (type) {
+            return type;
+        }
+        
+        if (parts[0] !== 'self' && Object.prototype.hasOwnProperty.call(objectToEvaluate, [parts[0]])) {
+            _variables = {
+                ...localVariables,
+                self: localVariables?.self ?? localVariables
+            };
+            parts = ['self', ...parts]
+        }
+        
         if (parts[0] === 'self') {
             parts.shift();
-            obj = (_variables && _variables['self']) || visitor.getObjectToEvaluate();
-        } else if (_variables === undefined) {
-            const type = visitor.getRegisteredType(source);
-            if (type) {
-                return type;
-            } else {
-                obj = visitor.getObjectToEvaluate();
-            }
+            obj = (_variables && _variables['self']) || objectToEvaluate;
         } else {
             obj = _variables;
         }
