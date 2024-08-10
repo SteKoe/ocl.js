@@ -9,14 +9,19 @@ describe('Collection->forAll', () => {
     });
 
     it('should evaluate forAll(c|...): negative', () => {
-        mother.children = [FixtureFactory.createPerson('A', 10), FixtureFactory.createPerson('B', 50)];
-
+        mother.children = [
+            FixtureFactory.createPerson('A', 10),
+            FixtureFactory.createPerson('B', 50)
+        ];
         const oclExpression = 'context Person inv ChildrenAreAllYounger: self.children->forAll(c|c.age < self.age)';
         expectOclRuleValidatesToFalse(oclExpression, mother);
     });
 
     it('should evaluate forAll(c|...): positive', () => {
-        mother.children = [FixtureFactory.createPerson('A', 10), FixtureFactory.createPerson('B', 40)];
+      mother.children = [
+          FixtureFactory.createPerson('A', 10),
+          FixtureFactory.createPerson('B', 40)
+      ];
 
         const oclExpression = 'context Person inv: self.children->forAll(c|c.age < self.age)';
         expectOclRuleValidatesToTrue(oclExpression, mother);
@@ -28,7 +33,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('B', 2),
             FixtureFactory.createPerson('C', 3),
             FixtureFactory.createPerson('D', 4),
-            FixtureFactory.createPerson('E', 5),
+            FixtureFactory.createPerson('E', 5)
         ];
 
         const oclExpression = 'context Person inv: self.children->forAll(c1, c2|c1.age <> c2.age)';
@@ -41,7 +46,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('B', 2),
             FixtureFactory.createPerson('C', 2),
             FixtureFactory.createPerson('D', 4),
-            FixtureFactory.createPerson('E', 5),
+            FixtureFactory.createPerson('E', 5)
         ];
 
         const oclExpression = 'context Person inv: self.children->forAll(c1, c2|c1.age <> c2.age)';
@@ -54,7 +59,7 @@ describe('Collection->forAll', () => {
             FixtureFactory.createPerson('B', 2),
             FixtureFactory.createPerson('C', 4),
             FixtureFactory.createPerson('D', 8),
-            FixtureFactory.createPerson('E', 10),
+            FixtureFactory.createPerson('E', 10)
         ];
 
         const oclExpression = 'context Person inv: self.children->forAll(age < 10)';
@@ -62,7 +67,10 @@ describe('Collection->forAll', () => {
     });
 
     it('should properly handle self in expression', () => {
-        mother.children = [FixtureFactory.createPerson('A', 1), mother];
+        mother.children = [
+            FixtureFactory.createPerson('A', 1), 
+            mother
+        ];
 
         let oclExpression = 'context Person inv: self.children->forAll(c | c <> self)';
         expectOclRuleValidatesToFalse(oclExpression, mother);
@@ -80,7 +88,7 @@ describe('Collection->forAll', () => {
                 new Book('A great tale', 9.99),
                 new Book('An awesome tale', 9.99),
                 new Book('Biography', 15.99),
-                new Book('Some light thriller', 10),
+                new Book('Some light thriller', 10)
             ];
             library.writers[1].books = [new Book('Biography', 5.99), new Book('A tale', 19.99)];
             library.writers[2].books = [
@@ -88,7 +96,7 @@ describe('Collection->forAll', () => {
                 new Book('A tale', 10),
                 new Book('Cookbook for Cakes', 20),
                 new Book('Cookbook for Cookies', 20),
-                new Book('Cookbook for Vegetables', 25),
+                new Book('Cookbook for Vegetables', 25)
             ];
             library.writers[1].books[1].awards.push('Best Newcomer');
             library.writers[2].books[2].awards.push('Pulitzer Prize');
