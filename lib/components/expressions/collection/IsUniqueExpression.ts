@@ -18,12 +18,18 @@ export class IsUniqueExpression extends IteratorExpression {
 
         if (collection instanceof Array) {
             const result = collection.map(c => {
-                const variables = {};
+                let variables = {};
                 if (iterators) {
                     variables[iterators[0]] = c;
                 } else {
-                    const variableName = Utils.getVariableName(this);
-                    variables[variableName.getVariable()] = c;
+                    // If c is an object, we want to set its properties as variables
+                    // otherwise, set it as value of the used variable in the expression
+                    if (Object.prototype.toString.call(c) === '[object Object]') {
+                        variables = c;
+                    } else {
+                        const variableName = Utils.getVariableName(this);
+                        variables[variableName.getVariable()] = c;
+                    }
                 }
 
                 return body.evaluate(visitor, {...localVariables, ...variables});

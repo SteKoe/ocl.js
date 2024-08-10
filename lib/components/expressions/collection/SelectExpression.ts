@@ -20,12 +20,18 @@ export class SelectExpression extends IteratorExpression {
 
         if (collection instanceof Array) {
             return collection.filter(c => {
-                const variables = {};
+                let variables = {};
                 if (this.getIterators()) {
                     variables[this.getIterators()[0]] = c;
                 } else {
-                    const variableName = Utils.getVariableName(this);
-                    variables[variableName.getVariable()] = c;
+                    // If c is an object, we want to set its properties as variables
+                    // otherwise, set it as value of the used variable in the expression
+                    if (Object.prototype.toString.call(c) === '[object Object]') {
+                        variables = c;
+                    } else {
+                        const variableName = Utils.getVariableName(this);
+                        variables[variableName.getVariable()] = c;
+                    }
                 }
 
                 return this.getBody()
