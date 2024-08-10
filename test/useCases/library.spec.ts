@@ -1,5 +1,5 @@
 import { Book, Library, Writer } from '../fixture.factory';
-import { expectOclRuleValidatesToFalse } from '../matcher';
+import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
 
 describe('Example', () => {
     describe('Library', () => {
@@ -55,7 +55,7 @@ describe('Example', () => {
             library.writers.push(unknownAuthor);
 
             const oclExpression = 'context Library inv: writers->select(books->isEmpty())->size() = 1';
-            expectOclRuleValidatesToFalse(oclExpression, library);
+            expectOclRuleValidatesToTrue(oclExpression, library);
         });
     });
 });
