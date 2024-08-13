@@ -1,5 +1,5 @@
-import { BodyBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
+import {BodyBasedExpression} from "../BodyBasedExpression";
 
 /**
  * Returns a collection containing all elements of self and all elements of the passed in collection.

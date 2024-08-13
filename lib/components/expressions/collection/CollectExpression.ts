@@ -1,6 +1,5 @@
-import { IteratorExpression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { Utils } from '../../Utils';
+import {OclExecutionContext} from '../../OclExecutionContext';
+import {IteratorExpression} from "../IteratorExpression";
 
 /**
  * @oclSpecification
@@ -16,17 +15,7 @@ export class CollectExpression extends IteratorExpression {
         const collection = this.getSource().evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
-            return collection.map(c => {
-                const variables = {};
-                if (this.getIterators()) {
-                    variables[this.getIterators()[0]] = c;
-                } else {
-                    const variableName = Utils.getVariableName(this);
-                    variables[variableName.getSource().evaluate(visitor)] = c;
-                }
-
-                return this.getBody().evaluate(visitor, {...localVariables, ...variables});
-            });
+            return collection.map(c => this.evaluateBody(visitor, localVariables, c));
         } else {
             return collection;
         }

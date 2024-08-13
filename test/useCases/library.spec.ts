@@ -34,7 +34,7 @@ describe('Example', () => {
             })
             
             it('works on collection', () => {
-                const oclExpression = 'context Object inv: books->isUnique(videgames)';
+                const oclExpression = 'context Object inv: books->isUnique(books)';
                 expectOclRuleValidatesToTrue(oclExpression, obj);
             })
             

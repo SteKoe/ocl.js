@@ -1,5 +1,5 @@
-import { BodyBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
+import {BodyBasedExpression} from "../BodyBasedExpression";
 
 /**
  * Returns the element of the collection at index index.

@@ -1,6 +1,5 @@
-import { OclExecutionContext } from '../OclExecutionContext';
-
-import { Expression } from './Expression';
+import {OclExecutionContext} from '../OclExecutionContext';
+import {Expression} from './Expression';
 
 export abstract class LeftRightBasedExpression extends Expression {
     private readonly left: any;

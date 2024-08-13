@@ -1,6 +1,7 @@
 import { OclExecutionContext } from '../OclExecutionContext';
 
-import { BodyBasedExpression } from './Expression';
+
+import {BodyBasedExpression} from "./BodyBasedExpression";
 
 /**
  * Checks if *self* is an instance of the class identified by the name
