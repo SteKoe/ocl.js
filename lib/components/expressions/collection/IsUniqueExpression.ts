@@ -1,6 +1,6 @@
-import { IteratorExpression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { Utils } from '../../Utils';
+import {IteratorExpression} from '../Expression';
+import {OclExecutionContext} from '../../OclExecutionContext';
+import {Utils} from '../../Utils';
 
 /**
  * Returns true if the given expr evaluated on the body returns only different values.
@@ -14,16 +14,17 @@ export class IsUniqueExpression extends IteratorExpression {
             .evaluate(visitor, localVariables);
 
         const body = this.getBody();
-        const iterators = this.getIterators();
 
         if (collection instanceof Array) {
             const result = collection.map(c => {
                 const variables = {};
+                const iterators = this.getIterators();
                 if (iterators) {
                     variables[iterators[0]] = c;
                 } else {
                     const variableName = Utils.getVariableName(this);
-                    variables[variableName.getVariable()] = c;
+                    const varName = variableName.getVariable();
+                    variables[varName] = varName === "self" ? c : c[varName];
                 }
 
                 return body.evaluate(visitor, {...localVariables, ...variables});

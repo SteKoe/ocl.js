@@ -1,5 +1,5 @@
 import { Book, Library, Writer } from '../fixture.factory';
-import { expectOclRuleValidatesToFalse } from '../matcher';
+import {expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue} from '../matcher';
 
 describe('Example', () => {
     describe('Library', () => {
@@ -14,10 +14,10 @@ describe('Example', () => {
             library.writers.push(new Writer('Unknown Author'));
 
             const oclExpression = `
-            context Library
-                def: unpublishedWriters = writers->select(books->isEmpty())
-                inv: unpublishedWriters->isEmpty()
-        `;
+                context Library
+                    def: unpublishedWriters = writers->select(books->isEmpty())
+                    inv: unpublishedWriters->isEmpty()
+            `;
             expectOclRuleValidatesToFalse(oclExpression, library);
         });
 
@@ -42,7 +42,7 @@ describe('Example', () => {
             expectOclRuleValidatesToFalse(oclExpression, library);
         });
 
-        it('parent is same', () => {
+        it('selects writers without books', () => {
             const library = new Library();
 
             const julesVerne = new Writer('Jules Verne');
@@ -55,7 +55,7 @@ describe('Example', () => {
             library.writers.push(unknownAuthor);
 
             const oclExpression = 'context Library inv: writers->select(books->isEmpty())->size() = 1';
-            expectOclRuleValidatesToFalse(oclExpression, library);
+            expectOclRuleValidatesToTrue(oclExpression, library);
         });
     });
 });

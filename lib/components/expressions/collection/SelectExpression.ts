@@ -21,11 +21,13 @@ export class SelectExpression extends IteratorExpression {
         if (collection instanceof Array) {
             return collection.filter(c => {
                 const variables = {};
-                if (this.getIterators()) {
-                    variables[this.getIterators()[0]] = c;
+                const iterators = this.getIterators();
+                if (iterators) {
+                    variables[iterators[0]] = c;
                 } else {
                     const variableName = Utils.getVariableName(this);
-                    variables[variableName.getVariable()] = c;
+                    const varName = variableName.getVariable();
+                    variables[varName] = varName === "self" ? c : (c[varName] ?? c);
                 }
 
                 return this.getBody()
