@@ -26,6 +26,15 @@ describe('Collection->one ', () => {
         ]);
     });
 
+    it('should return false if there is no matching property in object without variable selector', () => {
+        const oclExpression = 'context Object inv: self->one(a > 0) = true';
+        expectOclRuleValidatesToTrue(oclExpression, [
+            {a: 1},
+            {c: 2},
+            {b: 3}
+        ]);
+    });
+
     it('should return false if there is no matching property in object', () => {
         const library = new Library();
         library.writers = [new Writer('Joe'), new Writer('Alice'), new Writer('Ben')];
