@@ -11,7 +11,7 @@ import { Utils } from '../../Utils';
 export class IsUniqueExpression extends IteratorExpression {
     evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const collection = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         const body = this.getBody();
         const iterators = this.getIterators();

@@ -11,7 +11,7 @@ import { OclExecutionContext } from '../../OclExecutionContext';
 export class ForAllExpression extends IteratorExpression {
     evaluate(visitor: OclExecutionContext, localVariables?: any): any {
         const collection = this.getSource()
-            .evaluate(visitor);
+            .evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
             const iterators = this.getIterators();
@@ -21,7 +21,8 @@ export class ForAllExpression extends IteratorExpression {
                 return false;
             } else if (iterators.length === 1) {
                 return !collection.some(c => {
-                    return body.evaluate(visitor, {[this.getIterators()[0]]: c}) === false;
+                    const iterator = this.getIterators()[0];
+                    return body.evaluate(visitor, {[iterator]: c}) === false;
                 });
             } else if (iterators.length === 2) {
                 const sourceLength = collection.length;
