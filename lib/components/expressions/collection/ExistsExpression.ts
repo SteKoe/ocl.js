@@ -22,7 +22,7 @@ export class ExistsExpression extends IteratorExpression {
                 } else {
                     const variableName = Utils.getVariableName(this);
                     const varName = variableName.getVariable();
-                    variables[varName] = varName === "self" ? c : c[varName];
+                    variables[varName] = varName === "self" ? c : (c[varName] ?? c);
                 }
 
                 return this.getBody().evaluate(visitor, {...localVariables, ...variables}) === true;

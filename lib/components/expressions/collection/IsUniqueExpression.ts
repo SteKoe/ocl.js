@@ -15,20 +15,22 @@ export class IsUniqueExpression extends IteratorExpression {
 
         const body = this.getBody();
 
-        if (collection instanceof Array) {
-            const result = collection.map(c => {
+        if (Array.isArray(collection)) {
+            const result = body ? collection.map(c => {
                 const variables = {};
                 const iterators = this.getIterators();
                 if (iterators) {
                     variables[iterators[0]] = c;
                 } else {
                     const variableName = Utils.getVariableName(this);
-                    const varName = variableName.getVariable();
-                    variables[varName] = varName === "self" ? c : c[varName];
+                    if (variableName) {
+                        const varName = variableName.getVariable();
+                        variables[varName] = varName === "self" ? c : (c[varName] ?? c);
+                    }
                 }
 
                 return body.evaluate(visitor, {...localVariables, ...variables});
-            });
+            }) : collection;
 
             return result.length === new Set(result).size;
         } else {
