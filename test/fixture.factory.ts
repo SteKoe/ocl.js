@@ -123,7 +123,7 @@ export class Book {
     price: number;
     awards: string[];
 
-    constructor(title: string, price: number) {
+    constructor(title: string, price?: number) {
         this.title = title;
         this.price = price;
 

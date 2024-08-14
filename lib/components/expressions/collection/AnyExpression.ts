@@ -1,6 +1,5 @@
-import { IteratorExpression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { Utils } from '../../Utils';
+import {OclExecutionContext} from '../../OclExecutionContext';
+import {IteratorExpression} from "../IteratorExpression";
 
 /**
  * Returns the first element that validates the given expression.
@@ -14,17 +13,7 @@ export class AnyExpression extends IteratorExpression {
             .evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
-            return collection.find(c => {
-                const variables = {};
-                if (this.getIterators()) {
-                    variables[this.getIterators()[0]] = c;
-                } else {
-                    const variableName = Utils.getVariableName(this);
-                    variables[variableName.getVariable()] = c[variableName.getVariable()] || c;
-                }
-
-                return this.getBody().evaluate(visitor, {...localVariables, ...variables});
-            });
+            return collection.find(c => this.evaluateBody(visitor, localVariables, c));
         }
 
         return;

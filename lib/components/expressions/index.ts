@@ -23,3 +23,6 @@ export * from './PreExpression';
 export * from './PostExpression';
 export * from './VariableDeclarationExpression';
 export * from './VariableExpression';
+export {IteratorExpression} from "./IteratorExpression";
+export {BodyBasedExpression} from "./BodyBasedExpression";
+export {SourceBasedExpression} from "./SourceBasedExpression";

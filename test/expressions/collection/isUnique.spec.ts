@@ -1,6 +1,13 @@
 import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../../matcher';
 
 describe('Collection->isUnique', () => {
+    it('works using no body', () => {
+        const fromOclSpec = [2.3, 5.2];
+
+        const oclExpression = 'context Object inv: self->isUnique()';
+        expectOclRuleValidatesToTrue(oclExpression, fromOclSpec);
+    });
+    
     it('works using comparator', () => {
         const fromOclSpec = [2.3, 5.2];
 

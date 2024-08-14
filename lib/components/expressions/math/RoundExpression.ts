@@ -1,5 +1,5 @@
-import { SourceBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
+import {SourceBasedExpression} from "../SourceBasedExpression";
 
 /**
  * Returns the nearest number to self.

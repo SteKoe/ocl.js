@@ -1,6 +1,5 @@
-import { IteratorExpression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { Utils } from '../../Utils';
+import {OclExecutionContext} from '../../OclExecutionContext';
+import {IteratorExpression} from "../IteratorExpression";
 
 /**
  * Operation which checks whether a collection contains an element specified by expr.
@@ -15,17 +14,8 @@ export class ExistsExpression extends IteratorExpression {
 
         if (collection instanceof Array) {
             return collection.some(c => {
-                const variables = {};
-                if (this.getIterators()) {
-                    variables[this.getIterators()[0]] = c;
-                } else {
-                    const variableName = Utils.getVariableName(this);
-                    variables[variableName.getVariable()] = c[variableName.getVariable()];
-                }
-
-                const visitResult = this.getBody().evaluate(visitor, {...localVariables, ...variables});
-
-                return visitResult === true;
+                const result = this.evaluateBody(visitor, localVariables, c);
+                return result === true;
             });
         } else {
             return false;

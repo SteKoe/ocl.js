@@ -1,6 +1,7 @@
 import { OclExecutionContext } from '../OclExecutionContext';
 
-import { Expression, SourceBasedExpression } from './Expression';
+import { Expression } from './Expression';
+import {SourceBasedExpression} from "./SourceBasedExpression";
 
 export class NativeJsFunctionCallExpression extends SourceBasedExpression {
     private readonly fn: any;

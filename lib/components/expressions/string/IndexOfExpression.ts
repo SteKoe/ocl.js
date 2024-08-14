@@ -1,5 +1,5 @@
-import { BodyBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
+import {BodyBasedExpression} from "../BodyBasedExpression";
 
 /**
  * Returns the index of the given string in self or 0 if it is not condained.

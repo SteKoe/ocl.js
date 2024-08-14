@@ -1,5 +1,5 @@
-import { BodyBasedExpression } from '../Expression';
 import { OclExecutionContext } from '../../OclExecutionContext';
+import {BodyBasedExpression} from "../BodyBasedExpression";
 
 /**
  * Returns a string that is concatenated using source and body
