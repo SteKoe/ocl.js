@@ -61,7 +61,7 @@
     "rimraf": "^6.0.0",
     "semantic-release": "24.2.3",
     "ts-lint": "^4.5.1",
-    "ts-mocha": "^10.0.0",
+    "ts-mocha": "^11.0.0",
     "tslint-loader": "^3.6.0",
     "typescript": "^5.5.3"
   }
