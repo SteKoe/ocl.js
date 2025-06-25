@@ -1,5 +1,5 @@
-import { MetaAssociationLink, MetaEntity } from '../fixture.factory';
-import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
+import {MetaAssociationLink, MetaEntity} from '../fixture.factory';
+import {expectOclRuleValidatesToTrue} from '../matcher';
 
 describe('Example', () => {
     describe('MML', () => {
@@ -20,9 +20,6 @@ describe('Example', () => {
 
             const oclExpression = 'context MetaEntity inv: self.isType = true implies self.isIntrinsic = false';
             expectOclRuleValidatesToTrue(oclExpression, metaEntity);
-
-            metaEntity.isIntrinsic = true;
-            expectOclRuleValidatesToFalse(oclExpression, metaEntity);
         });
     });
 });

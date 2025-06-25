@@ -1,8 +1,8 @@
-import { InvariantExpression } from '../InvariantExpression';
-import { DefExpression } from '../DefExpression';
-import { OclExecutionContext } from '../../OclExecutionContext';
+import {InvariantExpression} from '../InvariantExpression';
+import {DefExpression} from '../DefExpression';
+import {OclExecutionContext} from '../../OclExecutionContext';
 
-import { ContextExpression } from './ContextExpression';
+import {ContextExpression} from './ContextExpression';
 
 /**
  * Define invariants and definitions on a given types
@@ -39,8 +39,8 @@ export class ClassifierContextExpression extends ContextExpression {
         if (accept === false) {
             return false;
         } else {
-            const visitorTargetType = visitor.getRegisteredType(visitor.getTargetTypeName()) || visitor.getTargetTypeName();
-            const expressionTargetType = visitor.getRegisteredType(this.targetType) || this.targetType;
+            const visitorTargetType = visitor.getRegisteredType(visitor.getTargetTypeName()) ?? visitor.getTargetTypeName();
+            const expressionTargetType = visitor.getRegisteredType(this.targetType) ?? this.targetType;
 
             if (typeof visitorTargetType === 'string' || typeof expressionTargetType === 'string') {
                 return this.targetType === visitor.getTargetTypeName();
@@ -60,7 +60,7 @@ export class ClassifierContextExpression extends ContextExpression {
 
             const invs = this.getInvs();
 
-            return !invs
+            let result = !invs
                 .map(inv => {
                     const evaluationResult = inv.evaluate(visitor);
                     if (evaluationResult === false) {
@@ -70,6 +70,10 @@ export class ClassifierContextExpression extends ContextExpression {
                     return evaluationResult;
                 })
                 .some(inv => inv === false);
+
+            visitor.setEvaluatedValue(this, result);
+            visitor.setEvaluationResult(result);
+            return result;
         }
     }
 }

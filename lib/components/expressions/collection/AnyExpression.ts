@@ -13,9 +13,9 @@ export class AnyExpression extends IteratorExpression {
             .evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
-            return collection.find(c => this.evaluateBody(visitor, localVariables, c));
+            let value = collection.find(c => this.evaluateBody(visitor, localVariables, c));
+            visitor.setEvaluatedValue(this, value);
+            return value;
         }
-
-        return;
     }
 }

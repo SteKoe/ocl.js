@@ -7,8 +7,11 @@ const parser = new jison.Parser(bnf);
 
 const parserOutputFile = path.resolve('./generator/Parser.js');
 
-const leParser = parser.generate({
-    moduleType: 'js'
-});
+const leParser = parser.generate({moduleType: "js"});
 
-fs.writeFileSync(parserOutputFile, [leParser, 'module.exports = parser;'].join('\n'), 'utf8');
+const data = `
+${leParser}
+
+module.exports = parser;
+`;
+fs.writeFileSync(parserOutputFile, data, 'utf8');

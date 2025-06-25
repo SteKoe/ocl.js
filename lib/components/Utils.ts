@@ -1,10 +1,5 @@
-import {
-    BodyBasedExpression,
-    Expression,
-    SourceBasedExpression,
-    VariableExpression
-} from './expressions';
-import { LeftRightBasedExpression } from './expressions/LeftRightBasedExpression';
+import {BodyBasedExpression, Expression, SourceBasedExpression, VariableExpression} from './expressions';
+import {LeftRightBasedExpression} from './expressions/LeftRightBasedExpression';
 
 export class Utils {
     static typeDeterminerFn: (obj: any) => string;
@@ -14,25 +9,30 @@ export class Utils {
             return Utils.typeDeterminerFn(obj);
         }
 
-        if (obj && obj.typeName) {
+        if (obj?.typeName) {
             return obj.typeName;
         } else if (typeof obj === 'function') {
-            return Utils._getFunctionName(obj);
+            return Utils._getFunctionName(obj.toString());
         } else if (typeof obj === 'object') {
             return Utils._getFunctionName(obj.constructor.toString());
         }
     }
 
     static _getFunctionName(fn): string {
-        let name = (fn || {}).toString()
-            .split(' ')[1];
-        name = name.substring(0, name.indexOf('('));
+        console.log(fn)
+        const tokens = fn.match(/[A-Za-z_$][A-Za-z0-9_$]*/g);
+        if (!tokens || tokens.length === 0) {
+            return undefined;
+        }
+        if (['class', 'function'].includes(tokens[0]) && tokens.length > 1) {
+            return tokens[1];
+        }
 
-        return name.length > 0 ? name : undefined;
+        return tokens[0];
     }
 
     static intersect(array1, array2): Array<any> {
-        return (array1 || []).filter(value => (array2 || []).indexOf(value) !== -1);
+        return (array1 ?? []).filter(value => (array2 ?? []).indexOf(value) !== -1);
     }
 
     static getVariableName(expr: BodyBasedExpression): VariableExpression {
@@ -54,7 +54,7 @@ export class Utils {
 
     static ucfirst(s: string): string {
         return s.charAt(0)
-            .toUpperCase() + s.substr(1);
+            .toUpperCase() + s.substring(0, 1);
     }
 
     static hashCode(s: string): number {

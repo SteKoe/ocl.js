@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { OclParser } from '../lib/components/parser/OclParser';
-import { OclExecutionContext } from '../lib/components/OclExecutionContext';
+import {expect} from 'chai';
+import {OclParser} from '../lib/components/parser/OclParser';
+import {OclExecutionContext} from '../lib/components/OclExecutionContext';
 
 export function expectOclRuleValidatesToTrue(oclExpression: string, obj?: any): void {
     const visitor = _parseAndEvaluate(oclExpression, obj);

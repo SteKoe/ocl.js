@@ -1,6 +1,6 @@
-import { OclExecutionContext } from '../OclExecutionContext';
+import {OclExecutionContext} from '../OclExecutionContext';
 
-import { Expression } from './Expression';
+import {Expression} from './Expression';
 
 /**
  * The IfExpression allows to execute a statement if the given condition is truthy.
@@ -31,9 +31,13 @@ export class IfExpression extends Expression {
     }
 
     evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
-        return this.getCondition().evaluate(visitor, localVariables)
+        let value = this.getCondition().evaluate(visitor, localVariables)
             ? this.getThenExpression().evaluate(visitor, localVariables)
             : this.getElseExpression().evaluate(visitor, localVariables);
+
+        visitor.setEvaluatedValue(this, value);
+
+        return value;
     }
 
 }

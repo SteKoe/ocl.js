@@ -31,10 +31,11 @@ export class VariableExpression extends SourceBasedExpression {
 
         const type = visitor.getRegisteredType(source);
         if (type) {
+            visitor.setEvaluatedValue(this, type);
             return type;
         }
-        
-        if (parts[0] !== 'self' && Object.prototype.hasOwnProperty.call(objectToEvaluate, [parts[0]])) {
+
+        if (parts[0] !== 'self' && Object.hasOwn(objectToEvaluate, [parts[0]])) {
             _variables = {
                 ...localVariables,
                 self: localVariables?.self ?? localVariables
@@ -44,12 +45,14 @@ export class VariableExpression extends SourceBasedExpression {
         
         if (parts[0] === 'self') {
             parts.shift();
-            obj = (_variables && _variables['self']) || objectToEvaluate;
+            obj = (_variables?.self) ?? objectToEvaluate;
         } else {
             obj = _variables;
         }
 
-        return visitor.getRegisteredType(obj) || _resolvePath(obj, parts.join('.'));
+        let evaluatedValue = visitor.getRegisteredType(obj) ?? _resolvePath(obj, parts.join('.'));
+        visitor.setEvaluatedValue(this, evaluatedValue);
+        return evaluatedValue;
 
         function _resolvePath(object, reference): any {
             return reference.split('.')

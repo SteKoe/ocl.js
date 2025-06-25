@@ -1,5 +1,5 @@
-import { LeftRightBasedExpression } from '../LeftRightBasedExpression';
-import { OclExecutionContext } from '../../OclExecutionContext';
+import {LeftRightBasedExpression} from '../LeftRightBasedExpression';
+import {OclExecutionContext} from '../../OclExecutionContext';
 
 /**
  * | A     | B     | A implies B |
@@ -16,8 +16,10 @@ export class ImpliesExpression extends LeftRightBasedExpression {
         const {left, right} = this._evaluateLeftRightExpression(visitor, localVariables);
 
         if (left) {
+            visitor.setEvaluatedValue(this, right);
             return right;
         } else {
+            visitor.setEvaluatedValue(this, true);
             return true;
         }
     }

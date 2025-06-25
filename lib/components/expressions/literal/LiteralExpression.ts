@@ -1,4 +1,5 @@
-import { Expression } from '../Expression';
+import {Expression} from '../Expression';
+import {OclExecutionContext} from "../../OclExecutionContext";
 
 export abstract class LiteralExpression<T> extends Expression {
     private readonly value: T;
@@ -14,7 +15,8 @@ export abstract class LiteralExpression<T> extends Expression {
 
     protected abstract parseValue(value): T;
 
-    evaluate(): T {
-        return this.getValue();
+    evaluate(visitor: OclExecutionContext): T {
+        console.warn('LiteralExpression.evaluate() should not be called directly. Use getValue() instead.');
+        return visitor.setEvaluatedValue(this, this.getValue());
     }
 }
