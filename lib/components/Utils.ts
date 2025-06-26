@@ -1,5 +1,7 @@
 import {BodyBasedExpression, Expression, SourceBasedExpression, VariableExpression} from './expressions';
 import {LeftRightBasedExpression} from './expressions/LeftRightBasedExpression';
+import {ucfirst} from "../utils/ucfirst";
+import {hashCode} from "../utils/hashcode";
 
 export class Utils {
     static typeDeterminerFn: (obj: any) => string;
@@ -19,7 +21,6 @@ export class Utils {
     }
 
     static _getFunctionName(fn): string {
-        console.log(fn)
         const tokens = fn.match(/[A-Za-z_$][A-Za-z0-9_$]*/g);
         if (!tokens || tokens.length === 0) {
             return undefined;
@@ -51,20 +52,12 @@ export class Utils {
             return Utils._findVariableExpression(expr.getLeft()) || Utils._findVariableExpression(expr.getRight());
         }
     }
-
-    static ucfirst(s: string): string {
-        return s.charAt(0)
-            .toUpperCase() + s.substring(0, 1);
+    
+    static ucfirst(s: string) {
+        return ucfirst(s);
     }
 
-    static hashCode(s: string): number {
-        let hash = 0;
-        if (s.length === 0) return hash;
-        for (let i = 0; i < s.length; i++) {
-            hash  = ((hash << 5) - hash) + s.charCodeAt(i);
-            hash |= 0;
-        }
-
-        return hash;
+    static hashCode(s: string) {
+        return hashCode(s);
     }
 }
