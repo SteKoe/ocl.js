@@ -12,6 +12,6 @@ const leParser = parser.generate({moduleType: "js"});
 const data = `
 ${leParser}
 
-module.exports = parser;
+export default parser;
 `;
 fs.writeFileSync(parserOutputFile, data, 'utf8');

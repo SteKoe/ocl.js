@@ -7,8 +7,6 @@
   "scripts": {
     "build": "npm run clean && npm run test && npx tsc",
     "build:examples": "npm run build:examples:node.js && npm run build:examples:typescript",
-    "build:examples:node.js": "cd examples/node.js && npm ci && npm run build",
-    "build:examples:typescript": "cd examples/ts && npm ci && npm run build",
     "clean": "npm run clean:dist && npm run clean:examples",
     "clean:dist": "npx rimraf -- dist",
     "clean:docs": "npx rimraf -- doc-test/**/*.gen.md",
@@ -17,7 +15,7 @@
     "generate:parser": "npx rimraf -- ./lib/components/parser/parser.ts && tsx generator/oclParserGenerator.ts",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "prepare:release": "npx cross-env RUN_SLOW_TESTS=true npm run build && npm run build:examples",
+    "prepare:release": "npx cross-env RUN_SLOW_TESTS=true npm run build",
     "test": "npm run generate:parser && npm run test:fast",
     "test:fast": "mocha 'test/**/*.spec.ts'",
     "test:coverage": "npx rimraf -- coverage && nyc ts-mocha 'test/**/*.spec.ts' && npx rimraf -- .nyc_output"

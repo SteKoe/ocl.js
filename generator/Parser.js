@@ -5619,4 +5619,4 @@ return new Parser();
 
         
 
-module.exports = parser;
+export default parser;
