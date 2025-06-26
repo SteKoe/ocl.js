@@ -31,7 +31,7 @@ export class IfExpression extends Expression {
     }
 
     evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
-        let value = this.getCondition().evaluate(visitor, localVariables)
+        const value = this.getCondition().evaluate(visitor, localVariables)
             ? this.getThenExpression().evaluate(visitor, localVariables)
             : this.getElseExpression().evaluate(visitor, localVariables);
 

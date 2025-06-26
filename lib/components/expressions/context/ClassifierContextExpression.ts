@@ -60,7 +60,7 @@ export class ClassifierContextExpression extends ContextExpression {
 
             const invs = this.getInvs();
 
-            let result = !invs
+            const result = !invs
                 .map(inv => {
                     const evaluationResult = inv.evaluate(visitor);
                     if (evaluationResult === false) {

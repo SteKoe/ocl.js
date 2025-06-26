@@ -16,6 +16,7 @@
     "generate:docs": "npm run clean:docs && node docs-generator/generateDocs.js",
     "generate:parser": "npx rimraf -- ./lib/components/parser/parser.ts && tsx generator/oclParserGenerator.ts",
     "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
     "prepare:release": "npx cross-env RUN_SLOW_TESTS=true npm run build && npm run build:examples",
     "test": "npm run generate:parser && npm run test:fast",
     "test:fast": "mocha 'test/**/*.spec.ts'",

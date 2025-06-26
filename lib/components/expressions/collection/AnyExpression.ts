@@ -13,7 +13,7 @@ export class AnyExpression extends IteratorExpression {
             .evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
-            let value = collection.find(c => this.evaluateBody(visitor, localVariables, c));
+            const value = collection.find(c => this.evaluateBody(visitor, localVariables, c));
             visitor.setEvaluatedValue(this, value);
             return value;
         }

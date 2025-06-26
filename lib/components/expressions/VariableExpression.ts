@@ -50,7 +50,7 @@ export class VariableExpression extends SourceBasedExpression {
             obj = _variables;
         }
 
-        let evaluatedValue = visitor.getRegisteredType(obj) ?? _resolvePath(obj, parts.join('.'));
+        const evaluatedValue = visitor.getRegisteredType(obj) ?? _resolvePath(obj, parts.join('.'));
         visitor.setEvaluatedValue(this, evaluatedValue);
         return evaluatedValue;
 
