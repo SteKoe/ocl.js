@@ -35,7 +35,7 @@ export class VariableExpression extends SourceBasedExpression {
             return type;
         }
 
-        if (parts[0] !== 'self' && Object.hasOwn(objectToEvaluate, [parts[0]])) {
+        if (parts[0] !== 'self' && Object.prototype.hasOwnProperty.call(objectToEvaluate, [parts[0]])) {
             _variables = {
                 ...localVariables,
                 self: localVariables?.self ?? localVariables
