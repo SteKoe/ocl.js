@@ -1,26 +1,37 @@
-import { Utils } from './Utils';
-import { InvariantExpression } from './expressions/InvariantExpression';
-import { ContextExpression } from './expressions/context/ContextExpression';
-import { OclParser } from './parser/OclParser';
+import {Utils} from './Utils';
+import {InvariantExpression} from './expressions/InvariantExpression';
+import {ContextExpression} from './expressions/context/ContextExpression';
+import {OclParser} from './parser/OclParser';
+import {Expression} from "./expressions";
 
 export class OclExecutionContext {
     private evaluationResult: any = undefined;
-    private failedInvariants: Array<InvariantExpression> = [];
+    private readonly failedInvariants: Array<InvariantExpression> = [];
     private registeredTypes: any;
     private registeredEnumerations: any;
     private targetTypeName: string;
-    private evaluatedContexts: Array<ContextExpression> = [];
+    private readonly evaluatedContexts: Array<ContextExpression> = [];
+    private readonly evalutedValues: Map<string, any> = new Map<string, any>();
 
-    constructor(private obj: any, private labelsToExecute: Array<string> = []) {
+    constructor(private obj: any, private readonly labelsToExecute: Array<string> = []) {
         this.targetTypeName = Utils.getClassName(obj);
         this.registeredTypes = OclParser.registeredTypes;
+    }
+
+    setEvaluatedValue(expression: Expression, result: any) {
+        this.evalutedValues.set(expression.getId(), result);
+        return result;
+    }
+
+    getEvaluatedValues(): Map<string, any> {
+        return this.evalutedValues;
     }
 
     addFailedInvariant(inv: InvariantExpression): void {
         this.failedInvariants.push(inv);
     }
 
-    setObjectToEvaluate(obj): OclExecutionContext {
+    setObjectToEvaluate(obj): this {
         this.obj = obj;
 
         return this;
@@ -51,7 +62,7 @@ export class OclExecutionContext {
     }
 
     getRegisteredEnumeration(key): Array<any> {
-        return this.registeredEnumerations[key] || [];
+        return this.registeredEnumerations[key] ?? [];
     }
 
     getFailedInvariants(): Array<InvariantExpression> {

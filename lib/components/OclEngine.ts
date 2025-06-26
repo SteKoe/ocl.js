@@ -19,7 +19,6 @@ export class OclEngine {
     static Parser = OclParser;
 
     private packageDeclarations: Array<PackageDeclaration> = [];
-    private typeDeterminerFn: (obj: any) => string;
     private registeredTypes: any = OclParser.registeredTypes;
     private registeredEnums: any = OclParser.registeredEnums;
 

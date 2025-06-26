@@ -1,6 +1,6 @@
-import { OclExecutionContext } from '../OclExecutionContext';
+import {OclExecutionContext} from '../OclExecutionContext';
 
-import { LeftRightBasedExpression } from './LeftRightBasedExpression';
+import {LeftRightBasedExpression} from './LeftRightBasedExpression';
 
 /**
  */
@@ -17,17 +17,19 @@ export class OperationCallExpression extends LeftRightBasedExpression {
 
         // tslint:disable-next-line:switch-default
         switch (this.operator) {
-            case Operator.NOT_EQUAL: return  left !== right;
-            case Operator.EQUAL: return  left === right;
-            case Operator.LESS_EQUAL_THAN: return  left <= right;
-            case Operator.GREATER_EQUAL_THAN: return  left >= right;
-            case Operator.GREATER_THAN: return  left > right;
-            case Operator.LESS_THAN: return  left < right;
+            case Operator.NOT_EQUAL:
+                return visitor.setEvaluatedValue(this, left !== right);
+            case Operator.EQUAL:
+                return visitor.setEvaluatedValue(this, left === right);
+            case Operator.LESS_EQUAL_THAN:
+                return visitor.setEvaluatedValue(this, left <= right);
+            case Operator.GREATER_EQUAL_THAN:
+                return visitor.setEvaluatedValue(this, left >= right);
+            case Operator.GREATER_THAN:
+                return visitor.setEvaluatedValue(this, left > right);
+            case Operator.LESS_THAN:
+                return visitor.setEvaluatedValue(this, left < right);
         }
-    }
-
-    private isOperator(operator: Operator): boolean {
-        return this.operator === operator;
     }
 }
 

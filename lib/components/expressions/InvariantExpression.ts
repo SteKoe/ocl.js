@@ -1,6 +1,6 @@
-import { OclExecutionContext } from '../OclExecutionContext';
+import {OclExecutionContext} from '../OclExecutionContext';
 
-import { Expression } from './Expression';
+import {Expression} from './Expression';
 
 /**
  * @oclSpecification
@@ -18,7 +18,7 @@ export class InvariantExpression extends Expression {
 
     constructor(oclExpression, name) {
         super();
-        this.name = name || 'anonymous';
+        this.name = name ?? 'anonymous';
         this.definition = oclExpression;
     }
 
@@ -32,7 +32,7 @@ export class InvariantExpression extends Expression {
 
     evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
         const evaluationResult = this.getDefinition().evaluate(visitor, localVariables);
-
+        visitor.setEvaluatedValue(this, evaluationResult);
         return evaluationResult === true;
     }
 }

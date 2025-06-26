@@ -14,11 +14,12 @@
     "clean:docs": "npx rimraf -- doc-test/**/*.gen.md",
     "clean:examples": "npx rimraf -- examples/ts/dist examples/webpack/dist",
     "generate:docs": "npm run clean:docs && node docs-generator/generateDocs.js",
-    "generate:parser": "npx rimraf -- ./lib/components/parser/parser.ts && ts-node -O {\\\"module\\\":\\\"commonjs\\\"} generator/oclParserGenerator.ts",
+    "generate:parser": "npx rimraf -- ./lib/components/parser/parser.ts && tsx generator/oclParserGenerator.ts",
     "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
     "prepare:release": "npx cross-env RUN_SLOW_TESTS=true npm run build && npm run build:examples",
     "test": "npm run generate:parser && npm run test:fast",
-    "test:fast": "npx ts-mocha 'test/**/*.spec.ts'",
+    "test:fast": "mocha 'test/**/*.spec.ts'",
     "test:coverage": "npx rimraf -- coverage && nyc ts-mocha 'test/**/*.spec.ts' && npx rimraf -- .nyc_output"
   },
   "nyc": {
@@ -56,13 +57,13 @@
     "jison-gho": "^0.6.1-216",
     "minimist": ">=1.2.5",
     "mkdirp": "^3.0.0",
-    "mocha": "^10.2.0",
+    "mocha": "^11.0.0",
     "nyc": "^17.0.0",
     "rimraf": "^6.0.0",
     "semantic-release": "24.2.5",
     "ts-lint": "^4.5.1",
-    "ts-mocha": "^11.0.0",
     "tslint-loader": "^3.6.0",
+    "tsx": "^4.20.3",
     "typescript": "^5.5.3"
   }
 }

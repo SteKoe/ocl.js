@@ -1,6 +1,6 @@
 import * as Expressions from '../expressions';
-import { Utils } from '../Utils';
-import * as parser from '../../../generator/Parser';
+import {Utils} from '../Utils';
+import parser from '../../../generator/Parser';
 
 parser.yy = {
     Expression: Expressions,
@@ -20,7 +20,7 @@ export class OclParser {
     static registeredEnums: any = {};
 
     static parseQuery(oclExpression: any, registeredTypes?: any): Expressions.Expression {
-        parser.yy.registeredTypes = registeredTypes || {};
+        parser.yy.registeredTypes = registeredTypes ?? {};
 
         return parser.parse(oclExpression) as Expressions.Expression;
     }

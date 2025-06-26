@@ -1,8 +1,8 @@
-import { OclExecutionContext } from '../OclExecutionContext';
-import { Utils } from '../Utils';
+import {OclExecutionContext} from '../OclExecutionContext';
+import {Utils} from '../Utils';
 
-import { ContextExpression } from './context/ContextExpression';
-import { Expression } from './Expression';
+import {ContextExpression} from './context/ContextExpression';
+import {Expression} from './Expression';
 
 /**
  * In order to group and organise OCL constraints, packages can be used.
@@ -53,6 +53,7 @@ export class PackageDeclaration extends Expression {
                 .map(ctx => ctx.evaluate(visitor))
                 .some(inv => inv === false);
 
+            visitor.setEvaluatedValue(this, evaluationResult);
             visitor.setEvaluationResult(evaluationResult);
         }
 
