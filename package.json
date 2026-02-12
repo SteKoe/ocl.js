@@ -45,7 +45,7 @@
   "homepage": "https://github.com/SteKoe/ocl.js#readme",
   "license": "MIT",
   "devDependencies": {
-    "@types/chai": "^4.2.18",
+    "@types/chai": "^5.0.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "8.55.0",
