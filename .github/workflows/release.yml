@@ -1,11 +1,7 @@
-name: build
+name: release
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   build:
@@ -30,3 +26,9 @@ jobs:
         run: npm run test
       - name: Build
         run: npm run build
+
+      - name: Release
+        run: npx semantic-release --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
