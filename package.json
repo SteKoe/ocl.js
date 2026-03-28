@@ -39,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:SteKoe/ocl.js.git"
+    "url": "git+ssh://git@github.com/SteKoe/ocl.js.git"
   },
   "author": "Stephan Köninger <ocl.js@stekoe.de>",
   "homepage": "https://github.com/SteKoe/ocl.js#readme",
