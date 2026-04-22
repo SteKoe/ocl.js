@@ -62,6 +62,6 @@
     "ts-lint": "^4.5.1",
     "tslint-loader": "^3.6.0",
     "tsx": "^4.20.3",
-    "typescript": "^5.5.3"
+    "typescript": "^6.0.0"
   }
 }
