@@ -1,6 +1,6 @@
 import { FixtureFactory } from '../fixture.factory';
 import { OclEngine } from '../../lib';
-import { expect } from 'chai';
+import { expect } from 'vitest';
 
 describe('enumeration', () => {
     const Gender = {
@@ -25,14 +25,14 @@ describe('enumeration', () => {
         oclEngine.addOclExpression('context Person inv: self.gender = Gender::FEMALE');
         const oclResult = oclEngine.evaluate(mother);
         const result = oclResult.getResult();
-        expect(result).to.be.true;
+        expect(result).toBe(true);
     });
 
     it('should return false when addressing non existing enum key', () => {
         oclEngine.addOclExpression('context Person inv: self.gender = Gender::NONE');
         const oclResult = oclEngine.evaluate(mother);
         const result = oclResult.getResult();
-        expect(result).to.be.false;
+        expect(result).toBe(false);
     });
 
     it('should return false when addressing escaped property', () => {
@@ -41,7 +41,7 @@ describe('enumeration', () => {
         oclEngine.addOclExpression("context Person inv: self.gender = Gender::_'GENDER-FEMALE'");
         const oclResult = oclEngine.evaluate(mother);
         const result = oclResult.getResult();
-        expect(result).to.be.true;
+        expect(result).toBe(true);
     });
 
     it('should return false when addressing escaped property 2', () => {
@@ -49,20 +49,21 @@ describe('enumeration', () => {
         oclEngine.addOclExpression('context Person inv: self.gender = Gender::_"GENDER-FEMALE"');
         const oclResult = oclEngine.evaluate(mother);
         const result = oclResult.getResult();
-        expect(result).to.be.true;
+        expect(result).toBe(true);
     });
 
     it('should return false when addressing non existing enum', () => {
         oclEngine.addOclExpression('context Person inv: self.gender = UnknownEnum::NONE');
         const oclResult = oclEngine.evaluate(mother);
         const result = oclResult.getResult();
-        expect(result).to.be.false;
+        expect(result).toBe(false);
     });
 
     it('should return false when value does not match, but exists', () => {
         oclEngine.addOclExpression('context Person inv: self.gender = Gender::MALE');
         const oclResult = oclEngine.evaluate(mother);
         const result = oclResult.getResult();
-        expect(result).to.be.false;
+        expect(result).toBe(false);
     });
 });
+

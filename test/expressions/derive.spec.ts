@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { Job, Person } from '../fixture.factory';
 import { expectOclRuleValidatesToTrue } from '../matcher';
 
@@ -7,7 +7,7 @@ describe('derive', () => {
         const obj = new Person();
         const oclExpression = 'context Person::age : Integer derive: 12';
         expectOclRuleValidatesToTrue(oclExpression, obj);
-        expect(obj.age).to.equal(12);
+        expect(obj.age).toBe(12);
     });
 
     it('derive wins over init', () => {
@@ -19,14 +19,14 @@ describe('derive', () => {
             `;
 
         expectOclRuleValidatesToTrue(oclExpression, person);
-        expect(person.age).to.equal(12);
+        expect(person.age).toBe(12);
     });
 
     it('derive using if', () => {
         const person = new Person(12);
         const oclExpression = 'context Person::income : Integer derive: if age < 18 then 15 else 10000 endif';
         expectOclRuleValidatesToTrue(oclExpression, person);
-        expect(person.income).to.equal(15);
+        expect(person.income).toBe(15);
     });
 
     it('derive using if complex', () => {
@@ -46,7 +46,7 @@ describe('derive', () => {
 
         const oclExpression = 'context Person::income : Integer derive: if age < 18 then self.parents.jobs.salary->sum() * 0.02 / 12 else self.jobs.salary->sum() endif';
         expectOclRuleValidatesToTrue(oclExpression, child);
-        expect(child.income).to.equal(60);
+        expect(child.income).toBe(60);
 
         // Now the children finally gets a job and is over 18 years old
         const jobChild = new Job();
@@ -55,6 +55,7 @@ describe('derive', () => {
         child.age = 23;
         child.jobs.push(jobChild);
         expectOclRuleValidatesToTrue(oclExpression, child);
-        expect(child.income).to.equal(17000);
+        expect(child.income).toBe(17000);
     });
 });
+

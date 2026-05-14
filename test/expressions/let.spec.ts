@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { OclEngine } from '../../lib';
 import { expectOclRuleValidatesToTrue } from '../matcher';
 
@@ -11,27 +11,27 @@ describe('let', () => {
 
     it('sets variable in specific expression 1', () => {
         const result = oclEngine.evaluateQuery({}, oclEngine.createQuery('let anObject : String = null in anObject.oclIsUndefined()'));
-        expect(result).to.equal(true);
+        expect(result).toBe(true);
     });
 
     it('sets variable in specific expression 2', () => {
         const result = oclEngine.evaluateQuery({}, oclEngine.createQuery('let anObject : String = undefined in anObject.oclIsUndefined()'));
-        expect(result).to.equal(true);
+        expect(result).toBe(true);
     });
 
     it('sets variable in specific expression 3', () => {
         const result = oclEngine.evaluateQuery({}, oclEngine.createQuery('let anObject : String = \'null\' in anObject.oclIsUndefined()'));
-        expect(result).to.equal(false);
+        expect(result).toBe(false);
     });
 
     it('sets variable in specific expression without type 1', () => {
         const result = oclEngine.evaluateQuery({}, oclEngine.createQuery('let anObject = null in anObject.oclIsUndefined()'));
-        expect(result).to.equal(true);
+        expect(result).toBe(true);
     });
 
     it('sets variable in specific expression without type 2 ', () => {
         const result = oclEngine.evaluateQuery({}, oclEngine.createQuery('let anObject = \'null\' in anObject.oclIsUndefined()'));
-        expect(result).to.equal(false);
+        expect(result).toBe(false);
     });
 
     it('meeting', () => {
@@ -78,3 +78,4 @@ class Participant {
         return this;
     }
 }
+

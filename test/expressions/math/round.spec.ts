@@ -1,5 +1,5 @@
 import { OclEngine } from '../../../lib';
-import { expect } from 'chai';
+import { expect } from 'vitest';
 
 describe('Math.round', () => {
     let oclEngine;
@@ -10,15 +10,16 @@ describe('Math.round', () => {
 
     it('should round a number', () => {
         let result = oclEngine.evaluateQuery({}, oclEngine.createQuery('2.3.round()'));
-        expect(result).to.equal(2);
+        expect(result).toBe(2);
 
         result = oclEngine.evaluateQuery({}, oclEngine.createQuery('2.5.round()'));
-        expect(result).to.equal(3);
+        expect(result).toBe(3);
 
         result = oclEngine.evaluateQuery({}, oclEngine.createQuery('2.8.round()'));
-        expect(result).to.equal(3);
+        expect(result).toBe(3);
 
         result = oclEngine.evaluateQuery({}, oclEngine.createQuery('2->round()'));
-        expect(result).to.equal(2);
+        expect(result).toBe(2);
     });
 });
+

@@ -1,5 +1,5 @@
 import { OclEngine } from '../../../lib';
-import { expect } from 'chai';
+import { expect } from 'vitest';
 
 describe('Math.div', () => {
     let oclEngine;
@@ -10,6 +10,7 @@ describe('Math.div', () => {
 
     it('should find quotient', () => {
         const result = oclEngine.evaluateQuery({}, oclEngine.createQuery('3.div(2)'));
-        expect(result).to.equal(1);
+        expect(result).toBe(1);
     });
 });
+

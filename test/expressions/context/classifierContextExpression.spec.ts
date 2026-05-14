@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { Person } from '../../fixture.factory';
 import { OclEngine } from '../../../lib';
 
@@ -17,6 +17,7 @@ describe('ContextExpression', () => {
 
         const oclResult = oclEngine.evaluate(new Person(42));
         const result = oclResult.getResult();
-        expect(result).to.be.true;
+        expect(result).toBe(true);
     });
 });
+

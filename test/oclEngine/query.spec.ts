@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { OclEngine } from '../../lib';
 import { Job, Person } from '../fixture.factory';
 
@@ -13,7 +13,7 @@ describe('OclQuery', () => {
         const expression = oclEngine.createQuery('self.age');
 
         const result = oclEngine.evaluateQuery(new Person(42), expression);
-        expect(result).to.equal(42);
+        expect(result).toBe(42);
     });
 
     it('should be able to process complex queries', () => {
@@ -33,14 +33,15 @@ describe('OclQuery', () => {
 
         let expression = oclEngine.createQuery('self.parents.jobs.salary');
         let result = oclEngine.evaluateQuery(child, expression);
-        expect(result).to.eql([17000, 19000]);
+        expect(result).toStrictEqual([17000, 19000]);
 
         expression = oclEngine.createQuery('self.parents.jobs.salary->sum()');
         result = oclEngine.evaluateQuery(child, expression);
-        expect(result).to.eql(36000);
+        expect(result).toStrictEqual(36000);
 
         expression = oclEngine.createQuery('self.parents.jobs.salary->sum() = 36000');
         result = oclEngine.evaluateQuery(child, expression);
-        expect(result).to.be.true;
+        expect(result).toBe(true);
     });
 });
+

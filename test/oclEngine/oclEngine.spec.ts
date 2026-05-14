@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { OclEngine } from '../../lib';
 import { FixtureFactory, MetaAssociationLink, MetaEntity } from '../fixture.factory';
 
@@ -24,7 +24,7 @@ describe('OclEngine', () => {
             .addOclExpression(rule_ifTypeImpliesIntrinsic)
             .evaluate(metaEntity)
             .getResult();
-        expect(result).to.be.true;
+        expect(result).toBe(true);
     });
 
     it('should evaluate oclExpression for given instance data when one is invalid.', () => {
@@ -44,7 +44,7 @@ describe('OclEngine', () => {
             new MetaAssociationLink('roleA')
         ];
 
-        expect(oclEngine.evaluate(metaEntity).getResult()).to.be.false;
+        expect(oclEngine.evaluate(metaEntity).getResult()).toBe(false);
     });
 
     it('should allow to set names for expressions', () => {
@@ -65,8 +65,8 @@ describe('OclEngine', () => {
         ];
 
         const evaluationResult = oclEngine.evaluate(metaEntity);
-        expect(evaluationResult.getResult()).to.be.false;
-        expect(evaluationResult.getNamesOfFailedInvs()).to.contain('linkNamesMustBeUnique');
+        expect(evaluationResult.getResult()).toBe(false);
+        expect(evaluationResult.getNamesOfFailedInvs()).toContain('linkNamesMustBeUnique');
     });
 
     it('should allow to add multiple constraints as array', () => {
@@ -86,14 +86,14 @@ describe('OclEngine', () => {
         try {
             oclEngine.addOclExpressions(oclConstraints);
         } catch (e) {
-            expect(e.oclExpression).to.eql(oclConstraints[1]);
+            expect(e.oclExpression).toStrictEqual(oclConstraints[1]);
         }
     });
 
     describe('_inferType', () => {
         let oclEngine;
 
-        before(() => {
+        beforeAll(() => {
             oclEngine = OclEngine.create();
         });
 
@@ -101,28 +101,28 @@ describe('OclEngine', () => {
             let actual;
 
             actual = oclEngine._inferType({});
-            expect(actual, '{}').to.equal('Object');
+            expect(actual, '{}').toBe('Object');
 
             actual = oclEngine._inferType('i am a string');
-            expect(actual, 'i am a string').to.be.undefined;
+            expect(actual, 'i am a string').toBeUndefined();
 
             actual = oclEngine._inferType(1);
-            expect(actual, '1').to.be.undefined;
+            expect(actual, '1').toBeUndefined();
 
             actual = oclEngine._inferType(FixtureFactory.createPerson('Stephan', 30));
-            expect(actual, 'Person').to.equal('Person');
+            expect(actual, 'Person').toBe('Person');
         });
 
         it('infers types based on custom TypeDeterminer', () => {
             let actual;
 
             actual = oclEngine._inferType({type: 'Edge'});
-            expect(actual).to.equal('Object');
+            expect(actual).toBe('Object');
 
             oclEngine.setTypeDeterminer(obj => obj.type);
 
             actual = oclEngine._inferType({type: 'Edge'});
-            expect(actual).to.equal('Edge');
+            expect(actual).toBe('Edge');
 
             OclEngine.Utils.typeDeterminerFn = undefined;
         });
@@ -148,8 +148,8 @@ describe('OclEngine', () => {
             ];
 
             const evaluationResult = oclEngine.evaluate(metaEntity);
-            expect(evaluationResult.getResult()).to.be.false;
-            expect(evaluationResult.getNamesOfFailedInvs()).to.contain('linkNamesMustBeUnique');
+            expect(evaluationResult.getResult()).toBe(false);
+            expect(evaluationResult.getNamesOfFailedInvs()).toContain('linkNamesMustBeUnique');
         });
 
         it('should allow to add multiple constraints as string', () => {
@@ -171,8 +171,8 @@ describe('OclEngine', () => {
             ];
 
             const evaluationResult = oclEngine.evaluate(metaEntity);
-            expect(evaluationResult.getResult()).to.be.false;
-            expect(evaluationResult.getNamesOfFailedInvs()).to.contain('linkNamesMustBeUnique');
+            expect(evaluationResult.getResult()).toBe(false);
+            expect(evaluationResult.getNamesOfFailedInvs()).toContain('linkNamesMustBeUnique');
         });
 
         it('should allow to remove OclExpressions', () => {
@@ -187,10 +187,10 @@ describe('OclEngine', () => {
             oclEngine.addOclExpression('context Object inv: 1 = 1');
             oclEngine.addOclExpression('context Object inv: 2 = 2');
             oclEngine.addOclExpression(oclConstraint);
-            expect(oclEngine.packageDeclarations.length).to.equal(3);
+            expect(oclEngine.packageDeclarations.length).toBe(3);
 
             oclEngine.removeOclExpression(oclConstraint);
-            expect(oclEngine.packageDeclarations.length).to.equal(2);
+            expect(oclEngine.packageDeclarations.length).toBe(2);
         });
 
         it('should allow to clear all OclExpressions', () => {
@@ -205,10 +205,11 @@ describe('OclEngine', () => {
             oclEngine.addOclExpression('context Object inv: 1 = 1');
             oclEngine.addOclExpression('context Object inv: 2 = 2');
             oclEngine.addOclExpression(oclConstraint);
-            expect(oclEngine.packageDeclarations.length).to.equal(3);
+            expect(oclEngine.packageDeclarations.length).toBe(3);
 
             oclEngine.clearAllOclExpressions();
-            expect(oclEngine.packageDeclarations.length).to.equal(0);
+            expect(oclEngine.packageDeclarations.length).toBe(0);
         });
     });
 });
+

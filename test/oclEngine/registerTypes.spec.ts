@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { OclEngine } from '../../lib';
 import { Person } from '../fixture.factory';
 import { OclParser } from '../../lib/components/parser/OclParser';
@@ -19,6 +19,7 @@ describe('OclEngine', () => {
 
         const oclResult = oclEngine.evaluate(new Person());
         const result = oclResult.getResult();
-        expect(result).to.be.true;
+        expect(result).toBe(true);
     });
 });
+

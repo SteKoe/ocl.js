@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { Dog, FixtureFactory, Human, Person } from '../fixture.factory';
 import { OclParser } from '../../lib/components/parser/OclParser';
 import { OclExecutionContext } from '../../lib/components/OclExecutionContext';
@@ -7,14 +7,14 @@ function expectTrue(oclExpression, visitor): void {
     OclParser.parse(oclExpression)
         .evaluate(visitor);
 
-    expect(visitor.evaluationResult).to.be.true;
+    expect(visitor.evaluationResult).toBe(true);
 }
 
 function expectFalse(oclExpression, visitor): void {
     OclParser.parse(oclExpression)
         .evaluate(visitor);
 
-    expect(visitor.evaluationResult).to.be.false;
+    expect(visitor.evaluationResult).toBe(false);
 }
 
 describe('oclIsKindOf', () => {
@@ -46,3 +46,4 @@ describe('oclIsKindOf', () => {
         expectFalse(oclExpression, visitor);
     });
 });
+

@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { OclParser } from '../../lib/components/parser/OclParser';
 
 describe('Comments', () => {
@@ -9,7 +9,7 @@ describe('Comments', () => {
                 self.children->exists(c|c.age > 20)
         `;
 
-        expect(() => OclParser.parse(oclExpression)).not.to.throw();
+        expect(() => OclParser.parse(oclExpression)).not.toThrow();
     });
 
     it('should be allowed using -- for single line comments inside context', () => {
@@ -19,7 +19,7 @@ describe('Comments', () => {
                 inv: self.children->exists(c|c.age > 20)
         `;
 
-        expect(() => OclParser.parse(oclExpression)).not.to.throw();
+        expect(() => OclParser.parse(oclExpression)).not.toThrow();
     });
 
     it('should fail when using -- containing breaks', () => {
@@ -30,6 +30,7 @@ describe('Comments', () => {
                 self.children->exists(c|c.age > 20)
         `;
 
-        expect(() => OclParser.parse(oclExpression)).to.throw();
+        expect(() => OclParser.parse(oclExpression)).toThrow();
     });
 });
+

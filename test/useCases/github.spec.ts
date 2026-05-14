@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { OclEngine } from '../../lib';
 
 describe('UseCase', () => {
@@ -27,11 +27,12 @@ describe('UseCase', () => {
             `);
 
             let evaluationResult = oclEngine.evaluate(voterId);
-            expect(evaluationResult.getResult()).to.be.false;
+            expect(evaluationResult.getResult()).toBe(false);
 
             voterId.OtherType = VoterIdType.someVoterIdType;
             evaluationResult = oclEngine.evaluate(voterId);
-            expect(evaluationResult.getResult()).to.be.true;
+            expect(evaluationResult.getResult()).toBe(true);
         });
     });
 });
+

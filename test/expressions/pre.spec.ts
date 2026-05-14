@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { Person } from '../fixture.factory';
 import { OclEngine } from '../../lib';
 
@@ -20,7 +20,7 @@ describe('pre', () => {
 
         const person = new Person(42);
         person.setDead();
-        expect(() => person.setDead()).to.throw('A precondition failed on type Person');
+        expect(() => person.setDead()).toThrow('A precondition failed on type Person');
     });
 
     it('should throw an error, when a precondition fails using parameters', () => {
@@ -31,6 +31,7 @@ describe('pre', () => {
 
         const person = new Person(42);
         person.setAge(22);
-        expect(() => person.setAge(-12)).to.throw('A precondition failed on type Person');
+        expect(() => person.setAge(-12)).toThrow('A precondition failed on type Person');
     });
 });
+

@@ -1,15 +1,15 @@
-import {expect} from 'chai';
+import {expect} from 'vitest';
 import {OclParser} from '../lib/components/parser/OclParser';
 import {OclExecutionContext} from '../lib/components/OclExecutionContext';
 
 export function expectOclRuleValidatesToTrue(oclExpression: string, obj?: any): void {
     const visitor = _parseAndEvaluate(oclExpression, obj);
-    expect(visitor.getEvaluationResult(), oclExpression).to.be.true;
+    expect(visitor.getEvaluationResult(), oclExpression).toBe(true);
 }
 
 export function expectOclRuleValidatesToFalse(oclExpression: string, obj?: any): void {
     const visitor = _parseAndEvaluate(oclExpression, obj);
-    expect(visitor.getEvaluationResult()).to.be.false;
+    expect(visitor.getEvaluationResult()).toBe(false);
 }
 
 // ===

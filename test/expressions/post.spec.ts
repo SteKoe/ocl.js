@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from 'vitest';
 import { Person } from '../fixture.factory';
 import { OclEngine } from '../../lib';
 
@@ -32,6 +32,7 @@ describe('post', () => {
         person.getAge();
 
         person.setAge(42);
-        expect(() => person.getAge()).to.throw('A postcondition failed on type Person');
+        expect(() => person.getAge()).toThrow('A postcondition failed on type Person');
     });
 });
+
