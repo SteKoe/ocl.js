@@ -3,9 +3,17 @@
   "version": "1.5.0-SNAPSHOT",
   "description": "Object Constraint Language parser written in JavaScript.",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "typings": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
   "scripts": {
-    "build": "npm run clean && npm run test && npx tsc",
+    "build": "npm run clean && npm run test && tsup",
     "build:examples": "npm run build:examples:node.js && npm run build:examples:typescript",
     "clean": "npm run clean:dist && npm run clean:examples",
     "clean:dist": "npx rimraf -- dist",
@@ -40,6 +48,7 @@
     "semantic-release": "25.0.3",
     "ts-lint": "^4.5.1",
     "tslint-loader": "^3.6.0",
+    "tsup": "8.5.1",
     "tsx": "^4.20.3",
     "typescript": "^5.5.3",
     "vitest": "4.1.6"
