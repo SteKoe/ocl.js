@@ -16,7 +16,6 @@ export abstract class LiteralExpression<T> extends Expression {
     protected abstract parseValue(value): T;
 
     evaluate(visitor: OclExecutionContext): T {
-        console.warn('LiteralExpression.evaluate() should not be called directly. Use getValue() instead.');
         return visitor.setEvaluatedValue(this, this.getValue());
     }
 }
