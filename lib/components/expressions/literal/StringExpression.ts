@@ -3,7 +3,7 @@ import { LiteralExpression } from './LiteralExpression';
 /**
  */
 export class StringExpression extends LiteralExpression<string> {
-    parseValue(value): string {
-        return value.replace(/"|'/g, '');
+    parseValue(value: any): string {
+        return value.replaceAll(/["']/g, '');
     }
 }
