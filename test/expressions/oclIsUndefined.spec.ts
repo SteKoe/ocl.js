@@ -17,7 +17,6 @@ describe('oclIsUndefined', () => {
     it('should return true if is null', () => {
         const oclExpression = 'context Person inv: self.gender.oclIsUndefined()';
 
-        // tslint:disable-next-line:no-null-keyword
         mother.gender = null;
         expectOclRuleValidatesToTrue(oclExpression, mother);
     });

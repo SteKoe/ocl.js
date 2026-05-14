@@ -15,7 +15,6 @@ export class OperationCallExpression extends LeftRightBasedExpression {
     evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
         const {left, right} = this._evaluateLeftRightExpression(visitor, localVariables);
 
-        // tslint:disable-next-line:switch-default
         switch (this.operator) {
             case Operator.NOT_EQUAL:
                 return visitor.setEvaluatedValue(this, left !== right);
