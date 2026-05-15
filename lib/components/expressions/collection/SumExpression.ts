@@ -1,6 +1,6 @@
-import { OclExecutionContext } from '../../OclExecutionContext';
-import {SourceBasedExpression} from "../SourceBasedExpression";
-import {LocalVariables} from "../../types";
+import { OclExecutionContext } from '@/OclExecutionContext';
+import {SourceBasedExpression} from "@/expressions/SourceBasedExpression";
+import {LocalVariables} from "@/types";
 
 /**
  * Returns the sum of all elements contained in self if they support the '+' operation.

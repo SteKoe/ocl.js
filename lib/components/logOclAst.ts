@@ -1,5 +1,5 @@
-import {OclExecutionContext} from "./OclExecutionContext";
-import {Expression} from "./expressions";
+import {OclExecutionContext} from "@/OclExecutionContext";
+import {Expression} from "@/expressions";
 
 /**
  * Recursively prints a JSON object as an ASCII tree structure to the console,

@@ -1,6 +1,6 @@
-import {OclExecutionContext} from '../../OclExecutionContext';
-import {IteratorExpression} from "../IteratorExpression";
-import {LocalVariables} from "../../types";
+import {OclExecutionContext} from '@/OclExecutionContext';
+import {IteratorExpression} from "@/expressions/IteratorExpression";
+import {LocalVariables} from "@/types";
 
 /**
  * Operation which checks whether a collection contains an element specified by expr.

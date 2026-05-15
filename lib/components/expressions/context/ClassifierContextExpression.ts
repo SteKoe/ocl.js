@@ -1,7 +1,7 @@
-import {InvariantExpression} from '../InvariantExpression';
-import {DefExpression} from '../DefExpression';
-import {OclExecutionContext} from '../../OclExecutionContext';
-import {LocalVariables} from '../../types';
+import {InvariantExpression} from '@/expressions/InvariantExpression';
+import {DefExpression} from '@/expressions/DefExpression';
+import {OclExecutionContext} from '@/OclExecutionContext';
+import {LocalVariables} from '@/types';
 
 import {ContextExpression} from './ContextExpression';
 

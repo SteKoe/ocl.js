@@ -1,5 +1,5 @@
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { LocalVariables } from '../../types';
+import { OclExecutionContext } from '@/OclExecutionContext';
+import { LocalVariables } from '@/types';
 import {BodyBasedExpression} from "../BodyBasedExpression";
 import {Expression} from "../Expression";
 

@@ -1,5 +1,5 @@
-import * as Expressions from '../expressions';
-import { TypeRegistry, EnumRegistry } from '../types';
+import * as Expressions from '@/expressions';
+import { TypeRegistry, EnumRegistry } from '@/types';
 import { OclRecursiveDescentParser } from './OclRecursiveDescentParser';
 
 const parser = new OclRecursiveDescentParser();

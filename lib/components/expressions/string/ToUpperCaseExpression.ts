@@ -1,6 +1,6 @@
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { LocalVariables } from '../../types';
-import {SourceBasedExpression} from "../SourceBasedExpression";
+import { OclExecutionContext } from '@/OclExecutionContext';
+import { LocalVariables } from '@/types';
+import {SourceBasedExpression} from "@/expressions/SourceBasedExpression";
 
 /**
  * Returns *self* into upper case string.

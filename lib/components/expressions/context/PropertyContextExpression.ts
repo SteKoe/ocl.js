@@ -1,9 +1,9 @@
-import { InitExpression } from '../InitExpression';
-import { DeriveExpression } from '../DeriveExpression';
-import { Utils } from '../../Utils';
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { DefExpression } from '../DefExpression';
-import { LocalVariables } from '../../types';
+import { InitExpression } from '@/expressions/InitExpression';
+import { DeriveExpression } from '@/expressions/DeriveExpression';
+import { Utils } from '@/Utils';
+import { OclExecutionContext } from '@/OclExecutionContext';
+import { DefExpression } from '@/expressions/DefExpression';
+import { LocalVariables } from '@/types';
 
 import { ContextExpression } from './ContextExpression';
 

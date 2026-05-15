@@ -1,6 +1,6 @@
-import { Expression } from '../Expression';
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { LocalVariables } from '../../types';
+import { Expression } from '@/expressions/Expression';
+import { OclExecutionContext } from '@/OclExecutionContext';
+import { LocalVariables } from '@/types';
 
 export abstract class ContextExpression extends Expression {
     protected targetType!: string;

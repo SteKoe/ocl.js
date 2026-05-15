@@ -1,5 +1,5 @@
-import {OclExecutionContext} from "../OclExecutionContext";
-import {LocalVariables, SourceBodyResult} from "../types";
+import {OclExecutionContext} from "@/OclExecutionContext";
+import {LocalVariables, SourceBodyResult} from "@/types";
 import {Expression} from "./Expression";
 import {SourceBasedExpression} from "./SourceBasedExpression";
 

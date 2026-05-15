@@ -1,6 +1,6 @@
-import { OclExecutionContext } from '../../OclExecutionContext';
-import {SourceBasedExpression} from "../SourceBasedExpression";
-import { LocalVariables } from '../../types';
+import { OclExecutionContext } from '@/OclExecutionContext';
+import {SourceBasedExpression} from "@/expressions/SourceBasedExpression";
+import { LocalVariables } from '@/types';
 
 /**
  * | A     | NOT A |

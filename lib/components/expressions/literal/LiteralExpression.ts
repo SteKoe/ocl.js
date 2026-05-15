@@ -1,6 +1,6 @@
-import {Expression} from '../Expression';
-import {OclExecutionContext} from "../../OclExecutionContext";
-import {LocalVariables} from "../../types";
+import {Expression} from '@/expressions/Expression';
+import {OclExecutionContext} from "@/OclExecutionContext";
+import {LocalVariables} from "@/types";
 
 export abstract class LiteralExpression<T> extends Expression {
     private readonly value: T;

@@ -1,4 +1,4 @@
-import { OclExecutionContext } from '../OclExecutionContext';
+import { OclExecutionContext } from '@/OclExecutionContext';
 
 import { Expression } from './Expression';
 import {SourceBasedExpression} from "./SourceBasedExpression";

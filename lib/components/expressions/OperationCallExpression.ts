@@ -1,5 +1,5 @@
-import {OclExecutionContext} from '../OclExecutionContext';
-import {LocalVariables} from '../types';
+import {OclExecutionContext} from '@/OclExecutionContext';
+import {LocalVariables} from '@/types';
 
 import {Expression} from './Expression';
 import {LeftRightBasedExpression} from './LeftRightBasedExpression';

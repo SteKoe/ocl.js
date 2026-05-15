@@ -1,6 +1,6 @@
 import { LiteralExpression } from './LiteralExpression';
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { LocalVariables } from '../../types';
+import { OclExecutionContext } from '@/OclExecutionContext';
+import { LocalVariables } from '@/types';
 
 /**
  */

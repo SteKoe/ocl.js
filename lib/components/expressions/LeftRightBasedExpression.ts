@@ -1,5 +1,5 @@
-import {OclExecutionContext} from '../OclExecutionContext';
-import {LocalVariables, LeftRightResult} from '../types';
+import {OclExecutionContext} from '@/OclExecutionContext';
+import {LocalVariables, LeftRightResult} from '@/types';
 import {Expression} from './Expression';
 
 export abstract class LeftRightBasedExpression extends Expression {

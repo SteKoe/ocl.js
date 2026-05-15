@@ -1,6 +1,6 @@
-import { OclExecutionContext } from '../../OclExecutionContext';
-import {BodyBasedExpression} from "../BodyBasedExpression";
-import {LocalVariables} from "../../types";
+import { OclExecutionContext } from '@/OclExecutionContext';
+import {BodyBasedExpression} from "@/expressions/BodyBasedExpression";
+import {LocalVariables} from "@/types";
 
 /**
  * Returns a collection containing all elements of self and all elements of the passed in collection.

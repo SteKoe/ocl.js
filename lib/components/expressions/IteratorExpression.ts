@@ -1,6 +1,6 @@
-import {OclExecutionContext} from "../OclExecutionContext";
-import {LocalVariables} from "../types";
-import {Utils} from "../Utils";
+import {OclExecutionContext} from "@/OclExecutionContext";
+import {LocalVariables} from "@/types";
+import {Utils} from "@/Utils";
 
 import {BodyBasedExpression} from "./BodyBasedExpression";
 

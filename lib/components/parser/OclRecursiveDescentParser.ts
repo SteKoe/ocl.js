@@ -1,14 +1,14 @@
 import { Lexer, Token, TokenType } from './Lexer';
-import * as Expressions from '../expressions';
-import { Operator } from '../expressions/OperationCallExpression';
-import { ContextExpression } from '../expressions/context/ContextExpression';
-import { InvariantExpression } from '../expressions/InvariantExpression';
-import { DefExpression } from '../expressions/DefExpression';
-import { InitExpression } from '../expressions/InitExpression';
-import { DeriveExpression } from '../expressions/DeriveExpression';
-import { PreExpression } from '../expressions/PreExpression';
-import { PostExpression } from '../expressions/PostExpression';
-import { Utils } from '../Utils';
+import * as Expressions from '@/expressions';
+import { Operator } from '@/expressions/OperationCallExpression';
+import { ContextExpression } from '@/expressions/context/ContextExpression';
+import { InvariantExpression } from '@/expressions/InvariantExpression';
+import { DefExpression } from '@/expressions/DefExpression';
+import { InitExpression } from '@/expressions/InitExpression';
+import { DeriveExpression } from '@/expressions/DeriveExpression';
+import { PreExpression } from '@/expressions/PreExpression';
+import { PostExpression } from '@/expressions/PostExpression';
+import { Utils } from '@/Utils';
 
 /**
  * Operator precedence levels for Pratt parsing

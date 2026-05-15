@@ -1,8 +1,8 @@
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { OclValidationError } from '../../OclValidationError';
-import { PreExpression } from '../PreExpression';
-import { PostExpression } from '../PostExpression';
-import { TypeRegistry } from '../../types';
+import { OclExecutionContext } from '@/OclExecutionContext';
+import { OclValidationError } from '@/OclValidationError';
+import { PreExpression } from '@/expressions/PreExpression';
+import { PostExpression } from '@/expressions/PostExpression';
+import { TypeRegistry } from '@/types';
 
 import { ContextExpression } from './ContextExpression';
 

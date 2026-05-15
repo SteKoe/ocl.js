@@ -1,6 +1,6 @@
-import { LeftRightBasedExpression } from '../LeftRightBasedExpression';
-import { OclExecutionContext } from '../../OclExecutionContext';
-import { LocalVariables } from '../../types';
+import { LeftRightBasedExpression } from '@/expressions/LeftRightBasedExpression';
+import { OclExecutionContext } from '@/OclExecutionContext';
+import { LocalVariables } from '@/types';
 
 /**
  * Power
