@@ -3,6 +3,8 @@ export * from './AppendExpression';
 export * from './AsSetExpression';
 export * from './AtExpression';
 export * from './CollectExpression';
+export * from './ExcludesAllExpression';
+export * from './ExcludesExpression';
 export * from './ExistsExpression';
 export * from './FirstExpression';
 export * from './ForAllExpression';
