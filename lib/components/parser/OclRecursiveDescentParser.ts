@@ -615,6 +615,16 @@ export class OclRecursiveDescentParser {
         source: Expressions.Expression,
         params?: Expressions.Expression[]
     ): Expressions.Expression {
+        // Special handling for 'at' operation which exists for both String and Collection
+        // Use AtDispatchExpression to resolve at runtime based on source type
+        if (fn === 'at') {
+            const expr = new Expressions.AtDispatchExpression(source);
+            if (params && params.length > 0) {
+                expr.setBody(params[0]);
+            }
+            return expr;
+        }
+
         const expressionTypeName = Utils.ucfirst(fn) + 'Expression';
         const ExpressionType = (Expressions as any)[expressionTypeName];
         const typeExists = typeof ExpressionType === 'function';

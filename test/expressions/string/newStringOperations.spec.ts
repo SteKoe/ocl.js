@@ -65,11 +65,7 @@ describe('String Operations - New Features', () => {
         });
     });
 
-    describe.skip('String.at() - NOT IMPLEMENTED', () => {
-        // NOTE: String.at() conflicts with Collection.at() in the OCL parser
-        // The parser cannot distinguish between string.at() and collection.at()
-        // This is a known limitation that would require parser modifications to resolve
-        
+    describe('String.at()', () => {
         let oclEngine: OclEngine;
 
         beforeEach(() => {
@@ -109,6 +105,19 @@ describe('String Operations - New Features', () => {
             const expression = oclEngine.createQuery('self.name.at(0)');
             const result = oclEngine.evaluateQuery(obj, expression);
             expect(result).toBe('');
+        });
+
+        it('should work with invariant expressions', () => {
+            const obj = { name: 'test' };
+            const oclExpression = 'context Object inv: self.name.at(1) = \'t\'';
+            expectOclRuleValidatesToTrue(oclExpression, obj);
+        });
+
+        it('should still work for collections', () => {
+            const obj = { items: ['a', 'b', 'c'] };
+            const expression = oclEngine.createQuery('self.items->at(2)');
+            const result = oclEngine.evaluateQuery(obj, expression);
+            expect(result).toBe('b');
         });
     });
 

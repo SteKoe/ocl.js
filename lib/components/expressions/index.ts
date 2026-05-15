@@ -5,6 +5,7 @@ export * from './literal';
 export * from './math';
 export * from './string';
 
+export * from './AtDispatchExpression';
 export * from './DeriveExpression';
 export * from './EnumerationExpression';
 export * from './Expression';
