@@ -1,6 +1,5 @@
 export * from './AbsExpression';
 export * from './AdditionExpression';
-export * from './AsStringExpression';
 export * from './CeilExpression';
 export * from './DivExpression';
 export * from './DivideExpression';
@@ -13,3 +12,4 @@ export * from './PowerExpression';
 export * from './RoundExpression';
 export * from './SqrtExpression';
 export * from './SubstractionExpression';
+export * from './ToStringExpression';

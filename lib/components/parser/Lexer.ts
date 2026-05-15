@@ -301,7 +301,8 @@ export class Lexer {
         }
 
         // Check if it's a keyword
-        const keywordType = KEYWORDS[value];
+        // Use hasOwnProperty to avoid prototype pollution (e.g., "toString", "valueOf")
+        const keywordType = Object.prototype.hasOwnProperty.call(KEYWORDS, value) ? KEYWORDS[value] : undefined;
         if (keywordType !== undefined) {
             return { type: keywordType, value, line: this.line, column: startColumn };
         }
