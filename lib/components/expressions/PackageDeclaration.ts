@@ -51,7 +51,7 @@ export class PackageDeclaration extends Expression {
 
             const evaluationResult = !contextsToVisit
                 .map(ctx => ctx.evaluate(visitor))
-                .some(inv => inv === false);
+                .includes(false);
 
             visitor.setEvaluatedValue(this, evaluationResult);
             visitor.setEvaluationResult(evaluationResult);

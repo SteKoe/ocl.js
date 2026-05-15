@@ -8,8 +8,8 @@ export function expectOclRuleValidatesToTrue(oclExpression: string, obj?: any): 
 }
 
 export function expectOclRuleValidatesToFalse(oclExpression: string, obj?: any): void {
-    const visitor = _parseAndEvaluate(oclExpression, obj);
-    expect(visitor.getEvaluationResult()).toBe(false);
+    const oclExecutionContext = _parseAndEvaluate(oclExpression, obj);
+    expect(oclExecutionContext.getEvaluationResult()).toBe(false);
 }
 
 // ===
