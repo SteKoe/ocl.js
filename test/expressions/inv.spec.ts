@@ -1,17 +1,33 @@
-import { OclParser } from '../../lib/components/parser/OclParser';
-import { ClassifierContextExpression } from '../../lib/components/expressions/context/ClassifierContextExpression';
+import { OclParser } from '@/parser/OclParser';
+import { ClassifierContextExpression } from '@/expressions';
 import { FixtureFactory, MetaAttribute } from '../fixture.factory';
 import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
 
 describe('inv', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);
 
-    it('should set name to "anonymous" when no name is provided', () => {
+    it('should derive name from expression when no name is provided', () => {
         const pkg = OclParser.parse('context Person inv: self.age > 0');
         const ctx = pkg.getContexts()[0] as ClassifierContextExpression;
         const inv = ctx.getInvs()[0];
 
-        expect(inv.getName()).toBe('anonymous');
+        expect(inv.getName()).toBe('age_greater_than_0');
+    });
+
+    it('should derive name with collection operations', () => {
+        const pkg = OclParser.parse('context Person inv: self.children->isEmpty()');
+        const ctx = pkg.getContexts()[0] as ClassifierContextExpression;
+        const inv = ctx.getInvs()[0];
+
+        expect(inv.getName()).toBe('children_IsEmpty');
+    });
+
+    it('should derive name with forAll iterator', () => {
+        const pkg = OclParser.parse('context Person inv: self.children->forAll(c | c.age > 0)');
+        const ctx = pkg.getContexts()[0] as ClassifierContextExpression;
+        const inv = ctx.getInvs()[0];
+
+        expect(inv.getName()).toBe('children_ForAll');
     });
 
     it('should use provided name when specified', () => {
