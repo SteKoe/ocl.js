@@ -3,19 +3,44 @@ import {LeftRightBasedExpression} from './expressions/LeftRightBasedExpression';
 import {ucfirst} from "../utils/ucfirst";
 import {hashCode} from "../utils/hashcode";
 
-export class Utils {
-    static typeDeterminerFn: (obj: any) => string;
+/**
+ * Type for a function that determines the type name of an object.
+ */
+export type TypeDeterminerFn = (obj: unknown) => string;
 
-    static getClassName(obj: any): string | undefined {
-        if (typeof Utils.typeDeterminerFn === 'function') {
-            return Utils.typeDeterminerFn(obj);
+export class Utils {
+    /**
+     * @deprecated This static field is deprecated and will be removed in a future version.
+     * Use OclEngine.setTypeDeterminer() or OclEngine.setMetamodelProvider() instead.
+     */
+    static typeDeterminerFn: TypeDeterminerFn | undefined;
+
+    /**
+     * Determines the class/type name of a given object.
+     *
+     * Resolution order:
+     * 1. If a typeDeterminerFn is provided, use it
+     * 2. If the object has a `typeName` property, return it
+     * 3. If the object is a function, parse its name from toString()
+     * 4. If the object is an object, parse its constructor name
+     * 5. Otherwise return undefined
+     *
+     * @param obj The object to determine the type of
+     * @param typeDeterminerFn Optional custom type determiner function
+     * @returns The type name as a string, or undefined if it cannot be determined
+     */
+    static getClassName(obj: unknown, typeDeterminerFn?: TypeDeterminerFn): string | undefined {
+        // Use provided function first, then fall back to deprecated static field for backward compat
+        const determiner = typeDeterminerFn ?? Utils.typeDeterminerFn;
+        if (typeof determiner === 'function') {
+            return determiner(obj);
         }
 
-        if (obj?.typeName) {
+        if (obj && typeof obj === 'object' && 'typeName' in obj && typeof obj.typeName === 'string') {
             return obj.typeName;
         } else if (typeof obj === 'function') {
             return Utils._getFunctionName(obj.toString());
-        } else if (typeof obj === 'object') {
+        } else if (obj && typeof obj === 'object') {
             return Utils._getFunctionName(obj.constructor.toString());
         }
 

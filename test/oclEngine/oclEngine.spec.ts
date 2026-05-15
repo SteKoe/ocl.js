@@ -114,17 +114,17 @@ describe('OclEngine', () => {
         });
 
         it('infers types based on custom TypeDeterminer', () => {
+            // Create a fresh engine for this test to avoid polluting shared state
+            const localEngine = OclEngine.create();
             let actual;
 
-            actual = oclEngine._inferType({type: 'Edge'});
+            actual = localEngine._inferType({type: 'Edge'});
             expect(actual).toBe('Object');
 
-            oclEngine.setTypeDeterminer(obj => obj.type);
+            localEngine.setTypeDeterminer(obj => obj.type);
 
-            actual = oclEngine._inferType({type: 'Edge'});
+            actual = localEngine._inferType({type: 'Edge'});
             expect(actual).toBe('Edge');
-
-            OclEngine.Utils.typeDeterminerFn = undefined;
         });
 
         it('should allow to add multiple constraints as array', () => {

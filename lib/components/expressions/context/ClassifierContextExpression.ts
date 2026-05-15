@@ -39,19 +39,28 @@ export class ClassifierContextExpression extends ContextExpression {
 
         if (accept === false) {
             return false;
-        } else {
-            const targetTypeName = visitor.getTargetTypeName();
-            if (!targetTypeName) {
-                return false;
-            }
-            const visitorTargetType = visitor.getRegisteredType(targetTypeName) ?? targetTypeName;
-            const expressionTargetType = visitor.getRegisteredType(this.targetType) ?? this.targetType;
+        }
 
-            if (typeof visitorTargetType === 'string' || typeof expressionTargetType === 'string') {
-                return this.targetType === targetTypeName;
-            } else {
-                return visitorTargetType instanceof expressionTargetType || visitorTargetType === expressionTargetType;
-            }
+        const targetTypeName = visitor.getTargetTypeName();
+        if (!targetTypeName) {
+            return false;
+        }
+
+        // If metamodel provider is configured, use it for type matching
+        // Context matching uses isKindOf semantics (subtype should match parent context)
+        if (visitor.hasMetamodelProvider()) {
+            const obj = visitor.getObjectToEvaluate();
+            return visitor.isKindOf(obj, this.targetType);
+        }
+
+        // Fallback to original behavior
+        const visitorTargetType = visitor.getRegisteredType(targetTypeName) ?? targetTypeName;
+        const expressionTargetType = visitor.getRegisteredType(this.targetType) ?? this.targetType;
+
+        if (typeof visitorTargetType === 'string' || typeof expressionTargetType === 'string') {
+            return this.targetType === targetTypeName;
+        } else {
+            return visitorTargetType instanceof expressionTargetType || visitorTargetType === expressionTargetType;
         }
     }
 

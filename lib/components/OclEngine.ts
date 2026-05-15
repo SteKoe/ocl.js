@@ -5,6 +5,20 @@ import { Utils } from './Utils';
 import { OclExecutionContext } from './OclExecutionContext';
 import { Expression, PackageDeclaration } from './expressions';
 import { OclResult } from './OclResult';
+import { IMetamodelProvider } from './IMetamodelProvider';
+import { TypeRegistry, EnumRegistry } from './types';
+
+/**
+ * Default built-in types that are always available for instanceof checking.
+ */
+const DEFAULT_TYPES: TypeRegistry = {
+    Array,
+    Boolean,
+    Function,
+    Number,
+    Object,
+    String
+};
 
 /**
  * The OclEngine class is the main entry point to the OCL.js library.
@@ -19,8 +33,10 @@ export class OclEngine {
     static Parser = OclParser;
 
     private packageDeclarations: Array<PackageDeclaration> = [];
-    private registeredTypes: any = OclParser.registeredTypes;
-    private registeredEnums: any = OclParser.registeredEnums;
+    private registeredTypes: TypeRegistry = { ...DEFAULT_TYPES };
+    private registeredEnums: EnumRegistry = {};
+    private metamodelProvider: IMetamodelProvider | undefined;
+    private typeDeterminerFn: ((obj: unknown) => string) | undefined;
 
     /**
      * Static create method.
@@ -34,18 +50,60 @@ export class OclEngine {
     /**
      * Set a TypeDeterminer function that receives an object and returns the type of the object.
      *
-     * @param fn A callback function that is used to determine the type if the object that is passed into the callback function
+     * This is a convenience method for simple type name resolution. For more advanced
+     * metamodel integration (including type hierarchy support), use {@link setMetamodelProvider}.
+     *
+     * @param fn A callback function that is used to determine the type of the object that is passed into the callback function
+     * @returns the current OclEngine object for chaining
      */
-    setTypeDeterminer(fn: (obj: any) => string): void {
+    setTypeDeterminer(fn: (obj: unknown) => string): OclEngine {
         if (typeof fn === 'function') {
-            OclEngine.Utils.typeDeterminerFn = fn;
+            this.typeDeterminerFn = fn;
         }
+        return this;
     }
 
     /**
-     * Register additional object types in the engine which than can be used for instanceof checking.
+     * Set a metamodel provider for advanced type resolution and hierarchy support.
      *
-     * The following build-in JavaScript types are already registered:
+     * Use this method to integrate ocl.js with runtime metamodels where type hierarchies
+     * are not based on JavaScript prototype chains. The provider enables proper support
+     * for `oclIsKindOf`, `oclIsTypeOf`, and context type matching against external
+     * metamodel definitions.
+     *
+     * @param provider An implementation of IMetamodelProvider that handles type resolution
+     * @returns the current OclEngine object for chaining
+     *
+     * @example
+     * ```typescript
+     * const provider: IMetamodelProvider = {
+     *   getTypeName(obj) { return obj._type; },
+     *   isKindOf(obj, typeName) { return metamodel.isSubtypeOf(this.getTypeName(obj), typeName); },
+     *   isTypeOf(obj, typeName) { return this.getTypeName(obj) === typeName; }
+     * };
+     *
+     * engine.setMetamodelProvider(provider)
+     *   .addOclExpression('context Entity inv: self.oclIsKindOf(NamedElement)');
+     * ```
+     */
+    setMetamodelProvider(provider: IMetamodelProvider): OclEngine {
+        this.metamodelProvider = provider;
+        return this;
+    }
+
+    /**
+     * Get the currently configured metamodel provider, if any.
+     *
+     * @returns The current IMetamodelProvider or undefined if not set
+     */
+    getMetamodelProvider(): IMetamodelProvider | undefined {
+        return this.metamodelProvider;
+    }
+
+    /**
+     * Register additional object types in the engine which can be used for instanceof checking.
+     *
+     * The following built-in JavaScript types are already registered:
      *  - Array
      *  - Boolean
      *  - Function
@@ -53,16 +111,24 @@ export class OclEngine {
      *  - Object
      *  - String
      *
-     * @param types A list of types to register
+     * @param types A map of type names to constructor functions
+     * @returns the current OclEngine object for chaining
      */
-    registerTypes(types: Record<string, unknown>): void {
-        this.registeredTypes = {...this.registeredTypes, ...types};
-        OclParser.registeredTypes = this.registeredTypes;
+    registerTypes(types: TypeRegistry): OclEngine {
+        this.registeredTypes = { ...this.registeredTypes, ...types };
+        return this;
     }
 
-    registerEnum(name: string, values: any): void {
-        this.registeredEnums = {...this.registeredEnums, [name]: values};
-        OclParser.registeredEnums = this.registeredEnums;
+    /**
+     * Register an enumeration that can be used in OCL expressions.
+     *
+     * @param name The name of the enumeration (e.g., 'Color')
+     * @param values An object mapping enum member names to values (e.g., { RED: 0, GREEN: 1 })
+     * @returns the current OclEngine object for chaining
+     */
+    registerEnum(name: string, values: Record<string, unknown>): OclEngine {
+        this.registeredEnums = { ...this.registeredEnums, [name]: values };
+        return this;
     }
 
     /**
@@ -138,10 +204,17 @@ export class OclEngine {
      * @param labels An array of labels that address expressions that should be evaluated.
      * @returns a result object, which contains the actual result and other info @see OclResult
      */
-    evaluate(obj: any, labels: Array<string> = []): OclResult {
+    evaluate(obj: unknown, labels: Array<string> = []): OclResult {
         const visitor = new OclExecutionContext(obj, Array.isArray(labels) ? labels : [labels]);
         visitor.registerTypes(this.registeredTypes);
         visitor.setRegisteredEnumerations(this.registeredEnums);
+
+        if (this.metamodelProvider) {
+            visitor.setMetamodelProvider(this.metamodelProvider);
+        }
+        if (this.typeDeterminerFn) {
+            visitor.setTypeDeterminerFn(this.typeDeterminerFn);
+        }
 
         this.packageDeclarations.forEach(e => e.evaluate(visitor));
 
@@ -149,8 +222,11 @@ export class OclEngine {
             .map(inv => inv.getName()), visitor.getEvaluatedContexts());
     }
 
-    _inferType(obj: any): string | undefined {
-        return Utils.getClassName(obj);
+    _inferType(obj: unknown): string | undefined {
+        if (this.metamodelProvider) {
+            return this.metamodelProvider.getTypeName(obj);
+        }
+        return Utils.getClassName(obj, this.typeDeterminerFn);
     }
 
     /**
@@ -171,9 +247,17 @@ export class OclEngine {
      * @param oclExpression The query to run on the given object
      * @returns the result of the provided query.
      */
-    evaluateQuery(obj: any, oclExpression: Expression): any {
+    evaluateQuery(obj: unknown, oclExpression: Expression): unknown {
         const visitor = new OclExecutionContext(obj);
         visitor.registerTypes(this.registeredTypes);
+        visitor.setRegisteredEnumerations(this.registeredEnums);
+
+        if (this.metamodelProvider) {
+            visitor.setMetamodelProvider(this.metamodelProvider);
+        }
+        if (this.typeDeterminerFn) {
+            visitor.setTypeDeterminerFn(this.typeDeterminerFn);
+        }
 
         return oclExpression.evaluate(visitor);
     }
