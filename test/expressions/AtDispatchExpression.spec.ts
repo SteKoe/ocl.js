@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { OclEngine } from '../../lib';
-import { expectOclRuleValidatesToTrue, expectOclRuleValidatesToFalse } from '../matcher';
+import { expectOclRuleValidatesToTrue } from '../matcher';
 
 /**
  * Tests for AtDispatchExpression - runtime dispatcher for at() operation
