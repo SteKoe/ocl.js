@@ -621,7 +621,11 @@ export class OclRecursiveDescentParser {
 
         if (typeExists) {
             const expr = new ExpressionType(source);
-            if (expr instanceof Expressions.SubstringExpression && params && params.length > 0) {
+            // Special handling for expressions that accept multiple parameters
+            if ((expr instanceof Expressions.SubstringExpression ||
+                 expr instanceof Expressions.ReplaceExpression ||
+                 expr instanceof Expressions.ReplaceAllExpression) &&
+                params && params.length > 0) {
                 expr.setBody(params);
             } else if (expr instanceof Expressions.BodyBasedExpression && params && params.length > 0) {
                 expr.setBody(params[0]);

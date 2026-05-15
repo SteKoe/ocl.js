@@ -198,11 +198,7 @@ describe('String Operations - New Features', () => {
         });
     });
 
-    describe.skip('String.replace() - NOT IMPLEMENTED', () => {
-        // NOTE: String.replace() is implemented but not accessible via the OCL parser
-        // The parser needs to be updated to support multi-parameter string operations
-        // This is a parser limitation, not an implementation issue
-        
+    describe('String.replace()', () => {
         let oclEngine: OclEngine;
 
         beforeEach(() => {
@@ -236,13 +232,15 @@ describe('String Operations - New Features', () => {
             const result = oclEngine.evaluateQuery(obj, expression);
             expect(result).toBe('hello ');
         });
+
+        it('should work with invariant expressions', () => {
+            const obj = { text: 'hello world' };
+            const oclExpression = 'context Object inv: self.text.replace(\'world\', \'OCL\') = \'hello OCL\'';
+            expectOclRuleValidatesToTrue(oclExpression, obj);
+        });
     });
 
-    describe.skip('String.replaceAll() - NOT IMPLEMENTED', () => {
-        // NOTE: String.replaceAll() is implemented but not accessible via the OCL parser
-        // The parser needs to be updated to support multi-parameter string operations
-        // This is a parser limitation, not an implementation issue
-        
+    describe('String.replaceAll()', () => {
         let oclEngine: OclEngine;
 
         beforeEach(() => {
@@ -275,6 +273,12 @@ describe('String Operations - New Features', () => {
             const expression = oclEngine.createQuery('self.text.replaceAll(\' \', \'\')');
             const result = oclEngine.evaluateQuery(obj, expression);
             expect(result).toBe('abc');
+        });
+
+        it('should work with invariant expressions', () => {
+            const obj = { text: 'foo foo foo' };
+            const oclExpression = 'context Object inv: self.text.replaceAll(\'foo\', \'bar\') = \'bar bar bar\'';
+            expectOclRuleValidatesToTrue(oclExpression, obj);
         });
     });
 
