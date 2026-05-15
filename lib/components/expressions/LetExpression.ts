@@ -1,4 +1,5 @@
 import { OclExecutionContext } from '../OclExecutionContext';
+import { LocalVariables } from '../types';
 
 import { Expression } from './Expression';
 import { VariableDeclarationExpression } from './VariableDeclarationExpression';
@@ -22,9 +23,9 @@ export class LetExpression extends Expression {
         super();
     }
 
-    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         const variableExpression = this.variableDeclarationExpressions[0];
-        const variables = {[variableExpression.getVariableName()]: variableExpression.evaluate(visitor)};
+        const variables: LocalVariables = {[variableExpression.getVariableName()]: variableExpression.evaluate(visitor)};
 
         return this.inContextDef.evaluate(visitor, {...localVariables, ...variables});
     }

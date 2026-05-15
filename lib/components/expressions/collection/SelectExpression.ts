@@ -1,5 +1,6 @@
 import {OclExecutionContext} from '../../OclExecutionContext';
 import {IteratorExpression} from "../IteratorExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * @oclSpecification
@@ -13,12 +14,12 @@ import {IteratorExpression} from "../IteratorExpression";
  * @oclExample self.collection->select(item | item.name = "random")
  */
 export class SelectExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext, localVariables): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown[] {
         const collection = this.getSource()
             .evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
-            return collection.filter(c => this.evaluateBody(visitor, localVariables, c));
+            return collection.filter(c => this.evaluateBodyForItem(visitor, localVariables, c));
         } else {
             return [];
         }

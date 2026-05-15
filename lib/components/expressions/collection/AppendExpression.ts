@@ -1,5 +1,6 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
 import {BodyBasedExpression} from "../BodyBasedExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * Appends the given element to the given collection and returns the extended collection.
@@ -8,12 +9,11 @@ import {BodyBasedExpression} from "../BodyBasedExpression";
  * @oclExample self.collection->append("string")
  */
 export class AppendExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         const source = this.getSource()
             .evaluate(visitor, localVariables);
 
-        const body = this.getBody() ? this.getBody()
-            .evaluate(visitor, localVariables) : undefined;
+        const body = this.getBodyAsExpression()?.evaluate(visitor, localVariables);
 
         if (Array.isArray(source) && !!body) {
             source.push(body);

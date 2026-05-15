@@ -1,5 +1,6 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
 import {SourceBasedExpression} from "../SourceBasedExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * Returns the given collection as set, containing unique entries.
@@ -8,12 +9,14 @@ import {SourceBasedExpression} from "../SourceBasedExpression";
  * @oclExample self.collection->asSet()
  */
 export class AsSetExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         const source = this.getSource()
             .evaluate(visitor, localVariables);
 
         if (source instanceof Array) {
             return Array.from(new Set(source));
         }
+
+        return undefined;
     }
 }

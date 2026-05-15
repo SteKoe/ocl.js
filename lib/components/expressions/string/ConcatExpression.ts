@@ -1,4 +1,5 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
+import { LocalVariables } from '../../types';
 import {BodyBasedExpression} from "../BodyBasedExpression";
 
 /**
@@ -8,9 +9,9 @@ import {BodyBasedExpression} from "../BodyBasedExpression";
  * @oclExample self.name.concat("string")
  */
 export class ConcatExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): string {
         const source = this.getSource().evaluate(visitor, localVariables);
-        const body = this.getBody().evaluate(visitor, localVariables);
+        const body = this.getBodyAsExpression()?.evaluate(visitor, localVariables);
 
         return String(source).concat(String(body));
     }

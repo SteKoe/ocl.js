@@ -1,5 +1,6 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
 import {SourceBasedExpression} from "../SourceBasedExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * Returns the size of the given collection.
@@ -8,7 +9,7 @@ import {SourceBasedExpression} from "../SourceBasedExpression";
  * @oclExample self.collection->size()
  */
 export class SizeExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): number {
         const source = this.getSource().evaluate(visitor, localVariables);
 
         if (source && (source instanceof Array || typeof source === 'string')) {

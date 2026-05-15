@@ -1,5 +1,6 @@
 import {Expression} from '../Expression';
 import {OclExecutionContext} from "../../OclExecutionContext";
+import {LocalVariables} from "../../types";
 
 export abstract class LiteralExpression<T> extends Expression {
     private readonly value: T;
@@ -15,7 +16,8 @@ export abstract class LiteralExpression<T> extends Expression {
 
     protected abstract parseValue(value: any): T;
 
-    evaluate(visitor: OclExecutionContext): T {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         return visitor.setEvaluatedValue(this, this.getValue());
     }
 }

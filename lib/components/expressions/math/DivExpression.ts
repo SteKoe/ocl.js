@@ -1,4 +1,5 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
+import { LocalVariables } from '../../types';
 import {BodyBasedExpression} from "../BodyBasedExpression";
 
 /**
@@ -8,9 +9,9 @@ import {BodyBasedExpression} from "../BodyBasedExpression";
  * @oclExample 3 div 2 = 1
  */
 export class DivExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         const {source, body} = this._evaluateBodyAndSource(visitor, localVariables);
 
-        return Math.floor(body / source);
+        return Math.floor((body as number) / (source as number));
     }
 }

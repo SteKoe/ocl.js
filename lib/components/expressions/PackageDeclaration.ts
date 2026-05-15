@@ -9,10 +9,10 @@ import {Expression} from './Expression';
  */
 export class PackageDeclaration extends Expression {
     private readonly contexts: Array<ContextExpression>;
-    private labels: Array<string>;
-    private oclExpression: string;
+    private labels!: Array<string>;
+    private oclExpression!: string;
 
-    constructor(type, contexts: Array<ContextExpression>) {
+    constructor(type: string, contexts: Array<ContextExpression>) {
         super();
         this.contexts = contexts;
     }

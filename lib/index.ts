@@ -1,4 +1,4 @@
-export { OclEngine } from './components/OclEngine';
+export { OclEngine, OclEngine as default} from './components/OclEngine';
 
-import { OclEngine } from './components/OclEngine';
-export default OclEngine;
+
+

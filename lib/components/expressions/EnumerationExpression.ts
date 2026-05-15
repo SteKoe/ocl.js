@@ -9,7 +9,7 @@ export class EnumerationExpression extends Expression {
     private readonly enumeration: string;
     private readonly field: string;
 
-    constructor(source) {
+    constructor(source: string) {
         super();
         const [enumeration, field] = source.split('::');
 
@@ -17,10 +17,11 @@ export class EnumerationExpression extends Expression {
         this.field = field;
     }
 
-    evaluate(visitor: OclExecutionContext): any {
+    evaluate(visitor: OclExecutionContext): unknown {
         const enumeration = visitor.getRegisteredEnumeration(this.enumeration);
         if (enumeration) {
             return enumeration[this.field];
         }
+        return undefined;
     }
 }

@@ -55,7 +55,7 @@ export class OclEngine {
      *
      * @param types A list of types to register
      */
-    registerTypes(types): void {
+    registerTypes(types: Record<string, unknown>): void {
         this.registeredTypes = {...this.registeredTypes, ...types};
         OclParser.registeredTypes = this.registeredTypes;
     }
@@ -97,12 +97,12 @@ export class OclEngine {
      * @returns the current OclEngine object for chaining
      * @throws ParserError
      */
-    addOclExpression(oclExpression, labels: Array<string> = []): OclEngine {
+    addOclExpression(oclExpression: string, labels: Array<string> = []): OclEngine {
         try {
             const parsedExpression = OclEngine.Parser.parse(oclExpression, labels, this.registeredTypes);
             this.packageDeclarations.push(parsedExpression);
         } catch (e) {
-            e.oclExpression = oclExpression;
+            (e as Record<string, unknown>).oclExpression = oclExpression;
             throw e;
         }
 
@@ -149,7 +149,7 @@ export class OclEngine {
             .map(inv => inv.getName()), visitor.getEvaluatedContexts());
     }
 
-    _inferType(obj: any): string {
+    _inferType(obj: any): string | undefined {
         return Utils.getClassName(obj);
     }
 

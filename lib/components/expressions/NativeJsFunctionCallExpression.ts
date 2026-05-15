@@ -7,10 +7,10 @@ export class NativeJsFunctionCallExpression extends SourceBasedExpression {
     private readonly fn: any;
     private readonly params: Array<Expression>;
 
-    constructor(source, fn, params) {
+    constructor(source: Expression, fn: string, params: Array<Expression>) {
         super(source);
         this.fn = fn;
-        this.params = (params || []).filter(param => !!param);
+        this.params = (params || []).filter((param: Expression) => !!param);
     }
 
     getFn(): any {
@@ -32,7 +32,7 @@ export class NativeJsFunctionCallExpression extends SourceBasedExpression {
             return false;
         }
 
-        const fn = source[this.getFn()];
+        const fn = (source as Record<string, unknown>)[this.getFn()];
         const isFunction = typeof fn === 'function';
 
         if (isFunction) {

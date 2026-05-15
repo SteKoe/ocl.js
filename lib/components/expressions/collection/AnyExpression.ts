@@ -1,5 +1,6 @@
 import {OclExecutionContext} from '../../OclExecutionContext';
 import {IteratorExpression} from "../IteratorExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * Returns the first element that validates the given expression.
@@ -8,14 +9,16 @@ import {IteratorExpression} from "../IteratorExpression";
  * @oclExample self.collection->any(i < 2)
  */
 export class AnyExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         const collection = this.getSource()
             .evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
-            const value = collection.find(c => this.evaluateBody(visitor, localVariables, c));
+            const value = collection.find(c => this.evaluateBodyForItem(visitor, localVariables, c));
             visitor.setEvaluatedValue(this, value);
             return value;
         }
+
+        return undefined;
     }
 }

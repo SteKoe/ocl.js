@@ -1,4 +1,5 @@
 import {OclExecutionContext} from '../OclExecutionContext';
+import {LocalVariables} from '../types';
 
 export abstract class Expression {
     private readonly type: string;
@@ -22,6 +23,6 @@ export abstract class Expression {
         return true;
     }
 
-    abstract evaluate(visitor: OclExecutionContext, localVariables?: any): any;
+    abstract evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown;
 }
 

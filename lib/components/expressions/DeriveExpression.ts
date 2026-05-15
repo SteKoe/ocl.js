@@ -1,4 +1,5 @@
 import { OclExecutionContext } from '../OclExecutionContext';
+import { LocalVariables } from '../types';
 
 import { Expression } from './Expression';
 
@@ -12,9 +13,9 @@ import { Expression } from './Expression';
  *     endif
  */
 export class DeriveExpression extends Expression {
-    private readonly value: any;
+    private readonly value: Expression;
 
-    constructor(value) {
+    constructor(value: Expression) {
         super();
         this.value = value;
     }
@@ -23,7 +24,7 @@ export class DeriveExpression extends Expression {
         return this.value;
     }
 
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         return this.getValue()
             .evaluate(visitor, localVariables);
     }

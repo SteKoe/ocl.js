@@ -3,27 +3,28 @@ import {InvariantExpression} from './expressions/InvariantExpression';
 import {ContextExpression} from './expressions/context/ContextExpression';
 import {OclParser} from './parser/OclParser';
 import {Expression} from "./expressions";
+import {TypeRegistry, EnumRegistry} from './types';
 
 export class OclExecutionContext {
-    private evaluationResult: any = undefined;
+    private evaluationResult: boolean | undefined = undefined;
     private readonly failedInvariants: Array<InvariantExpression> = [];
-    private registeredTypes: any;
-    private registeredEnumerations: any;
-    private targetTypeName: string;
+    private registeredTypes: TypeRegistry;
+    private registeredEnumerations: EnumRegistry = {};
+    private targetTypeName: string | undefined;
     private readonly evaluatedContexts: Array<ContextExpression> = [];
-    private readonly evalutedValues: Map<string, any> = new Map<string, any>();
+    private readonly evalutedValues: Map<string, unknown> = new Map<string, unknown>();
 
-    constructor(private obj: any, private readonly labelsToExecute: Array<string> = []) {
+    constructor(private obj: unknown, private readonly labelsToExecute: Array<string> = []) {
         this.targetTypeName = Utils.getClassName(obj);
         this.registeredTypes = OclParser.registeredTypes;
     }
 
-    setEvaluatedValue(expression: Expression, result: any) {
+    setEvaluatedValue(expression: Expression, result: unknown): unknown {
         this.evalutedValues.set(expression.getId(), result);
         return result;
     }
 
-    getEvaluatedValues(): Map<string, any> {
+    getEvaluatedValues(): Map<string, unknown> {
         return this.evalutedValues;
     }
 
@@ -31,17 +32,17 @@ export class OclExecutionContext {
         this.failedInvariants.push(inv);
     }
 
-    setObjectToEvaluate(obj): this {
+    setObjectToEvaluate(obj: unknown): this {
         this.obj = obj;
 
         return this;
     }
 
-    getObjectToEvaluate(): any {
+    getObjectToEvaluate(): unknown {
         return this.obj;
     }
 
-    getRegisteredType(targetTypeName: string): any {
+    getRegisteredType(targetTypeName: string): TypeRegistry[string] | undefined {
         return this.registeredTypes[targetTypeName];
     }
 
@@ -49,20 +50,20 @@ export class OclExecutionContext {
         this.targetTypeName = name;
     }
 
-    getTargetTypeName(): string {
+    getTargetTypeName(): string | undefined {
         return this.targetTypeName;
     }
 
-    registerTypes(types): void {
+    registerTypes(types: TypeRegistry): void {
         this.registeredTypes = {...this.registeredTypes, ...types};
     }
 
-    setRegisteredEnumerations(enumerations): void {
+    setRegisteredEnumerations(enumerations: EnumRegistry): void {
         this.registeredEnumerations = {...this.registeredEnumerations, ...enumerations};
     }
 
-    getRegisteredEnumeration(key): Array<any> {
-        return this.registeredEnumerations[key] ?? [];
+    getRegisteredEnumeration(key: string): Record<string, unknown> {
+        return this.registeredEnumerations[key] ?? {};
     }
 
     getFailedInvariants(): Array<InvariantExpression> {
@@ -73,7 +74,7 @@ export class OclExecutionContext {
         return this.labelsToExecute;
     }
 
-    getEvaluationResult(): boolean {
+    getEvaluationResult(): boolean | undefined {
         return this.evaluationResult;
     }
 

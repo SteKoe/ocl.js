@@ -1,4 +1,5 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
+import { LocalVariables } from '../../types';
 import {SourceBasedExpression} from "../SourceBasedExpression";
 
 /**
@@ -8,8 +9,8 @@ import {SourceBasedExpression} from "../SourceBasedExpression";
  * @oclExample "3.414".toReal()
  */
 export class ToRealExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
-        const source = this.getSource().evaluate(visitor, localVariables);
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): number {
+        const source = this.getSource().evaluate(visitor, localVariables) as string;
 
         return Number.parseFloat(source);
     }

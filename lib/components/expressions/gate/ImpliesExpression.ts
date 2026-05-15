@@ -1,5 +1,6 @@
 import {LeftRightBasedExpression} from '../LeftRightBasedExpression';
 import {OclExecutionContext} from '../../OclExecutionContext';
+import { LocalVariables } from '../../types';
 
 /**
  * | A     | B     | A implies B |
@@ -12,7 +13,7 @@ import {OclExecutionContext} from '../../OclExecutionContext';
  * @oclExample false implies true
  */
 export class ImpliesExpression extends LeftRightBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         const {left, right} = this._evaluateLeftRightExpression(visitor, localVariables);
 
         if (left) {

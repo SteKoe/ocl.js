@@ -1,4 +1,6 @@
 import { LiteralExpression } from './LiteralExpression';
+import { OclExecutionContext } from '../../OclExecutionContext';
+import { LocalVariables } from '../../types';
 
 /**
  */
@@ -10,5 +12,10 @@ export class NumberExpression extends LiteralExpression<number> {
         } else {
             return +val;
         }
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): number {
+        return visitor.setEvaluatedValue(this, this.getValue()) as number;
     }
 }

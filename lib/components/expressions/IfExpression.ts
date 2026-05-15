@@ -1,4 +1,5 @@
 import {OclExecutionContext} from '../OclExecutionContext';
+import {LocalVariables} from '../types';
 
 import {Expression} from './Expression';
 
@@ -7,9 +8,9 @@ import {Expression} from './Expression';
  * Otherwise the else part is taken.
  */
 export class IfExpression extends Expression {
-    private readonly condition: any;
-    private readonly thenExpression: any;
-    private readonly elseExpression: any;
+    private readonly condition: Expression;
+    private readonly thenExpression: Expression;
+    private readonly elseExpression: Expression;
 
     constructor(condition: Expression, _then: Expression, _else: Expression) {
         super();
@@ -30,7 +31,7 @@ export class IfExpression extends Expression {
         return this.elseExpression;
     }
 
-    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         const value = this.getCondition().evaluate(visitor, localVariables)
             ? this.getThenExpression().evaluate(visitor, localVariables)
             : this.getElseExpression().evaluate(visitor, localVariables);

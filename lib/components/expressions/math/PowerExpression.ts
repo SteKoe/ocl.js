@@ -1,5 +1,6 @@
 import { LeftRightBasedExpression } from '../LeftRightBasedExpression';
 import { OclExecutionContext } from '../../OclExecutionContext';
+import { LocalVariables } from '../../types';
 
 /**
  * Power
@@ -8,9 +9,9 @@ import { OclExecutionContext } from '../../OclExecutionContext';
  * @oclExample 4 ^ 2
  */
 export class PowerExpression extends LeftRightBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         const {left, right} = this._evaluateLeftRightExpression(visitor, localVariables);
 
-        return Math.pow(left, right);
+        return Math.pow(left as number, right as number);
     }
 }

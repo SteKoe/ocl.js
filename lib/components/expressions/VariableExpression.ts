@@ -1,16 +1,21 @@
 import {OclExecutionContext} from '../OclExecutionContext';
+import {LocalVariables} from '../types';
 
-
-import {SourceBasedExpression} from "./SourceBasedExpression";
+import {Expression} from "./Expression";
 
 /**
  * Resolve variables. Simple values are returned as is (e.g. self.age: number), collections are aggregated.
+ * 
+ * Note: VariableExpression extends Expression directly (not SourceBasedExpression) because its
+ * "source" is a string path, not a child Expression.
  */
-export class VariableExpression extends SourceBasedExpression {
+export class VariableExpression extends Expression {
+    readonly source: string;
     private readonly variable: string;
 
-    constructor(source) {
-        super(source);
+    constructor(source: string) {
+        super();
+        this.source = source;
         this.variable = source;
     }
 
@@ -18,11 +23,11 @@ export class VariableExpression extends SourceBasedExpression {
         return this.variable;
     }
 
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
-        let obj;
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
+        let obj: unknown;
         
-        const objectToEvaluate = visitor.getObjectToEvaluate();
-        let _variables = {
+        const objectToEvaluate = visitor.getObjectToEvaluate() as Record<string, unknown>;
+        let _variables: LocalVariables = {
             ...localVariables,
         };
         
@@ -35,10 +40,10 @@ export class VariableExpression extends SourceBasedExpression {
             return type;
         }
 
-        if (parts[0] !== 'self' && Object.prototype.hasOwnProperty.call(objectToEvaluate, [parts[0]])) {
+        if (parts[0] !== 'self' && Object.prototype.hasOwnProperty.call(objectToEvaluate, parts[0])) {
             _variables = {
                 ...localVariables,
-                self: localVariables?.self ?? localVariables
+                self: (localVariables?.self as unknown) ?? localVariables
             };
             parts = ['self', ...parts]
         }
@@ -50,24 +55,24 @@ export class VariableExpression extends SourceBasedExpression {
             obj = _variables;
         }
 
-        const evaluatedValue = visitor.getRegisteredType(obj) ?? _resolvePath(obj, parts.join('.'));
+        const evaluatedValue = visitor.getRegisteredType(obj as string) ?? _resolvePath(obj, parts.join('.'));
         visitor.setEvaluatedValue(this, evaluatedValue);
         return evaluatedValue;
 
-        function _resolvePath(object, reference): any {
+        function _resolvePath(object: unknown, reference: string): unknown {
             return reference.split('.')
                 .reduce(dot_deref, object);
 
-            function dot_deref(o, ref): any {
+            function dot_deref(o: unknown, ref: string): unknown {
                 if (!o) return;
 
-                o = isIterable(o) ? Array.from(o) : o;
+                o = isIterable(o) ? Array.from(o as Iterable<unknown>) : o;
 
                 return !ref ? o : ref.split('[')
                     .reduce(arr_deref, o);
             }
 
-            function arr_deref(o, ref, i): any {
+            function arr_deref(o: unknown, ref: string, i: number): unknown {
                 if (!o) return;
 
                 if (!ref) {
@@ -77,8 +82,8 @@ export class VariableExpression extends SourceBasedExpression {
 
                     if (Array.isArray(o)) {
                         return o
-                            .map(c => c[prop])
-                            .reduce((prev, cur) => {
+                            .map(c => (c as Record<string, unknown>)[prop])
+                            .reduce((prev: unknown[], cur: unknown) => {
                                 if (Array.isArray(cur)) {
                                     prev.push(...cur);
                                 } else {
@@ -88,13 +93,13 @@ export class VariableExpression extends SourceBasedExpression {
                                 return prev;
                             }, []);
                     } else {
-                        return o[prop];
+                        return (o as Record<string, unknown>)[prop];
                     }
                 }
             }
         }
 
-        function isIterable(iterableObject: any): boolean {
+        function isIterable(iterableObject: unknown): boolean {
             if (!iterableObject) {
                 return false;
             }

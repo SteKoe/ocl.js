@@ -1,5 +1,6 @@
 import {OclExecutionContext} from '../../OclExecutionContext';
 import {IteratorExpression} from "../IteratorExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * @oclSpecification
@@ -11,11 +12,11 @@ import {IteratorExpression} from "../IteratorExpression";
  * @oclExample self.children->collect(age)
  */
 export class CollectExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         const collection = this.getSource().evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
-            return collection.map(c => this.evaluateBody(visitor, localVariables, c));
+            return collection.map(c => this.evaluateBodyForItem(visitor, localVariables, c));
         } else {
             return collection;
         }

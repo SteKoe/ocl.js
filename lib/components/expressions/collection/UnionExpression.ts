@@ -1,5 +1,6 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
 import {BodyBasedExpression} from "../BodyBasedExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * Returns a collection containing all elements of self and all elements of the passed in collection.
@@ -8,12 +9,11 @@ import {BodyBasedExpression} from "../BodyBasedExpression";
  * @oclExample self.collection->union(self.anotherCollection)
  */
 export class UnionExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown[] {
         const source = this.getSource()
             .evaluate(visitor, localVariables);
 
-        const body = this.getBody()
-            .evaluate(visitor, localVariables);
+        const body = this.getBodyAsExpression()?.evaluate(visitor, localVariables);
 
         if (source instanceof Array && body instanceof Array) {
             return source.concat(body);

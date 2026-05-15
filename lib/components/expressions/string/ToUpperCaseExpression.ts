@@ -1,4 +1,5 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
+import { LocalVariables } from '../../types';
 import {SourceBasedExpression} from "../SourceBasedExpression";
 
 /**
@@ -8,7 +9,7 @@ import {SourceBasedExpression} from "../SourceBasedExpression";
  * @oclExample self.name.toUpperCase()
  */
 export class ToUpperCaseExpression extends SourceBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): string {
         const source = this.getSource().evaluate(visitor, localVariables);
 
         return String(source).toUpperCase();

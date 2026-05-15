@@ -3,6 +3,7 @@ import { DeriveExpression } from '../DeriveExpression';
 import { Utils } from '../../Utils';
 import { OclExecutionContext } from '../../OclExecutionContext';
 import { DefExpression } from '../DefExpression';
+import { LocalVariables } from '../../types';
 
 import { ContextExpression } from './ContextExpression';
 
@@ -16,7 +17,7 @@ export class PropertyContextExpression extends ContextExpression {
     private readonly inits: any;
     private readonly propertyName: any;
 
-    constructor(targetType, rules) {
+    constructor(targetType: string, rules: Array<InitExpression | DeriveExpression> | InitExpression | DeriveExpression) {
         super();
 
         const split = targetType.split('::');
@@ -47,15 +48,17 @@ export class PropertyContextExpression extends ContextExpression {
         return Utils.getClassName(visitor.getObjectToEvaluate()) === this.targetType;
     }
 
-    evaluate(visitor: OclExecutionContext): any {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): any {
         super.evaluate(visitor);
 
+        const obj = visitor.getObjectToEvaluate() as Record<string, unknown>;
         this.getInits().forEach(init => {
-            visitor.getObjectToEvaluate()[this.getPropertyName()] = init.evaluate(visitor);
+            obj[this.getPropertyName()] = init.evaluate(visitor);
         });
 
         this.getDerived().forEach(derive => {
-            visitor.getObjectToEvaluate()[this.getPropertyName()] = derive.evaluate(visitor);
+            obj[this.getPropertyName()] = derive.evaluate(visitor);
         });
 
         return true;

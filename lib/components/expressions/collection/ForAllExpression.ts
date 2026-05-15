@@ -1,5 +1,6 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
 import {IteratorExpression} from "../IteratorExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * @oclSpecification
@@ -9,13 +10,17 @@ import {IteratorExpression} from "../IteratorExpression";
  * @oclExpression forAll(expr : oclExpression)
  */
 export class ForAllExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): boolean {
         const collection = this.getSource()
             .evaluate(visitor, localVariables);
 
         if (collection instanceof Array) {
             const iterators = this.getIterators();
-            const body = this.getBody();
+            const body = this.getBodyAsExpression();
+            
+            if (!body) {
+                return false;
+            }
 
             if (!iterators || iterators.length === 0) {
                 return !collection.some(c => {
@@ -29,7 +34,7 @@ export class ForAllExpression extends IteratorExpression {
             } else if (iterators.length === 2) {
                 const sourceLength = collection.length;
                 for (let i = 0; i < sourceLength; i++) {
-                    const variables = {};
+                    const variables: LocalVariables = {};
                     variables[iterators[0]] = collection[i];
                     for (let j = i + 1; j < sourceLength; j++) {
                         variables[iterators[1]] = collection[j];
@@ -42,8 +47,8 @@ export class ForAllExpression extends IteratorExpression {
 
                 return true;
             }
-        } else {
-            return false;
         }
+        
+        return false;
     }
 }

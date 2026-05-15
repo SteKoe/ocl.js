@@ -1,14 +1,11 @@
 import * as Expressions from '../expressions';
-import {Utils} from '../Utils';
-import parser from '../../../generator/Parser';
+import { TypeRegistry, EnumRegistry } from '../types';
+import { OclRecursiveDescentParser } from './OclRecursiveDescentParser';
 
-parser.yy = {
-    Expression: Expressions,
-    Utils
-};
+const parser = new OclRecursiveDescentParser();
 
 export class OclParser {
-    static registeredTypes: any = {
+    static registeredTypes: TypeRegistry = {
         Array,
         Boolean,
         Function,
@@ -17,15 +14,13 @@ export class OclParser {
         String
     };
 
-    static registeredEnums: any = {};
+    static registeredEnums: EnumRegistry = {};
 
-    static parseQuery(oclExpression: any, registeredTypes?: any): Expressions.Expression {
-        parser.yy.registeredTypes = registeredTypes ?? {};
-
-        return parser.parse(oclExpression) as Expressions.Expression;
+    static parseQuery(oclExpression: string, registeredTypes?: TypeRegistry): Expressions.Expression {
+        return parser.parse(oclExpression, registeredTypes ?? {}) as Expressions.Expression;
     }
 
-    static parse(oclExpression: any, labels: Array<string> = [], registeredTypes?: any): Expressions.PackageDeclaration {
+    static parse(oclExpression: string, labels: Array<string> = [], registeredTypes?: TypeRegistry): Expressions.PackageDeclaration {
         const packageDeclaration = OclParser.parseQuery(oclExpression, registeredTypes) as Expressions.PackageDeclaration;
         packageDeclaration.setExecutionLabels(labels);
         packageDeclaration.setRawOclExpression(oclExpression);

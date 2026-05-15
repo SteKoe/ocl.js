@@ -1,6 +1,7 @@
 import {InvariantExpression} from '../InvariantExpression';
 import {DefExpression} from '../DefExpression';
 import {OclExecutionContext} from '../../OclExecutionContext';
+import {LocalVariables} from '../../types';
 
 import {ContextExpression} from './ContextExpression';
 
@@ -13,7 +14,7 @@ export class ClassifierContextExpression extends ContextExpression {
     private readonly invs: Array<InvariantExpression>;
     private readonly defs: Array<DefExpression>;
 
-    constructor(targetType, rules: Array<any>) {
+    constructor(targetType: string, rules: Array<InvariantExpression | DefExpression>) {
         super();
 
         if (!(rules instanceof Array)) {
@@ -39,18 +40,23 @@ export class ClassifierContextExpression extends ContextExpression {
         if (accept === false) {
             return false;
         } else {
-            const visitorTargetType = visitor.getRegisteredType(visitor.getTargetTypeName()) ?? visitor.getTargetTypeName();
+            const targetTypeName = visitor.getTargetTypeName();
+            if (!targetTypeName) {
+                return false;
+            }
+            const visitorTargetType = visitor.getRegisteredType(targetTypeName) ?? targetTypeName;
             const expressionTargetType = visitor.getRegisteredType(this.targetType) ?? this.targetType;
 
             if (typeof visitorTargetType === 'string' || typeof expressionTargetType === 'string') {
-                return this.targetType === visitor.getTargetTypeName();
+                return this.targetType === targetTypeName;
             } else {
                 return visitorTargetType instanceof expressionTargetType || visitorTargetType === expressionTargetType;
             }
         }
     }
 
-    evaluate(visitor: OclExecutionContext): any {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): any {
         super.evaluate(visitor);
 
         if (this.accept(visitor)) {

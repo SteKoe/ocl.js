@@ -2,6 +2,7 @@ import { OclExecutionContext } from '../../OclExecutionContext';
 import { OclValidationError } from '../../OclValidationError';
 import { PreExpression } from '../PreExpression';
 import { PostExpression } from '../PostExpression';
+import { TypeRegistry } from '../../types';
 
 import { ContextExpression } from './ContextExpression';
 
@@ -20,7 +21,7 @@ export class OperationContextExpression extends ContextExpression {
     private postExpressions: Array<PostExpression>;
     private params: Array<string>;
 
-    constructor(operationMetaInfo, expressions, registeredTypes) {
+    constructor(operationMetaInfo: { pathName: string; params: Array<string>; returnType: string }, expressions: Array<PreExpression | PostExpression>, registeredTypes: TypeRegistry) {
         super();
 
         const split = operationMetaInfo.pathName.split('::');
@@ -37,15 +38,15 @@ export class OperationContextExpression extends ContextExpression {
             const self = this;
             const originalFn = actualType.prototype[this.fnName];
 
-            actualType.prototype[this.fnName] = function(...args): any {
+            actualType.prototype[this.fnName] = function(...args: unknown[]): any {
                 const oclExecutionContext = new OclExecutionContext(this);
                 oclExecutionContext.registerTypes(registeredTypes);
 
-                const anies = (self.params || []).reduce((prev, cur, i) => {
+                const anies: Record<string, unknown> = (self.params || []).reduce((prev: Record<string, unknown>, cur, i) => {
                     prev[cur] = args[i];
 
                     return prev;
-                }, {result: undefined});
+                }, {result: undefined} as Record<string, unknown>);
 
                 self.preExpressions.forEach(preExpression => {
                     const evaluationResult = preExpression.evaluate(oclExecutionContext, anies);

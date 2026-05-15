@@ -1,4 +1,5 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
+import { LocalVariables } from '../../types';
 import {BodyBasedExpression} from "../BodyBasedExpression";
 
 /**
@@ -8,10 +9,10 @@ import {BodyBasedExpression} from "../BodyBasedExpression";
  * @oclExample self.name.indexOf("string")
  */
 export class IndexOfExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
-        const source = this.getSource().evaluate(visitor, localVariables);
-        const indexOfString = this.getBody().evaluate(visitor, localVariables);
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): number {
+        const source = this.getSource().evaluate(visitor, localVariables) as string;
+        const indexOfString = this.getBodyAsExpression()?.evaluate(visitor, localVariables) as string;
 
-        return indexOfString.length === 0 ? 0 : source.indexOf(indexOfString) + 1;
+        return indexOfString?.length === 0 ? 0 : source.indexOf(indexOfString) + 1;
     }
 }

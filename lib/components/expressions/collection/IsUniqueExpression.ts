@@ -1,5 +1,6 @@
 import {OclExecutionContext} from '../../OclExecutionContext';
 import {IteratorExpression} from "../IteratorExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * Returns true if the given expr evaluated on the body returns only different values.
@@ -8,7 +9,7 @@ import {IteratorExpression} from "../IteratorExpression";
  * @oclExample self.collection->isUnique(self > 3)
  */
 export class IsUniqueExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): boolean {
         const collection = this.getSource()
             .evaluate(visitor, localVariables);
 
@@ -17,7 +18,7 @@ export class IsUniqueExpression extends IteratorExpression {
         if (collection instanceof Array) {
             let result = collection;
             if (body) {
-                result = collection.map(c => this.evaluateBody(visitor, localVariables, c));
+                result = collection.map(c => this.evaluateBodyForItem(visitor, localVariables, c));
             }
 
             return result.length === new Set(result).size;

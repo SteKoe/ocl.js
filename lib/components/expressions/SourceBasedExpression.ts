@@ -1,9 +1,9 @@
 import {Expression} from "./Expression";
 
 export abstract class SourceBasedExpression extends Expression {
-    private readonly source: any;
+    private readonly source: Expression;
 
-    constructor(source) {
+    constructor(source: Expression) {
         super();
         this.source = source;
     }

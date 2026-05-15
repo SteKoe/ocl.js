@@ -1,12 +1,17 @@
 import { OclExecutionContext } from '../OclExecutionContext';
+import { LocalVariables } from '../types';
 
 import { Expression } from './Expression';
 
 /**
- * Resolve variables. Simple values are returned as is (e.g. self.age: number), collections are aggregated.
+ * Represents a variable declaration with an optional type and value expression.
  */
 export class VariableDeclarationExpression extends Expression {
-    constructor(private variableName, private optionalDataType, private oclExpressionAsValue) {
+    constructor(
+        private variableName: string,
+        private optionalDataType: string | undefined,
+        private oclExpressionAsValue: Expression
+    ) {
         super();
     }
 
@@ -14,7 +19,7 @@ export class VariableDeclarationExpression extends Expression {
         return this.variableName;
     }
 
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
         return this.oclExpressionAsValue.evaluate(visitor, localVariables);
     }
 }

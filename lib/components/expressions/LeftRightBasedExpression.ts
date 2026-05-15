@@ -1,11 +1,12 @@
 import {OclExecutionContext} from '../OclExecutionContext';
+import {LocalVariables, LeftRightResult} from '../types';
 import {Expression} from './Expression';
 
 export abstract class LeftRightBasedExpression extends Expression {
-    private readonly left: any;
-    private readonly right: any;
+    private readonly left: Expression;
+    private readonly right: Expression;
 
-    constructor(left, right) {
+    constructor(left: Expression, right: Expression) {
         super();
         this.left = left;
         this.right = right;
@@ -19,7 +20,7 @@ export abstract class LeftRightBasedExpression extends Expression {
         return this.right;
     }
 
-    _evaluateLeftRightExpression(visitor: OclExecutionContext, localVariables?: any): { left: any, right: any } {
+    _evaluateLeftRightExpression(visitor: OclExecutionContext, localVariables?: LocalVariables): LeftRightResult {
         const left = this.getLeft()
             .evaluate(visitor, localVariables);
 

@@ -2,6 +2,7 @@ import { OclExecutionContext } from '../../OclExecutionContext';
 
 import { SelectExpression } from './SelectExpression';
 import {IteratorExpression} from "../IteratorExpression";
+import {LocalVariables} from "../../types";
 
 /**
  * Returns true of there is exactly one element matching the given expression, false otherwise.
@@ -10,7 +11,7 @@ import {IteratorExpression} from "../IteratorExpression";
  * @oclExample self.collection->one(age < 18)
  */
 export class OneExpression extends IteratorExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): boolean {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): boolean {
         const selectExpression = new SelectExpression(this.getSource());
         selectExpression.setBody(this.getBody());
         selectExpression.setIterators(this.getIterators());

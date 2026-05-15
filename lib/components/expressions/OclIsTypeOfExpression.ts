@@ -1,8 +1,9 @@
 import { OclExecutionContext } from '../OclExecutionContext';
+import { LocalVariables } from '../types';
 import { Utils } from '../Utils';
 
-
 import {BodyBasedExpression} from "./BodyBasedExpression";
+import {Expression} from "./Expression";
 
 /**
  * Checks if *self* is an instance of exact the class identified by the name
@@ -10,11 +11,14 @@ import {BodyBasedExpression} from "./BodyBasedExpression";
  * @oclExpression oclIsTypeOf(s : String) : Boolean
  */
 export class OclIsTypeOfExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): boolean {
         let source = this.getSource().evaluate(visitor, localVariables);
         source = Utils.getClassName(source);
 
-        let body = this.getBody().evaluate(visitor, localVariables);
+        const bodyExpr = this.getBody();
+        let body = Array.isArray(bodyExpr) 
+            ? bodyExpr[0]?.evaluate(visitor, localVariables)
+            : (bodyExpr as Expression).evaluate(visitor, localVariables);
 
         if (typeof body !== 'string') {
             body = Utils.getClassName(body);

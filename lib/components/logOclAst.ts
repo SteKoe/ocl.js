@@ -63,5 +63,5 @@ export function logOclAst(
 }
 
 export const logEvaluatedOclAst = (obj: Expression, valueMap?: OclExecutionContext) => {
-    logOclAst(obj, valueMap.getEvaluatedValues());
+    logOclAst(obj, valueMap?.getEvaluatedValues());
 }

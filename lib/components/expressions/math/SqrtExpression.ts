@@ -1,4 +1,5 @@
 import { OclExecutionContext } from '../../OclExecutionContext';
+import { LocalVariables } from '../../types';
 import {BodyBasedExpression} from "../BodyBasedExpression";
 
 /**
@@ -8,9 +9,9 @@ import {BodyBasedExpression} from "../BodyBasedExpression";
  * @oclExample 9.sqrt() = 3
  */
 export class SqrtExpression extends BodyBasedExpression {
-    evaluate(visitor: OclExecutionContext, localVariables?: any): any {
-        const sqrt = this.getBody() ? this.getBody().evaluate(visitor) : 2;
-        const left = this.getSource().evaluate(visitor, localVariables);
+    evaluate(visitor: OclExecutionContext, localVariables?: LocalVariables): unknown {
+        const sqrt = (this.getBodyAsExpression()?.evaluate(visitor) ?? 2) as number;
+        const left = this.getSource().evaluate(visitor, localVariables) as number;
 
         return Math.pow(left, 1 / sqrt);
     }

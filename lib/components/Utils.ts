@@ -6,7 +6,7 @@ import {hashCode} from "../utils/hashcode";
 export class Utils {
     static typeDeterminerFn: (obj: any) => string;
 
-    static getClassName(obj: any): string {
+    static getClassName(obj: any): string | undefined {
         if (typeof Utils.typeDeterminerFn === 'function') {
             return Utils.typeDeterminerFn(obj);
         }
@@ -18,9 +18,11 @@ export class Utils {
         } else if (typeof obj === 'object') {
             return Utils._getFunctionName(obj.constructor.toString());
         }
+
+        return undefined;
     }
 
-    static _getFunctionName(fn): string {
+    static _getFunctionName(fn: string): string | undefined {
         const tokens = fn.match(/[A-Za-z_$][A-Za-z0-9_$]*/g);
         if (!tokens || tokens.length === 0) {
             return undefined;
@@ -32,18 +34,23 @@ export class Utils {
         return tokens[0];
     }
 
-    static intersect(array1, array2): Array<any> {
-        return (array1 ?? []).filter(value => (array2 ?? []).indexOf(value) !== -1);
+    static intersect(array1: Array<any>, array2: Array<any>): Array<any> {
+        return (array1 ?? []).filter((value: any) => (array2 ?? []).indexOf(value) !== -1);
     }
 
-    static getVariableName(expr: BodyBasedExpression): VariableExpression {
+    static getVariableName(expr: BodyBasedExpression): VariableExpression | undefined {
         const body = expr.getBody();
         if (body) {
+            // Body can be a single expression or array; we only search single expressions
+            if (Array.isArray(body)) {
+                return body.length > 0 ? Utils._findVariableExpression(body[0]) : undefined;
+            }
             return Utils._findVariableExpression(body);
         }
+        return undefined;
     }
 
-    static _findVariableExpression(expr: Expression): VariableExpression {
+    static _findVariableExpression(expr: Expression): VariableExpression | undefined {
         if (expr instanceof VariableExpression) {
             return expr;
         } else if (expr instanceof SourceBasedExpression) {
@@ -51,6 +58,7 @@ export class Utils {
         } else if (expr instanceof LeftRightBasedExpression) {
             return Utils._findVariableExpression(expr.getLeft()) || Utils._findVariableExpression(expr.getRight());
         }
+        return undefined;
     }
     
     static ucfirst(s: string) {
