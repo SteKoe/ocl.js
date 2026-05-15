@@ -1,8 +1,26 @@
+import { OclParser } from '../../lib/components/parser/OclParser';
+import { ClassifierContextExpression } from '../../lib/components/expressions/context/ClassifierContextExpression';
 import { FixtureFactory, MetaAttribute } from '../fixture.factory';
 import { expectOclRuleValidatesToFalse, expectOclRuleValidatesToTrue } from '../matcher';
 
 describe('inv', () => {
     const mother = FixtureFactory.createPerson('Hilde', 50);
+
+    it('should set name to "anonymous" when no name is provided', () => {
+        const pkg = OclParser.parse('context Person inv: self.age > 0');
+        const ctx = pkg.getContexts()[0] as ClassifierContextExpression;
+        const inv = ctx.getInvs()[0];
+
+        expect(inv.getName()).toBe('anonymous');
+    });
+
+    it('should use provided name when specified', () => {
+        const pkg = OclParser.parse('context Person inv myInvariant: self.age > 0');
+        const ctx = pkg.getContexts()[0] as ClassifierContextExpression;
+        const inv = ctx.getInvs()[0];
+
+        expect(inv.getName()).toBe('myInvariant');
+    });
 
     it('should evaluate self.parents->forAll(p | p <> self)', () => {
         const oclExpression = 'context Person inv: self.parents->forAll(p | p <> self)';

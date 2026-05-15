@@ -264,7 +264,7 @@ export class OclRecursiveDescentParser {
      */
     private parseInvOrDef(): InvariantExpression | DefExpression {
         if (this.match(TokenType.INV)) {
-            const name = this.parseSimpleNameOptional() ?? '';
+            const name = this.parseSimpleNameOptional();
             this.expect(TokenType.COLON);
             const expr = this.parseOclExpression();
             return new Expressions.InvariantExpression(expr, name);

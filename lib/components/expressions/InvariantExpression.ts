@@ -14,7 +14,7 @@ import {Expression} from './Expression';
  *     self.age > 0
  */
 export class InvariantExpression extends Expression {
-    private name: string;
+    private readonly name: string;
     private readonly definition: Expression;
 
     constructor(oclExpression: Expression, name?: string) {

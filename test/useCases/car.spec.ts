@@ -19,7 +19,7 @@ describe('Example', () => {
 
         it('All cars a person owns are red.', () => {
             const oclExpression = `
-            context Person inv:
+            context Person inv asd :
                 self.fleet->forAll(c|c.color = "red")
         `;
 
