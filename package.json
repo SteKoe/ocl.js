@@ -32,7 +32,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.0",
     "@types/node": "^24.0.0",
-    "@vitest/coverage-v8": "^4.1.6",
+    "@vitest/coverage-v8": "^5.0.0",
     "cross-env": "^10.0.0",
     "esbuild-plugin-alias": "0.2.1",
     "eslint": "^10.0.0",
@@ -42,6 +42,6 @@
     "tsx": "^4.20.3",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.20.0",
-    "vitest": "^4.1.6"
+    "vitest": "^5.0.0"
   }
 }
