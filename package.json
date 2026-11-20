@@ -31,7 +31,7 @@
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^10.0.0",
-    "@types/node": "^24.0.0",
+    "@types/node": "^26.0.0",
     "@vitest/coverage-v8": "^5.0.0",
     "cross-env": "^10.0.0",
     "esbuild-plugin-alias": "0.2.1",
